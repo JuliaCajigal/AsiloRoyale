@@ -1,9 +1,9 @@
 # Asilo Royale
 
 ### ___Integrantes:___
-Julia Cajigal Mimbrera	     juliacajigal@gmail.com // https://github.com/JuliaCajigal  
-Maru Suarez Pastene              emme14112@gmail.com // https://github.com/Maru14  
-Raul Arenas Espinosa           naburorae@gmail.com // https://github.com/RaulArenas
+Julia Cajigal Mimbrera:	     juliacajigal@gmail.com // https://github.com/JuliaCajigal  
+Maru Suarez Pastene:              emme14112@gmail.com // https://github.com/Maru14  
+Raul Arenas Espinosa:           naburorae@gmail.com // https://github.com/RaulArenas
 
 ### ___Descripción:___ 
 Shooter 2D multijugador de género battle royale con vista cenital ambientado en un asilo para la tercera edad.  Los residentes competirán por el control del mando de televisión, que tendrán que obtener siendo el último en pie antes de que comience su programa favorito.
