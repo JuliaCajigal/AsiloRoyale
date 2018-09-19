@@ -6,10 +6,10 @@ Maru Suarez Pastene:              emme14112@gmail.com // https://github.com/Maru
 Raul Arenas Espinosa:           naburorae@gmail.com // https://github.com/RaulArenas
 
 ### ___Descripción:___ 
-Shooter 2D multijugador de género battle royale con vista cenital ambientado en un asilo para la tercera edad.  Los residentes competirán por el control del mando de televisión, que tendrán que obtener siendo el último en pie antes de que comience su programa favorito.
+Shooter 2D multijugador de género battle royale con vista cenital ambientado en un asilo para la tercera edad.  Los residentes competirán en una batalla desenfrenada por el control del mando de televisión, que tendrán que obtener siendo el último en pie antes de que comience su programa favorito, para el que apenas quedan unos minutos.
 
 ### ___Objetivo:___
-El jugador deberá enfrentarse a otros jugadores, sorteando trampas, haciéndose con diferentes objetos y armas para conseguir ser el último en pie y ganar la partida antes de que finalice el tiempo.
+El jugador deberá enfrentarse a otros jugadores, sorteando distintas trampas, haciéndose con diferentes objetos y armas para conseguir ser el último en pie y ganar la partida antes de que finalice el tiempo.
 
 ### ___Mecánicas:___
 - Moverse por el escenario
@@ -19,7 +19,7 @@ El jugador deberá enfrentarse a otros jugadores, sorteando trampas, haciéndose
 - Eliminar rivales
 
 ### ___Dinámicas:___
-Los jugadores comenzarán en una parte aleatoria del mapa y sin ningún objeto. Deberán explorar el escenario para encontrar las diferentes armas y objetos y acabar con los rivales reduciendo su barra de vida a cero antes de que el tiempo finalice. El tipo de arma que tengan en posesión determinará el campo de visión del escenario y el daño que causará cada proyectil.
+Los jugadores comenzarán en una parte aleatoria del mapa y sin ningún objeto. Deberán explorar el escenario para encontrar las diferentes armas y objetos y acabar con los rivales reduciendo su barra de vida a cero antes de que el tiempo finalice. El tipo de arma que tengan en posesión determinará el campo de visión del escenario y el daño que causará cada proyectil. En caso de que ninguno de los jugadores acabe con el resto y sea el último en pie se contabilizarán los puntos obtenidos por recoger objetos, como medicinas o sonotones, y acabar con rivales y enemigos, como las enfermeras que intentarán deternernos.
 
 ### ___Referencias:___
 
@@ -39,6 +39,19 @@ Los jugadores comenzarán en una parte aleatoria del mapa y sin ningún objeto. 
 
 ![The Swords of Ditto](http://labo.fnac.com/wp-content/uploads/2018/04/The_Swords_of_Ditto_001.jpg)
 *The Swords of Ditto.*
+
+### ___Concepts___:
+
+![Old Lady Concept](https://imageshack.com/a/img924/6522/OVt8nn.png)
+*Old lady early concept, top-down view.*  
+
+![Gun Screen](https://imageshack.com/a/img923/7664/RKNPqi.png)  
+
+*Gun screen.*  
+
+![Shotgun Screen](https://imageshack.com/a/img924/6719/IyKfec.png)
+*Shotgun screen.*  
+
   
   
 ##### _*Enlace Trello*_:
