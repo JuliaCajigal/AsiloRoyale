@@ -43,3 +43,8 @@ Los jugadores comenzarán en una parte aleatoria del mapa y sin ningún objeto. 
   
 ##### _*Enlace Trello*_:
 https://trello.com/b/q6wktSCS/asilo-royale
+
+
+##### _*Enlace Presentación Powerpoint*_:
+https://drive.google.com/file/d/1j6Tk_zuKZMG8ENV2fb-3WXqiD1wDLIfg/view?usp=sharing
+
