@@ -49,7 +49,8 @@ Los jugadores comenzarán en una parte aleatoria del mapa y sin ningún objeto. 
 
 *Gun screen.*  
 
-![Shotgun Screen](https://imageshack.com/a/img924/6719/IyKfec.png)
+![Shotgun Screen](https://imageshack.com/a/img924/6719/IyKfec.png)  
+
 *Shotgun screen.*  
 
   
