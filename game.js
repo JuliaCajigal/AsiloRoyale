@@ -13,19 +13,21 @@ var shootingRatio = 100;
 var nextShoot = 0;
 var disparoPistola;
 var pistola;
+var escopeta;
 
 
 //funcion que precarga de golpe todos los sprites y elementos necesarios para el juego
 function preload() {
 
-	game.load.image('baldosa_cocina','img/baldosa_cocina.png');
-	game.load.image('maceta','img/maceta.png');
-	game.load.image('palmera','img/palmera.png');
-	game.load.image('viejo1', 'img/viejo1.png');
-	game.load.image('bala','img/bala.png');
-	game.load.image('sofa','img/sofa.png');
-	game.load.audio('disparo_pistola', 'sound/disparo_pistola.mp3');
-	game.load.image('pistola', 'img/pistola.png');
+	game.load.image('baldosa_cocina','assets/baldosa_cocina.png');
+	game.load.image('maceta','assets/maceta.png');
+	game.load.image('palmera','assets/palmera.png');
+	game.load.image('viejo1', 'assets/viejo1.png');
+	game.load.image('bala','assets/bala.png');
+	game.load.image('sofa','assets/sofa.png');
+	game.load.audio('disparo_pistola', 'assets/disparo_pistola.mp3');
+	game.load.image('pistola', 'assets/pistola.png');
+	game.load.image('escopeta', 'assets/escopeta.png');
 }
 
 
@@ -47,6 +49,7 @@ function create() {
 	sofa = game.add.sprite(200, 200, 'sofa');
   	maceta = game.add.sprite(350, 220, 'maceta');
   	pistola = game.add.sprite(500,400,'pistola');
+ 	escopeta = game.add.sprite(150,485,'escopeta');
 
 	//activa las fisicas Arcade, las usaremos para que el player1 rote con el raton
 	game.physics.startSystem(Phaser.Physics.ARCADE);
