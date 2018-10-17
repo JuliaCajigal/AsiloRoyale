@@ -48,7 +48,10 @@ AsiloRoyale.Game.prototype = {
 	this.player = this.game.add.sprite(600, 600,'player');
 	this.game.physics.arcade.enable(this.player);
 	this.playerSpeed = 120;
+	// comentar tre siguiente para quitar rotacion 
 	this.player.body.collideWorldBounds = true;
+	this.player.body.fixedRotation = true;
+	this.player.anchor.setTo(0.30,0.5);
 	
 	//player initial score of zero
 	this.playerScore = 0;
@@ -68,20 +71,22 @@ AsiloRoyale.Game.prototype = {
 	update: function() {
 
 	//player movement
+	//comentar primera para quitar rotacion
+	this.player.rotation = this.game.physics.arcade.angleToPointer(this.player);
 	this.player.body.velocity.y = 0;
 	this.player.body.velocity.x = 0;
 	
 	if(this.cursors.up.isDown) {
-		this.player.body.velocity.y -= 50;
+		this.player.body.velocity.y -= 400;
 	}
 	else if(this.cursors.down.isDown) {
-		this.player.body.velocity.y += 50;
+		this.player.body.velocity.y += 400;
 	}
 	if(this.cursors.left.isDown) {
-		this.player.body.velocity.x -= 50;
+		this.player.body.velocity.x -= 400;
 	}
 	else if(this.cursors.right.isDown) {
-		this.player.body.velocity.x += 50;
+		this.player.body.velocity.x += 400;
 	}
 
 	//collision
