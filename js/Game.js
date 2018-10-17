@@ -82,7 +82,7 @@ AsiloRoyale.Game.prototype = {
     this.gunned = false; 
 
     //Temporizador
-    this.game.time.events.add(4000, this.gameOver, this);
+    this.game.time.events.add(25000, this.gameOver, this);
 
 
   },
@@ -215,6 +215,10 @@ AsiloRoyale.Game.prototype = {
 	gameOver: function() {
 	//pass it the score as a parameter
 		this.game.state.start('GameOver');
+	},
+
+	render: function() {
+		this.game.debug.text("tiempo restante: " + this.game.time.events.duration, 32, 32);
 	},
 
 }
