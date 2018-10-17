@@ -15,6 +15,7 @@ var AsiloRoyale = AsiloRoyale || {};
 AsiloRoyale.Game = function(){};
 
 AsiloRoyale.Game.prototype = {
+
   create: function() {
   
 
@@ -65,6 +66,9 @@ AsiloRoyale.Game.prototype = {
 	//show score
 	this.showLabels();
 
+	///TEMPORIZADOR
+	//  Create our Timer
+	 this.game.time.events.add(4000, this.gameOver, this);
 
   },
 
@@ -73,6 +77,7 @@ AsiloRoyale.Game.prototype = {
 	//player movement
 	//comentar primera para quitar rotacion
 	this.player.rotation = this.game.physics.arcade.angleToPointer(this.player);
+
 	this.player.body.velocity.y = 0;
 	this.player.body.velocity.x = 0;
 	
@@ -101,8 +106,7 @@ AsiloRoyale.Game.prototype = {
 			this.game.physics.arcade.moveToPointer(this.player, this.playerSpeed);
 		}
 
-		//the camera will follow the player in the world
-		this.game.camera.follow(this.player);
+
 	},
 
 	showLabels: function() {
@@ -190,7 +194,14 @@ AsiloRoyale.Game.prototype = {
 
 	gameOver: function() {
 	//pass it the score as a parameter
-		this.game.state.start('MainMenu', true, false, this.playerScore);
+	this.game.state.start('GameOver');
+		//picture = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'letrasgameover');
+	},
+
+	render: function() {
+
+    this.game.debug.text("Time until event: " + this.game.time.events.duration, 32, 32);
+
 	},
 
 }

@@ -39,6 +39,7 @@ AsiloRoyale.MainMenu.prototype = {
  		/*if(this.game.input.activePointer.justPressed()) {
  			this.game.state.start('Game');
  		}*/
+
  	},
 
  	init: function(score) {
