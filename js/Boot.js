@@ -37,6 +37,5 @@ AsiloRoyale.Boot.prototype = {
  		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
  		this.state.start('Preload');
-
 	}
  };

@@ -5,10 +5,9 @@ var AsiloRoyale = AsiloRoyale || {};
 AsiloRoyale.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '');
 
 AsiloRoyale.game.state.add('Boot', AsiloRoyale.Boot);
-//uncomment these as we create them through the tutorial
+ //uncomment these as we create them through the tutorial
 AsiloRoyale.game.state.add('Preload', AsiloRoyale.Preload);
 AsiloRoyale.game.state.add('MainMenu', AsiloRoyale.MainMenu);
 AsiloRoyale.game.state.add('Game', AsiloRoyale.Game);
-AsiloRoyale.game.state.add('GameOver', AsiloRoyale.GameOver);
 
 AsiloRoyale.game.state.start('Boot');

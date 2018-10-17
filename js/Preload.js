@@ -52,10 +52,7 @@ AsiloRoyale.Preload.prototype = {
 		this.load.image('gun', 'assets/images/gun.png');
 		this.load.image('player', 'assets/images/viejo1.png');
 		this.load.spritesheet('botonesjugar', 'assets/images/botonesjugar.png',256,128,2);
-		this.load.spritesheet('botonessalir', 'assets/images/botonessalir.png',256,128,2);
-		this.load.image('letrasgameover', 'assets/images/gameover.jpg');
-		this.load.image('marco', 'assets/images/marco.png');
-		/*
+		this.load.spritesheet('botonessalir', 'assets/images/botonessalir.png',256,128,2);/*
 		this.load.tilemap('level0', 'assets/tilemaps/level0.json',null, Phaser.Tilemap.TILED_JSON);
 		this.load.image('gameTiles', 'assets/images/tiles.png');
 		
@@ -67,6 +64,8 @@ AsiloRoyale.Preload.prototype = {
  		this.load.image('space', 'assets/images/space.png');
 
 		this.load.image('ARlogo', 'assets/images/AR_logo.png');
+
+		this.load.image('bala', 'assets/images/bala.png');
  		/*
  		this.load.image('rock', 'assets/images/rock.png');
  		this.load.spritesheet('playership','assets/images/player.png', 12, 12);
