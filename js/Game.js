@@ -143,13 +143,27 @@ AsiloRoyale.Game.prototype = {
 		//this.collectSound.play();
 	
 		this.playerScore++;
+		
 		//if (findObjectsByType('gun', level1, objectsLayer))
+		var isGun = this.isType('gun',collectable.sprite);
+		console.log(collectable.sprite);
+		console.log(isGun);
+		
 		this.gunned = true;
 		this.scoreLabel.text = this.playerScore;
 
 	
 	//remove sprite
 		collectable.destroy();
+	},
+	
+	//Dado un tipo y el nombre del sprite asociado devuelve true si son del mismo tipo y false si son tipos distintos de objetos.
+	isType: function (type, sprite){
+		if(sprite === type){
+			return true;
+		}else{
+			return false;
+		}
 	},
 
 	enterDoor: function(player, door) {
