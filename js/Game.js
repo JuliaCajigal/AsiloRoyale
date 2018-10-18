@@ -76,14 +76,33 @@ AsiloRoyale.Game.prototype = {
     this.weapon.fireRate = 200;
 
     this.weapon.trackSprite(this.player, 0, 0, true);
-
+    //Para que la bala salga de la pistola
     this.weapon.trackOffset.x = +90;
-
+    //Variable para activar la habilidad de disparar
     this.gunned = false; 
 
     //Temporizador
     this.game.time.events.add(25000, this.gameOver, this);
 
+    //Enemigo
+    this.enemy = this.game.add.sprite(800,800,'player'),
+    this.game.physics.arcade.enable(this.enemy);
+    this.enemy.body.collideWorldBounds = true;
+    this.enemy.body.immovable = false;
+    this.enemy.body.bounce.setTo(1, 1);
+
+    this.enemy.angle = this.game.rnd.angle();
+
+    this.game.physics.arcade.velocityFromRotation(this.enemy.rotation, 100, this.enemy.body.velocity);
+
+
+    this.enemyWeapon = this.game.add.weapon(30,'bala');
+    this.enemyWeapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
+    this.enemyWeapon.bulletSpeed = 600;
+    this.enemyWeapon.fireRate = 200;
+    this.enemyWeapon.trackSprite(this.enemy, 0, 0, true);
+    this.enemyWeapon.trackOffset.x = +125;
+    this.enemyWeapon.trackOffset.y = +65;
 
   },
 
@@ -113,15 +132,24 @@ AsiloRoyale.Game.prototype = {
     }
 	//collision
 	this.game.physics.arcade.collide(this.player,this.blockedLayer);
+	this.game.physics.arcade.collide(this.enemy,this.blockedLayer);
+	this.game.physics.arcade.collide(this.enemy,this.player);
 	this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
 	this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
 
+	this.enemy.rotation = this.game.physics.arcade.angleBetween(this.enemy, this.player);
 
-		if(this.game.input.activePointer.justPressed()) {
+	if (this.game.physics.arcade.distanceBetween(this.enemy, this.player) < 200) {
+    
+      this.enemyWeapon.fire();
+    }
+
+
+		//if(this.game.input.activePointer.justPressed()) {
 
 	//move on the direction of the input
-			this.game.physics.arcade.moveToPointer(this.player, this.playerSpeed);
-		}
+		//	this.game.physics.arcade.moveToPointer(this.player, this.playerSpeed);
+		//}
 
 		//the camera will follow the player in the world
 		this.game.camera.follow(this.player);
@@ -149,7 +177,9 @@ AsiloRoyale.Game.prototype = {
 		console.log(collectable.sprite);
 		console.log(isGun);
 		
+		if(isGun == true) {
 		this.gunned = true;
+	   }
 		this.scoreLabel.text = this.playerScore;
 
 	
