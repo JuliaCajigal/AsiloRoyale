@@ -64,6 +64,10 @@ AsiloRoyale.Game.prototype = {
 
 	//show score
 	this.showLabels();
+	  
+	//TV
+	this.tv = this.game.add.sprite(0, 0, 'tv');
+	this.tv.fixedToCamera = true;
 
 
 	//PISTOLA
@@ -176,8 +180,8 @@ AsiloRoyale.Game.prototype = {
 	showLabels: function() {
 	//score text
 		var text = "0";
-		var style = { font: "30px Arial", fill: "white", align: "center" };
-		this.scoreLabel = this.game.add.text(850, 16, text, style);
+		var style = { font: "bold 50px 'VT323', monospace", fill: "#51F55B", align: "center" };
+		this.scoreLabel = this.game.add.text(1050, 40, text, style);
 		this.scoreLabel.fixedToCamera = true;
 	},
 	
