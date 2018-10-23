@@ -9,16 +9,21 @@ AsiloRoyale.MainMenu.prototype = {
  //give it speed in x
  		this.background.autoScroll(-20, 0);
 
- 		boton1 = this.game.add.button(this.game.world.centerX-100,this.game.world.centerY,'botonesjugar', this.boton1OnClick, this,1,0,1,0);
+ 		boton1 = this.game.add.button((this.game.camera.width-150)/2,this.game.camera.height/2+50,'botonesjugar', this.boton1OnClick, this,1,0,1,0);
  		boton1.width = 150;
  		boton1.height = 70;
- 		boton2 = this.game.add.button(this.game.world.centerX-100,this.game.world.centerY+120,'botonessalir', this.boton2OnClick, this,1,0,1,0);
+ 		boton1.anchor.setTo(0.5);
+ 		boton2 = this.game.add.button((this.game.camera.width-150)/2,this.game.camera.height/2+150,'botonessalir', this.boton2OnClick, this,1,0,1,0);
  		boton2.width = 150;
  		boton2.height = 70;
+ 		boton2.anchor.setTo(0.5);
 
- 		this.logo = this.add.sprite(this.game.world.centerX, this.game.world.centerY-150, 'ARlogo');
+ 		this.logo = this.add.sprite((this.game.camera.width-150)/2, this.game.camera.height/2-100, 'ARlogo');
 		this.logo.anchor.setTo(0.5); 
 		this.logo.scale.setTo(0.5, 0.5);
+
+		this.tv = this.game.add.sprite(0, 0, 'tv');
+    		this.tv.fixedToCamera = true;
 
 /*
  //start game text
@@ -52,9 +57,3 @@ AsiloRoyale.MainMenu.prototype = {
  		this.game.state.start('Game');
  	}
  };
- /*
- this.background = this.game.add.tileSprite(0, 0,
-this.game.width, this.game.height, 'space');
-
- //give it speed in x
- this.background.autoScroll(-20, 0);*/
