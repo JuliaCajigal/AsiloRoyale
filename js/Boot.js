@@ -10,6 +10,7 @@ AsiloRoyale.Boot.prototype = {
 
 		this.load.image('logo', 'assets/images/logo.png');
 		this.load.image('preloadBar', 'assets/images/preloadbar.png');
+		this.load.image('tv', 'assets/images/tv.png');
 	},
 
 	create: function() {
