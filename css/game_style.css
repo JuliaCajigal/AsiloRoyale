@@ -1,0 +1,18 @@
+
+body, head{
+	padding: 0px;
+	margin: 0px;
+	margin-top: 0px;
+}
+
+#game {
+	padding: 0px;
+	margin: 0px;
+	margin-top: 0px;
+}
+
+canvas {
+	padding: 0px;
+	margin: 0px;
+	margin-top: 0px;
+}
