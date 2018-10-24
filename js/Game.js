@@ -44,27 +44,26 @@ AsiloRoyale.Game.prototype = {
 	//var result = this.findObjectsByType('playerStart', this.map, 'objectsLayer');
 	console.log(result);
 
-	//we know there is just one result
+	//PERSONAJE
 	this.player = this.game.add.sprite(600, 600,'player');
 	this.game.physics.arcade.enable(this.player);
 	this.playerSpeed = 120;
-	// comentar tre siguiente para quitar rotacion 
 	this.player.body.collideWorldBounds = true;
 	this.player.body.fixedRotation = true;
+	this.player.body.allowRotation = true;
+
+
 	this.player.anchor.setTo(0.30,0.5);
-	
-	//player initial score of zero
 	this.playerScore = 0;
 
-	//the camera will follow the player in the world
+	//CAMARA
 	this.game.camera.follow(this.player);
 	
-	//move player with cursor keys
+	//TECLAS
 	this.cursors = this.game.input.keyboard.createCursorKeys();
 
-	//show score
-	this.showLabels();
-	  
+	//MUESTRA PUNTUACION
+	this.showLabels();	  
 	//TV
 	this.tv = this.game.add.sprite(0, 0, 'tv');
 	this.tv.fixedToCamera = true;
@@ -72,12 +71,10 @@ AsiloRoyale.Game.prototype = {
 
 	//PISTOLA
 	this.weaponG = this.game.add.weapon(30,'bala');
-	// Desaparecera la bala cuando salga de los limites
-    this.weaponG.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
     // Velocidad a la que es lanzada la bala
     this.weaponG.bulletSpeed = 600;
-    // 1 bullet every 60ms
-    this.weaponG.fireRate = 300;
+    //cadencia de disparo
+    this.weaponG.fireRate = 400;
     this.weaponG.trackSprite(this.player, 0, 0, true);
     //Para que la bala salga de la pistola
     this.weaponG.trackOffset.x = +90;
@@ -86,7 +83,6 @@ AsiloRoyale.Game.prototype = {
 
 	//ESCOPETA
     this.weaponS = this.game.add.weapon(6*6,'perdigon');
-    this.weaponS.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
     this.weaponS.bulletSpeed = 600;
     this.weaponS.fireRate = 850;
     this.weaponS.trackSprite(this.player, 0, 0, true);
@@ -143,23 +139,31 @@ AsiloRoyale.Game.prototype = {
 	if (this.game.input.activePointer.isDown && this.gunned==true)
     {
         this.weaponG.fire();
+        this.weaponG.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
+        this.weaponG.bulletKillDistance = 700;
+
         this.shotgunned = false;
     }
     //escopeta
     if (this.game.input.activePointer.isDown && this.shotgunned==true)
     {
-
-        this.weaponS.fireAngle = 0;
-        this.weaponS.fireOffset(-16, -16);
-        this.weaponS.fireOffset(16, -16);
-        this.weaponS.fireOffset(-32, 0);
-        this.weaponS.fireOffset(0, 0);
-        this.weaponS.fireOffset(32, 0);
         
+        this.weaponS.bulletAngleVariance = 15;
+        this.weaponS.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
+        this.weaponS.bulletKillDistance = 450;
+        this.weaponS.fireOffset(16, -16);
+        this.weaponS.fireOffset(-16, 0);
+        this.weaponS.fireOffset(0, 0);
+        this.weaponS.fireOffset(16, -16);
+        this.weaponS.fireOffset(16, 0);
+        this.weaponS.fireOffset(16, -16);
+
         this.gunned = false;
         
     }
 	//collision
+	this.game.physics.arcade.collide(this.weaponS.bullets, this.blockedLayer, this.killBullets);
+	this.game.physics.arcade.collide(this.weaponG.bullets, this.blockedLayer, this.killBullets);
 	this.game.physics.arcade.collide(this.player,this.blockedLayer);
 	this.game.physics.arcade.collide(this.enemy,this.blockedLayer);
 	this.game.physics.arcade.collide(this.enemy,this.player);
@@ -174,7 +178,7 @@ AsiloRoyale.Game.prototype = {
     }
 
 	//CAMARA
-	this.game.camera.follow(this.player);
+	//this.game.camera.follow(this.player);
 	},
 
 	showLabels: function() {
@@ -286,6 +290,10 @@ AsiloRoyale.Game.prototype = {
 	render: function() {
 		this.game.debug.text("tiempo restante: " + this.game.time.events.duration, 32, 32);
 	},
+
+	killBullets: function(bala,objeto){
+    	bala.kill();
+    },
 
 }
 
