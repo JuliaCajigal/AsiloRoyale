@@ -14,6 +14,8 @@ var AsiloRoyale = AsiloRoyale || {};
 //title screen
 AsiloRoyale.Game = function(){};
 
+var timer, timerEvent, text;
+
 AsiloRoyale.Game.prototype = {
   create: function() {
   
@@ -45,7 +47,7 @@ AsiloRoyale.Game.prototype = {
 	console.log(result);
 
 	//PERSONAJE
-	this.player = this.game.add.sprite(600, 600,'player');
+	this.player = this.game.add.sprite(800,800,'player');
 	this.game.physics.arcade.enable(this.player);
 	this.playerSpeed = 120;
 	this.player.body.collideWorldBounds = true;
@@ -58,17 +60,12 @@ AsiloRoyale.Game.prototype = {
 
 	//CAMARA
 	this.game.camera.follow(this.player);
+	this.game.camera.bounds = null;
 	
 	//TECLAS
 	this.cursors = this.game.input.keyboard.createCursorKeys();
 
-	//MUESTRA PUNTUACION
-	this.showLabels();	  
-	//TV
-	this.tv = this.game.add.sprite(0, 0, 'tv');
-	this.tv.fixedToCamera = true;
-
-
+	
 	//PISTOLA
 	this.weaponG = this.game.add.weapon(30,'bala');
     // Velocidad a la que es lanzada la bala
@@ -92,10 +89,10 @@ AsiloRoyale.Game.prototype = {
 
 
     //Temporizador
-    this.game.time.events.add(25000, this.gameOver, this);
+    //this.game.time.events.add(25000, this.gameOver, this);
 
     //ENEMIGO
-    this.enemy = this.game.add.sprite(800,800,'player'),
+    this.enemy = this.game.add.sprite(800,300,'player'),
     this.game.physics.arcade.enable(this.enemy);
     this.enemy.body.collideWorldBounds = true;
     this.enemy.body.immovable = false;
@@ -112,6 +109,28 @@ AsiloRoyale.Game.prototype = {
     this.enemyWeapon.trackSprite(this.enemy, 0, 0, true);
     this.enemyWeapon.trackOffset.x = +125;
     this.enemyWeapon.trackOffset.y = +65;
+  
+
+	//TV
+	this.tv = this.game.add.sprite(0, 0, 'tv');
+	this.tv.fixedToCamera = true;
+
+
+    //MUESTRA PUNTUACION
+	this.showLabels();	
+
+	//MUESTRA VIDA
+	this.showLife();
+
+	
+	//TIMER
+    timer = this.game.time.create();
+        
+    // Create a delayed event 1m and 30s from now
+    timerEvent = timer.add(Phaser.Timer.MINUTE * 1 + Phaser.Timer.SECOND * 30, this.endTimer, this);
+        
+    // Start the timer
+    timer.start();
 
   },
 
@@ -181,11 +200,18 @@ AsiloRoyale.Game.prototype = {
 	//this.game.camera.follow(this.player);
 	},
 
+	showLife: function(){
+		this.lifeBar = this.game.add.sprite(730, 590, 'lifebaru');
+		this.lifeBar.fixedToCamera = true;
+		this.lifeBardw = this.game.add.sprite(730, 590, 'lifebardw');
+		this.lifeBardw.fixedToCamera = true;
+	},
+
 	showLabels: function() {
 	//score text
 		var text = "0";
-		var style = { font: "bold 50px 'VT323', monospace", fill: "#51F55B", align: "center" };
-		this.scoreLabel = this.game.add.text(1050, 40, text, style);
+		var style = { font: "bold 40px 'VT323', monospace", fill: "#51F55B", align: "center" };
+		this.scoreLabel = this.game.add.text(1096, 135, text, style);
 		this.scoreLabel.fixedToCamera = true;
 	},
 	
@@ -196,7 +222,7 @@ AsiloRoyale.Game.prototype = {
 		//play collect sound
 		//this.collectSound.play();
 	
-		this.playerScore++;
+		this.playerScore+=20;
 		
 		//if (findObjectsByType('gun', level1, objectsLayer))
 		var isGun = this.isType('gun',collectable.sprite);
@@ -288,7 +314,28 @@ AsiloRoyale.Game.prototype = {
 	},
 
 	render: function() {
-		this.game.debug.text("tiempo restante: " + this.game.time.events.duration, 32, 32);
+		//var style = { font: "bold 50px 'VT323', monospace", fill: "#51F55B", align: "center" };
+		//this.game.debug.text("tiempo restante: " + this.game.time.events.duration, 32, 32);
+		// If our timer is running, show the time in a nicely formatted way, else show 'Done!'
+        if (timer.running) {
+            this.game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms) / 1000)), 1010, 78, "#51F55B", "50px 'VT323'");
+        }
+        else {
+            this.game.debug.text("Done!",1010, 78, "#51F55B", "50px 'VT323'");
+        }
+    },
+
+    //Código de: http://jsfiddle.net/lewster32/vd70o41p/
+    endTimer: function() {
+        // Stop the timer when the delayed event triggers
+        timer.stop();
+    },
+
+    formatTime: function(s) {
+        // Convert seconds (s) to a nicely formatted and padded time string
+        var minutes = "0" + Math.floor(s / 60);
+        var seconds = "0" + (s - minutes * 60);
+        return minutes.substr(-2) + ":" + seconds.substr(-2);
 	},
 
 	killBullets: function(bala,objeto){

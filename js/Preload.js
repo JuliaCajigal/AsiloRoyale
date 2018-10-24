@@ -32,6 +32,8 @@ AsiloRoyale.Preload.prototype = {
  		this.load.image('space', 'assets/images/space.png');
 		this.load.image('ARlogo', 'assets/images/AR_logo.png');
 		this.load.image('bala', 'assets/images/bala.png');
+		this.load.image('lifebaru', 'assets/images/lifebars_up.png');
+		this.load.image('lifebardw', 'assets/images/lifebars_dw.png');
 
  	},
  
