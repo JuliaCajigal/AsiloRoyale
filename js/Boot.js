@@ -8,7 +8,7 @@ AsiloRoyale.Boot.prototype = {
 	preload: function() {
 //assets we'll use in the loading screen
 
-		this.load.image('logo', 'assets/images/logo.png');
+		this.load.image('carta_ajuste', 'assets/images/carta_ajuste.png');
 		this.load.image('preloadBar', 'assets/images/preloadbar.png');
 		this.load.image('tv', 'assets/images/tv.png');
 	},
