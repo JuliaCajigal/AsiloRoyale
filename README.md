@@ -19,7 +19,14 @@ El jugador deberá enfrentarse a otros jugadores, sorteando distintas trampas, h
 - Eliminar rivales
 
 ### ___Dinámicas:___
-Los jugadores comenzarán en una parte aleatoria del mapa y sin ningún objeto. Deberán explorar el escenario para encontrar las diferentes armas y objetos y acabar con los rivales reduciendo su barra de vida a cero antes de que el tiempo finalice. El tipo de arma que tengan en posesión determinará el campo de visión del escenario y el daño que causará cada proyectil. En caso de que ninguno de los jugadores acabe con el resto y sea el último en pie se contabilizarán los puntos obtenidos por recoger objetos, como medicinas o sonotones, y acabar con rivales y enemigos, como las enfermeras que intentarán deternernos.
+Los jugadores comenzarán en una parte aleatoria del mapa y sin ningún objeto. Deberán explorar el escenario para encontrar las diferentes armas y objetos y acabar con los rivales reduciendo su barra de vida a cero antes de que el tiempo finalice. El tipo de arma que tengan en posesión determinará el campo de visión del escenario y el daño que causará cada proyectil. En caso de que ninguno de los jugadores acabe con el resto y sea el último en pie se contabilizarán los puntos obtenidos por recoger objetos, como medicinas o audífonos, y acabar con rivales y enemigos, como las enfermeras que intentarán deternernos.
+
+###___Controles:___
+Movimiento de personaje: rotación con cursor del ratón y desplazamiento con la cruceta de teclado. Disparar con botón izquierdo y recolección de objetos y armas pasando por encima.
+
+###___Interfaz:___
+El aspecto visual del juego emulará una televisión retro en todos sus aspectos. Siempre será visible el HUD con el marco del televisor, el tiempo haría referencia a la hora en dicho marco, la barra de vida tendrá el aspecto visual de la barra de volumen y el cambio de menús y estados tendrá un efecto de cambio de canal. Todo en pos de favorecer la inmersión y la experiencia de usuario.
+
 
 ### ___Referencias:___
 
