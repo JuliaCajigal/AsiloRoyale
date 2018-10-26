@@ -55,7 +55,7 @@ AsiloRoyale.Game.prototype = {
 	this.player.body.allowRotation = true;
 
 
-	this.player.anchor.setTo(0.30,0.5);
+	this.player.anchor.setTo(0.35,0.55);
 	this.playerScore = 0;
 
 	//CAMARA
