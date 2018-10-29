@@ -9,6 +9,11 @@ body, head{
 	padding: 0px;
 	margin: 0px;
 	margin-top: 0px;
+	cursor: url('../assets/images/crosshair.png'), auto;
+}
+
+#game:active {
+	cursor: url('../assets/images/crosshair1.png'), auto;
 }
 
 canvas {
