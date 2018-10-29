@@ -210,9 +210,18 @@ AsiloRoyale.Game.prototype = {
 	showLabels: function() {
 	//score text
 		var text = "0";
-		var style = { font: "bold 40px 'VT323', monospace", fill: "#51F55B", align: "center" };
-		this.scoreLabel = this.game.add.text(1096, 135, text, style);
+		var text1 = "pt:";
+		var text2 = "items:";
+		var pt;
+		var it;
+		var style = {font: "bold 40px 'VT323'", fill: "#51F55B", align: "center" };
+		this.scoreLabel = this.game.add.text(1020, 135, text, style);
 		this.scoreLabel.fixedToCamera = true;
+		/*pt = this.game.add.text(1000, 135, text1, style);
+		pt.fixedToCamera = true;
+		console.log(pt);
+		it = this.game.add.text(1000, 185, text2, style);
+		it.fixedToCamera = true;*/
 	},
 	
 
@@ -226,8 +235,6 @@ AsiloRoyale.Game.prototype = {
 		
 		//if (findObjectsByType('gun', level1, objectsLayer))
 		var isGun = this.isType('gun',collectable.sprite);
-		console.log(collectable.sprite);
-		console.log(isGun);
 		
 		if(isGun == true) {
 		this.gunned = true;

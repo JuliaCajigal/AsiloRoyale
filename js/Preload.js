@@ -11,8 +11,11 @@ AsiloRoyale.Preload.prototype = {
 		this.splash = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'carta_ajuste');
 		this.splash.anchor.setTo(0.5);
 		this.splash = this.add.sprite(0, 0, 'tv');
-		/*
 
+		var text = "";
+		this.game.add.text(0, 0, text, {font: "bold 40px 'VT323'", fill: "black", align: "center" });
+		
+/*
 		this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY + 128, 'preloadBar');
 		this.preloadBar.anchor.setTo(0.5);
 		this.load.setPreloadSprite(this.preloadBar);*/
