@@ -24,7 +24,7 @@ AsiloRoyale.Preload.prototype = {
 		
 		//load game assets
 		this.load.tilemap('level1', 'assets/tilemaps/untitled.json',null, Phaser.Tilemap.TILED_JSON);
-		this.load.image('gameTiles', 'assets/tilesets/tiles5.png');
+		this.load.image('gameTiles', 'assets/tilesets/tiles.png');
 		this.load.image('pastis', 'assets/images/pastis.png');
 		this.load.image('gun', 'assets/images/gun.png');
 		this.load.image('player', 'assets/images/viejo1.png');

@@ -24,7 +24,7 @@ AsiloRoyale.Game.prototype = {
 	//this.map = this.game.add.tilemap('level1');
 
 //the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
-	this.map.addTilesetImage('tiles5','gameTiles');
+	this.map.addTilesetImage('tiles','gameTiles');
 
 
 	//this.map.createFromObjects('objectsLayer', 13, 'pastis');
@@ -40,11 +40,11 @@ AsiloRoyale.Game.prototype = {
  	this.backgroundlayer.resizeWorld();
 	
  	this.createItems();
- 	this.createDoors(); 
+ 	//this.createDoors(); 
 
  	//create player
 	//var result = this.findObjectsByType('playerStart', this.map, 'objectsLayer');
-	console.log(result);
+	//console.log(result);
 
 	//PERSONAJE
 	this.player = this.game.add.sprite(800,800,'player');
