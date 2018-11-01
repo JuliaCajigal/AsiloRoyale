@@ -1,13 +1,4 @@
-/*var TopDownGame = TopDownGame || {};
 
-//title screen
-TopDownGame.Game = function(){};
-
-TopDown.Game.prototype = {
-	create: function(){
-		this.map = this.game.add.tile,map('tiles','gametiles');
-	}
-}*/
 
 var AsiloRoyale = AsiloRoyale || {};
 
@@ -15,109 +6,78 @@ var AsiloRoyale = AsiloRoyale || {};
 AsiloRoyale.Game = function(){};
 
 var timer, timerEvent, text;
+var tilesCollisionGroup, playerCollisionGroup;
 
 AsiloRoyale.Game.prototype = {
   create: function() {
   
 
 	this.map = this.game.add.tilemap('level1');
-	//this.map = this.game.add.tilemap('level1');
 
-//the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
+
+	//the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
 	this.map.addTilesetImage('tiles','gameTiles');
 
 
 	//this.map.createFromObjects('objectsLayer', 13, 'pastis');
 	console.log(this.map);
-//create layer
+	//create layer
 	this.backgroundlayer = this.map.createLayer('floor');
  	this.blockedLayer = this.map.createLayer('walls');
+ 	this.blockedLayer.debug = true;
 
-//collision on blockedLayer
- 	
- 	this.map.setCollisionBetween(1, 2000, true, 'walls');
-//resizes the game world to match the layer dimensions
+ 	//resizes the game world to match the layer dimensions
  	this.backgroundlayer.resizeWorld();
-	
+
+	//collision on blockedLayer
+ 	this.map.setCollisionBetween(1, 2000, true, 'walls');
+ 	this.map.setCollision(26);
+
  	this.createItems();
- 	//this.createDoors(); 
+	this.game.physics.p2.setImpactEvents(true);
 
- 	//create player
-	//var result = this.findObjectsByType('playerStart', this.map, 'objectsLayer');
-	//console.log(result);
+	var tileObjects = this.game.physics.p2.convertTilemap(this.map, this.blockedLayer);
+	//console.log(tileObjects);
+	this.tilesCollisionGroup   = this.game.physics.p2.createCollisionGroup();    
+	this.playerCollisionGroup  = this.game.physics.p2.createCollisionGroup();  
+	this.game.physics.p2.updateBoundsCollisionGroup();
 
-	//PERSONAJE
-	this.player = this.game.add.sprite(800,800,'player');
-	this.game.physics.arcade.enable(this.player);
-	this.playerSpeed = 120;
-	this.player.body.collideWorldBounds = true;
-	this.player.body.fixedRotation = true;
-	this.player.body.allowRotation = true;
+	for (var i = 0; i < tileObjects.length; i++) {        
+
+   		this.game.physics.p2.enableBody(tileObjects[i],true); 
+	}    
 
 
-	this.player.anchor.setTo(0.35,0.55);
 	this.playerScore = 0;
 
+	this.player1 = new Player(this.game,700,800,false,true, 'player');
+	//var player2 = new Player(this.game,800,900,false,false,'player');
+	//this.game.add.existing(player2);
+	this.game.add.existing(this.player1);
+	console.log(this.player1);
+	
+	//console.log(this.player);
+	this.game.physics.p2.enable(this.player1,true);
+	this.player1.body.clearShapes(); 
+	this.player1.body.loadPolygon('player_physics', 'player'); 
+	this.dynamic = true;
+	this.player1.body.onBeginContact.add(this.collectItem, this);
+
+
 	//CAMARA
-	this.game.camera.follow(this.player);
+	this.game.camera.follow(this.player1);
 	this.game.camera.bounds = null;
 	
 	//TECLAS
 	this.cursors = this.game.input.keyboard.createCursorKeys();
 
 	
-	//PISTOLA
-	this.weaponG = this.game.add.weapon(30,'bala');
-    // Velocidad a la que es lanzada la bala
-    this.weaponG.bulletSpeed = 600;
-    //cadencia de disparo
-    this.weaponG.fireRate = 400;
-    this.weaponG.trackSprite(this.player, 0, 0, true);
-    //Para que la bala salga de la pistola
-    this.weaponG.trackOffset.x = +90;
-    //variables para activar la pistola
-	this.gunned = false;
-
-	//ESCOPETA
-    this.weaponS = this.game.add.weapon(6*6,'perdigon');
-    this.weaponS.bulletSpeed = 600;
-    this.weaponS.fireRate = 850;
-    this.weaponS.trackSprite(this.player, 0, 0, true);
-    this.weaponS.trackOffset.x = +90;
-    this.weaponS.multiFire = true;
-	this.shotgunned = true;
-
-
-    //Temporizador
-    //this.game.time.events.add(25000, this.gameOver, this);
-
-    //ENEMIGO
-    this.enemy = this.game.add.sprite(800,300,'player'),
-    this.game.physics.arcade.enable(this.enemy);
-    this.enemy.body.collideWorldBounds = true;
-    this.enemy.body.immovable = false;
-    this.enemy.body.bounce.setTo(1, 1);
-
-    this.enemy.angle = this.game.rnd.angle();
-
-    this.game.physics.arcade.velocityFromRotation(this.enemy.rotation, 100, this.enemy.body.velocity);
-
-    this.enemyWeapon = this.game.add.weapon(30,'bala');
-    this.enemyWeapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
-    this.enemyWeapon.bulletSpeed = 600;
-    this.enemyWeapon.fireRate = 200;
-    this.enemyWeapon.trackSprite(this.enemy, 0, 0, true);
-    this.enemyWeapon.trackOffset.x = +125;
-    this.enemyWeapon.trackOffset.y = +65;
-  
-
 	//TV
 	this.tv = this.game.add.sprite(0, 0, 'tv');
 	this.tv.fixedToCamera = true;
 
 
-    //MUESTRA PUNTUACION
-	this.showLabels();	
+    this.showLabels();
 
 	//MUESTRA VIDA
 	this.showLife();
@@ -134,71 +94,37 @@ AsiloRoyale.Game.prototype = {
 
   },
 
+
 	update: function() {
+		//MUESTRA PUNTUACION
+		//this.showLabels(this.player1);
+		this.scoreLabel.text = this.player1.ammoshotgun;
 
-	//MOVIMIENTO Y DISPARO DEL JUGADOR
-	this.player.rotation = this.game.physics.arcade.angleToPointer(this.player);
-	this.player.body.velocity.y = 0;
-	this.player.body.velocity.x = 0;
-	
-	//movimientos player
-	if(this.cursors.up.isDown) {
-		this.player.body.velocity.y -= 400;
-	}
-	else if(this.cursors.down.isDown) {
-		this.player.body.velocity.y += 400;
-	}
-	if(this.cursors.left.isDown) {
-		this.player.body.velocity.x -= 400;
-	}
-	else if(this.cursors.right.isDown) {
-		this.player.body.velocity.x += 400;
-	}
-	//pistola
-	if (this.game.input.activePointer.isDown && this.gunned==true)
-    {
-        this.weaponG.fire();
-        this.weaponG.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
-        this.weaponG.bulletKillDistance = 700;
-
-        this.shotgunned = false;
-    }
-    //escopeta
-    if (this.game.input.activePointer.isDown && this.shotgunned==true)
-    {
-        
-        this.weaponS.bulletAngleVariance = 15;
-        this.weaponS.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
-        this.weaponS.bulletKillDistance = 450;
-        this.weaponS.fireOffset(16, -16);
-        this.weaponS.fireOffset(-16, 0);
-        this.weaponS.fireOffset(0, 0);
-        this.weaponS.fireOffset(16, -16);
-        this.weaponS.fireOffset(16, 0);
-        this.weaponS.fireOffset(16, -16);
-
-        this.gunned = false;
-        
-    }
-	//collision
-	this.game.physics.arcade.collide(this.weaponS.bullets, this.blockedLayer, this.killBullets);
-	this.game.physics.arcade.collide(this.weaponG.bullets, this.blockedLayer, this.killBullets);
-	this.game.physics.arcade.collide(this.player,this.blockedLayer);
-	this.game.physics.arcade.collide(this.enemy,this.blockedLayer);
-	this.game.physics.arcade.collide(this.enemy,this.player);
-	this.game.physics.arcade.overlap(this.player, this.items, this.collect, null, this);
-	this.game.physics.arcade.overlap(this.player, this.doors, this.enterDoor, null, this);
-
-	this.enemy.rotation = this.game.physics.arcade.angleBetween(this.enemy, this.player);
-
-	if (this.game.physics.arcade.distanceBetween(this.enemy, this.player) < 200) {
-    
-      this.enemyWeapon.fire();
-    }
-
-	//CAMARA
-	//this.game.camera.follow(this.player);
 	},
+
+
+
+
+	move: function(pointer) {
+
+    // p2 uses different coordinate system, so convert the pointer position to p2's coordinate system
+    mouseBody.position[0] = game.physics.p2.pxmi(pointer.position.x);
+    mouseBody.position[1] = game.physics.p2.pxmi(pointer.position.y);
+
+	},
+
+	collectItem (body, bodyB, shapeA, shapeB, equation) {
+		if(body.sprite!= null){
+			if(body.sprite.key == 'pastis'){
+				this.collect(this.player1,body.sprite);
+
+				//body.sprite.destroy();
+				console.log(body);
+				console.log(bodyB);
+			}
+		}
+	},
+
 
 	showLife: function(){
 		this.lifeBar = this.game.add.sprite(730, 590, 'lifebaru');
@@ -207,9 +133,12 @@ AsiloRoyale.Game.prototype = {
 		this.lifeBardw.fixedToCamera = true;
 	},
 
+
+
 	showLabels: function() {
 	//score text
-		var text = "0";
+
+		var text = text;
 		var text1 = "pt:";
 		var text2 = "items:";
 		var pt;
@@ -217,13 +146,17 @@ AsiloRoyale.Game.prototype = {
 		var style = {font: "bold 40px 'VT323'", fill: "#51F55B", align: "center" };
 		this.scoreLabel = this.game.add.text(1020, 135, text, style);
 		this.scoreLabel.fixedToCamera = true;
-		/*pt = this.game.add.text(1000, 135, text1, style);
-		pt.fixedToCamera = true;
-		console.log(pt);
-		it = this.game.add.text(1000, 185, text2, style);
-		it.fixedToCamera = true;*/
+
+	},
+
+
+
+	test: function(player){
+		player.score += 40;
 	},
 	
+
+
 
 	collect: function(player, collectable) {
 		console.log('yummy!');
@@ -231,21 +164,23 @@ AsiloRoyale.Game.prototype = {
 		//play collect sound
 		//this.collectSound.play();
 	
-		this.playerScore+=20;
+		player.score+=20;
 		
-		//if (findObjectsByType('gun', level1, objectsLayer))
+
 		var isGun = this.isType('gun',collectable.sprite);
 		
 		if(isGun == true) {
 		this.gunned = true;
 	   }
-		this.scoreLabel.text = this.playerScore;
+		//this.scoreLabel.text = player.score;
 
 	
 	//remove sprite
 		collectable.destroy();
 	},
 	
+
+
 	//Dado un tipo y el nombre del sprite asociado devuelve true si son del mismo tipo y false si son tipos distintos de objetos.
 	isType: function (type, sprite){
 		if(sprite === type){
@@ -255,21 +190,19 @@ AsiloRoyale.Game.prototype = {
 		}
 	},
 
-	enterDoor: function(player, door) {
-		console.log('entering door that will take you to'+door.targetTilemap+' on x:'+door.targetX+' and y:'+door.targetY);
-	},
 
 
 	createItems: function() {
 	//create items
 		this.items = this.game.add.group();
-		this.items.enableBody = true;
 		var item;
 		result = this.findObjectsByType('item', this.map,'objectsLayer');
 		console.log(result);
 		result.forEach(function(element){ this.createFromTiledObject(element, this.items);}, this);
 		console.log(result);
 	},
+
+
 
 	 //find objects in a Tiled layer that containt a propertycalled "type" equal to a certain value
 	findObjectsByType: function(type, map, layer) {
@@ -292,33 +225,26 @@ AsiloRoyale.Game.prototype = {
 		return result;
 	},
 
+
+
 	//create a sprite from an object
 	createFromTiledObject: function(element, group) {
 		var sprite = group.create(element.x, element.y,element.properties.sprite);
+		this.game.physics.p2.enable(sprite,true);
 //copy all properties to the sprite
 		Object.keys(element.properties).forEach(function(key){
-			sprite[key] = element.properties[key];
-			console.log(element.properties[key]);
-			console.log(element.properties.type);
-			console.log(key);
-			console.log(element.properties.sprite);
-			console.log(element.properties[sprite]);
 	 	});
 	},
 
-	createDoors: function() {
-	//create doors
-		this.doors = this.game.add.group();
-		this.doors.enableBody = true;
-		result = this.findObjectsByType('door', this.map,'objectsLayer');
-	
-		result.forEach(function(element){this.createFromTiledObject(element, this.doors);}, this);
-	},
+
+
 
 	gameOver: function() {
 	//pass it the score as a parameter
 		this.game.state.start('GameOver');
 	},
+
+
 
 	render: function() {
 		//var style = { font: "bold 50px 'VT323', monospace", fill: "#51F55B", align: "center" };
@@ -332,11 +258,15 @@ AsiloRoyale.Game.prototype = {
         }
     },
 
+
+
     //Código de: http://jsfiddle.net/lewster32/vd70o41p/
     endTimer: function() {
         // Stop the timer when the delayed event triggers
         timer.stop();
     },
+
+
 
     formatTime: function(s) {
         // Convert seconds (s) to a nicely formatted and padded time string
@@ -345,9 +275,7 @@ AsiloRoyale.Game.prototype = {
         return minutes.substr(-2) + ":" + seconds.substr(-2);
 	},
 
-	killBullets: function(bala,objeto){
-    	bala.kill();
-    },
+
 
 }
 

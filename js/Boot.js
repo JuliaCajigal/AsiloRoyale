@@ -35,7 +35,7 @@ AsiloRoyale.Boot.prototype = {
  	//this.scale.setScreenSize(true);
 
  //physics system for movement
- 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
+ 		this.game.physics.startSystem(Phaser.Physics.P2JS);
 
  		this.state.start('Preload');
 	}

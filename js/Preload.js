@@ -41,6 +41,8 @@ AsiloRoyale.Preload.prototype = {
 		this.load.image('lifebaru', 'assets/images/lifebars_up.png');
 		this.load.image('lifebardw', 'assets/images/lifebars_dw.png');
 
+		this.game.load.physics('player_physics', 'assets/physics/viejo_physics.json'); 
+
  	},
  
 	create: function() {
