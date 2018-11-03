@@ -79,7 +79,7 @@ var Bullet = function (game, key) {
         this.reset(x, y);
         //this.scale.set(1);
 
-        this.velocityFromAngle(angle, speed);
+        this.velocityFromAngle(angle, speed, this.body.velocity);
 
         this.angle = angle;
         this.body.rotation = rotation;
@@ -89,7 +89,7 @@ var Bullet = function (game, key) {
     };
 
     Bullet.prototype.update = function () {
-        
+
         this.body.velocity.x = 0;
         this.body.velocity.x = 600;
 

@@ -9,7 +9,7 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
 	this.guned = guned;
 	this.shotguned = shotguned;
 	this.sprite = null;
-	this.life = 20;
+	this.life = 1;
 	this.score = 0;
     this.ammogun = 10;
     this.ammoshotgun =12;
@@ -67,7 +67,7 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
 
     }
 
-}
+    }
 	
 	Player.prototype = Object.create(Phaser.Sprite.prototype);
 	Player.prototype.constructor = Player;
@@ -82,7 +82,8 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
 
 	
 	Player.prototype.update = function() {
-	
+        
+
 		this.body.rotation = this.angleToPointer(this);
 
 		this.cursors = this.game.input.keyboard.createCursorKeys();
@@ -152,8 +153,9 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
 
         if (this.life <= 0){
             
-            this.player.kill();
+            //this.player.kill();
             this.alive = false;
+            this.game.state.start('GameOver');
 
         return true;
         }
