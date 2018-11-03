@@ -35,6 +35,8 @@ function Enemy(game, x, y, guned, shotguned, sprite) {
 	
 	Enemy.prototype.update = function() {
 
+		this.body.static = true;
+
 
 
 		if(this.loopsI<=0){

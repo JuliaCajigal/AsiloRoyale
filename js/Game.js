@@ -184,7 +184,7 @@ AsiloRoyale.Game.prototype = {
 
 			}else if (body.sprite.key == 'dientes'){
 
-				this.player1.damage();
+				this.player1.damage(5);
 				console.log('TE MUERDO');
 				console.log(this.player1.life);
 
