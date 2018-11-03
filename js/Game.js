@@ -43,7 +43,6 @@ AsiloRoyale.Game.prototype = {
 	this.game.physics.p2.updateBoundsCollisionGroup();
 
 	for (var i = 0; i < tileObjects.length; i++) {        
-
    		this.game.physics.p2.enableBody(tileObjects[i],true); 
 	}    
 
@@ -62,7 +61,38 @@ AsiloRoyale.Game.prototype = {
 	this.player1.body.loadPolygon('player_physics', 'player'); 
 	this.dynamic = true;
 	this.player1.body.onBeginContact.add(this.collectItem, this);
+/*
+	this.player2 = new Player(this.game,800,800,false,true, 'player');
+	this.game.add.existing(this.player2);
+	console.log(this.player1);
+	
+	//console.log(this.player);
+	this.game.physics.p2.enable(this.player2,true);
+	this.player2.body.clearShapes(); 
+	this.player2.body.loadPolygon('player_physics', 'player'); 
+	this.dynamic = true;
+	this.player2.body.onBeginContact.add(this.collectItem, this);
+*/
 
+	///////////
+
+	this.enemy = new Enemy(this.game,780,650,false,true, 'dientes');
+	this.game.add.existing(this.enemy);
+	this.game.physics.p2.enable(this.enemy,true);
+
+
+	
+	//this.game.add.existing(this.enemies);
+/*
+	this.enemies = [];
+
+	for(var i=0; i<3; i++){
+		this.enemies[i] = new Enemy(this.game,400+(i*100),800,false,true, 'enemy');
+		this.game.add.existing(this.enemies[i]);
+		this.game.physics.p2.enableBody(this.enemies[i],true);
+	}
+*/
+	
 
 	//CAMARA
 	this.game.camera.follow(this.player1);
@@ -98,7 +128,7 @@ AsiloRoyale.Game.prototype = {
 	update: function() {
 		//MUESTRA PUNTUACION
 		//this.showLabels(this.player1);
-		this.scoreLabel.text = this.player1.ammoshotgun;
+		this.scoreLabel.text = this.player1.life;
 
 	},
 
@@ -121,8 +151,31 @@ AsiloRoyale.Game.prototype = {
 				//body.sprite.destroy();
 				console.log(body);
 				console.log(bodyB);
-			}
+
+			}else if(body.sprite.key == 'perdigon'){
+				this.bulletHitPlayer(this.enemy,body.sprite);
+				console.log('BANG');
+		}else if (body.sprite.key == 'dientes'){
+
+				this.player1.damage();
+				console.log('TE MUERDO');
+				console.log(this.player1.life);
+
 		}
+		}
+	},
+
+	bulletHitPlayer: function(player, bullet) {
+
+    	bullet.destroy();
+
+	},
+
+	bulletHitEnemy: function(player, bullet) {
+
+    	bullet.destroy();
+    	player.damage();
+
 	},
 
 
@@ -278,5 +331,17 @@ AsiloRoyale.Game.prototype = {
 
 
 }
+/*
+game.physics.p2.setPostBroadphaseCallback(filterCollisions, this);
 
+//use a custom "ownerId" value to check if both come from the same entity (player/npc)
+function filterCollisions(p2BodyA, p2BodyB) {
+    if (p2BodyA && p2BodyB && p2BodyA.sprite.ownerId && p2BodyB.sprite.ownerId){
+        if (p2BodyA.sprite.ownerId == p2BodyB.sprite.ownerId){
+                return false;
+        }
+    }
+    return true;
+}
+*/
 

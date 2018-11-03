@@ -9,12 +9,16 @@ function Player(game, x, y, guned, shotguned, sprite) {
 	this.guned = guned;
 	this.shotguned = shotguned;
 	this.sprite = null;
-	this.life = 20;
+	this.life = 100;
 	this.score = 0;
     this.ammogun = 10;
     this.ammoshotgun =12;
+    this.alive = true;
+    this.weapon =  new Weapon(this, game, x, y);
+    console.log(this.weapon); 
+    //var that = this;
 
-
+/*
 
 	//PISTOLA
 	this.weaponG = this.game.add.weapon(30,'bala');
@@ -30,16 +34,22 @@ function Player(game, x, y, guned, shotguned, sprite) {
 
 	//ESCOPETA
     this.weaponS = this.game.add.weapon(6*6,'perdigon');
+    //this.game.physics.p2.enable(this.weaponS.bullets,true); 
+    console.log(this.weaponS.bullets);
+    //this.weaponS.bullets = this.game.add.group();
+    this.weaponS.bullets.enableBody = true;
+    this.weaponS.bullets.physicsBodyType = Phaser.Physics.P2JS;
+    console.log(this.weaponS.bullets);
+
     this.weaponS.bulletSpeed = 600;
     this.weaponS.fireRate = 850;
     this.weaponS.trackSprite(this, 0, 0, true);
     this.weaponS.trackOffset.x = +90;
     this.weaponS.multiFire = true;
 	
-			 
+			 */
 
-	this.angleToPointer = function (displayObject, pointer, world)
-    {
+	this.angleToPointer = function (displayObject, pointer, world){
 
         if (pointer === undefined) { pointer = this.game.input.activePointer; }
         if (world === undefined) { world = false; }
@@ -54,15 +64,17 @@ function Player(game, x, y, guned, shotguned, sprite) {
         }
 
     }
+
 }
 	
-
 	Player.prototype = Object.create(Phaser.Sprite.prototype);
 	Player.prototype.constructor = Player;
 
 
 	Player.prototype.create= function() {
- 
+        //this.weapon = new Weapon(this.game, this.x,this.y, 'gun');
+        //console.log(this.weapon);         
+        //this.sprite = this.game.add.sprite(x, y, sprite);
     }
 
 	
@@ -88,16 +100,23 @@ function Player(game, x, y, guned, shotguned, sprite) {
 		else if(this.cursors.right.isDown) {
 			this.body.velocity.x += 400;
 		}
+ 
+        if (this.game.input.activePointer.totalTouches == 1 && this.game.input.activePointer.isDown && this.shotguned==true && this.ammogun>0)
+    {
+            console.log('BANG');
+            this.weapon.SingleBullet.fire(this);
+            this.game.input.activePointer.totalTouches = 0;
+    }/*
+       
 		//pistola
 	if (this.game.input.activePointer.totalTouches == 1 && this.game.input.activePointer.isDown && this.guned==true && this.ammogun>0)
     {
         this.weaponG.fire();
+        console.log(this.weaponG.fire);
         this.weaponG.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
         this.weaponG.bulletKillDistance = 700;
         this.shotgunned = false;
-        if(this.weaponG.onFire){
         this.ammo--;
-        }
         this.game.input.activePointer.totalTouches = 0;
 
         console.log(this.ammo);
@@ -105,7 +124,7 @@ function Player(game, x, y, guned, shotguned, sprite) {
     //escopeta
     if (this.game.input.activePointer.totalTouches == 1 && this.game.input.activePointer.isDown && this.shotguned==true && this.ammoshotgun>0)
     {
-        
+        console.log(this.weaponS.fire);
         this.weaponS.bulletAngleVariance = 15;
         this.weaponS.bulletKillType = Phaser.Weapon.KILL_DISTANCE;
         this.weaponS.bulletKillDistance = 450;
@@ -121,8 +140,24 @@ function Player(game, x, y, guned, shotguned, sprite) {
     }
         this.game.input.activePointer.totalTouches=0;
         
-    }
-}
+    }*/
+    };
+
+    Player.prototype.damage = function() {
+
+        this.life -= 5;
+
+        if (this.life <= 0){
+            
+            this.player.kill();
+            this.alive = false;
+
+        return true;
+        }
+
+    return false;
+
+    };
 /*
     this.killBullets = function(bala,objeto){
         bala.kill();
