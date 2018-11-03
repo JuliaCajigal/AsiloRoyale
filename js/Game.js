@@ -46,10 +46,18 @@ AsiloRoyale.Game.prototype = {
    		this.game.physics.p2.enableBody(tileObjects[i],true); 
 	}    
 
+	//ARMAS
+	var weapons = [];
+	weapons.push(new Weapon.SingleBullet(this.game));
 
-	this.playerScore = 0;
+	
 
-	this.player1 = new Player(this.game,700,800,false,true, 'player');
+	//JUGADOR 1
+	this.player1 = new Player(this.game,700,800,false,true, 'player', weapons[0], 1);
+	console.log(weapons[0].ownerId);
+	console.log(this.player1.ownerId);
+	console.log(weapons);
+
 	//var player2 = new Player(this.game,800,900,false,false,'player');
 	//this.game.add.existing(player2);
 	this.game.add.existing(this.player1);
@@ -80,8 +88,6 @@ AsiloRoyale.Game.prototype = {
 	this.game.add.existing(this.enemy);
 	this.game.physics.p2.enable(this.enemy,true);
 
-
-	
 	//this.game.add.existing(this.enemies);
 /*
 	this.enemies = [];
@@ -112,6 +118,9 @@ AsiloRoyale.Game.prototype = {
 	//MUESTRA VIDA
 	this.showLife();
 
+	//this.game.physics.p2.setPostBroadphaseCallback(this.filterCollisions, this);
+
+
 	
 	//TIMER
     timer = this.game.time.create();
@@ -124,15 +133,32 @@ AsiloRoyale.Game.prototype = {
 
   },
 
-
 	update: function() {
 		//MUESTRA PUNTUACION
 		//this.showLabels(this.player1);
+		//this.scoreLabel.text = this.player1.ammoshotgun;
 		this.scoreLabel.text = this.player1.life;
-
 	},
 
+//use a custom "ownerId" value to check if both come from the same entity (player/npc)
+ filterCollisions: function(p2BodyA, p2BodyB) {
+			//console.log(p2BodyA);
+    		//console.log(p2BodyB);
 
+ 	if(p2BodyA.sprite!= null && p2BodyB.sprite!= null){
+    	
+    	if (p2BodyA && p2BodyB && p2BodyA.sprite.ownerId && p2BodyB.sprite.ownerId){
+    		//console.log(p2BodyA.ownerId);
+    		//console.log(p2BodyB.ownerId);
+
+        if (p2BodyA.sprite.ownerId == p2BodyB.sprite.ownerId){
+                return false;
+                //console.log(p2BodyB.ownerId);
+        }
+    }
+    return true;
+	}
+},
 
 
 	move: function(pointer) {
@@ -155,14 +181,15 @@ AsiloRoyale.Game.prototype = {
 			}else if(body.sprite.key == 'perdigon'){
 				this.bulletHitPlayer(this.enemy,body.sprite);
 				console.log('BANG');
-		}else if (body.sprite.key == 'dientes'){
+
+			}else if (body.sprite.key == 'dientes'){
 
 				this.player1.damage();
 				console.log('TE MUERDO');
 				console.log(this.player1.life);
 
 		}
-		}
+	}
 	},
 
 	bulletHitPlayer: function(player, bullet) {

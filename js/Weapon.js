@@ -1,6 +1,6 @@
 var AsiloRoyale = AsiloRoyale || {};
 
-function Weapon(game, x, y) {
+var Weapon = {};
 	//this.bullets = this.game.add.group();
 	//this.game.add.existing(this.bullets);
    /* this.bullets.enableBody = true;
@@ -27,7 +27,6 @@ function Weapon(game, x, y) {
 
 
 
-};
     
 	
 
@@ -47,11 +46,11 @@ function Weapon(game, x, y) {
 
         Phaser.Group.call(this, game, game.world, 'Single Bullet', false, true, Phaser.Physics.P2JS);
 
-        
+
         this.nextFire = 0;
         this.bulletSpeed = 600;
         this.fireRate = 100;
-        
+
         for (var i = 0; i < 64; i++)
         {
             this.add(new Bullet(game, 'bala'), true);
@@ -68,10 +67,13 @@ function Weapon(game, x, y) {
 
         if (this.game.time.time < this.nextFire) { return; }
 
-        var x = source.x + 10;
-        var y = source.y + 10;
+        var x = source.x + 60;
+        var y = source.y + 60;
+        var rotation = source.body.rotation;
+        console.log(source.angleToPointer(this));
+        //console.log(source.body.bounds);
 
-        this.getFirstExists(false).fire(x, y, 0, this.bulletSpeed, 0, 0);
+        this.getFirstExists(false).fire(x, y, 0, this.bulletSpeed, 0, 0, rotation);
 
         this.nextFire = this.game.time.time + this.fireRate;
 

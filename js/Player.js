@@ -1,6 +1,6 @@
 var AsiloRoyale = AsiloRoyale || {};
 
-function Player(game, x, y, guned, shotguned, sprite) {
+function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
 
 	Phaser.Sprite.call(this, game, x, y, sprite);
 
@@ -9,13 +9,15 @@ function Player(game, x, y, guned, shotguned, sprite) {
 	this.guned = guned;
 	this.shotguned = shotguned;
 	this.sprite = null;
-	this.life = 100;
+	this.life = 20;
 	this.score = 0;
     this.ammogun = 10;
     this.ammoshotgun =12;
     this.alive = true;
-    this.weapon =  new Weapon(this, game, x, y);
+    this.weapon = weapon;
+    this.ownerId = ownerId;
     console.log(this.weapon); 
+    this.weapon.ownerId = ownerId;
     //var that = this;
 
 /*
@@ -72,6 +74,7 @@ function Player(game, x, y, guned, shotguned, sprite) {
 
 
 	Player.prototype.create= function() {
+        this.weapon.ownerId = ownerId;
         //this.weapon = new Weapon(this.game, this.x,this.y, 'gun');
         //console.log(this.weapon);         
         //this.sprite = this.game.add.sprite(x, y, sprite);
@@ -104,7 +107,7 @@ function Player(game, x, y, guned, shotguned, sprite) {
         if (this.game.input.activePointer.totalTouches == 1 && this.game.input.activePointer.isDown && this.shotguned==true && this.ammogun>0)
     {
             console.log('BANG');
-            this.weapon.SingleBullet.fire(this);
+            this.weapon.fire(this);
             this.game.input.activePointer.totalTouches = 0;
     }/*
        
@@ -145,7 +148,7 @@ function Player(game, x, y, guned, shotguned, sprite) {
 
     Player.prototype.damage = function() {
 
-        this.life -= 5;
+        this.life -= 1;
 
         if (this.life <= 0){
             

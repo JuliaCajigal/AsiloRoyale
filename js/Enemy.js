@@ -59,7 +59,6 @@ function Enemy(game, x, y, guned, shotguned, sprite) {
 		}else if(this.loopsDer>0){
 			this.body.x -= 2;
 			this.loopsDer--;
-
 		}else if (this.loopsIzq===0 && this.loopsDer===0){
 			this.loopsIzq = 8;
 			this.loopsDer = 8;
