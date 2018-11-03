@@ -147,9 +147,9 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
     }*/
     };
 
-    Player.prototype.damage = function() {
+    Player.prototype.damage = function(amount) {
 
-        this.life -= 1;
+        this.life -= amount;
 
         if (this.life <= 0){
             
