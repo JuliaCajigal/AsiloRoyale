@@ -44,7 +44,8 @@ AsiloRoyale.Preload.prototype = {
 		this.load.image('bala', 'assets/images/bala.png');
 		this.load.image('lifebaru', 'assets/images/lifebars_up.png');
 		this.load.image('lifebardw', 'assets/images/lifebars_dw.png');
-
+		this.load.audio('collect_weapon', 'assets/audio/collect_weapon.wav');
+		this.load.audio('gun_fire', 'assets/audio/gun_fire.wav');
 		this.game.load.physics('player_physics', 'assets/physics/viejo_physics.json'); 
 
  	},

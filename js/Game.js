@@ -10,7 +10,8 @@ var tilesCollisionGroup, playerCollisionGroup;
 
 AsiloRoyale.Game.prototype = {
   create: function() {
-  
+  	this.collect_weapon = new Phaser.Sound(this, 'collect_weapon');
+
 
 	this.map = this.game.add.tilemap('level1');
 
@@ -146,9 +147,12 @@ AsiloRoyale.Game.prototype = {
 
 			if(body.sprite.key == 'pastis'){
 
+				this.collect_weapon.play();
 				this.collect(this.player1,body.sprite);
 				this.player1.currentWeapon=1;
 				this.player1.shotgunAmmo+=10;
+				this.player1.items++;
+				console.log(this.player1.items);
 				console.log(body);
 				console.log(bodyB);
 
@@ -159,7 +163,7 @@ AsiloRoyale.Game.prototype = {
 
 			}else if (body.sprite.key == 'dientes'){
 
-				this.player1.damage(5);
+				this.player1.damage(2);
 				console.log('TE MUERDO');
 				console.log(this.player1.life);
 

@@ -9,7 +9,7 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
 	this.guned = guned;
 	this.shotguned = shotguned;
 	this.sprite = null;
-	this.life = 100;
+	this.life = 1;
 	this.score = 0;
     this.alive = true;
     this.weapon = weapon;
@@ -21,6 +21,8 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
     this.currentWeapon = 0;
     this.shotgunAmmo = 0;
     this.gunAmmo = 20;
+    this.items = 0;
+    this.kilss=0;
 
 
 
@@ -98,9 +100,9 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
     Player.prototype.damage = function(amount) {
 
         this.life -= amount;
+        console.log('vida: '+ this.life);
 
         if (this.life <= 0){
-            this.player.destroy();
             this.alive = false;
         return true;
         }
@@ -109,7 +111,7 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
     },
 
     Player.prototype.isAlive = function(){
-        if(this.alive == false){ this.game.state.start('GameOver');}
+        if(this.alive == false){ this.game.state.start('GameOver',false,true,this.score,this.items);}
 
     };
 

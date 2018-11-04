@@ -17,11 +17,6 @@ function Enemy(game, x, y, guned, shotguned, sprite) {
 	this.walkI = this.animations.add('left', [2, 3], 8,true);
 
 
-
-
-
-
-
 	
 }
 	
@@ -58,16 +53,7 @@ function Enemy(game, x, y, guned, shotguned, sprite) {
 		
 		this.isAlive();
 
-			/*
-		}
-		}else if(this.loopsDer>0){
-			this.body.x -= 2;
-			this.loopsDer--;
-		}else if (this.loopsIzq===0 && this.loopsDer===0){
-			this.loopsIzq = 8;
-			this.loopsDer = 8;
-		}
-		*/
+
 		
 	
 	}

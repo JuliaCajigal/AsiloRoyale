@@ -12,7 +12,7 @@ var Weapon = {};
 
 	
 	Weapon.prototype.update = function() {
-		//this.bringToTop();
+
 	}
 
 	Weapon.Gun = function (game) {
@@ -26,6 +26,8 @@ var Weapon = {};
 
         for (var i = 0; i < 64; i++)
         {
+
+
             this.add(new Bullet(game, 'bala'), true);
         }
 
@@ -60,7 +62,7 @@ var Weapon = {};
 
 
         this.nextFire = 200000;
-        this.bulletSpeed = 600;
+        this.bulletSpeed = 800;
         this.fireRate = 2000;
 
         for (var i = 0; i < 64; i++)
