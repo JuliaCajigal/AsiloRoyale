@@ -67,7 +67,7 @@ AsiloRoyale.Game.prototype = {
 	this.game.physics.p2.enable(this.player1,true);
 	this.player1.body.clearShapes(); 
 	this.player1.body.loadPolygon('player_physics', 'player'); 
-	this.dynamic = true;
+	this.player1.body.static = true;
 	this.player1.body.onBeginContact.add(this.collectItem, this);
 /*
 	this.player2 = new Player(this.game,800,800,false,true, 'player');
