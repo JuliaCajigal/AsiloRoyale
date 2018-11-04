@@ -87,9 +87,6 @@ AsiloRoyale.Game.prototype = {
 	//MUESTRA VIDA
 	this.showLife();
 
-	//this.game.physics.p2.setPostBroadphaseCallback(this.filterCollisions, this);
-
-
 	
 	//TIMER
     timer = this.game.time.create();
@@ -106,11 +103,12 @@ AsiloRoyale.Game.prototype = {
 		//MUESTRA PUNTUACION
 		//this.showLabels(this.player1);
 		//this.scoreLabel.text = this.player1.ammoshotgun;
+			this.scoreLabel2.text = this.player1.score;
 		if(this.player1.currentWeapon===0){
-		this.scoreLabel.text = this.player1.gunAmmo;
-	}else if(this.player1.currentWeapon===1){
-		this.scoreLabel.text = this.player1.shotgunAmmo;
-	}
+			this.scoreLabel.text = this.player1.gunAmmo;
+		}else if(this.player1.currentWeapon===1){
+			this.scoreLabel.text = this.player1.shotgunAmmo;
+	}	
 	},
 
 //use a custom "ownerId" value to check if both come from the same entity (player/npc)
@@ -161,7 +159,7 @@ AsiloRoyale.Game.prototype = {
 
 			}else if (body.sprite.key == 'dientes'){
 
-				this.player1.damage();
+				this.player1.damage(5);
 				console.log('TE MUERDO');
 				console.log(this.player1.life);
 
@@ -203,6 +201,9 @@ AsiloRoyale.Game.prototype = {
 		var style = {font: "bold 40px 'VT323'", fill: "#51F55B", align: "center" };
 		this.scoreLabel = this.game.add.text(1020, 135, text, style);
 		this.scoreLabel.fixedToCamera = true;
+
+		this.scoreLabel2 = this.game.add.text(1020, 176, text2, style);
+		this.scoreLabel2.fixedToCamera = true;
 
 	},
 
