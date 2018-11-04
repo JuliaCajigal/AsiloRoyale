@@ -48,7 +48,7 @@ AsiloRoyale.Game.prototype = {
 
 
 	//JUGADOR 1
-	this.player1 = new Player(this.game,700,800,false,true, 'player', 1);
+	this.player1 = new Player(this.game,700,800,false,true, 'viejo1', 1);
 	this.game.add.existing(this.player1);
 	console.log(this.player1);
 

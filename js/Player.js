@@ -2,7 +2,7 @@ var AsiloRoyale = AsiloRoyale || {};
 
 function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
 
-	Phaser.Sprite.call(this, game, x, y, sprite);
+	Phaser.Sprite.call(this, game, x, y, sprite,0);
 
 	this.speed = 120;
 	this.game = game;
@@ -62,6 +62,13 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 		this.body.velocity.y = 0;
 		this.body.velocity.x = 0;
+
+        //Sprites player
+        if(this.currentWeapon==0){
+            this.frame=0;
+        }else if(this.currentWeapon==1){
+            this.frame=1;
+        }
 
 
 		//movimientos player
