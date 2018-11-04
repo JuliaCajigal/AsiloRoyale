@@ -171,20 +171,22 @@ AsiloRoyale.Game.prototype = {
 
 	collectItem (body, bodyB, shapeA, shapeB, equation) {
 		if(body.sprite!= null){
+			console.log(body);
+
 			if(body.sprite.key == 'pastis'){
 				this.collect(this.player1,body.sprite);
 
 				//body.sprite.destroy();
-				console.log(body);
-				console.log(bodyB);
+				//console.log(body);
+				//console.log(bodyB);
 
-			}else if(body.sprite.key == 'perdigon'){
+			}else if(body.sprite.key == 'bala'){
 				this.bulletHitPlayer(this.enemy,body.sprite);
-				console.log('BANG');
+				//console.log('BANG');
 
 			}else if (body.sprite.key == 'dientes'){
 
-				this.player1.damage(5);
+				this.player1.damage();
 				console.log('TE MUERDO');
 				console.log(this.player1.life);
 
@@ -193,7 +195,7 @@ AsiloRoyale.Game.prototype = {
 	},
 
 	bulletHitPlayer: function(player, bullet) {
-
+		player.damage();
     	bullet.destroy();
 
 	},
