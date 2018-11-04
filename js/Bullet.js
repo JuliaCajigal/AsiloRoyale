@@ -25,24 +25,11 @@ var Bullet = function (game, key) {
 
         this.body.static = true;
         this.reset(player.x,player.y);
-        this.body.rotation = player.rotation;
-        //this.angle = player.angle;
-        console.log(player.angle);
+        this.body.rotation = rotation;
 
-        //this.body.velocity.x = 600;
-        //this.body.velocity.y = 0;
-
-         //this.body.velocity.x = (speed * Math.sin( angle ));
-        //this.body.velocity.y = (speed * Math.cos( angle ));
 
         this.body.velocity.x = Math.cos(this.body.rotation) * speed;
         this.body.velocity.y = Math.sin(this.body.rotation) * speed;
-
-
-        console.log(this.body.velocity.x);
-        console.log(this.body.velocity.y);
-
-
 
 
     };

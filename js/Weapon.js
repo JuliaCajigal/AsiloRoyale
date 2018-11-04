@@ -15,13 +15,13 @@ var Weapon = {};
 		//this.bringToTop();
 	}
 
-	Weapon.SingleBullet = function (game) {
+	Weapon.Gun = function (game) {
 
-        Phaser.Group.call(this, game, game.world, 'Single Bullet', false, true, Phaser.Physics.P2JS);
+        Phaser.Group.call(this, game, game.world, 'Gun', false, true, Phaser.Physics.P2JS);
 
 
         this.nextFire = 0;
-        this.bulletSpeed = 600;
+        this.bulletSpeed = 800;
         this.fireRate = 100;
 
         for (var i = 0; i < 64; i++)
@@ -33,10 +33,10 @@ var Weapon = {};
 
     }
 
-    Weapon.SingleBullet.prototype = Object.create(Phaser.Group.prototype);
-    Weapon.SingleBullet.prototype.constructor = Weapon.SingleBullet;
+    Weapon.Gun.prototype = Object.create(Phaser.Group.prototype);
+    Weapon.Gun.prototype.constructor = Weapon.SingleBullet;
 
-    Weapon.SingleBullet.prototype.fire = function (source) {
+    Weapon.Gun.prototype.fire = function (source) {
 
         if (this.game.time.time < this.nextFire) { return; }
 
@@ -49,5 +49,48 @@ var Weapon = {};
         this.getFirstExists(false).fire(x, y, source.angle, this.bulletSpeed, 0, 0, rotation, source);
 
         this.nextFire = this.game.time.time + this.fireRate;
+
+    },
+    //////////////////////////////ESCOPETA////////////////////////////////
+    Weapon.Shotgun = function (game) {
+
+        Phaser.Group.call(this, game, game.world, 'Shotgun', false, true, Phaser.Physics.P2JS);
+
+
+        this.nextFire = 200000;
+        this.bulletSpeed = 600;
+        this.fireRate = 2000;
+
+        for (var i = 0; i < 64; i++)
+        {
+            this.add(new Bullet(game, 'perdigon'), true);
+        }
+
+        return this;
+
+    },
+
+    Weapon.Shotgun.prototype = Object.create(Phaser.Group.prototype);
+    Weapon.Shotgun.prototype.constructor = Weapon.SingleBullet;
+
+
+
+
+    Weapon.Shotgun.prototype.fire= function(source) {
+
+        if (this.game.time.time < this.nextFire) { return; }
+
+        var rotation = 0;
+        var x = source.x;
+        var y = source.y;
+
+
+
+
+        this.getFirstExists(false).fire(x, y, source.angle, 600, 0, 0,source.rotation,source);
+        this.getFirstExists(false).fire(x, y, source.angle, 600, 0, 0,source.rotation-25,source);
+        this.getFirstExists(false).fire(x, y, source.angle, 600, 0, 0,source.rotation-50,source);
+        this.getFirstExists(false).fire(x, y, source.angle, 600, 0, 0,source.rotation+25,source);
+        this.getFirstExists(false).fire(x, y, source.angle, 600, 0, 0,source.rotation+50,source);
 
     };

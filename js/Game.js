@@ -46,22 +46,12 @@ AsiloRoyale.Game.prototype = {
    		this.game.physics.p2.enableBody(tileObjects[i],true); 
 	}    
 
-	//ARMAS
-	var weapons = [];
-	weapons.push(new Weapon.SingleBullet(this.game));
-
-	
 
 	//JUGADOR 1
-	this.player1 = new Player(this.game,700,800,false,true, 'player', weapons[0], 1);
-	console.log(weapons[0].ownerId);
-	console.log(this.player1.ownerId);
-	console.log(weapons);
-
-	//var player2 = new Player(this.game,800,900,false,false,'player');
-	//this.game.add.existing(player2);
+	this.player1 = new Player(this.game,700,800,false,true, 'player', 1);
 	this.game.add.existing(this.player1);
 	console.log(this.player1);
+
 	
 	//console.log(this.player);
 	this.game.physics.p2.enable(this.player1,true);
@@ -69,36 +59,15 @@ AsiloRoyale.Game.prototype = {
 	this.player1.body.loadPolygon('player_physics', 'player'); 
 	this.player1.body.static = true;
 	this.player1.body.onBeginContact.add(this.collectItem, this);
-/*
-	this.player2 = new Player(this.game,800,800,false,true, 'player');
-	this.game.add.existing(this.player2);
-	console.log(this.player1);
-	
-	//console.log(this.player);
-	this.game.physics.p2.enable(this.player2,true);
-	this.player2.body.clearShapes(); 
-	this.player2.body.loadPolygon('player_physics', 'player'); 
-	this.dynamic = true;
-	this.player2.body.onBeginContact.add(this.collectItem, this);
-*/
 
-	///////////
+	//ENEMIGOS
 
 	this.enemy = new Enemy(this.game,780,650,false,true, 'dientes');
 	this.game.add.existing(this.enemy);
 	this.game.physics.p2.enable(this.enemy,true);
+	this.enemy.body.onBeginContact.add(this.collectItem, this);
 
-	//this.game.add.existing(this.enemies);
-/*
-	this.enemies = [];
 
-	for(var i=0; i<3; i++){
-		this.enemies[i] = new Enemy(this.game,400+(i*100),800,false,true, 'enemy');
-		this.game.add.existing(this.enemies[i]);
-		this.game.physics.p2.enableBody(this.enemies[i],true);
-	}
-*/
-	
 
 	//CAMARA
 	this.game.camera.follow(this.player1);
@@ -174,11 +143,12 @@ AsiloRoyale.Game.prototype = {
 			console.log(body);
 
 			if(body.sprite.key == 'pastis'){
-				this.collect(this.player1,body.sprite);
 
-				//body.sprite.destroy();
-				//console.log(body);
-				//console.log(bodyB);
+				this.collect(this.player1,body.sprite);
+				this.player1.currentWeapon=1;
+				console.log(body);
+				console.log(bodyB);
+
 
 			}else if(body.sprite.key == 'bala'){
 				this.bulletHitPlayer(this.enemy,body.sprite);
