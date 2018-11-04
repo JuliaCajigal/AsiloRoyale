@@ -106,7 +106,11 @@ AsiloRoyale.Game.prototype = {
 		//MUESTRA PUNTUACION
 		//this.showLabels(this.player1);
 		//this.scoreLabel.text = this.player1.ammoshotgun;
-		this.scoreLabel.text = this.player1.life;
+		if(this.player1.currentWeapon===0){
+		this.scoreLabel.text = this.player1.gunAmmo;
+	}else if(this.player1.currentWeapon===1){
+		this.scoreLabel.text = this.player1.shotgunAmmo;
+	}
 	},
 
 //use a custom "ownerId" value to check if both come from the same entity (player/npc)
@@ -146,6 +150,7 @@ AsiloRoyale.Game.prototype = {
 
 				this.collect(this.player1,body.sprite);
 				this.player1.currentWeapon=1;
+				this.player1.shotgunAmmo+=10;
 				console.log(body);
 				console.log(bodyB);
 

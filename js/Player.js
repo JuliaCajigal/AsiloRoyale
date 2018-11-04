@@ -9,10 +9,8 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
 	this.guned = guned;
 	this.shotguned = shotguned;
 	this.sprite = null;
-	this.life = 20;
+	this.life = 100;
 	this.score = 0;
-    this.ammogun = 10;
-    this.ammoshotgun =12;
     this.alive = true;
     this.weapon = weapon;
     this.ownerId = ownerId; 
@@ -21,7 +19,7 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
     this.weapons.push(new Weapon.Gun(this.game));
     this.weapons.push(new Weapon.Shotgun(this.game));
     this.currentWeapon = 0;
-    this.shotgunAmmo = 10;
+    this.shotgunAmmo = 0;
     this.gunAmmo = 20;
 
 
@@ -80,7 +78,7 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
 			this.body.velocity.x += 400;
 		}
  
-        if (this.game.input.activePointer.totalTouches == 1 && this.game.input.activePointer.isDown && this.shotguned==true && this.ammogun>0)
+        if (this.game.input.activePointer.totalTouches == 1 && this.game.input.activePointer.isDown && this.shotguned==true)
     {
             console.log('BANG');
             this.weapons[this.currentWeapon].fire(this);

@@ -45,10 +45,12 @@ var Weapon = {};
         var rotation = source.body.rotation;
         console.log(source.angleToPointer(this));
         //console.log(source.body.bounds);
-
+        if(source.gunAmmo>0){
         this.getFirstExists(false).fire(x, y, source.angle, this.bulletSpeed, 0, 0, rotation, source);
 
         this.nextFire = this.game.time.time + this.fireRate;
+        source.gunAmmo-=1;
+    }
 
     },
     //////////////////////////////ESCOPETA////////////////////////////////
@@ -85,7 +87,7 @@ var Weapon = {};
         var y = source.y;
 
 
-
+        if(source.shotgunAmmo>0){
 
         this.getFirstExists(false).fire(x, y, source.angle, 600, 0, 0,source.rotation,source);
         this.getFirstExists(false).fire(x, y, source.angle, 600, 0, 0,source.rotation-25,source);
@@ -93,4 +95,6 @@ var Weapon = {};
         this.getFirstExists(false).fire(x, y, source.angle, 600, 0, 0,source.rotation+25,source);
         this.getFirstExists(false).fire(x, y, source.angle, 600, 0, 0,source.rotation+50,source);
 
+        source.shotgunAmmo-=5;
+        }
     };
