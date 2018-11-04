@@ -110,7 +110,9 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
             console.log('BANG');
             this.weapon.fire(this);
             this.game.input.activePointer.totalTouches = 0;
-    }/*
+    }
+		this.isAlive();
+		/*
        
 		//pistola
 	if (this.game.input.activePointer.totalTouches == 1 && this.game.input.activePointer.isDown && this.guned==true && this.ammogun>0)
@@ -145,31 +147,24 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
         this.game.input.activePointer.totalTouches=0;
         
     }*/
-    };
+    },
 
-    Player.prototype.damage = function(amount) {
+    Player.prototype.damage = function() {
 
-        this.life -= amount;
+        this.life -= 1;
 
         if (this.life <= 0){
-            
-            //this.player.kill();
             this.alive = false;
-            this.game.state.start('GameOver');
-
         return true;
         }
-
     return false;
 
-    };
-/*
-    this.killBullets = function(bala,objeto){
-        bala.kill();
-    };
+    },
 
-*/	
+    Player.prototype.isAlive = function(){
+        if(this.alive == false){ this.game.state.start('GameOver');}
 
+    };
 
 
 
