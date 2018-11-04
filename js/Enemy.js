@@ -55,6 +55,8 @@ function Enemy(game, x, y, guned, shotguned, sprite) {
 			this.loopsD=-100;
 
 		}
+		
+		this.isAlive();
 
 			/*
 		}
@@ -73,9 +75,12 @@ function Enemy(game, x, y, guned, shotguned, sprite) {
 	Enemy.prototype.damage = function() {
 
     	this.life -= 1;
+    	this.alpha -= 2;
+    	//this.alpha += 2;
 
     	if (this.life <= 0){
-        	
+    		
+        	this.alive = false;
         	//this.player.kill();
 
         return true;
@@ -83,4 +88,9 @@ function Enemy(game, x, y, guned, shotguned, sprite) {
 
     return false;
 
-	};
+	}
+
+ 	Enemy.prototype.isAlive = function(){
+        if(this.alive == false){this.destroy()}
+
+    };
