@@ -15,7 +15,7 @@ var Weapon = {};
 
 	}
 
-	Weapon.Gun = function (game) {
+	Weapon.Gun = function (game, bulletCG, tileCG) {
 
         Phaser.Group.call(this, game, game.world, 'Gun', false, true, Phaser.Physics.P2JS);
 
@@ -28,7 +28,7 @@ var Weapon = {};
         {
 
 
-            this.add(new Bullet(game, 'bala'), true);
+            this.add(new Bullet(game, 'bala', bulletCG, tileCG), true);
         }
 
         return this;
@@ -56,7 +56,7 @@ var Weapon = {};
 
     },
     //////////////////////////////ESCOPETA////////////////////////////////
-    Weapon.Shotgun = function (game) {
+    Weapon.Shotgun = function (game, bulletCG, tileCG) {
 
         Phaser.Group.call(this, game, game.world, 'Shotgun', false, true, Phaser.Physics.P2JS);
 
@@ -67,7 +67,7 @@ var Weapon = {};
 
         for (var i = 0; i < 64; i++)
         {
-            this.add(new Bullet(game, 'perdigon'), true);
+            this.add(new Bullet(game, 'perdigon',  bulletCG, tileCG), true);
         }
 
         return this;

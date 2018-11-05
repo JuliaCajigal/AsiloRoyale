@@ -21,7 +21,7 @@ AsiloRoyale.Game.prototype = {
 
 
 	//this.map.createFromObjects('objectsLayer', 13, 'pastis');
-	console.log(this.map);
+	//console.log(this.map);
 	//create layer
 	this.backgroundlayer = this.map.createLayer('floor');
  	this.blockedLayer = this.map.createLayer('walls');
@@ -37,36 +37,47 @@ AsiloRoyale.Game.prototype = {
  	this.createItems();
 	this.game.physics.p2.setImpactEvents(true);
 
-	var tileObjects = this.game.physics.p2.convertTilemap(this.map, this.blockedLayer);
+	var tileObjects = this.game.physics.p2.convertTilemap(this.map, this.blockedLayer, true);
 	//console.log(tileObjects);
 	this.tilesCollisionGroup   = this.game.physics.p2.createCollisionGroup();    
 	this.playerCollisionGroup  = this.game.physics.p2.createCollisionGroup();  
+	this.bulletCollisionGroup = this.game.physics.p2.createCollisionGroup(); 
+	this.enemiesCollisionGroup = this.game.physics.p2.createCollisionGroup(); 
+
 	this.game.physics.p2.updateBoundsCollisionGroup();
 
 	for (var i = 0; i < tileObjects.length; i++) {        
-   		this.game.physics.p2.enableBody(tileObjects[i],true); 
+   		tileObjects[i].setCollisionGroup(this.tilesCollisionGroup);
+        tileObjects[i].collides(this.playerCollisionGroup);
+        tileObjects[i].collides(this.bulletCollisionGroup);
 	}    
 
+	//ARMAS
+	var weapons = []
+	weapons.push(new Weapon.Gun(this.game,this.bulletCollisionGroup,this.tilesCollisionGroup));
+    weapons.push(new Weapon.Shotgun(this.game,this.bulletCollisionGroup,this.tilesCollisionGroup));
 
 	//JUGADOR 1
-	this.player1 = new Player(this.game,700,800,false,true, 'viejo1', 1);
+	this.player1 = new Player(this.game,1100,1000,false,true, 'player', 1, weapons);
 	this.game.add.existing(this.player1);
-	console.log(this.player1);
+	//console.log(this.player1);
 
 	
 	//console.log(this.player);
 	this.game.physics.p2.enable(this.player1,true);
 	this.player1.body.clearShapes(); 
 	this.player1.body.loadPolygon('player_physics', 'player'); 
-	this.player1.body.static = true;
-	this.player1.body.onBeginContact.add(this.collectItem, this);
+	this.player1.body.setCollisionGroup(this.playerCollisionGroup); 
+	this.player1.body.collides(this.tilesCollisionGroup);
+	//this.player1.body.static = true;
+	//this.player1.body.onBeginContact.add(this.collectItem, this);
 
 	//ENEMIGOS
 
 	this.enemy = new Enemy(this.game,780,650,false,true, 'dientes');
 	this.game.add.existing(this.enemy);
 	this.game.physics.p2.enable(this.enemy,true);
-	this.enemy.body.onBeginContact.add(this.collectItem, this);
+	//this.enemy.body.onBeginContact.add(this.collectItem, this);
 
 
 
@@ -290,9 +301,9 @@ AsiloRoyale.Game.prototype = {
 		this.items = this.game.add.group();
 		var item;
 		result = this.findObjectsByType('item', this.map,'objectsLayer');
-		console.log(result);
+		//console.log(result);
 		result.forEach(function(element){ this.createFromTiledObject(element, this.items);}, this);
-		console.log(result);
+		//console.log(result);
 	},
 
 
@@ -300,7 +311,7 @@ AsiloRoyale.Game.prototype = {
 	 //find objects in a Tiled layer that containt a propertycalled "type" equal to a certain value
 	findObjectsByType: function(type, map, layer) {
 		var result = new Array();
-		console.log(map.objects[layer]);
+		//console.log(map.objects[layer]);
 		map.objects[layer].forEach(function(element){
 
 
@@ -324,8 +335,8 @@ AsiloRoyale.Game.prototype = {
 	createFromTiledObject: function(element, group) {
 		var sprite = group.create(element.x, element.y,element.properties.sprite);
 		this.game.physics.p2.enable(sprite,true);
-		console.log('AQUI');
-		console.log(element.properties.sprite);
+		//console.log('AQUI');
+		//console.log(element.properties.sprite);
 //copy all properties to the sprite
 		Object.keys(element.properties).forEach(function(key){
 	 	});

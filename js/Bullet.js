@@ -1,6 +1,6 @@
 var AsiloRoyale = AsiloRoyale || {};
 
-var Bullet = function (game, key) {
+var Bullet = function (game, key, bulletCG, tileCG) {
 
     Phaser.Sprite.call(this, game, 0, 0, key);
 
@@ -15,6 +15,8 @@ var Bullet = function (game, key) {
 
     	this.tracking = false;
     	this.scaleSpeed = 0;
+        this.bulletCG = bulletCG;
+        this.tileCG = tileCG;
 
 
 };
@@ -23,7 +25,7 @@ var Bullet = function (game, key) {
 
     Bullet.prototype.fire = function (x, y, angle, speed, gx, gy, rotation,player) {
 
-        this.body.static = true;
+        //this.body.static = true;
         this.reset(player.x,player.y);
         this.body.rotation = rotation;
 
@@ -32,11 +34,11 @@ var Bullet = function (game, key) {
         this.body.velocity.y = Math.sin(this.body.rotation) * speed;
 
 
-    };
-
+    },
+    
     Bullet.prototype.update = function () {
-
-
+        this.body.setCollisionGroup(this.bulletCG);
+        this.body.collides(this.tileCG);
     };
 
 

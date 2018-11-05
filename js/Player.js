@@ -1,6 +1,6 @@
 var AsiloRoyale = AsiloRoyale || {};
 
-function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
+function Player(game, x, y, guned, shotguned, sprite, ownerId, weapons) {
 
 	Phaser.Sprite.call(this, game, x, y, sprite,0);
 
@@ -12,12 +12,8 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
 	this.life = 1;
 	this.score = 0;
     this.alive = true;
-    this.weapon = weapon;
-    this.ownerId = ownerId; 
-    this.weapon.ownerId = ownerId;
-    this.weapons = [];
-    this.weapons.push(new Weapon.Gun(this.game));
-    this.weapons.push(new Weapon.Shotgun(this.game));
+    this.ownerId = ownerId;
+    this.weapons = weapons;
     this.currentWeapon = 0;
     this.shotgunAmmo = 0;
     this.gunAmmo = 10;
@@ -49,10 +45,6 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
 
 
 	Player.prototype.create= function() {
-        this.weapon.ownerId = ownerId;
-        //this.weapon = new Weapon(this.game, this.x,this.y, 'gun');
-        //console.log(this.weapon);         
-        //this.sprite = this.game.add.sprite(x, y, sprite);
     }
 
 	
