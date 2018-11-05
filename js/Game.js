@@ -161,6 +161,10 @@ AsiloRoyale.Game.prototype = {
 				this.bulletHitPlayer(this.enemy,body.sprite);
 				//console.log('BANG');
 
+			}else if(body.sprite.key == 'perdigon'){
+
+				this.bulletHitPlayer(this.enemy,body.sprite);
+
 			}else if (body.sprite.key == 'dientes'){
 
 				this.player1.damage(2);

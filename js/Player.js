@@ -111,7 +111,7 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
     },
 
     Player.prototype.isAlive = function(){
-        if(this.alive == false){ this.game.state.start('GameOver',false,true,this.score,this.items);}
+        if(this.alive == false){ this.game.state.start('GameOver',true,false,this.score,this.items);}
 
     };
 
