@@ -20,7 +20,7 @@ function Player(game, x, y, guned, shotguned, sprite, weapon, ownerId) {
     this.weapons.push(new Weapon.Shotgun(this.game));
     this.currentWeapon = 0;
     this.shotgunAmmo = 0;
-    this.gunAmmo = 20;
+    this.gunAmmo = 10;
     this.items = 0;
     this.kilss=0;
 

@@ -28,9 +28,12 @@ AsiloRoyale.Preload.prototype = {
 		//load game assets
 		this.load.tilemap('level1', 'assets/tilemaps/untitled.json',null, Phaser.Tilemap.TILED_JSON);
 		this.load.image('gameTiles', 'assets/tilesets/tiles.png');
-		this.load.image('pastis', 'assets/images/pastis.png');
+		this.load.image('pasti_roja', 'assets/images/pasti_roja.png');
+		this.load.image('pasti_verde', 'assets/images/pasti_verde.png');
+		this.load.image('pasti_morada', 'assets/images/pasti_morada.png');
+		this.load.image('pasti_amarilla', 'assets/images/pasti_amarilla.png');
 		this.load.image('gun', 'assets/images/gun.png');
-		this.load.image('player', 'assets/images/viejo1.png');
+		this.load.image('shotgun', 'assets/images/shotgun.png');
 		this.load.image('player_escopeta', 'assets/images/viejo1_escopeta.png');
 		this.load.image('enemy', 'assets/images/enemy.png');
 		this.load.spritesheet('botonesjugar', 'assets/images/playbutton.png',256,128,2);

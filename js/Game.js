@@ -25,7 +25,7 @@ AsiloRoyale.Game.prototype = {
 	//create layer
 	this.backgroundlayer = this.map.createLayer('floor');
  	this.blockedLayer = this.map.createLayer('walls');
- 	this.blockedLayer.debug = true;
+ 	this.blockedLayer.debug = false;
 
  	//resizes the game world to match the layer dimensions
  	this.backgroundlayer.resizeWorld();
@@ -145,21 +145,34 @@ AsiloRoyale.Game.prototype = {
 		if(body.sprite!= null){
 			console.log(body);
 
-			if(body.sprite.key == 'pastis'){
+			if(body.sprite.key == 'pasti_roja'){
 
-				this.collect_weapon.play();
-				this.collect(this.player1,body.sprite);
-				this.player1.currentWeapon=1;
-				this.player1.shotgunAmmo+=10;
+				this.collect(this.player1,body.sprite,10);
 				this.player1.items++;
-				console.log(this.player1.items);
-				console.log(body);
-				console.log(bodyB);
+
+
+			}else if(body.sprite.key == 'pasti_verde'){
+
+				this.collect(this.player1,body.sprite,20);
+				this.player1.items++;
 
 
 			}else if(body.sprite.key == 'bala'){
+
 				this.bulletHitPlayer(this.enemy,body.sprite);
-				//console.log('BANG');
+
+
+			}else if(body.sprite.key == 'pasti_morada'){
+
+				this.collect(this.player1,body.sprite,30);
+				this.player1.items++;
+
+
+			}else if(body.sprite.key == 'pasti_amarilla'){
+
+				this.collect(this.player1,body.sprite,50);
+				this.player1.items++;
+
 
 			}else if(body.sprite.key == 'perdigon'){
 
@@ -171,7 +184,21 @@ AsiloRoyale.Game.prototype = {
 				console.log('TE MUERDO');
 				console.log(this.player1.life);
 
-		}
+			}else if(body.sprite.key == 'shotgun'){
+
+				this.collect_weapon.play();
+				this.collect(this.player1,body.sprite,0);
+				this.player1.currentWeapon=1;
+				this.player1.shotgunAmmo+=10;
+
+			}else if(body.sprite.key == 'gun'){
+
+				this.collect_weapon.play();
+				this.collect(this.player1,body.sprite,0);
+				this.player1.currentWeapon=0;
+				this.player1.gunAmmo+=15;
+
+			}
 	}
 	},
 
@@ -224,13 +251,13 @@ AsiloRoyale.Game.prototype = {
 
 
 
-	collect: function(player, collectable) {
+	collect: function(player, collectable,amount) {
 		console.log('yummy!');
 
 		//play collect sound
 		//this.collectSound.play();
 	
-		player.score+=20;
+		player.score+=amount;
 		
 
 		var isGun = this.isType('gun',collectable.sprite);
@@ -275,8 +302,8 @@ AsiloRoyale.Game.prototype = {
 		var result = new Array();
 		console.log(map.objects[layer]);
 		map.objects[layer].forEach(function(element){
-		console.log(element.properties.type);
-		console.log(type);
+
+
 		if(element.properties.type === type) {
 	//Phaser uses top left, Tiled bottom left so we haveto adjust
     //also keep in mind that the cup images are a bitsmaller than the tile which is 16x16
@@ -286,7 +313,7 @@ AsiloRoyale.Game.prototype = {
 			result.push(element);
 		}
 		});
-		console.log(result);
+
 		
 		return result;
 	},
@@ -297,6 +324,8 @@ AsiloRoyale.Game.prototype = {
 	createFromTiledObject: function(element, group) {
 		var sprite = group.create(element.x, element.y,element.properties.sprite);
 		this.game.physics.p2.enable(sprite,true);
+		console.log('AQUI');
+		console.log(element.properties.sprite);
 //copy all properties to the sprite
 		Object.keys(element.properties).forEach(function(key){
 	 	});
