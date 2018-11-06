@@ -92,8 +92,7 @@ AsiloRoyale.Game.prototype = {
 
 
 	//CAMARA
-	//this.game.camera.follow(this.player1);
-	//this.game.camera.bounds = null;
+	this.game.camera.bounds = null;
 	
 	//TECLAS
 	this.cursors = this.game.input.keyboard.createCursorKeys();
@@ -122,9 +121,7 @@ AsiloRoyale.Game.prototype = {
   },
 
 	update: function() {
-		//MUESTRA PUNTUACION
-		//this.showLabels(this.player1);
-		//this.scoreLabel.text = this.player1.ammoshotgun;
+		
 		this.game.camera.focusOnXY(this.player1.x+75, this.player1.y);
 		
 			this.scoreLabel2.text = this.player1.score;
@@ -278,10 +275,10 @@ AsiloRoyale.Game.prototype = {
 
 	showLife: function(player){
 		
-		this.lifeBardw = this.game.add.sprite(450, 590, 'lifebardw');
+		this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
 		this.lifeBardw.fixedToCamera = true;
 
-		this.lifeBar = this.game.add.sprite(450, 610, 'lifebaru');//this.add.sprite(450, 600, 'carta_ajuste');//
+		this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');//this.add.sprite(450, 600, 'carta_ajuste');//
 		this.lifeBar.anchor.y = 0.5;
 		this.lifeBar.cropEnabled = true;
 		this.lifeBar.fixedToCamera = true;
