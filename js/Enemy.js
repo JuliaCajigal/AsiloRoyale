@@ -7,7 +7,7 @@ function Enemy(game, x, y, guned, shotguned, sprite, ) {
 	this.guned = guned;
 	this.shotguned = shotguned;
 	this.sprite = null;
-	this.life = 2;
+	this.life = 20;
 	this.alive = true;
 	this.loopsI=-100;
 	this.loopsD=-100;
@@ -58,9 +58,9 @@ function Enemy(game, x, y, guned, shotguned, sprite, ) {
 	
 	}
 
-	Enemy.prototype.damage = function() {
+	Enemy.prototype.damage = function(amount) {
 
-    	this.life -= 1;
+    	this.life -= amount;
     	this.alpha -= 2;
     	//this.alpha += 2;
 

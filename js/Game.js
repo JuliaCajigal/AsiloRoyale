@@ -230,10 +230,16 @@ AsiloRoyale.Game.prototype = {
 
 	},
 
-	bulletHitEnemy: function(player, bullet) {
+	bulletHitEnemy: function(enemy, bullet) {
 
+    	if (bullet.key == 'bala') {
+			enemy.damage(10);
+			console.log(enemy.life);
+		} else if (bullet.key == 'perdigon') {
+			enemy.damage(5);
+			console.log(enemy.life);
+		}
     	bullet.destroy();
-    	player.damage();
 
 	},
 
