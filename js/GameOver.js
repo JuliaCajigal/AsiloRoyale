@@ -4,10 +4,6 @@ AsiloRoyale.GameOver.prototype = {
 
 
 	create: function() {
-		//this.game.scale.parentIsWindow = true;
-		//window.innerWidth = 900;
-		//window.innerHeight = 600;
-
 
 		this.game.world.setBounds(900,600);
 
@@ -18,6 +14,9 @@ AsiloRoyale.GameOver.prototype = {
 		
 		this.tv = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'tv');
     	this.tv.fixedToCamera = true;
+
+    	this.results = this.game.add.sprite(280, 150, 'results');
+    	this.results.fixedToCamera = true;
 
     	this.showRes();
 
