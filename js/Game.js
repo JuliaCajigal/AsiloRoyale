@@ -133,55 +133,36 @@ AsiloRoyale.Game.prototype = {
 		
 		//La cámara sigue al jugador teniendo en cuenta el offset
 		this.game.camera.focusOnXY(this.player1.x+75, this.player1.y);
+		this.updateHUD();
 
+			
+	},
+
+	updateHUD: function(){
 		//Dependiendo del arma que lleve verá unos grafismos
 		if(this.player1.currentWeapon==0){
 			this.scoreLabel3.frame=0;
-			console.log(this.scoreLabel3.frame);
-			//this.scoreLabel3=0;
 			this.HUD.visible = false;
+			this.lifeBardw.x -= 50;
+			console.log(this.lifeBardw.x);
+
 	    }if(this.player1.currentWeapon==1){
 	    	this.scoreLabel3.frame=1;
-	    	console.log(this.scoreLabel3.frame);
-	    	//this.scoreLabel3=1;
 	    	this.HUD.visible = true;
+	    	this.lifeBardw.x += 50;
+
 	    }
+
+
+	    
+		//this.lifeBar
 		
 			this.scoreLabel2.text = this.player1.score;
 		if(this.player1.currentWeapon===0){
 			this.scoreLabel.text = this.player1.gunAmmo;
 		}else if(this.player1.currentWeapon===1){
 			this.scoreLabel.text = this.player1.shotgunAmmo;
-		}	
-	},
-
-//use a custom "ownerId" value to check if both come from the same entity (player/npc)
- filterCollisions: function(p2BodyA, p2BodyB) {
-			//console.log(p2BodyA);
-    		//console.log(p2BodyB);
-
- 	if(p2BodyA.sprite!= null && p2BodyB.sprite!= null){
-    	
-    	if (p2BodyA && p2BodyB && p2BodyA.sprite.ownerId && p2BodyB.sprite.ownerId){
-    		//console.log(p2BodyA.ownerId);
-    		//console.log(p2BodyB.ownerId);
-
-        if (p2BodyA.sprite.ownerId == p2BodyB.sprite.ownerId){
-                return false;
-                //console.log(p2BodyB.ownerId);
-        }
-    }
-    return true;
-	}
-},
-
-
-	move: function(pointer) {
-
-    // p2 uses different coordinate system, so convert the pointer position to p2's coordinate system
-    mouseBody.position[0] = game.physics.p2.pxmi(pointer.position.x);
-    mouseBody.position[1] = game.physics.p2.pxmi(pointer.position.y);
-
+		}
 	},
 
 	collectItem (body, body2) {
@@ -266,8 +247,6 @@ AsiloRoyale.Game.prototype = {
 				this.player1.shotgunAmmo=0;
 
 			}
-			
-
 		}
 	},
 
