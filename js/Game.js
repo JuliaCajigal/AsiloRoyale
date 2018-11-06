@@ -66,6 +66,8 @@ AsiloRoyale.Game.prototype = {
 	this.game.add.existing(this.player1);
 	//console.log(this.player1);
 
+
+
 	
 	//console.log(this.player);
 	this.game.physics.p2.enable(this.player1,false);
@@ -98,10 +100,16 @@ AsiloRoyale.Game.prototype = {
 	this.cursors = this.game.input.keyboard.createCursorKeys();
 
 	
+	//HUD Escopeta
+	this.showHUD();
+
 	//TV
 	this.tv = this.game.add.sprite(0, 0, 'tv');
 	this.tv.fixedToCamera = true;
 
+	//this.game.world.scale.set(2,2);
+
+	
 
     this.showLabels();
 
@@ -118,18 +126,33 @@ AsiloRoyale.Game.prototype = {
     // Start the timer
     timer.start();
 
+
   },
 
 	update: function() {
 		
+		//La cámara sigue al jugador teniendo en cuenta el offset
 		this.game.camera.focusOnXY(this.player1.x+75, this.player1.y);
+
+		//Dependiendo del arma que lleve verá unos grafismos
+		if(this.player1.currentWeapon==0){
+			this.scoreLabel3.frame=0;
+			console.log(this.scoreLabel3.frame);
+			//this.scoreLabel3=0;
+			this.HUD.visible = false;
+	    }if(this.player1.currentWeapon==1){
+	    	this.scoreLabel3.frame=1;
+	    	console.log(this.scoreLabel3.frame);
+	    	//this.scoreLabel3=1;
+	    	this.HUD.visible = true;
+	    }
 		
 			this.scoreLabel2.text = this.player1.score;
 		if(this.player1.currentWeapon===0){
 			this.scoreLabel.text = this.player1.gunAmmo;
 		}else if(this.player1.currentWeapon===1){
 			this.scoreLabel.text = this.player1.shotgunAmmo;
-	}	
+		}	
 	},
 
 //use a custom "ownerId" value to check if both come from the same entity (player/npc)
@@ -318,12 +341,13 @@ AsiloRoyale.Game.prototype = {
 		this.scoreLabel3 = this.game.add.sprite(1075,132,'iconos_municion',0);
 		this.scoreLabel3.fixedToCamera =true;
 
-		if(this.player1.currentWeapon==0){
-		this.scoreLabel3=0;
-	    }if(this.player1.currentWeapon==1){
-	    this.scoreLabel3.frame=1;
-	    }
 
+	},
+
+	showHUD: function(){
+		this.HUD = this.game.add.image(0,0, 'view_shotgun');
+		this.HUD.fixedToCamera = true;
+		this.HUD.visible = false;
 	},
 
 
