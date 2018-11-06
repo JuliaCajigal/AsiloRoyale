@@ -272,10 +272,10 @@ AsiloRoyale.Game.prototype = {
 
 	showLife: function(player){
 		
-		this.lifeBardw = this.game.add.sprite(450, 590, 'lifebardw');
+		this.lifeBardw = this.game.add.sprite(60, 600, 'lifebardw');
 		this.lifeBardw.fixedToCamera = true;
 
-		this.lifeBar = this.game.add.sprite(450, 610, 'lifebaru');//this.add.sprite(450, 600, 'carta_ajuste');//
+		this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');//this.add.sprite(450, 600, 'carta_ajuste');//
 		this.lifeBar.anchor.y = 0.5;
 		this.lifeBar.cropEnabled = true;
 		this.lifeBar.fixedToCamera = true;

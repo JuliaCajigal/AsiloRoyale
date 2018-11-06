@@ -8,7 +8,7 @@ AsiloRoyale.Preload.prototype = {
 	preload: function() {
 
 		//show logo in loading screen
-		this.splash = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'carta_ajuste');
+		this.splash = this.add.sprite(this.game.world.centerX-100, this.game.world.centerY, 'carta_ajuste');
 		this.splash.anchor.setTo(0.5);
 		this.splash = this.add.sprite(0, 0, 'tv');
 

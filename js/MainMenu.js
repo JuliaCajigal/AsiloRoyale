@@ -3,6 +3,12 @@ AsiloRoyale.MainMenu = function(){};
 AsiloRoyale.MainMenu.prototype = {
 	
 	create: function() {
+
+		//this.game.world.setBounds(900,600); 
+		console.log('CAMA BOUNDS');
+		console.log(this.game.camera);
+		this.game.camera.setBoundsToWorld();
+
  //show the space tile, repeated
  		this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');
 
