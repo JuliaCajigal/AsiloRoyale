@@ -1,16 +1,17 @@
 var AsiloRoyale = AsiloRoyale || {};
 
-function Enemy(game, x, y, guned, shotguned, sprite, ) {
+function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD ) {
 	Phaser.Sprite.call(this, game, x, y, sprite);
-	this.speed = 120;
+	
+	this.speed = speed;
 	this.game = game;
-	this.guned = guned;
-	this.shotguned = shotguned;
 	this.sprite = null;
-	this.life = 20;
+	this.life = life;
 	this.alive = true;
-	this.loopsI=-100;
-	this.loopsD=-100;
+	this.loopsI=-loopsI;
+	this.loopsD=-loopsD;
+	this.loopsII=loopsI;
+	this.loopsDI=loopsD;
 	this.moves=false;
 
 	this.walkD = this.animations.add('right', [0, 1], 8,true);
@@ -30,9 +31,7 @@ function Enemy(game, x, y, guned, shotguned, sprite, ) {
 	
 	Enemy.prototype.update = function() {
 
-		//this.body.static = true;
-
-
+	
 
 		if(this.loopsI<=0){
 
@@ -46,8 +45,8 @@ function Enemy(game, x, y, guned, shotguned, sprite, ) {
 			this.animations.play('left');
 
 		}else if(this.loopsI>=0 && this.loopsD>=0){
-			this.loopsI=-100;
-			this.loopsD=-100;
+			this.loopsI=-this.loopsII;
+			this.loopsD=-this.loopsDI;
 
 		}
 		

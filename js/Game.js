@@ -80,7 +80,7 @@ AsiloRoyale.Game.prototype = {
 
 	//ENEMIGOS
 
-	this.enemy = new Enemy(this.game,1000,1000,false,true, 'dientes');
+	this.enemy = new Enemy(this.game,1000,1300,'dientes',120,20,100,100);
 	this.game.add.existing(this.enemy);
 	this.game.physics.p2.enable(this.enemy,true);
 	this.enemy.body.setCollisionGroup(this.enemiesCollisionGroup);
@@ -114,7 +114,7 @@ AsiloRoyale.Game.prototype = {
     timer = this.game.time.create();
         
     // Create a delayed event 1m and 30s from now
-    timerEvent = timer.add(Phaser.Timer.MINUTE * 1 + Phaser.Timer.SECOND * 30, this.endTimer, this);
+    timerEvent = timer.add(Phaser.Timer.MINUTE * 0 + Phaser.Timer.SECOND * 10, this.endTimer, this);
         
     // Start the timer
     timer.start();
@@ -211,6 +211,7 @@ AsiloRoyale.Game.prototype = {
 				this.collect(this.player1,body2.sprite,0);
 				this.player1.currentWeapon=1;
 				this.player1.shotgunAmmo+=10;
+				this.player1.gunAmmo=0;
 
 			}else if(body2.sprite.key == 'gun'){
 
@@ -218,6 +219,7 @@ AsiloRoyale.Game.prototype = {
 				this.collect(this.player1,body2.sprite,0);
 				this.player1.currentWeapon=0;
 				this.player1.gunAmmo+=15;
+				this.player1.shotgunAmmo=0;
 
 			}
 			
@@ -411,6 +413,7 @@ AsiloRoyale.Game.prototype = {
     endTimer: function() {
         // Stop the timer when the delayed event triggers
         timer.stop();
+        this.player1.alive=false;
     },
 
 
