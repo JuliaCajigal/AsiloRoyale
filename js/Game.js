@@ -92,7 +92,7 @@ AsiloRoyale.Game.prototype = {
 	this.enemy.body.collides(this.bulletCollisionGroup, this.collectItem, this);
 
 	//Enfermera
-    this.enemy1 = new Enemy(this.game, 1000, 1500,'enemy', 120, 60, 600, 600); //3300, 1500
+    this.enemy1 = new Enemy(this.game, 1000, 1500,'enfermero', 120, 60, 600, 600); //3300, 1500
     this.game.add.existing(this.enemy1);
 	this.game.physics.p2.enable(this.enemy1,false);
 	this.enemy1.body.setCollisionGroup(this.enemiesCollisionGroup);
@@ -228,8 +228,8 @@ AsiloRoyale.Game.prototype = {
 			} else if(body2.sprite.key == 'bala'){
 				if(body.sprite.key == 'dientes') {
 
-				this.bulletHitEnemy(this.enemy,body2.sprite,this.player1, body.sprite);
-			} else if (body.sprite.key == 'enemy') {
+				this.bulletHitEnemy(this.enemy,body2.sprite,this.player1,body.sprite);
+			} else if (body.sprite.key == 'enfermero') {
 				this.bulletHitEnemy(this.enemy1,body2.sprite,this.player1, body.sprite);
 			}
 
@@ -239,16 +239,15 @@ AsiloRoyale.Game.prototype = {
 				if(body.sprite.key == 'dientes') {
 
 				this.bulletHitEnemy(this.enemy,body2.sprite,this.player1, body.sprite);
-			} else if (body.sprite.key == 'enemy') {
+			} else if (body.sprite.key == 'enfermero') {
 				this.bulletHitEnemy(this.enemy1,body2.sprite,this.player1, body.sprite);
 			}
 
-
-			}  else if (body2.sprite.key == 'dientes' || body2.sprite.key == 'enemy'){
+			}  else if (body2.sprite.key == 'dientes' || body2.sprite.key == 'enfermero'){
 				if(body2.sprite.key == 'dientes') {
 
 				this.player1.damage(5, this.cropRect, this.lifeBar);
-				 } else if (body2.sprite.key == 'enemy') {
+				 } else if (body2.sprite.key == 'enfermero') {
 				 	this.player1.damage(20, this.cropRect, this.lifeBar);
 				 }
 				console.log('TE MUERDO');
@@ -290,12 +289,11 @@ AsiloRoyale.Game.prototype = {
 
 		} if (enemy.alive == false) {
 			player.kills += 1;
-			if (enemySprite.key == 'dientes') {
-				player.score +=35;
-			} else if (enemySprite.key == 'enemy') {
-				player.score +=55;
-			}
 
+			if(enemySprite.key == 'dientes') {
+				player.score +=35;
+			} else if (enemySprite.key == 'enfermero')
+			player.score +=55;
 
 		}
 		console.log('KILLS'+ player.kills);

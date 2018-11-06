@@ -5,7 +5,7 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD ) {
 	
 	this.speed = speed;
 	this.game = game;
-	this.sprite = null;
+	this.sprite = sprite;
 	this.life = life;
 	this.alive = true;
 	this.loopsI=-loopsI;
@@ -14,27 +14,39 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD ) {
 	this.loopsDI=loopsD;
 	this.moves=false;
 
+
+	if (this.sprite==='dientes'){
+
 	this.walkD = this.animations.add('right', [0, 1], 8,true);
 	this.walkI = this.animations.add('left', [2, 3], 8,true);
 
+	}else if(this.sprite=='enfermero'){
+
+	this.walkD = this.animations.add('right',[0,1,2,1],6,true);
+	this.walkI = this.animations.add('left',[3,4,5,4],6,true);	
+	}
 
 	
 }
 	
 	Enemy.prototype = Object.create(Phaser.Sprite.prototype);
-	Enemy.prototype.constructor = Enemy;/*** Automatically called by World.update*/
+	Enemy.prototype.constructor = Enemy;
 
 	Enemy.prototype.create= function() {	
+
 
 
 	}
 	
 	Enemy.prototype.update = function() {
 
+
+
+
+
 	if(this.body.sprite.key == 'dientes') {
 
 	
-
 		if(this.loopsI<=0){
 
 			this.body.x += 2;
@@ -52,16 +64,18 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD ) {
 
 		} 
 
-	} else if (this.body.sprite.key == 'enemy') {
+	} else if (this.body.sprite.key == 'enfermero') {
 
 		if(this.loopsI<=0){
 
 			this.body.x += 2;
 			this.loopsI+=2;
+			this.animations.play('right');
 
 		}else if(this.loopsD<=0){
 			this.body.x  -= 2;
 			this.loopsD +=2;
+			this.animations.play('left');
 
 		}else if(this.loopsI>=0 && this.loopsD>=0){
 			this.loopsI=-this.loopsII;
