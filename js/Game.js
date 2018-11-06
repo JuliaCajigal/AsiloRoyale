@@ -82,14 +82,24 @@ AsiloRoyale.Game.prototype = {
 
 	//ENEMIGOS
 
-	this.enemy = new Enemy(this.game,1000,1300,'dientes',120,20,100,100);
+	//Dientes
+	this.enemy = new Enemy(this.game,1000,1300,'dientes',120,30,100,100);
 	this.game.add.existing(this.enemy);
 	this.game.physics.p2.enable(this.enemy,false);
 	this.enemy.body.setCollisionGroup(this.enemiesCollisionGroup);
 	this.enemy.body.collides(this.playerCollisionGroup);
 	this.enemy.body.collides(this.tilesCollisionGroup);
 	this.enemy.body.collides(this.bulletCollisionGroup, this.collectItem, this);
-	//this.enemy.body.onBeginContact.add(this.collectItem, this);
+
+	//Enfermera
+    this.enemy1 = new Enemy(this.game, 1000, 1500,'enemy', 120, 50, 600, 600); //3300, 1500
+    this.game.add.existing(this.enemy1);
+	this.game.physics.p2.enable(this.enemy1,false);
+	this.enemy1.body.setCollisionGroup(this.enemiesCollisionGroup);
+	this.enemy1.body.collides(this.playerCollisionGroup);
+	this.enemy1.body.collides(this.tilesCollisionGroup);
+	this.enemy1.body.collides(this.bulletCollisionGroup, this.collectItem, this);
+	this.enemy1.body.static = true;
 
 
 
@@ -216,17 +226,25 @@ AsiloRoyale.Game.prototype = {
 
 
 			} else if(body2.sprite.key == 'bala'){
+				if(body.sprite.key == 'dientes') {
 
 				this.bulletHitEnemy(this.enemy,body2.sprite,this.player1);
+			} else if (body.sprite.key == 'enemy') {
+				this.bulletHitEnemy(this.enemy1,body2.sprite,this.player1);
+			}
 
 
 			}else if(body2.sprite.key == 'perdigon'){
 
 				this.bulletHitEnemy(this.enemy,body2.sprite, this.player1);
 
-			}  else if (body2.sprite.key == 'dientes'){
+			}  else if (body2.sprite.key == 'dientes' || body2.sprite.key == 'enemy'){
+				if(body2.sprite.key == 'dientes') {
 
 				this.player1.damage(5, this.cropRect, this.lifeBar);
+				 } else if (body2.sprite.key == 'enemy') {
+				 	this.player1.damage(20, this.cropRect, this.lifeBar);
+				 }
 				console.log('TE MUERDO');
 				console.log(this.player1.life);
 

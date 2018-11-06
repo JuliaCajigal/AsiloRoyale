@@ -36,7 +36,7 @@ var Weapon = {};
     }
 
     Weapon.Gun.prototype = Object.create(Phaser.Group.prototype);
-    Weapon.Gun.prototype.constructor = Weapon.SingleBullet;
+    Weapon.Gun.prototype.constructor = Weapon.Gun;
 
     Weapon.Gun.prototype.fire = function (source) {
 
@@ -77,7 +77,7 @@ var Weapon = {};
     },
 
     Weapon.Shotgun.prototype = Object.create(Phaser.Group.prototype);
-    Weapon.Shotgun.prototype.constructor = Weapon.SingleBullet;
+    Weapon.Shotgun.prototype.constructor = Weapon.Gun;
 
 
 

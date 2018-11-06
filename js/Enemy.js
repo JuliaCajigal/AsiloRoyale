@@ -31,13 +31,15 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD ) {
 	
 	Enemy.prototype.update = function() {
 
+	if(this.body.sprite.key == 'dientes') {
+
 	
 
 		if(this.loopsI<=0){
 
 			this.body.x += 2;
 			this.loopsI+=2;
-				this.animations.play('right');
+			this.animations.play('right');
 
 		}else if(this.loopsD<=0){
 			this.body.x  -= 2;
@@ -48,10 +50,29 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD ) {
 			this.loopsI=-this.loopsII;
 			this.loopsD=-this.loopsDI;
 
-		}
+		} 
+
+	} else if (this.body.sprite.key == 'enemy') {
+
+		if(this.loopsI<=0){
+
+			this.body.x += 2;
+			this.loopsI+=2;
+
+		}else if(this.loopsD<=0){
+			this.body.x  -= 2;
+			this.loopsD +=2;
+
+		}else if(this.loopsI>=0 && this.loopsD>=0){
+			this.loopsI=-this.loopsII;
+			this.loopsD=-this.loopsDI;
+
+		} 
+
+
+	}
 		
 		this.isAlive();
-
 
 		
 	
