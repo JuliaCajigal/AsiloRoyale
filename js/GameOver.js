@@ -41,5 +41,9 @@ AsiloRoyale.GameOver.prototype = {
 		var style = {font: "bold 40px 'VT323'", fill: "#51F55B", align: "left" };
 		this.resume = this.game.add.text(350, 300, text, style);
 		this.resume.fixedToCamera = true;
+
+		var text2 = '[PRESS ESC TO MAIN MENU]' 
+		this.resume = this.game.add.text(287, 550, text2, style);
+		this.resume.fixedToCamera = true;
 	}
 };
