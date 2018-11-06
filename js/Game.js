@@ -216,12 +216,12 @@ AsiloRoyale.Game.prototype = {
 
 			} else if(body2.sprite.key == 'bala'){
 
-				this.bulletHitEnemy(this.enemy,body2.sprite);
+				this.bulletHitEnemy(this.enemy,body2.sprite,this.player1);
 
 
 			}else if(body2.sprite.key == 'perdigon'){
 
-				this.bulletHitEnemy(this.enemy,body2.sprite);
+				this.bulletHitEnemy(this.enemy,body2.sprite, this.player1);
 
 			}  else if (body2.sprite.key == 'dientes'){
 
@@ -257,7 +257,7 @@ AsiloRoyale.Game.prototype = {
 
 	},
 
-	bulletHitEnemy: function(enemy, bullet) {
+	bulletHitEnemy: function(enemy, bullet, player) {
 
     	if (bullet.key == 'bala') {
 			enemy.damage(10);
@@ -265,7 +265,12 @@ AsiloRoyale.Game.prototype = {
 		} else if (bullet.key == 'perdigon') {
 			enemy.damage(5);
 
+		} if (enemy.alive == false) {
+			player.kills = 1;
+			player.score +=35;
+
 		}
+		console.log('KILLS'+ player.kills);
     	bullet.destroy();
 
 	},
@@ -273,10 +278,10 @@ AsiloRoyale.Game.prototype = {
 
 	showLife: function(player){
 		
-		this.lifeBardw = this.game.add.sprite(60, 600, 'lifebardw');
+		this.lifeBardw = this.game.add.sprite(450, 590, 'lifebardw');
 		this.lifeBardw.fixedToCamera = true;
 
-		this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');//this.add.sprite(450, 600, 'carta_ajuste');//
+		this.lifeBar = this.game.add.sprite(450, 610, 'lifebaru');//this.add.sprite(450, 600, 'carta_ajuste');//
 		this.lifeBar.anchor.y = 0.5;
 		this.lifeBar.cropEnabled = true;
 		this.lifeBar.fixedToCamera = true;

@@ -48,6 +48,8 @@ var Weapon = {};
         console.log(source.angleToPointer(this));
         //console.log(source.body.bounds);
         if(source.gunAmmo>0){
+        source.body.velocity.x = -Math.cos(source.body.rotation) * 50;
+        source.body.velocity.y = -Math.sin(source.body.rotation) * 50;
         this.getFirstExists(false).fire(x, y, source.angle, this.bulletSpeed, 0, 0, rotation, source);
 
         this.nextFire = this.game.time.time + this.fireRate;
@@ -90,6 +92,9 @@ var Weapon = {};
 
 
         if(source.shotgunAmmo>0){
+
+        source.body.velocity.x = -Math.cos(source.body.rotation) * 400;
+        source.body.velocity.y = -Math.sin(source.body.rotation) * 400;
 
         this.getFirstExists(false).fire(x, y, source.angle, 600, 0, 0,source.rotation,source);
         this.getFirstExists(false).fire(x, y, source.angle, 600, 0, 0,source.rotation-25,source);

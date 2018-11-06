@@ -24,10 +24,10 @@ AsiloRoyale.GameOver.prototype = {
 
 	},
 
-	init: function(score,items){
+	init: function(score,items,kills){
 		this.score = score || 0;
 		this.items = items || 0;
-		this.kills = 0;
+		this.kills = kills || 0;
 
 	},
 

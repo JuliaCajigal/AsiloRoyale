@@ -8,7 +8,7 @@ AsiloRoyale.Preload.prototype = {
 	preload: function() {
 
 		//show logo in loading screen
-		this.splash = this.add.sprite(this.game.world.centerX-100, this.game.world.centerY, 'carta_ajuste');
+		this.splash = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'carta_ajuste');
 		this.splash.anchor.setTo(0.5);
 		this.splash = this.add.sprite(0, 0, 'tv');
 
@@ -45,7 +45,7 @@ AsiloRoyale.Preload.prototype = {
 		this.load.spritesheet('dientes', 'assets/images/dientes.png',32,32);
 		this.load.spritesheet('player', 'assets/images/viejo1_sheet.png',126,64);
 		this.load.spritesheet('iconos_municion', 'assets/images/iconos_municion.png',40,40);
-		this.load.image('results','assets/images/results.png',256,128,2);
+		this.load.image('letrasgameover','assets/images/gameover.jpg',256,128,2);
 		this.load.image('perdigon', 'assets/images/perdigon.png');
  		this.load.image('space', 'assets/images/space.png');
 		this.load.image('ARlogo', 'assets/images/AR_logo.png');
