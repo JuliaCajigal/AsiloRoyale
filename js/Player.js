@@ -9,7 +9,7 @@ function Player(game, x, y, guned, shotguned, sprite, ownerId, weapons) {
 	this.guned = guned;
 	this.shotguned = shotguned;
 	this.sprite = null;
-	this.life = 40;
+	this.life = 100;
 	this.score = 0;
     this.alive = true;
     this.ownerId = ownerId;
