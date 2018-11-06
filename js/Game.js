@@ -211,6 +211,7 @@ AsiloRoyale.Game.prototype = {
 			}else if(body2.sprite.key == 'botiquin'){
 
 				this.player1.life+=20;
+				this.collect(this.player1,body2.sprite,0);
 
 
 			} else if(body2.sprite.key == 'bala'){
