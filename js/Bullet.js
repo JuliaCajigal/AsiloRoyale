@@ -47,6 +47,15 @@ var Bullet = function (game, key, bulletCG, tileCG, enemyCG) {
     Bullet.prototype.destroyBullet = function (body, body2) {
         body.sprite.destroy();
 
+=======
+
+
+    },
+    
+    Bullet.prototype.update = function () {
+        this.body.setCollisionGroup(this.bulletCG);
+        this.body.collides(this.tileCG);
+>>>>>>> 5be809d8c195cbc4a08a7da2b4202b5473cff1b5
     };
 
 
