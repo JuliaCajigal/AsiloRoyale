@@ -30,6 +30,8 @@ AsiloRoyale.Preload.prototype = {
 		this.load.image('gameTiles', 'assets/tilesets/tiles.png');
 		this.load.image('pasti_roja', 'assets/images/pasti_roja.png');
 		this.load.image('pasti_verde', 'assets/images/pasti_verde.png');
+		this.load.image('balas_pistola', 'assets/images/balas_pistola.png');
+		this.load.image('cartucho_escopeta', 'assets/images/cartucho_escopeta.png');
 		this.load.image('pasti_morada', 'assets/images/pasti_morada.png');
 		this.load.image('pasti_amarilla', 'assets/images/pasti_amarilla.png');
 		this.load.image('gun', 'assets/images/gun.png');
@@ -49,7 +51,6 @@ AsiloRoyale.Preload.prototype = {
 		this.load.image('bala', 'assets/images/bala.png');
 		this.load.image('lifebaru', 'assets/images/lifebars_up.png');
 		this.load.image('lifebardw', 'assets/images/lifebars_dw.png');
-		this.load.image('results', 'assets/images/results.png');
 		this.load.audio('collect_weapon', 'assets/audio/collect_weapon.wav');
 		this.load.audio('gun_fire', 'assets/audio/gun_fire.wav');
 		this.game.load.physics('player_physics', 'assets/physics/viejo_physics.json'); 

@@ -420,8 +420,8 @@
                  "type":"",
                  "visible":true,
                  "width":64,
-                 "x":4784,
-                 "y":3588
+                 "x":4674.66666666667,
+                 "y":3521.33333333333
                 }, 
                 {
                  "gid":109,
@@ -442,8 +442,8 @@
                  "type":"",
                  "visible":true,
                  "width":64,
-                 "x":4468,
-                 "y":3336
+                 "x":4548,
+                 "y":3464
                 }, 
                 {
                  "gid":109,
@@ -882,8 +882,8 @@
                  "type":"",
                  "visible":true,
                  "width":64,
-                 "x":4760,
-                 "y":1966
+                 "x":4798,
+                 "y":1984
                 }, 
                 {
                  "gid":110,
@@ -1212,8 +1212,8 @@
                  "type":"",
                  "visible":true,
                  "width":64,
-                 "x":4784,
-                 "y":3328
+                 "x":4704,
+                 "y":3388
                 }, 
                 {
                  "gid":35,
@@ -1456,6 +1456,336 @@
                  "width":64,
                  "x":5286,
                  "y":3884
+                }, 
+                {
+                 "gid":205,
+                 "height":64,
+                 "id":158,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"cartucho_escopeta",
+                     "type":"item"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":916.333333333333,
+                 "y":2664.33333333333
+                }, 
+                {
+                 "gid":205,
+                 "height":64,
+                 "id":159,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"cartucho_escopeta",
+                     "type":"item"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":2264,
+                 "y":3888
+                }, 
+                {
+                 "gid":205,
+                 "height":64,
+                 "id":160,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"cartucho_escopeta",
+                     "type":"item"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":4061.33333333333,
+                 "y":3362.66666666667
+                }, 
+                {
+                 "gid":205,
+                 "height":64,
+                 "id":161,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"cartucho_escopeta",
+                     "type":"item"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":5720,
+                 "y":1258.66666666667
+                }, 
+                {
+                 "gid":205,
+                 "height":64,
+                 "id":162,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"cartucho_escopeta",
+                     "type":"item"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":6846.66666666667,
+                 "y":1072
+                }, 
+                {
+                 "gid":205,
+                 "height":64,
+                 "id":163,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"cartucho_escopeta",
+                     "type":"item"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":5892,
+                 "y":3357.33333333333
+                }, 
+                {
+                 "gid":205,
+                 "height":64,
+                 "id":164,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"cartucho_escopeta",
+                     "type":"item"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":5984,
+                 "y":3357.33333333333
+                }, 
+                {
+                 "gid":206,
+                 "height":64,
+                 "id":165,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"balas_pistola",
+                     "type":"item"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":2916.48484848485,
+                 "y":1544.12121212121
+                }, 
+                {
+                 "gid":206,
+                 "height":64,
+                 "id":167,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"balas_pistola",
+                     "type":"item"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":948,
+                 "y":1878
+                }, 
+                {
+                 "gid":206,
+                 "height":64,
+                 "id":168,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"balas_pistola",
+                     "type":"item"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":1024,
+                 "y":3690
+                }, 
+                {
+                 "gid":206,
+                 "height":64,
+                 "id":169,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"balas_pistola",
+                     "type":"item"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":2938,
+                 "y":3522
+                }, 
+                {
+                 "gid":206,
+                 "height":64,
+                 "id":171,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"balas_pistola",
+                     "type":"item"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":4578,
+                 "y":1906
+                }, 
+                {
+                 "gid":206,
+                 "height":64,
+                 "id":172,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"balas_pistola",
+                     "type":"item"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":3556,
+                 "y":3366
+                }, 
+                {
+                 "gid":206,
+                 "height":64,
+                 "id":173,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"balas_pistola",
+                     "type":"item"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":5918,
+                 "y":2402
+                }, 
+                {
+                 "gid":206,
+                 "height":64,
+                 "id":174,
+                 "name":"",
+                 "properties":
+                    {
+                     "sprite":"balas_pistola",
+                     "type":"item"
+                    },
+                 "propertytypes":
+                    {
+                     "sprite":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":5372,
+                 "y":1872
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1475,7 +1805,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":158,
+ "nextobjectid":176,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":64,

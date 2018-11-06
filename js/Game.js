@@ -68,7 +68,7 @@ AsiloRoyale.Game.prototype = {
 
 	
 	//console.log(this.player);
-	this.game.physics.p2.enable(this.player1,true);
+	this.game.physics.p2.enable(this.player1,false);
 	this.player1.body.clearShapes(); 
 	this.player1.body.loadPolygon('player_physics', 'player'); 
 	this.player1.body.setCollisionGroup(this.playerCollisionGroup); 
@@ -82,7 +82,7 @@ AsiloRoyale.Game.prototype = {
 
 	this.enemy = new Enemy(this.game,1000,1300,'dientes',120,20,100,100);
 	this.game.add.existing(this.enemy);
-	this.game.physics.p2.enable(this.enemy,true);
+	this.game.physics.p2.enable(this.enemy,false);
 	this.enemy.body.setCollisionGroup(this.enemiesCollisionGroup);
 	this.enemy.body.collides(this.playerCollisionGroup);
 	this.enemy.body.collides(this.tilesCollisionGroup);
@@ -114,7 +114,7 @@ AsiloRoyale.Game.prototype = {
     timer = this.game.time.create();
         
     // Create a delayed event 1m and 30s from now
-    timerEvent = timer.add(Phaser.Timer.MINUTE * 0 + Phaser.Timer.SECOND * 10, this.endTimer, this);
+    timerEvent = timer.add(Phaser.Timer.MINUTE * 1 + Phaser.Timer.SECOND * 30, this.endTimer, this);
         
     // Start the timer
     timer.start();
@@ -188,6 +188,22 @@ AsiloRoyale.Game.prototype = {
 
 				this.collect(this.player1,body2.sprite,50);
 				this.player1.items++;
+
+
+			}else if(body2.sprite.key == 'cartucho_escopeta'){
+
+				this.collect(this.player1,body2.sprite,0);
+				if(this.player1.currentWeapon==1){
+					this.player1.shotgunAmmo+=10;
+				}
+
+
+			}else if(body2.sprite.key == 'balas_pistola'){
+
+				this.collect(this.player1,body2.sprite,0);
+				if(this.player1.currentWeapon==0){
+					this.player1.gunAmmo+=10;
+				}
 
 
 			} else if(body2.sprite.key == 'bala'){
