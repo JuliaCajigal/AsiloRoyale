@@ -9,7 +9,7 @@ function Player(game, x, y, guned, shotguned, sprite, ownerId, weapons) {
 	this.guned = guned;
 	this.shotguned = shotguned;
 	this.sprite = null;
-	this.life = 100;
+	this.life = 40;
 	this.score = 0;
     this.alive = true;
     this.ownerId = ownerId;
@@ -89,10 +89,11 @@ function Player(game, x, y, guned, shotguned, sprite, ownerId, weapons) {
 
     },
 
-    Player.prototype.damage = function(amount) {
+    Player.prototype.damage = function(amount, crop, lifeBar) {
 
         this.life -= amount;
-        console.log('vida: '+ this.life);
+        crop.width = (this.life/2) *10; 
+        lifeBar.updateCrop(this.cropRect);
 
         if (this.life <= 0){
             this.alive = false;

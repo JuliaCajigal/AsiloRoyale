@@ -106,7 +106,7 @@ AsiloRoyale.Game.prototype = {
     this.showLabels();
 
 	//MUESTRA VIDA
-	this.showLife();
+	this.showLife(this.player1);
 
 	
 	//TIMER
@@ -200,7 +200,7 @@ AsiloRoyale.Game.prototype = {
 
 			}  else if (body2.sprite.key == 'dientes'){
 
-				this.player1.damage(5);
+				this.player1.damage(5, this.cropRect, this.lifeBar);
 				console.log('TE MUERDO');
 				console.log(this.player1.life);
 
@@ -230,19 +230,43 @@ AsiloRoyale.Game.prototype = {
 
 	},
 
-	bulletHitEnemy: function(player, bullet) {
+	bulletHitEnemy: function(enemy, bullet) {
 
+    	if (bullet.key == 'bala') {
+			enemy.damage(10);
+			console.log(enemy.life);
+		} else if (bullet.key == 'perdigon') {
+			enemy.damage(5);
+			console.log(enemy.life);
+		}
     	bullet.destroy();
-    	player.damage();
 
 	},
 
 
-	showLife: function(){
-		this.lifeBar = this.game.add.sprite(730, 590, 'lifebaru');
-		this.lifeBar.fixedToCamera = true;
-		this.lifeBardw = this.game.add.sprite(730, 590, 'lifebardw');
+	showLife: function(player){
+		
+		this.lifeBardw = this.game.add.sprite(450, 590, 'lifebardw');
 		this.lifeBardw.fixedToCamera = true;
+
+		this.lifeBar = this.game.add.sprite(450, 610, 'lifebaru');//this.add.sprite(450, 600, 'carta_ajuste');//
+		this.lifeBar.anchor.y = 0.5;
+		this.lifeBar.cropEnabled = true;
+		this.lifeBar.fixedToCamera = true;
+
+
+		var width = (player.life / 2)*10;
+		var x = 450 - (player.life / 2)*10;;
+		console.log('x' + x);
+
+
+
+		this.cropRect = new Phaser.Rectangle( 0, 0, width , 30);
+		this.cropRect.fixedToCamera = true;
+		console.log('cropRect:' + this.cropRect.width);
+		console.log('cropRect y:' + this.cropRect.y);
+    	this.lifeBar.crop(this.cropRect);
+
 	},
 
 
@@ -261,6 +285,15 @@ AsiloRoyale.Game.prototype = {
 
 		this.scoreLabel2 = this.game.add.text(1020, 176, text2, style);
 		this.scoreLabel2.fixedToCamera = true;
+
+		this.scoreLabel3 = this.game.add.sprite(1075,132,'iconos_municion',0);
+		this.scoreLabel3.fixedToCamera =true;
+
+		if(this.player1.currentWeapon==0){
+		this.scoreLabel3=0;
+	    }if(this.player1.currentWeapon==1){
+	    this.scoreLabel3.frame=1;
+	    }
 
 	},
 
