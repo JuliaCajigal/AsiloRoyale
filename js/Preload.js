@@ -28,13 +28,18 @@ AsiloRoyale.Preload.prototype = {
 		//load game assets
 		this.load.tilemap('level1', 'assets/tilemaps/untitled.json',null, Phaser.Tilemap.TILED_JSON);
 		this.load.image('gameTiles', 'assets/tilesets/tiles.png');
-		this.load.image('pastis', 'assets/images/pastis.png');
+		this.load.image('pasti_roja', 'assets/images/pasti_roja.png');
+		this.load.image('pasti_verde', 'assets/images/pasti_verde.png');
+		this.load.image('pasti_morada', 'assets/images/pasti_morada.png');
+		this.load.image('pasti_amarilla', 'assets/images/pasti_amarilla.png');
 		this.load.image('gun', 'assets/images/gun.png');
-		this.load.image('player', 'assets/images/viejo1.png');
+		this.load.image('shotgun', 'assets/images/shotgun.png');
+		this.load.image('player_escopeta', 'assets/images/viejo1_escopeta.png');
 		this.load.image('enemy', 'assets/images/enemy.png');
 		this.load.spritesheet('botonesjugar', 'assets/images/playbutton.png',256,128,2);
 		this.load.spritesheet('botonessalir', 'assets/images/exitbutton.png',256,128,2);
 		this.load.spritesheet('dientes', 'assets/images/dientes.png',32,32);
+		this.load.spritesheet('player', 'assets/images/viejo1_sheet.png',126,64);
 		this.load.image('letrasgameover','assets/images/gameover.jpg',256,128,2);
 		this.load.image('perdigon', 'assets/images/perdigon.png');
  		this.load.image('space', 'assets/images/space.png');
@@ -42,7 +47,8 @@ AsiloRoyale.Preload.prototype = {
 		this.load.image('bala', 'assets/images/bala.png');
 		this.load.image('lifebaru', 'assets/images/lifebars_up.png');
 		this.load.image('lifebardw', 'assets/images/lifebars_dw.png');
-
+		this.load.audio('collect_weapon', 'assets/audio/collect_weapon.wav');
+		this.load.audio('gun_fire', 'assets/audio/gun_fire.wav');
 		this.game.load.physics('player_physics', 'assets/physics/viejo_physics.json'); 
 
  	},

@@ -10,7 +10,8 @@ var tilesCollisionGroup, playerCollisionGroup;
 
 AsiloRoyale.Game.prototype = {
   create: function() {
-  
+  	this.collect_weapon = new Phaser.Sound(this, 'collect_weapon');
+
 
 	this.map = this.game.add.tilemap('level1');
 
@@ -20,11 +21,11 @@ AsiloRoyale.Game.prototype = {
 
 
 	//this.map.createFromObjects('objectsLayer', 13, 'pastis');
-	console.log(this.map);
+	//console.log(this.map);
 	//create layer
 	this.backgroundlayer = this.map.createLayer('floor');
  	this.blockedLayer = this.map.createLayer('walls');
- 	this.blockedLayer.debug = true;
+ 	this.blockedLayer.debug = false;
 
  	//resizes the game world to match the layer dimensions
  	this.backgroundlayer.resizeWorld();
@@ -33,72 +34,61 @@ AsiloRoyale.Game.prototype = {
  	this.map.setCollisionBetween(1, 2000, true, 'walls');
  	this.map.setCollision(26);
 
- 	this.createItems();
+ 	
 	this.game.physics.p2.setImpactEvents(true);
 
-	var tileObjects = this.game.physics.p2.convertTilemap(this.map, this.blockedLayer);
+	var tileObjects = this.game.physics.p2.convertTilemap(this.map, this.blockedLayer, true);
 	//console.log(tileObjects);
 	this.tilesCollisionGroup   = this.game.physics.p2.createCollisionGroup();    
 	this.playerCollisionGroup  = this.game.physics.p2.createCollisionGroup();  
+	this.bulletCollisionGroup = this.game.physics.p2.createCollisionGroup(); 
+	this.enemiesCollisionGroup = this.game.physics.p2.createCollisionGroup(); 
+	this.itemCollisionGroup = this.game.physics.p2.createCollisionGroup();
+	this.createItems();
+
 	this.game.physics.p2.updateBoundsCollisionGroup();
 
 	for (var i = 0; i < tileObjects.length; i++) {        
-   		this.game.physics.p2.enableBody(tileObjects[i],true); 
+   		tileObjects[i].setCollisionGroup(this.tilesCollisionGroup);
+        tileObjects[i].collides(this.playerCollisionGroup);
+        tileObjects[i].collides(this.bulletCollisionGroup);
+        tileObjects[i].collides(this.enemiesCollisionGroup);
 	}    
 
 	//ARMAS
-	var weapons = [];
-	weapons.push(new Weapon.SingleBullet(this.game));
-
-	
+	var weapons = []
+	weapons.push(new Weapon.Gun(this.game,this.bulletCollisionGroup,this.tilesCollisionGroup, this.enemiesCollisionGroup));
+    weapons.push(new Weapon.Shotgun(this.game,this.bulletCollisionGroup,this.tilesCollisionGroup, this.enemiesCollisionGroup));
 
 	//JUGADOR 1
-	this.player1 = new Player(this.game,700,800,false,true, 'player', weapons[0], 1);
-	console.log(weapons[0].ownerId);
-	console.log(this.player1.ownerId);
-	console.log(weapons);
-
-	//var player2 = new Player(this.game,800,900,false,false,'player');
-	//this.game.add.existing(player2);
+	this.player1 = new Player(this.game,1100,1000,false,true, 'player', 1, weapons);
 	this.game.add.existing(this.player1);
-	console.log(this.player1);
+	//console.log(this.player1);
+
 	
 	//console.log(this.player);
 	this.game.physics.p2.enable(this.player1,true);
 	this.player1.body.clearShapes(); 
 	this.player1.body.loadPolygon('player_physics', 'player'); 
-	this.dynamic = true;
-	this.player1.body.onBeginContact.add(this.collectItem, this);
-/*
-	this.player2 = new Player(this.game,800,800,false,true, 'player');
-	this.game.add.existing(this.player2);
-	console.log(this.player1);
-	
-	//console.log(this.player);
-	this.game.physics.p2.enable(this.player2,true);
-	this.player2.body.clearShapes(); 
-	this.player2.body.loadPolygon('player_physics', 'player'); 
-	this.dynamic = true;
-	this.player2.body.onBeginContact.add(this.collectItem, this);
-*/
+	this.player1.body.setCollisionGroup(this.playerCollisionGroup); 
+	this.player1.body.collides(this.tilesCollisionGroup);
+	this.player1.body.collides(this.itemCollisionGroup, this.collectItem, this);
+	this.player1.body.collides(this.enemiesCollisionGroup, this.collectItem, this);
+	//this.player1.body.static = true;
+	//this.player1.body.onBeginContact.add(this.collectItem, this);
 
-	///////////
+	//ENEMIGOS
 
-	this.enemy = new Enemy(this.game,780,650,false,true, 'dientes');
+	this.enemy = new Enemy(this.game,1000,1000,false,true, 'dientes');
 	this.game.add.existing(this.enemy);
 	this.game.physics.p2.enable(this.enemy,true);
+	this.enemy.body.setCollisionGroup(this.enemiesCollisionGroup);
+	this.enemy.body.collides(this.playerCollisionGroup);
+	this.enemy.body.collides(this.tilesCollisionGroup);
+	this.enemy.body.collides(this.bulletCollisionGroup, this.collectItem, this);
+	//this.enemy.body.onBeginContact.add(this.collectItem, this);
 
-	//this.game.add.existing(this.enemies);
-/*
-	this.enemies = [];
 
-	for(var i=0; i<3; i++){
-		this.enemies[i] = new Enemy(this.game,400+(i*100),800,false,true, 'enemy');
-		this.game.add.existing(this.enemies[i]);
-		this.game.physics.p2.enableBody(this.enemies[i],true);
-	}
-*/
-	
 
 	//CAMARA
 	this.game.camera.follow(this.player1);
@@ -118,9 +108,6 @@ AsiloRoyale.Game.prototype = {
 	//MUESTRA VIDA
 	this.showLife();
 
-	//this.game.physics.p2.setPostBroadphaseCallback(this.filterCollisions, this);
-
-
 	
 	//TIMER
     timer = this.game.time.create();
@@ -137,7 +124,12 @@ AsiloRoyale.Game.prototype = {
 		//MUESTRA PUNTUACION
 		//this.showLabels(this.player1);
 		//this.scoreLabel.text = this.player1.ammoshotgun;
-		this.scoreLabel.text = this.player1.life;
+			this.scoreLabel2.text = this.player1.score;
+		if(this.player1.currentWeapon===0){
+			this.scoreLabel.text = this.player1.gunAmmo;
+		}else if(this.player1.currentWeapon===1){
+			this.scoreLabel.text = this.player1.shotgunAmmo;
+	}	
 	},
 
 //use a custom "ownerId" value to check if both come from the same entity (player/npc)
@@ -169,31 +161,73 @@ AsiloRoyale.Game.prototype = {
 
 	},
 
-	collectItem (body, bodyB, shapeA, shapeB, equation) {
-		if(body.sprite!= null){
-			if(body.sprite.key == 'pastis'){
-				this.collect(this.player1,body.sprite);
+	collectItem (body, body2) {
 
-				//body.sprite.destroy();
-				console.log(body);
-				console.log(bodyB);
+		if (body.sprite != null && body2.sprite != null) {
 
-			}else if(body.sprite.key == 'perdigon'){
-				this.bulletHitPlayer(this.enemy,body.sprite);
-				console.log('BANG');
+			console.log(body);
+			console.log(body2);
 
-			}else if (body.sprite.key == 'dientes'){
+			if (body2.sprite.key == 'pasti_roja') {
+				console.log("ENTRA");
+				this.collect(this.player1, body2.sprite, 10);
+				this.player1.items++;
+
+			}  else if (body2.sprite.key == 'pasti_verde') {
+				this.collect(this.player1,body2.sprite, 20);
+				this.player1.items++;
+
+			} else if(body2.sprite.key == 'pasti_morada'){
+
+				this.collect(this.player1,body2.sprite,30);
+				this.player1.items++;
+
+
+			} else if(body2.sprite.key == 'pasti_amarilla'){
+
+				this.collect(this.player1,body2.sprite,50);
+				this.player1.items++;
+
+
+			} else if(body2.sprite.key == 'bala'){
+
+				this.bulletHitEnemy(this.enemy,body2.sprite);
+				console.log('entra');
+				//this.enemy.sprite.destroy();
+
+
+			}else if(body2.sprite.key == 'perdigon'){
+
+				this.bulletHitEnemy(this.enemy,body2.sprite);
+
+			}  else if (body2.sprite.key == 'dientes'){
 
 				this.player1.damage(5);
 				console.log('TE MUERDO');
 				console.log(this.player1.life);
 
+			}else if(body2.sprite.key == 'shotgun'){
+
+				this.collect_weapon.play();
+				this.collect(this.player1,body2.sprite,0);
+				this.player1.currentWeapon=1;
+				this.player1.shotgunAmmo+=10;
+
+			}else if(body2.sprite.key == 'gun'){
+
+				this.collect_weapon.play();
+				this.collect(this.player1,body2.sprite,0);
+				this.player1.currentWeapon=0;
+				this.player1.gunAmmo+=15;
+
+			}
+			
+
 		}
-	}
 	},
 
 	bulletHitPlayer: function(player, bullet) {
-
+		player.damage();
     	bullet.destroy();
 
 	},
@@ -227,6 +261,9 @@ AsiloRoyale.Game.prototype = {
 		this.scoreLabel = this.game.add.text(1020, 135, text, style);
 		this.scoreLabel.fixedToCamera = true;
 
+		this.scoreLabel2 = this.game.add.text(1020, 176, text2, style);
+		this.scoreLabel2.fixedToCamera = true;
+
 	},
 
 
@@ -238,21 +275,10 @@ AsiloRoyale.Game.prototype = {
 
 
 
-	collect: function(player, collectable) {
+	collect: function(player, collectable,amount) {
 		console.log('yummy!');
-
-		//play collect sound
-		//this.collectSound.play();
 	
-		player.score+=20;
-		
-
-		var isGun = this.isType('gun',collectable.sprite);
-		
-		if(isGun == true) {
-		this.gunned = true;
-	   }
-		//this.scoreLabel.text = player.score;
+		player.score+=amount;
 
 	
 	//remove sprite
@@ -275,11 +301,14 @@ AsiloRoyale.Game.prototype = {
 	createItems: function() {
 	//create items
 		this.items = this.game.add.group();
+
+		this.items.enableBody = true;
+        this.items.physicsBodyType = Phaser.Physics.P2JS;
 		var item;
 		result = this.findObjectsByType('item', this.map,'objectsLayer');
-		console.log(result);
+		//console.log(result);
 		result.forEach(function(element){ this.createFromTiledObject(element, this.items);}, this);
-		console.log(result);
+		//console.log(result);
 	},
 
 
@@ -287,10 +316,10 @@ AsiloRoyale.Game.prototype = {
 	 //find objects in a Tiled layer that containt a propertycalled "type" equal to a certain value
 	findObjectsByType: function(type, map, layer) {
 		var result = new Array();
-		console.log(map.objects[layer]);
+		//console.log(map.objects[layer]);
 		map.objects[layer].forEach(function(element){
-		console.log(element.properties.type);
-		console.log(type);
+
+
 		if(element.properties.type === type) {
 	//Phaser uses top left, Tiled bottom left so we haveto adjust
     //also keep in mind that the cup images are a bitsmaller than the tile which is 16x16
@@ -300,7 +329,7 @@ AsiloRoyale.Game.prototype = {
 			result.push(element);
 		}
 		});
-		console.log(result);
+
 		
 		return result;
 	},
@@ -310,8 +339,14 @@ AsiloRoyale.Game.prototype = {
 	//create a sprite from an object
 	createFromTiledObject: function(element, group) {
 		var sprite = group.create(element.x, element.y,element.properties.sprite);
-		this.game.physics.p2.enable(sprite,true);
+		//this.game.physics.p2.enable(sprite,true);
+		//console.log('AQUI');
+		//console.log(element.properties.sprite);
 //copy all properties to the sprite
+		sprite.body.setRectangle(64, 64);
+        sprite.body.setCollisionGroup(this.itemCollisionGroup);
+        sprite.body.collides(this.playerCollisionGroup);
+
 		Object.keys(element.properties).forEach(function(key){
 	 	});
 	},

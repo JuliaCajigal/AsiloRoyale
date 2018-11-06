@@ -1,13 +1,13 @@
 var AsiloRoyale = AsiloRoyale || {};
 
-function Enemy(game, x, y, guned, shotguned, sprite) {
+function Enemy(game, x, y, guned, shotguned, sprite, ) {
 	Phaser.Sprite.call(this, game, x, y, sprite);
 	this.speed = 120;
 	this.game = game;
 	this.guned = guned;
 	this.shotguned = shotguned;
 	this.sprite = null;
-	this.life = 1;
+	this.life = 2;
 	this.alive = true;
 	this.loopsI=-100;
 	this.loopsD=-100;
@@ -15,11 +15,6 @@ function Enemy(game, x, y, guned, shotguned, sprite) {
 
 	this.walkD = this.animations.add('right', [0, 1], 8,true);
 	this.walkI = this.animations.add('left', [2, 3], 8,true);
-
-
-
-
-
 
 
 	
@@ -35,7 +30,7 @@ function Enemy(game, x, y, guned, shotguned, sprite) {
 	
 	Enemy.prototype.update = function() {
 
-		this.body.static = true;
+		//this.body.static = true;
 
 
 
@@ -55,17 +50,10 @@ function Enemy(game, x, y, guned, shotguned, sprite) {
 			this.loopsD=-100;
 
 		}
+		
+		this.isAlive();
 
-			/*
-		}
-		}else if(this.loopsDer>0){
-			this.body.x -= 2;
-			this.loopsDer--;
-		}else if (this.loopsIzq===0 && this.loopsDer===0){
-			this.loopsIzq = 8;
-			this.loopsDer = 8;
-		}
-		*/
+
 		
 	
 	}
@@ -73,9 +61,12 @@ function Enemy(game, x, y, guned, shotguned, sprite) {
 	Enemy.prototype.damage = function() {
 
     	this.life -= 1;
+    	this.alpha -= 2;
+    	//this.alpha += 2;
 
     	if (this.life <= 0){
-        	
+    		
+        	this.alive = false;
         	//this.player.kill();
 
         return true;
@@ -83,4 +74,9 @@ function Enemy(game, x, y, guned, shotguned, sprite) {
 
     return false;
 
-	};
+	}
+
+ 	Enemy.prototype.isAlive = function(){
+        if(this.alive == false){this.destroy()}
+
+    };
