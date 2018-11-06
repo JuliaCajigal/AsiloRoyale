@@ -24,6 +24,7 @@ AsiloRoyale.Game.prototype = {
 	//console.log(this.map);
 	//create layer
 	this.backgroundlayer = this.map.createLayer('floor');
+	this.backgroundLayer2 = this.map.createLayer('details');
  	this.blockedLayer = this.map.createLayer('walls');
  	this.blockedLayer.debug = false;
 
