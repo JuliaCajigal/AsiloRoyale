@@ -207,7 +207,7 @@ AsiloRoyale.Game.prototype = {
 
 			}else if(body2.sprite.key == 'botiquin'){
 
-				this.player1.life+=20;
+				this.player1.damage(-20, this.cropRect, this.lifeBar);
 				this.collect(this.player1,body2.sprite,0);
 
 
