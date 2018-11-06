@@ -208,6 +208,11 @@ AsiloRoyale.Game.prototype = {
 				}
 
 
+			}else if(body2.sprite.key == 'botiquin'){
+
+				this.player1.life+=20;
+
+
 			} else if(body2.sprite.key == 'bala'){
 
 				this.bulletHitEnemy(this.enemy,body2.sprite);
@@ -255,10 +260,10 @@ AsiloRoyale.Game.prototype = {
 
     	if (bullet.key == 'bala') {
 			enemy.damage(10);
-			console.log(enemy.life);
+
 		} else if (bullet.key == 'perdigon') {
 			enemy.damage(5);
-			console.log(enemy.life);
+
 		}
     	bullet.destroy();
 

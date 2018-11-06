@@ -32,6 +32,7 @@ AsiloRoyale.Preload.prototype = {
 		this.load.image('pasti_verde', 'assets/images/pasti_verde.png');
 		this.load.image('balas_pistola', 'assets/images/balas_pistola.png');
 		this.load.image('cartucho_escopeta', 'assets/images/cartucho_escopeta.png');
+		this.load.image('botiquin', 'assets/images/botiquin.png');
 		this.load.image('pasti_morada', 'assets/images/pasti_morada.png');
 		this.load.image('pasti_amarilla', 'assets/images/pasti_amarilla.png');
 		this.load.image('gun', 'assets/images/gun.png');
