@@ -92,8 +92,8 @@ AsiloRoyale.Game.prototype = {
 
 
 	//CAMARA
-	this.game.camera.follow(this.player1);
-	this.game.camera.bounds = null;
+	//this.game.camera.follow(this.player1);
+	//this.game.camera.bounds = null;
 	
 	//TECLAS
 	this.cursors = this.game.input.keyboard.createCursorKeys();
@@ -125,6 +125,8 @@ AsiloRoyale.Game.prototype = {
 		//MUESTRA PUNTUACION
 		//this.showLabels(this.player1);
 		//this.scoreLabel.text = this.player1.ammoshotgun;
+		this.game.camera.focusOnXY(this.player1.x+75, this.player1.y);
+		
 			this.scoreLabel2.text = this.player1.score;
 		if(this.player1.currentWeapon===0){
 			this.scoreLabel.text = this.player1.gunAmmo;

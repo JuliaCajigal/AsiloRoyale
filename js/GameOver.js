@@ -5,9 +5,10 @@ AsiloRoyale.GameOver.prototype = {
 
 	create: function() {
 
-		this.game.world.setBounds(900,600);
+		this.game.world.setBounds(900,600); 
+		this.game.camera.setBoundsToWorld();
 
-		this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');
+		this.background = this.game.add.tileSprite(0, 0, this.game.width*2, this.game.height*2, 'space');
 		//this.fin = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'letrasgameover');
 		this.background.autoScroll(-20, 0);
 
@@ -42,8 +43,9 @@ AsiloRoyale.GameOver.prototype = {
 		this.resume = this.game.add.text(350, 300, text, style);
 		this.resume.fixedToCamera = true;
 
+		var style2 = {font: "bold 38px 'VT323'", fill: "#51F55B", align: "center" };
 		var text2 = '[PRESS ESC TO MAIN MENU]' 
-		this.resume = this.game.add.text(287, 550, text2, style);
+		this.resume = this.game.add.text(287, 550, text2, style2);
 		this.resume.fixedToCamera = true;
 	}
 };
