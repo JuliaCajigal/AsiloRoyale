@@ -262,6 +262,15 @@ AsiloRoyale.Game.prototype = {
 		this.scoreLabel2 = this.game.add.text(1020, 176, text2, style);
 		this.scoreLabel2.fixedToCamera = true;
 
+		this.scoreLabel3 = this.game.add.sprite(1075,132,'iconos_municion',0);
+		this.scoreLabel3.fixedToCamera =true;
+
+		if(this.player1.currentWeapon==0){
+		this.scoreLabel3=0;
+	    }if(this.player1.currentWeapon==1){
+	    this.scoreLabel3.frame=1;
+	    }
+
 	},
 
 
