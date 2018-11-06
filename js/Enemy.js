@@ -76,6 +76,8 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD ) {
 	}
 
  	Enemy.prototype.isAlive = function(){
-        if(this.alive == false){this.destroy()}
+        if(this.alive == false){
+        	this.destroy()
+        }
 
     };
