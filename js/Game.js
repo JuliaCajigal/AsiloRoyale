@@ -92,7 +92,7 @@ AsiloRoyale.Game.prototype = {
 	this.enemy.body.collides(this.bulletCollisionGroup, this.collectItem, this);
 
 	//Enfermera
-    this.enemy1 = new Enemy(this.game, 1000, 1500,'enemy', 120, 50, 600, 600); //3300, 1500
+    this.enemy1 = new Enemy(this.game, 1000, 1500,'enemy', 120, 60, 600, 600); //3300, 1500
     this.game.add.existing(this.enemy1);
 	this.game.physics.p2.enable(this.enemy1,false);
 	this.enemy1.body.setCollisionGroup(this.enemiesCollisionGroup);
@@ -228,15 +228,21 @@ AsiloRoyale.Game.prototype = {
 			} else if(body2.sprite.key == 'bala'){
 				if(body.sprite.key == 'dientes') {
 
-				this.bulletHitEnemy(this.enemy,body2.sprite,this.player1);
+				this.bulletHitEnemy(this.enemy,body2.sprite,this.player1, body.sprite);
 			} else if (body.sprite.key == 'enemy') {
-				this.bulletHitEnemy(this.enemy1,body2.sprite,this.player1);
+				this.bulletHitEnemy(this.enemy1,body2.sprite,this.player1, body.sprite);
 			}
 
 
 			}else if(body2.sprite.key == 'perdigon'){
 
-				this.bulletHitEnemy(this.enemy,body2.sprite, this.player1);
+				if(body.sprite.key == 'dientes') {
+
+				this.bulletHitEnemy(this.enemy,body2.sprite,this.player1, body.sprite);
+			} else if (body.sprite.key == 'enemy') {
+				this.bulletHitEnemy(this.enemy1,body2.sprite,this.player1, body.sprite);
+			}
+
 
 			}  else if (body2.sprite.key == 'dientes' || body2.sprite.key == 'enemy'){
 				if(body2.sprite.key == 'dientes') {
@@ -274,7 +280,7 @@ AsiloRoyale.Game.prototype = {
 
 	},
 
-	bulletHitEnemy: function(enemy, bullet, player) {
+	bulletHitEnemy: function(enemy, bullet, player, enemySprite) {
 
     	if (bullet.key == 'bala') {
 			enemy.damage(10);
@@ -283,8 +289,13 @@ AsiloRoyale.Game.prototype = {
 			enemy.damage(5);
 
 		} if (enemy.alive == false) {
-			player.kills = 1;
-			player.score +=35;
+			player.kills += 1;
+			if (enemySprite.key == 'dientes') {
+				player.score +=35;
+			} else if (enemySprite.key == 'enemy') {
+				player.score +=55;
+			}
+
 
 		}
 		console.log('KILLS'+ player.kills);
