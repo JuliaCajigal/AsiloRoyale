@@ -47,6 +47,7 @@ AsiloRoyale.Preload.prototype = {
 		this.load.spritesheet('iconos_municion', 'assets/images/iconos_municion.png',40,40);
 		this.load.image('letrasgameover','assets/images/gameover.jpg',256,128,2);
 		this.load.image('perdigon', 'assets/images/perdigon.png');
+		this.load.image('results', 'assets/images/results.png');
  		this.load.image('space', 'assets/images/space.png');
 		this.load.image('ARlogo', 'assets/images/AR_logo.png');
 		this.load.image('bala', 'assets/images/bala.png');
