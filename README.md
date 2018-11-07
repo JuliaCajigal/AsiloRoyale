@@ -19,13 +19,17 @@ El jugador deberá enfrentarse a otros jugadores, sorteando distintas trampas, h
 - Eliminar rivales
 
 ### ___Dinámicas:___
-Los jugadores comenzarán en una parte aleatoria del mapa y sin ningún objeto. Deberán explorar el escenario para encontrar las diferentes armas y objetos y acabar con los rivales reduciendo su barra de vida a cero antes de que el tiempo finalice. El tipo de arma que tengan en posesión determinará el campo de visión del escenario y el daño que causará cada proyectil. En caso de que ninguno de los jugadores acabe con el resto y sea el último en pie se contabilizarán los puntos obtenidos por recoger objetos, como medicinas o audífonos, y acabar con rivales y enemigos, como las enfermeras que intentarán deternernos.
+Los jugadores comenzarán en una parte aleatoria del mapa y sin ningún objeto. Deberán explorar el escenario para encontrar las diferentes armas y objetos y acabar con los rivales reduciendo su barra de vida a cero antes de que el tiempo finalice. El tipo de arma que tengan en posesión determinará el campo de visión del escenario y el daño que causará cada proyectil. En caso de que ninguno de los jugadores acabe con el resto y sea el último en pie se contabilizarán los puntos obtenidos por recoger objetos, como medicinas o audífonos, y acabar con rivales y enemigos, como los enfermeros que intentarán deternernos.
+Durante la partida, podremos matar a los enemigos, recoger pastillas de distintos colores y con distintas puntuaciones, recoger botiquines que aumentan nuestra vida y recoger balas que aumentan el número de balas de las que disponemos. Las armas serán recogidas y podrán ser utilizadas al pasar por encima de ellas, y si ya estamos usando una, esta se cambiará por la nueva y perderemos las balas que hayamos obtenido para ésta.
 
 ### ___Controles:___
-Movimiento de personaje: rotación con cursor del ratón y desplazamiento con la cruceta de teclado. Disparar con botón izquierdo y recolección de objetos y armas pasando por encima.
+Movimiento de personaje: rotación con cursor del ratón y desplazamiento con la cruceta de teclado. Disparar con botón izquierdo y recolección de objetos y armas pasando por encima. 
+En la pantalla de Game Over, podremos acceder al menú principal pulsando escape. 
 
 ### ___Interfaz:___
 El aspecto visual del juego emulará una televisión retro en todos sus aspectos. Siempre será visible el HUD con el marco del televisor, el tiempo haría referencia a la hora en dicho marco, la barra de vida tendrá el aspecto visual de la barra de volumen y el cambio de menús y estados tendrá un efecto de cambio de canal. Todo en pos de favorecer la inmersión y la experiencia de usuario.
+Durante el juego, en el marco de la tele, también dispondremos de las balas del arma que usamos en el momento, y la puntuación que llevamos en la partida. Para que sea más fácil para el jugador reconocer el arma que está usando, contamos con un icono del arma en cuestión. 
+Al iniciar el juego, se presenta un menú de inicio con un botón para comenzar la partida. Una vez finalizado el tiempo o tras morir, se nos presenta una pantalla con los resultados de la patida: el ganador, la puntuación, el número de asesinatos y el número de objetos obtenidos.
 
 
 ### ___Referencias:___
