@@ -141,7 +141,7 @@ AsiloRoyale.Game.prototype = {
 	this.nurse3.body.collides(this.tilesCollisionGroup);
 	this.nurse3.body.collides(this.bulletCollisionGroup, this.collectItem, this);
 	this.nurse3.body.static = true;
-	this.nurse3.name = 'nurse2';
+	this.nurse3.name = 'nurse3';
 
 
 	/////////////CAMARA////////////
