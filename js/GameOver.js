@@ -1,14 +1,15 @@
+var AsiloRoyale = AsiloRoyale || {};
+
 AsiloRoyale.GameOver = function(){};
 
 AsiloRoyale.GameOver.prototype = {
-
 
 	create: function() {
 
 		this.game.world.setBounds(900,600); 
 		this.game.camera.setBoundsToWorld();
 
-		this.background = this.game.add.tileSprite(0, 0, this.game.width*2, this.game.height*2, 'space');
+		this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');
 		//this.fin = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'letrasgameover');
 		this.background.autoScroll(-20, 0);
 
