@@ -4,6 +4,8 @@ function Player(game, x, y, guned, shotguned, sprite, ownerId, weapons) {
 
 	Phaser.Sprite.call(this, game, x, y, sprite,0);
 
+    //Atributos de Player
+
 	this.speed = 120;
 	this.game = game;
 	this.guned = guned;
@@ -21,7 +23,7 @@ function Player(game, x, y, guned, shotguned, sprite, ownerId, weapons) {
     this.kills = 0;
 
 
-
+    //Rotación del jugador hacia la posición del ratón
 	this.angleToPointer = function (displayObject, pointer, world){
 
         if (pointer === undefined) { pointer = this.game.input.activePointer; }
@@ -50,6 +52,7 @@ function Player(game, x, y, guned, shotguned, sprite, ownerId, weapons) {
 	
 	Player.prototype.update = function() {
         
+        //eje de rotación del jugador
         this.anchor.x = 0.35;
         this.anchor.y = 0.5;
 
@@ -63,7 +66,7 @@ function Player(game, x, y, guned, shotguned, sprite, ownerId, weapons) {
 		this.body.velocity.y = 0;
 		this.body.velocity.x = 0;
 
-        //Sprites player
+        //Sprites player según el arma equipada
         if(this.currentWeapon==0){
             this.frame=0;
         }else if(this.currentWeapon==1){
@@ -87,7 +90,6 @@ function Player(game, x, y, guned, shotguned, sprite, ownerId, weapons) {
  
         if (this.game.input.activePointer.totalTouches == 1 && this.game.input.activePointer.isDown && this.shotguned==true)
     {
-            console.log('BANG');
             this.weapons[this.currentWeapon].fire(this);
             this.game.input.activePointer.totalTouches = 0;
     }
@@ -95,6 +97,8 @@ function Player(game, x, y, guned, shotguned, sprite, ownerId, weapons) {
 
     },
 
+
+    //Función que se utiliza cada vez que el jugador reciba daño
     Player.prototype.damage = function(amount, crop, lifeBar) {
 
         this.life -= amount;
@@ -109,6 +113,7 @@ function Player(game, x, y, guned, shotguned, sprite, ownerId, weapons) {
 
     },
 
+    //Determina la muerte del jugador
     Player.prototype.isAlive = function(){
         if(this.alive == false){ this.game.state.start('GameOver',true,false,this.score,this.items, this.kills);}
 

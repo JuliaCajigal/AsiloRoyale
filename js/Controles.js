@@ -6,11 +6,10 @@ AsiloRoyale.Controles.prototype = {
 
 	create: function() {
 
-		//this.game.world.setBounds(900,600); 
+ 
 		this.game.camera.setBoundsToWorld();
 
 		this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');
-		//this.fin = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'letrasgameover');
 		this.background.autoScroll(20, 0);
 
 		
@@ -18,7 +17,6 @@ AsiloRoyale.Controles.prototype = {
     	this.tv.fixedToCamera = true;
 
     	this.esquema = this.game.add.sprite(282, 125, 'esquema');
-    	//this.esquema.anchor.setTo(0.5);
     	this.esquema.fixedToCamera = true;
 
     	this.showMes();

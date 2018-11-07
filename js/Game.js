@@ -10,36 +10,34 @@ var tilesCollisionGroup, playerCollisionGroup;
 
 AsiloRoyale.Game.prototype = {
   create: function() {
+  	
+
+  	////////////SONIDOS///////////
+
   	this.collect_weapon = new Phaser.Sound(this, 'collect_weapon');
 
 
+  	////////////MAPA/////////////
+
 	this.map = this.game.add.tilemap('level1');
-
-
-	//the first parameter is the tileset name as specified in Tiled, the second is the key to the asset
 	this.map.addTilesetImage('tiles','gameTiles');
 
-
-	//this.map.createFromObjects('objectsLayer', 13, 'pastis');
-	//console.log(this.map);
-	//create layer
 	this.backgroundlayer = this.map.createLayer('floor');
 	this.backgroundLayer2 = this.map.createLayer('details');
  	this.blockedLayer = this.map.createLayer('walls');
  	this.blockedLayer.debug = false;
 
- 	//resizes the game world to match the layer dimensions
  	this.backgroundlayer.resizeWorld();
 
-	//collision on blockedLayer
  	this.map.setCollisionBetween(1, 2000, true, 'walls');
  	this.map.setCollision(26);
 
- 	
+
+ 	///////////GRUPOS DE COLISIÓN//////////	
+
 	this.game.physics.p2.setImpactEvents(true);
 
 	var tileObjects = this.game.physics.p2.convertTilemap(this.map, this.blockedLayer, true);
-	//console.log(tileObjects);
 	this.tilesCollisionGroup   = this.game.physics.p2.createCollisionGroup();    
 	this.playerCollisionGroup  = this.game.physics.p2.createCollisionGroup();  
 	this.bulletCollisionGroup = this.game.physics.p2.createCollisionGroup(); 
@@ -56,20 +54,17 @@ AsiloRoyale.Game.prototype = {
         tileObjects[i].collides(this.enemiesCollisionGroup);
 	}    
 
-	//ARMAS
+	//////////ARMAS/////////
+
 	var weapons = []
 	weapons.push(new Weapon.Gun(this.game,this.bulletCollisionGroup,this.tilesCollisionGroup, this.enemiesCollisionGroup));
     weapons.push(new Weapon.Shotgun(this.game,this.bulletCollisionGroup,this.tilesCollisionGroup, this.enemiesCollisionGroup));
 
-	//JUGADOR 1
+	/////////JUGADOR 1/////////
+
 	this.player1 = new Player(this.game,1100,1000,false,true, 'player', 1, weapons);
 	this.game.add.existing(this.player1);
-	//console.log(this.player1);
 
-
-
-	
-	//console.log(this.player);
 	this.game.physics.p2.enable(this.player1,false);
 	this.player1.body.clearShapes(); 
 	this.player1.body.loadPolygon('player_physics', 'player'); 
@@ -77,10 +72,8 @@ AsiloRoyale.Game.prototype = {
 	this.player1.body.collides(this.tilesCollisionGroup);
 	this.player1.body.collides(this.itemCollisionGroup, this.collectItem, this);
 	this.player1.body.collides(this.enemiesCollisionGroup, this.collectItem, this);
-	//this.player1.body.static = true;
-	//this.player1.body.onBeginContact.add(this.collectItem, this);
 
-	//ENEMIGOS
+	///////////ENEMIGOS///////
 
 	//Dientes
 	this.teeth1 = new Enemy(this.game,1000,1300,'dientes',120,30,100,100);
@@ -119,7 +112,7 @@ AsiloRoyale.Game.prototype = {
 	this.teeth4.body.collides(this.bulletCollisionGroup, this.collectItem, this);
 	this.teeth4.name = 'teeth4';
 
-	//Enfermero
+	//Enfermeros
     this.nurse1 = new Enemy(this.game, 1300, 1500,'enfermero', 120, 60, 600, 600); //3300, 1500
     this.game.add.existing(this.nurse1);
 	this.game.physics.p2.enable(this.nurse1,false);
@@ -151,12 +144,17 @@ AsiloRoyale.Game.prototype = {
 	this.nurse3.name = 'nurse2';
 
 
-	//CAMARA
+	/////////////CAMARA////////////
+
 	this.game.camera.bounds = null;
 	
-	//TECLAS
+	/////////////TECLAS///////////
+
 	this.cursors = this.game.input.keyboard.createCursorKeys();
 	
+
+	//////////////HUD////////////
+
 	//HUD Escopeta
 	this.showHUD();
 
@@ -170,8 +168,7 @@ AsiloRoyale.Game.prototype = {
 	//Muestra barra de vida
 	this.showLife(this.player1);
 
-	
-	//Timer
+	//Temporizador
     timer = this.game.time.create();
         
     //Evento de tiempo
@@ -199,7 +196,6 @@ AsiloRoyale.Game.prototype = {
 			this.scoreLabel3.frame=0;
 			this.HUD.visible = false;
 			this.lifeBar.position.x = 100;
-			console.log(this.lifeBar.position.x);
 			this.gunIcon.visible = true;
 			this.shotgunIcon.visible = false;
 
@@ -221,12 +217,13 @@ AsiloRoyale.Game.prototype = {
 		}
 	},
 
+		//Maneja los eventos según las diferentes posibilidades de colision entre objetos del juego
 	collectItem (body, body2) {
 
 		if (body.sprite != null && body2.sprite != null) {
 
 			if (body2.sprite.key == 'pasti_roja') {
-				console.log("ENTRA");
+
 				this.collect(this.player1, body2.sprite, 10);
 				this.player1.items++;
 
@@ -290,7 +287,7 @@ AsiloRoyale.Game.prototype = {
 			} else if (body.sprite.name == 'nurse3') {
 				this.bulletHitEnemy(this.nurse3,body2.sprite,this.player1, body.sprite);
 			} 
-		}
+			}
 
 			}else if(body2.sprite.key == 'perdigon'){
 
@@ -325,8 +322,7 @@ AsiloRoyale.Game.prototype = {
 				 } else if (body2.sprite.key == 'enfermero') {
 				 	this.player1.damage(20, this.cropRect, this.lifeBar);
 				 }
-				console.log('TE MUERDO');
-				console.log(this.player1.life);
+
 
 			}else if(body2.sprite.key == 'shotgun'){
 
@@ -349,12 +345,13 @@ AsiloRoyale.Game.prototype = {
 		}
 	},
 
+		//Maneja los eventos en los que el jugador recibe daño
 	bulletHitPlayer: function(player, bullet) {
 		player.damage();
     	bullet.destroy();
 
 	},
-
+		//Maneja los eventos en los que los enemigos reciben daño
 	bulletHitEnemy: function(enemy, bullet, player, enemySprite) {
 
     	if (bullet.key == 'bala') {
@@ -372,12 +369,12 @@ AsiloRoyale.Game.prototype = {
 			player.score +=55;
 
 		}
-		console.log('KILLS'+ player.kills);
+
     	bullet.destroy();
 
 	},
 
-
+		//Muestra la barra de vida en pantalla
 	showLife: function(player){
 		
 		this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
@@ -392,14 +389,12 @@ AsiloRoyale.Game.prototype = {
 
 		this.cropRect = new Phaser.Rectangle( 0, 0, width , 30);
 		this.cropRect.fixedToCamera = true;
-		console.log('cropRect:' + this.cropRect.width);
-		console.log('cropRect y:' + this.cropRect.y);
     	this.lifeBar.crop(this.cropRect);
 
 	},
 
 
-
+		//Muestra los datos del jugador en el HUD
 	showLabels: function() {
 	
 		//score text
@@ -421,6 +416,7 @@ AsiloRoyale.Game.prototype = {
 
 	},
 
+		//Muestra los iconos del HUD
 	showHUD: function(){
 		this.HUD = this.game.add.image(0,0, 'view_shotgun');
 		this.HUD.fixedToCamera = true;
@@ -440,7 +436,7 @@ AsiloRoyale.Game.prototype = {
 		player.score += 40;
 	},
 	
-
+		//metodo usado cuando el jugador recoge un objeto
 	collect: function(player, collectable,amount) {
 		player.score+=amount;
 		collectable.destroy();
@@ -458,9 +454,9 @@ AsiloRoyale.Game.prototype = {
 	},
 
 
-
+	//Posiciona los objetos recolectables en el mapa según las posiciones indicadas en tiled
 	createItems: function() {
-	//create items
+
 		this.items = this.game.add.group();
 
 		this.items.enableBody = true;
@@ -496,12 +492,12 @@ AsiloRoyale.Game.prototype = {
 	 	});
 	},
 
-
+	//Función de Game Over
 	gameOver: function() {
 		this.game.state.start('GameOver');
 	},
 
-
+	//Muestra el tiempo que queda para el final de la partida
 	render: function() {
 		if (timer.running) {
             this.game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms) / 1000)), 1010, 78, "#51F55B", "50px 'VT323'");
@@ -514,15 +510,13 @@ AsiloRoyale.Game.prototype = {
 
     //Código de: http://jsfiddle.net/lewster32/vd70o41p/
     endTimer: function() {
-        // Stop the timer when the delayed event triggers
         timer.stop();
         this.player1.alive=false;
     },
 
-
-
+    //cambia el formato del tiempo
     formatTime: function(s) {
-        // Convert seconds (s) to a nicely formatted and padded time string
+
         var minutes = "0" + Math.floor(s / 60);
         var seconds = "0" + (s - minutes * 60);
         return minutes.substr(-2) + ":" + seconds.substr(-2);

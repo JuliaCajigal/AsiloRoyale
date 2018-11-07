@@ -1,6 +1,6 @@
 var AsiloRoyale = AsiloRoyale || {};
 
- //loading the game assets
+
 AsiloRoyale.Preload = function(){};
 
 AsiloRoyale.Preload.prototype = {

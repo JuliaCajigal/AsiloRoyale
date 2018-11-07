@@ -6,19 +6,17 @@ var Weapon = {};
 	Weapon.prototype = Object.create(Phaser.Sprite.prototype);
 	Weapon.prototype.constructor = Weapon;
 
-
 	Weapon.prototype.create= function() {
     }
 
 	
 	Weapon.prototype.update = function() {
-
 	}
 
+    ////////////////PISTOLA//////////////
 	Weapon.Gun = function (game, bulletCG, tileCG, enemyCG) {
 
         Phaser.Group.call(this, game, game.world, 'Gun', false, true, Phaser.Physics.P2JS);
-
 
         this.nextFire = 0;
         this.bulletSpeed = 800;
@@ -26,18 +24,18 @@ var Weapon = {};
 
         for (var i = 0; i < 64; i++)
         {
-
-
             this.add(new Bullet(game, 'bala', bulletCG, tileCG, enemyCG), true);
         }
 
         return this;
-
     }
+
 
     Weapon.Gun.prototype = Object.create(Phaser.Group.prototype);
     Weapon.Gun.prototype.constructor = Weapon.Gun;
 
+
+    ///////DISPARAR PISTOLA//////////
     Weapon.Gun.prototype.fire = function (source) {
 
         if (this.game.time.time < this.nextFire) { return; }
@@ -45,8 +43,6 @@ var Weapon = {};
         var x = source.x;
         var y = source.y;
         var rotation = source.body.rotation;
-        console.log(source.angleToPointer(this));
-        //console.log(source.body.bounds);
         if(source.gunAmmo>0){
         source.body.velocity.x = -Math.cos(source.body.rotation) * 50;
         source.body.velocity.y = -Math.sin(source.body.rotation) * 50;
@@ -57,6 +53,8 @@ var Weapon = {};
     }
 
     },
+
+
     //////////////////////////////ESCOPETA////////////////////////////////
     Weapon.Shotgun = function (game, bulletCG, tileCG, enemyCG) {
 
@@ -66,7 +64,6 @@ var Weapon = {};
         this.nextFire = 200000;
         this.bulletSpeed = 800;
         this.fireRate = 2000;
-
         for (var i = 0; i < 64; i++)
         {
             this.add(new Bullet(game, 'perdigon',  bulletCG, tileCG, enemyCG), true);
@@ -81,7 +78,7 @@ var Weapon = {};
 
 
 
-
+    //////////////////////DISPARAR ESCOPETA//////////////////////////////
     Weapon.Shotgun.prototype.fire= function(source) {
 
         if (this.game.time.time < this.nextFire) { return; }
@@ -89,7 +86,6 @@ var Weapon = {};
         var rotation = 0;
         var x = source.x;
         var y = source.y;
-
 
         if(source.shotgunAmmo>0){
 
