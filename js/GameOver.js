@@ -10,8 +10,7 @@ AsiloRoyale.GameOver.prototype = {
 		this.game.camera.setBoundsToWorld();
 
 		this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');
-		//this.fin = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'letrasgameover');
-		this.background.autoScroll(-20, 0);
+		this.background.autoScroll(20, 0);
 
 		
 		this.tv = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'tv');
@@ -19,6 +18,7 @@ AsiloRoyale.GameOver.prototype = {
 
     	this.results = this.game.add.sprite(280, 150, 'results');
     	this.results.fixedToCamera = true;
+
 
     	this.showRes();
 
@@ -39,7 +39,7 @@ AsiloRoyale.GameOver.prototype = {
 	},
 
 	showRes: function() {
-		var text = 'WINNER:........\nPT:............'+this.score+'\nKILLS:.........'+this.kills+'\nITEMS:.........'+this.items; 
+		var text = 'POS:........ 1\nPT:............'+this.score+'\nKILLS:.........'+this.kills+'\nITEMS:.........'+this.items; 
 		var style = {font: "bold 40px 'VT323'", fill: "#51F55B", align: "left" };
 		this.resume = this.game.add.text(350, 300, text, style);
 		this.resume.fixedToCamera = true;

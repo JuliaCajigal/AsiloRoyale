@@ -11,14 +11,14 @@ AsiloRoyale.Controles.prototype = {
 
 		this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');
 		//this.fin = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'letrasgameover');
-		this.background.autoScroll(-20, 0);
+		this.background.autoScroll(20, 0);
 
 		
 		this.tv = this.game.add.sprite(0, 0, 'tv');
     	this.tv.fixedToCamera = true;
 
-    	this.esquema = this.game.add.sprite(this.game.world.centerX-75, this.game.world.centerY-20, 'esquema');
-    	this.esquema.anchor.setTo(0.5);
+    	this.esquema = this.game.add.sprite(282, 125, 'esquema');
+    	//this.esquema.anchor.setTo(0.5);
     	this.esquema.fixedToCamera = true;
 
     	this.showMes();

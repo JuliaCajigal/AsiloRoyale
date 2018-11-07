@@ -6,11 +6,14 @@ AsiloRoyale.MainMenu.prototype = {
 	
 	create: function() {
 
+		//this.game.world.setBounds(900,600); 
+		this.game.camera.setBoundsToWorld();
+
  //show the space tile, repeated
  		this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');
 
  //give it speed in x
- 		this.background.autoScroll(-20, 0);
+ 		this.background.autoScroll(20, 0);
 
  		boton1 = this.game.add.button((this.game.camera.width-150)/2-80,this.game.camera.height/2+200,'botonesjugar', this.boton1OnClick, this,1,0,1,0);
  		boton1.width = 150;

@@ -50,6 +50,8 @@ function Player(game, x, y, guned, shotguned, sprite, ownerId, weapons) {
 	
 	Player.prototype.update = function() {
         
+        this.anchor.x = 0.35;
+        this.anchor.y = 0.5;
 
         if(this.life>100){
             this.life=100;
