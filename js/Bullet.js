@@ -4,8 +4,8 @@ var Bullet = function (game, key, bulletCG, tileCG, enemyCG) {
 
     Phaser.Sprite.call(this, game, 0, 0, key);
 
+        //Atributos
     	this.anchor.set(0.5);
-
     	this.checkWorldBounds = true;
     	this.outOfBoundsKill = true;
     	this.exists = false;
@@ -22,6 +22,8 @@ var Bullet = function (game, key, bulletCG, tileCG, enemyCG) {
 	Bullet.prototype = Object.create(Phaser.Sprite.prototype);
     Bullet.prototype.constructor = Bullet;
 
+
+    //Disparar
     Bullet.prototype.fire = function (x, y, angle, speed, gx, gy, rotation,player) {
 
         this.reset(player.x,player.y);
@@ -33,6 +35,7 @@ var Bullet = function (game, key, bulletCG, tileCG, enemyCG) {
 
     },
     
+    
     Bullet.prototype.update = function () {
 
         this.body.setCollisionGroup(this.bulletCG);
@@ -40,6 +43,7 @@ var Bullet = function (game, key, bulletCG, tileCG, enemyCG) {
         this.body.collides(this.enemyCG);
     },
 
+    //Destruir bala
     Bullet.prototype.destroyBullet = function (body, body2) {
         body.sprite.destroy();
 

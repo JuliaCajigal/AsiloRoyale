@@ -3,6 +3,7 @@ var AsiloRoyale = AsiloRoyale || {};
 function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD ) {
 	Phaser.Sprite.call(this, game, x, y, sprite);
 	
+	//Atributos
 	this.speed = speed;
 	this.game = game;
 	this.sprite = sprite;
@@ -15,6 +16,7 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD ) {
 	this.moves=false;
 
 
+	//Animaciones
 	if (this.sprite==='dientes'){
 
 	this.walkD = this.animations.add('right', [0, 1], 8,true);
@@ -43,7 +45,7 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD ) {
 
 
 
-
+	//Animaciones según el enemigo creado
 	if(this.body.sprite.key == 'dientes') {
 
 	
@@ -83,33 +85,30 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD ) {
 
 		} 
 
-
 	}
 		
 		this.isAlive();
 
-		
-	
 	}
 
+	//daño recibido por el enemigo
 	Enemy.prototype.damage = function(amount) {
 
     	this.life -= amount;
     	this.alpha -= 2;
-    	//this.alpha += 2;
 
     	if (this.life <= 0){
     		
         	this.alive = false;
-        	//this.player.kill();
 
-        return true;
+       	return true;
     	}
 
     return false;
 
 	}
 
+	//Determina si el enemigo está vivo
  	Enemy.prototype.isAlive = function(){
         if(this.alive == false){
         	this.destroy()

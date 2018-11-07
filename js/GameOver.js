@@ -25,6 +25,7 @@ AsiloRoyale.GameOver.prototype = {
 
 	},
 
+	//Recibir parametros de Game
 	init: function(score,items,kills){
 		this.score = score || 0;
 		this.items = items || 0;
@@ -38,6 +39,7 @@ AsiloRoyale.GameOver.prototype = {
    			this.game.state.start('MainMenu');}
 	},
 
+	//Mostrar resultados
 	showRes: function() {
 		var text = 'POS:........ 1\nPT:............'+this.score+'\nKILLS:.........'+this.kills+'\nITEMS:.........'+this.items; 
 		var style = {font: "bold 40px 'VT323'", fill: "#51F55B", align: "left" };
