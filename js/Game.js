@@ -102,13 +102,11 @@ AsiloRoyale.Game.prototype = {
 	this.enemy1.body.static = true;
 
 
-
 	//CAMARA
 	this.game.camera.bounds = null;
 	
 	//TECLAS
 	this.cursors = this.game.input.keyboard.createCursorKeys();
-
 	
 	//HUD Escopeta
 	this.showHUD();
@@ -116,24 +114,21 @@ AsiloRoyale.Game.prototype = {
 	//TV
 	this.tv = this.game.add.sprite(0, 0, 'tv');
 	this.tv.fixedToCamera = true;
-
-	//this.game.world.scale.set(2,2);
-
 	
-
+	//Muestra etiquetas de vida
     this.showLabels();
 
-	//MUESTRA VIDA
+	//Muestra barra de vida
 	this.showLife(this.player1);
 
 	
-	//TIMER
+	//Timer
     timer = this.game.time.create();
         
-    // Create a delayed event 1m and 30s from now
+    //Evento de tiempo
     timerEvent = timer.add(Phaser.Timer.MINUTE * 1 + Phaser.Timer.SECOND * 30, this.endTimer, this);
         
-    // Start the timer
+    //Comienzo temporizador
     timer.start();
 
 
@@ -149,25 +144,27 @@ AsiloRoyale.Game.prototype = {
 	},
 
 	updateHUD: function(){
+
 		//Dependiendo del arma que lleve verá unos grafismos
 		if(this.player1.currentWeapon==0){
 			this.scoreLabel3.frame=0;
 			this.HUD.visible = false;
-			this.lifeBardw.x -= 50;
-			console.log(this.lifeBardw.x);
+			this.lifeBar.position.x = 100;
+			console.log(this.lifeBar.position.x);
+			this.gunIcon.visible = true;
+			this.shotgunIcon.visible = false;
 
-	    }if(this.player1.currentWeapon==1){
+	    }else if(this.player1.currentWeapon==1){
 	    	this.scoreLabel3.frame=1;
 	    	this.HUD.visible = true;
-	    	this.lifeBardw.x += 50;
+	    	this.lifeBar.position.x = 120;
+	    	this.shotgunIcon.visible = true;
+	    	this.gunIcon.visible = false;
 
 	    }
 
-
-	    
-		//this.lifeBar
-		
-			this.scoreLabel2.text = this.player1.score;
+	    //Se viasualizará la munición del arma portada y la puntuación
+		this.scoreLabel2.text = this.player1.score;
 		if(this.player1.currentWeapon===0){
 			this.scoreLabel.text = this.player1.gunAmmo;
 		}else if(this.player1.currentWeapon===1){
@@ -178,9 +175,6 @@ AsiloRoyale.Game.prototype = {
 	collectItem (body, body2) {
 
 		if (body.sprite != null && body2.sprite != null) {
-
-			console.log(body);
-			console.log(body2);
 
 			if (body2.sprite.key == 'pasti_roja') {
 				console.log("ENTRA");
@@ -307,17 +301,12 @@ AsiloRoyale.Game.prototype = {
 		this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
 		this.lifeBardw.fixedToCamera = true;
 
-		this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');//this.add.sprite(450, 600, 'carta_ajuste');//
+		this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
 		this.lifeBar.anchor.y = 0.5;
 		this.lifeBar.cropEnabled = true;
 		this.lifeBar.fixedToCamera = true;
 
-
 		var width = (player.life / 2)*10;
-		var x = 450 - (player.life / 2)*10;;
-		console.log('x' + x);
-
-
 
 		this.cropRect = new Phaser.Rectangle( 0, 0, width , 30);
 		this.cropRect.fixedToCamera = true;
@@ -330,13 +319,11 @@ AsiloRoyale.Game.prototype = {
 
 
 	showLabels: function() {
-	//score text
-
+	
+		//score text
 		var text = text;
 		var text1 = "pt:";
 		var text2 = "items:";
-		var pt;
-		var it;
 		var style = {font: "bold 40px 'VT323'", fill: "#51F55B", align: "center" };
 		this.scoreLabel = this.game.add.text(1020, 135, text, style);
 		this.scoreLabel.fixedToCamera = true;
@@ -347,6 +334,8 @@ AsiloRoyale.Game.prototype = {
 		this.scoreLabel3 = this.game.add.sprite(1075,132,'iconos_municion',0);
 		this.scoreLabel3.fixedToCamera =true;
 
+		var star = this.game.add.image(1075, 180, 'star');
+		star.fixedToCamera = true;
 
 	},
 
@@ -354,8 +343,15 @@ AsiloRoyale.Game.prototype = {
 		this.HUD = this.game.add.image(0,0, 'view_shotgun');
 		this.HUD.fixedToCamera = true;
 		this.HUD.visible = false;
-	},
 
+		this.gunIcon = this.game.add.image(860,60, 'guni');
+		this.gunIcon.fixedToCamera = true;
+		this.gunIcon.visible = true;
+
+		this.shotgunIcon = this.game.add.image(780 ,60, 'shotguni');
+		this.shotgunIcon.fixedToCamera = true;
+		this.shotgunIcon.visible = false;
+	},
 
 
 	test: function(player){
@@ -363,15 +359,8 @@ AsiloRoyale.Game.prototype = {
 	},
 	
 
-
-
 	collect: function(player, collectable,amount) {
-		console.log('yummy!');
-	
 		player.score+=amount;
-
-	
-	//remove sprite
 		collectable.destroy();
 	},
 	
@@ -396,73 +385,49 @@ AsiloRoyale.Game.prototype = {
         this.items.physicsBodyType = Phaser.Physics.P2JS;
 		var item;
 		result = this.findObjectsByType('item', this.map,'objectsLayer');
-		//console.log(result);
 		result.forEach(function(element){ this.createFromTiledObject(element, this.items);}, this);
-		//console.log(result);
+		
 	},
 
 
-
-	 //find objects in a Tiled layer that containt a propertycalled "type" equal to a certain value
+	//Encuentra objetos del mismo tipo asociado en tiled
 	findObjectsByType: function(type, map, layer) {
 		var result = new Array();
-		//console.log(map.objects[layer]);
 		map.objects[layer].forEach(function(element){
 
-
 		if(element.properties.type === type) {
-	//Phaser uses top left, Tiled bottom left so we haveto adjust
-    //also keep in mind that the cup images are a bitsmaller than the tile which is 16x16
-	//so they might not be placed in the exact position asin Tiled
-			
 			element.y -= map.tileHeight;
 			result.push(element);
-		}
+			}
 		});
-
-		
 		return result;
 	},
 
 
-
-	//create a sprite from an object
+	//Crea un sprite de un tiled object
 	createFromTiledObject: function(element, group) {
 		var sprite = group.create(element.x, element.y,element.properties.sprite);
-		//this.game.physics.p2.enable(sprite,true);
-		//console.log('AQUI');
-		//console.log(element.properties.sprite);
-//copy all properties to the sprite
 		sprite.body.setRectangle(64, 64);
         sprite.body.setCollisionGroup(this.itemCollisionGroup);
         sprite.body.collides(this.playerCollisionGroup);
-
 		Object.keys(element.properties).forEach(function(key){
 	 	});
 	},
 
 
-
-
 	gameOver: function() {
-	//pass it the score as a parameter
 		this.game.state.start('GameOver');
 	},
 
 
-
 	render: function() {
-		//var style = { font: "bold 50px 'VT323', monospace", fill: "#51F55B", align: "center" };
-		//this.game.debug.text("tiempo restante: " + this.game.time.events.duration, 32, 32);
-		// If our timer is running, show the time in a nicely formatted way, else show 'Done!'
-        if (timer.running) {
+		if (timer.running) {
             this.game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms) / 1000)), 1010, 78, "#51F55B", "50px 'VT323'");
         }
         else {
             this.game.debug.text("Done!",1010, 78, "#51F55B", "50px 'VT323'");
         }
     },
-
 
 
     //Código de: http://jsfiddle.net/lewster32/vd70o41p/
@@ -481,20 +446,5 @@ AsiloRoyale.Game.prototype = {
         return minutes.substr(-2) + ":" + seconds.substr(-2);
 	},
 
-
-
-}
-/*
-game.physics.p2.setPostBroadphaseCallback(filterCollisions, this);
-
-//use a custom "ownerId" value to check if both come from the same entity (player/npc)
-function filterCollisions(p2BodyA, p2BodyB) {
-    if (p2BodyA && p2BodyB && p2BodyA.sprite.ownerId && p2BodyB.sprite.ownerId){
-        if (p2BodyA.sprite.ownerId == p2BodyB.sprite.ownerId){
-                return false;
-        }
-    }
-    return true;
-}
-*/
+};
 

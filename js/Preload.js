@@ -7,25 +7,21 @@ AsiloRoyale.Preload.prototype = {
 	
 	preload: function() {
 
-		//show logo in loading screen
+		//Logo pantalla de carga
 		this.splash = this.add.sprite(this.game.world.centerX, this.game.world.centerY, 'carta_ajuste');
 		this.splash.anchor.setTo(0.5);
 		this.splash = this.add.sprite(0, 0, 'tv');
 
+		//Cargar fuente
 		var text = "";
 		this.game.add.text(0, 0, text, {font: "bold 40px 'VT323'", fill: "black", align: "center" });
-		
-/*
-		this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY + 128, 'preloadBar');
-		this.preloadBar.anchor.setTo(0.5);
-		this.load.setPreloadSprite(this.preloadBar);*/
 
-		//show loading screen
+		//Barra de carga
 		this.preloadBar = this.add.sprite(this.game.world.centerX, this.game.world.centerY + 128, 'preloadBar');
 		this.preloadBar.anchor.setTo(0.5);
 		this.load.setPreloadSprite(this.preloadBar);
 		
-		//load game assets
+		//Preload de assets
 		this.load.tilemap('level1', 'assets/tilemaps/untitled.json',null, Phaser.Tilemap.TILED_JSON);
 		this.load.image('gameTiles', 'assets/tilesets/tiles.png');
 		this.load.image('pasti_roja', 'assets/images/pasti_roja.png');
@@ -46,6 +42,7 @@ AsiloRoyale.Preload.prototype = {
 		this.load.spritesheet('enfermero', 'assets/images/enfermero.png',128,128);
 		this.load.spritesheet('player', 'assets/images/viejo1_sheet.png',126,64);
 		this.load.spritesheet('iconos_municion', 'assets/images/iconos_municion.png',40,40);
+		this.load.image('star','assets/images/star.png');
 		this.load.image('letrasgameover','assets/images/gameover.jpg',256,128,2);
 		this.load.image('perdigon', 'assets/images/perdigon.png');
 		this.load.image('results', 'assets/images/results.png');
@@ -55,6 +52,8 @@ AsiloRoyale.Preload.prototype = {
 		this.load.image('lifebaru', 'assets/images/lifebars_up.png');
 		this.load.image('lifebardw', 'assets/images/lifebars_dw.png');
 		this.load.image('view_shotgun', 'assets/images/shotgun_view.png');
+		this.load.image('guni', 'assets/images/gun_icon.png');
+		this.load.image('shotguni', 'assets/images/shotgun_icon.png');
 		this.load.audio('collect_weapon', 'assets/audio/collect_weapon.wav');
 		this.load.audio('gun_fire', 'assets/audio/gun_fire.wav');
 		this.game.load.physics('player_physics', 'assets/physics/viejo_physics.json'); 
