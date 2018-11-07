@@ -34,6 +34,7 @@ AsiloRoyale.Preload.prototype = {
 		this.load.image('gun', 'assets/images/gun.png');
 		this.load.image('shotgun', 'assets/images/shotgun.png');
 		this.load.image('player_escopeta', 'assets/images/viejo1_escopeta.png');
+		this.load.image('esquema', 'assets/images/esquema.png');
 		this.load.image('enemy', 'assets/images/enemy.png');
 		this.load.spritesheet('botonesjugar', 'assets/images/playbutton.png',256,128,2);
 		this.load.spritesheet('botonessalir', 'assets/images/exitbutton.png',256,128,2);

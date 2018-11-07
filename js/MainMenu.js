@@ -57,5 +57,8 @@ AsiloRoyale.MainMenu.prototype = {
 
  	boton1OnClick: function(){
  		this.game.state.start('Game');
- 	}
+ 	},
+ 	 boton2OnClick: function(){
+ 		this.game.state.start('Controles');
+ 	},
  };

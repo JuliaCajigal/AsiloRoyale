@@ -10,5 +10,6 @@ AsiloRoyale.game.state.add('Preload', AsiloRoyale.Preload);
 AsiloRoyale.game.state.add('MainMenu', AsiloRoyale.MainMenu);
 AsiloRoyale.game.state.add('Game', AsiloRoyale.Game);
 AsiloRoyale.game.state.add('GameOver', AsiloRoyale.GameOver);
+AsiloRoyale.game.state.add('Controles', AsiloRoyale.GameOver);
 
 AsiloRoyale.game.state.start('Boot');
