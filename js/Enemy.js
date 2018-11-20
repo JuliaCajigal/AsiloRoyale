@@ -1,6 +1,7 @@
 var AsiloRoyale = AsiloRoyale || {};
 
-function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD ) {
+function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD, index, enemyCG, playerCG, tileCG, bulletCG, player) {
+	
 	Phaser.Sprite.call(this, game, x, y, sprite);
 	
 	//Atributos
@@ -14,6 +15,12 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD ) {
 	this.loopsII=loopsI;
 	this.loopsDI=loopsD;
 	this.moves=false;
+	this.enemyCG = enemyCG;
+	this.playerCG = playerCG;
+	this.bulletCG = bulletCG;
+	this.tileCG = tileCG;
+	this.name = index.toString;
+	this.player = player;
 
 
 	//Animaciones
@@ -42,8 +49,10 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD ) {
 	
 	Enemy.prototype.update = function() {
 
-
-
+		this.body.setCollisionGroup(this.enemyCG);
+		this.body.collides(this.playerCG);
+		this.body.collides(this.tileCG);
+		this.body.collides(this.bulletCG, this.collisionBullet, this);
 
 	//Animaciones según el enemigo creado
 	if(this.body.sprite.key == 'dientes') {
@@ -92,7 +101,7 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD ) {
 	}
 
 	//daño recibido por el enemigo
-	Enemy.prototype.damage = function(amount) {
+	Enemy.prototype.damage = function(amount, body) {
 
     	this.life -= amount;
     	this.alpha -= 2;
@@ -100,6 +109,13 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD ) {
     	if (this.life <= 0){
     		
         	this.alive = false;
+        	this.player.kills += 1;
+        	if(body.key == 'dientes') {
+        		this.player.score +=35;
+        	} else if (body.key == 'enfermero') {
+        		this.player.score +=55;
+        	}
+
 
        	return true;
     	}
@@ -112,6 +128,24 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD ) {
  	Enemy.prototype.isAlive = function(){
         if(this.alive == false){
         	this.destroy()
-        }
+
+        } 
+
+    },
+
+    Enemy.prototype.collisionBullet = function (body, body2) {
+    	if (body.sprite != null && body2.sprite != null) {
+
+			 if(body2.sprite.key == 'bala'){
+			 this.damage(10, body.sprite);
+			 body2.sprite.destroy();
+
+			}else if(body2.sprite.key == 'perdigon'){
+	        this.damage(5, body.sprite);
+	        body2.sprite.destroy();
+
+			} 
+		
+		}
 
     };

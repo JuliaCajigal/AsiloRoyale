@@ -1,6 +1,6 @@
 var AsiloRoyale = AsiloRoyale || {};
 
-function Player(game, x, y, guned, shotguned, sprite, ownerId, weapons) {
+var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, playerCG, tileCG, enemyCG, itemCG) {
 
 	Phaser.Sprite.call(this, game, x, y, sprite,0);
 
@@ -21,7 +21,20 @@ function Player(game, x, y, guned, shotguned, sprite, ownerId, weapons) {
     this.gunAmmo = 10;
     this.items = 0;
     this.kills = 0;
+    this.playerCG = playerCG;
+    this.tileCG = tileCG;
+    this.enemyCG = enemyCG;
+    this.itemCG = itemCG;
+    this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
+    this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
 
+    this.collect_weapon = new Phaser.Sound(this.game, 'collect_weapon');
+
+    var width = (this.life / 2)*10;
+
+    this.cropRect = new Phaser.Rectangle( 0, 0, width , 30);
+
+    this.showLife();
 
     //Rotación del jugador hacia la posición del ratón
 	this.angleToPointer = function (displayObject, pointer, world){
@@ -40,14 +53,18 @@ function Player(game, x, y, guned, shotguned, sprite, ownerId, weapons) {
 
     }
 
-    }
+    };
 	
 	Player.prototype = Object.create(Phaser.Sprite.prototype);
 	Player.prototype.constructor = Player;
 
 
 	Player.prototype.create= function() {
-    }
+
+
+    },    
+    
+
 
 	
 	Player.prototype.update = function() {
@@ -55,6 +72,11 @@ function Player(game, x, y, guned, shotguned, sprite, ownerId, weapons) {
         //eje de rotación del jugador
         this.anchor.x = 0.35;
         this.anchor.y = 0.5;
+
+    this.body.setCollisionGroup(this.playerCG); 
+    this.body.collides(this.tileCG);
+    this.body.collides(this.itemCG, this.pickItem, this);
+    this.body.collides(this.enemyCG, this.pickItem, this);
 
         if(this.life>100){
             this.life=100;
@@ -96,14 +118,34 @@ function Player(game, x, y, guned, shotguned, sprite, ownerId, weapons) {
 		this.isAlive();
 
     },
+    
+
+    Player.prototype.showLife = function(){
+        
+        //this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
+        this.lifeBardw.fixedToCamera = true;
+
+        //this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
+        this.lifeBar.anchor.y = 0.5;
+        this.lifeBar.cropEnabled = true;
+        this.lifeBar.fixedToCamera = true;
+
+       // var width = (this.life / 2)*10;
+
+        //this.cropRect = new Phaser.Rectangle( 0, 0, width , 30);
+       this.cropRect.fixedToCamera = true;
+       this.lifeBar.crop(this.cropRect);
+
+    }, 
 
 
     //Función que se utiliza cada vez que el jugador reciba daño
-    Player.prototype.damage = function(amount, crop, lifeBar) {
+    Player.prototype.damage = function(amount) {
 
         this.life -= amount;
-        crop.width = (this.life/2) *10; 
-        lifeBar.updateCrop(this.cropRect);
+        console.log(this.life);
+        this.cropRect.width = (this.life/2) *10; 
+        this.lifeBar.updateCrop(this.cropRect);
 
         if (this.life <= 0){
             this.alive = false;
@@ -116,6 +158,99 @@ function Player(game, x, y, guned, shotguned, sprite, ownerId, weapons) {
     //Determina la muerte del jugador
     Player.prototype.isAlive = function(){
         if(this.alive == false){ this.game.state.start('GameOver',true,false,this.score,this.items, this.kills);}
+
+    },
+
+  
+
+    Player.prototype.pickItem = function (body, body2) {
+
+        if (body.sprite != null && body2.sprite != null) {
+
+            // Pastillas
+
+            if (body2.sprite.key == 'pasti_roja') {
+
+                this.collect(this, body2.sprite, 10);
+                this.items++;
+            } else if (body2.sprite.key == 'pasti_verde') {
+                this.collect(this,body2.sprite, 20);
+                this.items++;
+
+            } else if(body2.sprite.key == 'pasti_morada'){
+
+                this.collect(this,body2.sprite,30);
+                this.items++;
+
+
+            } else if(body2.sprite.key == 'pasti_amarilla'){
+
+                this.collect(this,body2.sprite,50);
+                this.items++;
+
+                // Balas y cartuchos
+
+            } else if(body2.sprite.key == 'cartucho_escopeta'){
+
+                this.collect(this,body2.sprite,0);
+                if(this.currentWeapon==1){
+                    this.shotgunAmmo+=10;
+                }
+
+
+            }else if(body2.sprite.key == 'balas_pistola'){
+
+                this.collect(this,body2.sprite,0);
+                if(this.currentWeapon==0){
+                    this.gunAmmo+=10;
+                }
+
+                // Armas
+
+            } else if(body2.sprite.key == 'shotgun'){
+
+                this.collect_weapon.play();
+                this.collect(this,body2.sprite,0);
+                this.currentWeapon=1;
+                this.shotgunAmmo+=10;
+                this.gunAmmo=0;
+
+            }else if(body2.sprite.key == 'gun'){
+
+                this.collect_weapon.play();
+                this.collect(this,body2.sprite,0);
+                this.currentWeapon=0;
+                this.gunAmmo+=15;
+                this.shotgunAmmo=0;
+
+                //Botiquin
+
+            }else if(body2.sprite.key == 'botiquin'){
+
+                this.damage(-20);
+                this.collect(this,body2.sprite,0);
+
+                //Enemigos
+
+
+            } else if (body2.sprite.key == 'dientes'){
+
+                this.damage(5);
+             } else if (body2.sprite.key == 'enfermero') {
+                this.damage(20);
+
+                } 
+                 
+
+
+            
+    }
+
+    },
+
+    Player.prototype.collect = function(player, collectable, amount) {
+        this.score+=amount;
+        collectable.destroy();
 
     };
 

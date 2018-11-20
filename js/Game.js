@@ -14,7 +14,7 @@ AsiloRoyale.Game.prototype = {
 
   	////////////SONIDOS///////////
 
-  	this.collect_weapon = new Phaser.Sound(this, 'collect_weapon');
+  	//this.collect_weapon = new Phaser.Sound(this, 'collect_weapon');
 
 
   	////////////MAPA/////////////
@@ -60,88 +60,82 @@ AsiloRoyale.Game.prototype = {
 	weapons.push(new Weapon.Gun(this.game,this.bulletCollisionGroup,this.tilesCollisionGroup, this.enemiesCollisionGroup));
     weapons.push(new Weapon.Shotgun(this.game,this.bulletCollisionGroup,this.tilesCollisionGroup, this.enemiesCollisionGroup));
 
+    /////////BARRA DE VIDA/////////
+
+   //this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
+
+
+
 	/////////JUGADOR 1/////////
 
-	this.player1 = new Player(this.game,1100,1000,false,true, 'player', 1, weapons);
+	this.player1 = new Player(this.game,1100,1000,false,true, 'player', 1, weapons, this.playerCollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup);
 	this.game.add.existing(this.player1);
-
 	this.game.physics.p2.enable(this.player1,false);
 	this.player1.body.clearShapes(); 
 	this.player1.body.loadPolygon('player_physics', 'player'); 
-	this.player1.body.setCollisionGroup(this.playerCollisionGroup); 
-	this.player1.body.collides(this.tilesCollisionGroup);
-	this.player1.body.collides(this.itemCollisionGroup, this.collectItem, this);
-	this.player1.body.collides(this.enemiesCollisionGroup, this.collectItem, this);
 
 	///////////ENEMIGOS///////
 
 	//Dientes
-	this.teeth1 = new Enemy(this.game,1000,1300,'dientes',120,30,100,100);
+
+	/*
+
+	
+	this.teeth = [];
+
+	var teethTotal = 5;
+
+	//var x = this.game.world.randomX;
+	//var y = this.game.world.randomY;
+
+	for(var i = 0; i < teethTotal; i++) {
+		var x = 1000 + i*100;
+		var y = 1300 + i * 500;
+		this.teeth.push(new Enemy(this.game,x,1300,'dientes',120,30,100,100, i, this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1));
+		this.game.add.existing(this.teeth[i]);
+		this.game.physics.p2.enable(this.teeth[i],false);
+	}
+	*/
+	
+	
+	
+	this.teeth1 = new Enemy(this.game,1000,1300,'dientes',120,30,100,100, 'teeth1', this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1);
 	this.game.add.existing(this.teeth1);
 	this.game.physics.p2.enable(this.teeth1,false);
-	this.teeth1.body.setCollisionGroup(this.enemiesCollisionGroup);
-	this.teeth1.body.collides(this.playerCollisionGroup);
-	this.teeth1.body.collides(this.tilesCollisionGroup);
-	this.teeth1.body.collides(this.bulletCollisionGroup, this.collectItem, this);
-	this.teeth1.name = 'teeth1';
 
-	this.teeth2 = new Enemy(this.game,2150,1250,'dientes',120,30,300,300);
+	this.teeth2 = new Enemy(this.game,2150,1250,'dientes',120,30,300,300, 'teeth2', this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1);
 	this.game.add.existing(this.teeth2);
 	this.game.physics.p2.enable(this.teeth2,false);
-	this.teeth2.body.setCollisionGroup(this.enemiesCollisionGroup);
-	this.teeth2.body.collides(this.playerCollisionGroup);
-	this.teeth2.body.collides(this.tilesCollisionGroup);
-	this.teeth2.body.collides(this.bulletCollisionGroup, this.collectItem, this);
-	this.teeth2.name = 'teeth2';
 
-	this.teeth3 = new Enemy(this.game,1200,1700,'dientes',120,30,160,160);
+	this.teeth3 = new Enemy(this.game,1200,1700,'dientes',120,30,160,160, 'teeth3', this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1);
 	this.game.add.existing(this.teeth3);
 	this.game.physics.p2.enable(this.teeth3,false);
-	this.teeth3.body.setCollisionGroup(this.enemiesCollisionGroup);
-	this.teeth3.body.collides(this.playerCollisionGroup);
-	this.teeth3.body.collides(this.tilesCollisionGroup);
-	this.teeth3.body.collides(this.bulletCollisionGroup, this.collectItem, this);
-	this.teeth3.name = 'teeth3';
 
-	this.teeth4 = new Enemy(this.game,2100,2200,'dientes',120,30,210,210);
+	this.teeth4 = new Enemy(this.game,2100,2200,'dientes',120,30,210,210, 'teeth4', this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1);
 	this.game.add.existing(this.teeth4);
 	this.game.physics.p2.enable(this.teeth4,false);
-	this.teeth4.body.setCollisionGroup(this.enemiesCollisionGroup);
-	this.teeth4.body.collides(this.playerCollisionGroup);
-	this.teeth4.body.collides(this.tilesCollisionGroup);
-	this.teeth4.body.collides(this.bulletCollisionGroup, this.collectItem, this);
-	this.teeth4.name = 'teeth4';
+
 
 	//Enfermeros
-    this.nurse1 = new Enemy(this.game, 1300, 1500,'enfermero', 120, 60, 600, 600); //3300, 1500
+    this.nurse1 = new Enemy(this.game, 1300, 1500,'enfermero', 120, 60, 600, 600, 'nurse1', this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1); 
     this.game.add.existing(this.nurse1);
 	this.game.physics.p2.enable(this.nurse1,false);
-	this.nurse1.body.setCollisionGroup(this.enemiesCollisionGroup);
-	this.nurse1.body.collides(this.playerCollisionGroup);
-	this.nurse1.body.collides(this.tilesCollisionGroup);
-	this.nurse1.body.collides(this.bulletCollisionGroup, this.collectItem, this);
 	this.nurse1.body.static = true;
-	this.nurse1.name = 'nurse1';
 
-	this.nurse2 = new Enemy(this.game, 3500, 2500,'enfermero', 120, 60, 600, 600); //3300, 1500
+
+	this.nurse2 = new Enemy(this.game, 3500, 2500,'enfermero', 120, 60, 600, 600, 'nurse2', this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1); 
     this.game.add.existing(this.nurse2);
 	this.game.physics.p2.enable(this.nurse2,false);
-	this.nurse2.body.setCollisionGroup(this.enemiesCollisionGroup);
-	this.nurse2.body.collides(this.playerCollisionGroup);
-	this.nurse2.body.collides(this.tilesCollisionGroup);
-	this.nurse2.body.collides(this.bulletCollisionGroup, this.collectItem, this);
 	this.nurse2.body.static = true;
-	this.nurse2.name = 'nurse2';
 
-	this.nurse3 = new Enemy(this.game, 5700, 1500,'enfermero', 120, 60, 700, 700); //3300, 1500
+
+	this.nurse3 = new Enemy(this.game, 5700, 1500,'enfermero', 120, 60, 700, 700, 'nurse3', this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1); 
     this.game.add.existing(this.nurse3);
 	this.game.physics.p2.enable(this.nurse3,false);
-	this.nurse3.body.setCollisionGroup(this.enemiesCollisionGroup);
-	this.nurse3.body.collides(this.playerCollisionGroup);
-	this.nurse3.body.collides(this.tilesCollisionGroup);
-	this.nurse3.body.collides(this.bulletCollisionGroup, this.collectItem, this);
 	this.nurse3.body.static = true;
-	this.nurse3.name = 'nurse3';
+	
+	
+
 
 
 	/////////////CAMARA////////////
@@ -166,7 +160,7 @@ AsiloRoyale.Game.prototype = {
     this.showLabels();
 
 	//Muestra barra de vida
-	this.showLife(this.player1);
+	//this.showLife(this.player1);
 
 	//Temporizador
     timer = this.game.time.create();
@@ -180,170 +174,64 @@ AsiloRoyale.Game.prototype = {
 
   },
 
+    initEnemyPos: function(){
+
+		
+		var n = Math.floor(Math.random() * 5)  ; 
+		//Posiciones posibles 
+		var pos1 = new Array(1000, 1300);
+		var pos2 = new Array(2150, 1250);
+		var pos3 = new Array(1200, 1700);
+		var pos4 = new Array(2100, 2200);
+
+		//Array con las posiciones posibles
+		var arrayPos = new Array(pos1, pos2, pos3, pos4);
+	
+		var nPos = arrayPos[n];
+		
+		return nPos;
+	},
+
 	update: function() {
 		
 		//La cámara sigue al jugador teniendo en cuenta el offset
 		this.game.camera.focusOnXY(this.player1.x+75, this.player1.y);
-		this.updateHUD();
+		this.updateHUD(this.player1);
+		//this.updateLife(this.player1);
 
 			
 	},
+	
 
-	updateHUD: function(){
+	updateHUD: function(player){
 
 		//Dependiendo del arma que lleve verá unos grafismos
-		if(this.player1.currentWeapon==0){
+		if(player.currentWeapon==0){
 			this.scoreLabel3.frame=0;
 			this.HUD.visible = false;
-			this.lifeBar.position.x = 100;
+		    player.lifeBar.position.x = 100;
 			this.gunIcon.visible = true;
 			this.shotgunIcon.visible = false;
 
-	    }else if(this.player1.currentWeapon==1){
+	    }else if(player.currentWeapon==1){
 	    	this.scoreLabel3.frame=1;
 	    	this.HUD.visible = true;
-	    	this.lifeBar.position.x = 120;
+	    	player.lifeBar.position.x = 120;
 	    	this.shotgunIcon.visible = true;
 	    	this.gunIcon.visible = false;
 
 	    }
 
-	    //Se viasualizará la munición del arma portada y la puntuación
-		this.scoreLabel2.text = this.player1.score;
-		if(this.player1.currentWeapon===0){
-			this.scoreLabel.text = this.player1.gunAmmo;
-		}else if(this.player1.currentWeapon===1){
-			this.scoreLabel.text = this.player1.shotgunAmmo;
+	    //Se visualizará la munición del arma portada y la puntuación
+		this.scoreLabel2.text = player.score;
+		if(player.currentWeapon===0){
+			this.scoreLabel.text = player.gunAmmo;
+		}else if(player.currentWeapon===1){
+			this.scoreLabel.text = player.shotgunAmmo;
 		}
-	},
-
-		//Maneja los eventos según las diferentes posibilidades de colision entre objetos del juego
-	collectItem (body, body2) {
-
-		if (body.sprite != null && body2.sprite != null) {
-
-			if (body2.sprite.key == 'pasti_roja') {
-
-				this.collect(this.player1, body2.sprite, 10);
-				this.player1.items++;
-
-			}  else if (body2.sprite.key == 'pasti_verde') {
-				this.collect(this.player1,body2.sprite, 20);
-				this.player1.items++;
-
-			} else if(body2.sprite.key == 'pasti_morada'){
-
-				this.collect(this.player1,body2.sprite,30);
-				this.player1.items++;
+	}, 
 
 
-			} else if(body2.sprite.key == 'pasti_amarilla'){
-
-				this.collect(this.player1,body2.sprite,50);
-				this.player1.items++;
-
-
-			}else if(body2.sprite.key == 'cartucho_escopeta'){
-
-				this.collect(this.player1,body2.sprite,0);
-				if(this.player1.currentWeapon==1){
-					this.player1.shotgunAmmo+=10;
-				}
-
-
-			}else if(body2.sprite.key == 'balas_pistola'){
-
-				this.collect(this.player1,body2.sprite,0);
-				if(this.player1.currentWeapon==0){
-					this.player1.gunAmmo+=10;
-				}
-
-
-			}else if(body2.sprite.key == 'botiquin'){
-
-				this.player1.damage(-20, this.cropRect, this.lifeBar);
-				this.collect(this.player1,body2.sprite,0);
-
-
-			} else if(body2.sprite.key == 'bala'){
-			  if(body.sprite.key == 'dientes') {
-
-				if(body.sprite.name == 'teeth1') {
-				this.bulletHitEnemy(this.teeth1,body2.sprite,this.player1, body.sprite);
-			} else if (body.sprite.name == 'teeth2'){
-				this.bulletHitEnemy(this.teeth2,body2.sprite,this.player1, body.sprite);
-
-			} else if (body.sprite.name == 'teeth3') {
-				this.bulletHitEnemy(this.teeth3,body2.sprite,this.player1, body.sprite);
-
-			} else if (body.sprite.name == 'teeth4') {
-				this.bulletHitEnemy(this.teeth4,body2.sprite,this.player1, body.sprite);
-			}
-			} else if (body.sprite.key == 'enfermero') {
-				if(body.sprite.name == 'nurse1'){
-				this.bulletHitEnemy(this.nurse1,body2.sprite,this.player1, body.sprite);
-			} else if (body.sprite.name == 'nurse2') {
-				this.bulletHitEnemy(this.nurse2,body2.sprite,this.player1, body.sprite);
-			} else if (body.sprite.name == 'nurse3') {
-				this.bulletHitEnemy(this.nurse3,body2.sprite,this.player1, body.sprite);
-			} 
-			}
-
-			}else if(body2.sprite.key == 'perdigon'){
-
-	            if(body.sprite.key == 'dientes') {
-
-				if(body.sprite.name == 'teeth1') {
-				this.bulletHitEnemy(this.teeth1,body2.sprite,this.player1, body.sprite);
-			} else if (body.sprite.name == 'teeth2'){
-				this.bulletHitEnemy(this.teeth2,body2.sprite,this.player1, body.sprite);
-
-			} else if (body.sprite.name == 'teeth3') {
-				this.bulletHitEnemy(this.teeth3,body2.sprite,this.player1, body.sprite);
-
-			} else if (body.sprite.name == 'teeth4') {
-				this.bulletHitEnemy(this.teeth4,body2.sprite,this.player1, body.sprite);
-			}
-
-			} else if (body.sprite.key == 'enfermero') {
-				if(body.sprite.name == 'nurse1'){
-				this.bulletHitEnemy(this.nurse1,body2.sprite,this.player1, body.sprite);
-			} else if (body.sprite.name == 'nurse2') {
-				this.bulletHitEnemy(this.nurse2,body2.sprite,this.player1, body.sprite);
-			} else if (body.sprite.name == 'nurse3') {
-				this.bulletHitEnemy(this.nurse3,body2.sprite,this.player1, body.sprite);
-			} 
-		    }
-
-			}  else if (body2.sprite.key == 'dientes' || body2.sprite.key == 'enfermero'){
-				if(body2.sprite.key == 'dientes') {
-
-				this.player1.damage(5, this.cropRect, this.lifeBar);
-				 } else if (body2.sprite.key == 'enfermero') {
-				 	this.player1.damage(20, this.cropRect, this.lifeBar);
-				 }
-
-
-			}else if(body2.sprite.key == 'shotgun'){
-
-				this.collect_weapon.play();
-				this.collect(this.player1,body2.sprite,0);
-				this.player1.currentWeapon=1;
-				this.player1.shotgunAmmo+=10;
-				this.player1.gunAmmo=0;
-
-			}else if(body2.sprite.key == 'gun'){
-
-				this.collect_weapon.play();
-				this.collect(this.player1,body2.sprite,0);
-				this.player1.currentWeapon=0;
-				this.player1.gunAmmo+=15;
-				this.player1.shotgunAmmo=0;
-
-			}
-		
-		}
-	},
 
 		//Maneja los eventos en los que el jugador recibe daño
 	bulletHitPlayer: function(player, bullet) {
@@ -351,28 +239,8 @@ AsiloRoyale.Game.prototype = {
     	bullet.destroy();
 
 	},
-		//Maneja los eventos en los que los enemigos reciben daño
-	bulletHitEnemy: function(enemy, bullet, player, enemySprite) {
 
-    	if (bullet.key == 'bala') {
-			enemy.damage(10);
-
-		} else if (bullet.key == 'perdigon') {
-			enemy.damage(5);
-
-		} if (enemy.alive == false) {
-			player.kills += 1;
-
-			if(enemySprite.key == 'dientes') {
-				player.score +=35;
-			} else if (enemySprite.key == 'enfermero')
-			player.score +=55;
-
-		}
-
-    	bullet.destroy();
-
-	},
+	
 
 		//Muestra la barra de vida en pantalla
 	showLife: function(player){
@@ -385,12 +253,21 @@ AsiloRoyale.Game.prototype = {
 		this.lifeBar.cropEnabled = true;
 		this.lifeBar.fixedToCamera = true;
 
-		var width = (player.life / 2)*10;
+		 var width = (this.life / 2)*10;
 
-		this.cropRect = new Phaser.Rectangle( 0, 0, width , 30);
+        this.cropRect = new Phaser.Rectangle( 0, 0, width , 30);
+
+
 		this.cropRect.fixedToCamera = true;
     	this.lifeBar.crop(this.cropRect);
 
+	},
+
+	updateLife: function (player){
+		if(player.damage()){
+	    this.cropRect.width = (player.life/2) *10; 
+        this.lifeBar.updateCrop(this.cropRect);
+		}
 	},
 
 
@@ -437,10 +314,10 @@ AsiloRoyale.Game.prototype = {
 	},
 	
 		//metodo usado cuando el jugador recoge un objeto
-	collect: function(player, collectable,amount) {
+	/*collect: function(player, collectable,amount) {
 		player.score+=amount;
 		collectable.destroy();
-	},
+	},*/
 	
 
 
