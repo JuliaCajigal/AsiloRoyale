@@ -22,16 +22,6 @@ AsiloRoyale.Preload.prototype = {
 		this.load.setPreloadSprite(this.preloadBar);
 		
 		//Preload de assets
-		//SPRITESHEETS
-		this.load.image('brokenteeth', 'assets/images/desmontada.png');
-		this.load.spritesheet('botonesjugar', 'assets/images/playbutton.png',256,128,2);
-		this.load.spritesheet('botonessalir', 'assets/images/exitbutton.png',256,128,2);
-		this.load.spritesheet('dientes', 'assets/images/dientes.png',32,32);
-		this.load.spritesheet('dientes', 'assets/images/dientes.png',32,32);
-		this.load.spritesheet('enfermero', 'assets/images/enfermero.png',128,128);
-		this.load.spritesheet('player', 'assets/images/viejo1_sheet.png',126,64);
-		this.load.spritesheet('iconos_municion', 'assets/images/iconos_municion.png',40,40);
-		//SPRITES
 		this.load.tilemap('level1', 'assets/tilemaps/untitled.json',null, Phaser.Tilemap.TILED_JSON);
 		this.load.image('gameTiles', 'assets/tilesets/tiles.png');
 		this.load.image('pasti_roja', 'assets/images/pasti_roja.png');
@@ -46,7 +36,13 @@ AsiloRoyale.Preload.prototype = {
 		this.load.image('player_escopeta', 'assets/images/viejo1_escopeta.png');
 		this.load.image('esquema', 'assets/images/esquema.png');
 		this.load.image('enemy', 'assets/images/enemy.png');
-		this.load.image('blood', 'assets/images/sangre.png');
+		this.load.spritesheet('botonesjugar', 'assets/images/playbutton.png',256,128,2);
+		this.load.spritesheet('botonessalir', 'assets/images/exitbutton.png',256,128,2);
+		this.load.spritesheet('dientes', 'assets/images/dientes.png',32,32);
+		this.load.spritesheet('dientes', 'assets/images/dientes.png',32,32);
+		this.load.spritesheet('enfermero', 'assets/images/enfermero.png',128,128);
+		this.load.spritesheet('player', 'assets/images/viejo1_sheet.png',126,64);
+		this.load.spritesheet('iconos_municion', 'assets/images/iconos_municion.png',40,40);
 		this.load.image('star','assets/images/star.png');
 		this.load.image('letrasgameover','assets/images/gameover.jpg',256,128,2);
 		this.load.image('perdigon', 'assets/images/perdigon.png');
@@ -59,15 +55,8 @@ AsiloRoyale.Preload.prototype = {
 		this.load.image('view_shotgun', 'assets/images/shotgun_view.png');
 		this.load.image('guni', 'assets/images/gun_icon.png');
 		this.load.image('shotguni', 'assets/images/shotgun_icon.png');
-		//SONIDOS
 		this.load.audio('collect_weapon', 'assets/audio/collect_weapon.wav');
-		this.load.audio('gun_fire', 'assets/audio/gun_fire.mp3');
-		this.load.audio('bite', 'assets/audio/mordisco.wav');
-		this.load.audio('swallow', 'assets/audio/tragar.mp3');
-		this.load.audio('shotgun_fire', 'assets/audio/disparo_escopeta.mp3');
-		this.load.audio('collect_ammo', 'assets/audio/collect_ammo.wav');
-		this.load.audio('empty_weapon', 'assets/audio/empty_weapon.wav');
-		//FISICAS
+		this.load.audio('gun_fire', 'assets/audio/gun_fire.wav');
 		this.game.load.physics('player_physics', 'assets/physics/viejo_physics.json'); 
 
  	},

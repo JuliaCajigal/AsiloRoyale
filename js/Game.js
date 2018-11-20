@@ -10,12 +10,6 @@ var tilesCollisionGroup, playerCollisionGroup;
 
 AsiloRoyale.Game.prototype = {
   create: function() {
-  	
-
-  	////////////SONIDOS///////////
-
-  	//this.collect_weapon = new Phaser.Sound(this, 'collect_weapon');
-
 
   	////////////MAPA/////////////
 
@@ -77,65 +71,16 @@ AsiloRoyale.Game.prototype = {
 	///////////ENEMIGOS///////
 
 	//Dientes
-
-	/*
-
 	
 	this.teeth = [];
 
-	var teethTotal = 5;
-
-	//var x = this.game.world.randomX;
-	//var y = this.game.world.randomY;
-
-	for(var i = 0; i < teethTotal; i++) {
-		var x = 1000 + i*100;
-		var y = 1300 + i * 500;
-		this.teeth.push(new Enemy(this.game,x,1300,'dientes',120,30,100,100, i, this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1));
-		this.game.add.existing(this.teeth[i]);
-		this.game.physics.p2.enable(this.teeth[i],false);
-	}
-	*/
-	
-	
-	
-	this.teeth1 = new Enemy(this.game,1000,1300,'dientes',120,30,100,100, 'teeth1', this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1);
-	this.game.add.existing(this.teeth1);
-	this.game.physics.p2.enable(this.teeth1,false);
-
-	this.teeth2 = new Enemy(this.game,2150,1250,'dientes',120,30,300,300, 'teeth2', this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1);
-	this.game.add.existing(this.teeth2);
-	this.game.physics.p2.enable(this.teeth2,false);
-
-	this.teeth3 = new Enemy(this.game,1200,1700,'dientes',120,30,160,160, 'teeth3', this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1);
-	this.game.add.existing(this.teeth3);
-	this.game.physics.p2.enable(this.teeth3,false);
-
-	this.teeth4 = new Enemy(this.game,2100,2200,'dientes',120,30,210,210, 'teeth4', this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1);
-	this.game.add.existing(this.teeth4);
-	this.game.physics.p2.enable(this.teeth4,false);
-
+	this.initTeeth();
 
 	//Enfermeros
-    this.nurse1 = new Enemy(this.game, 1300, 1500,'enfermero', 120, 60, 600, 600, 'nurse1', this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1); 
-    this.game.add.existing(this.nurse1);
-	this.game.physics.p2.enable(this.nurse1,false);
-	this.nurse1.body.static = true;
 
+	this.nurse = [];
 
-	this.nurse2 = new Enemy(this.game, 3500, 2500,'enfermero', 120, 60, 600, 600, 'nurse2', this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1); 
-    this.game.add.existing(this.nurse2);
-	this.game.physics.p2.enable(this.nurse2,false);
-	this.nurse2.body.static = true;
-
-
-	this.nurse3 = new Enemy(this.game, 5700, 1500,'enfermero', 120, 60, 700, 700, 'nurse3', this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1); 
-    this.game.add.existing(this.nurse3);
-	this.game.physics.p2.enable(this.nurse3,false);
-	this.nurse3.body.static = true;
-	
-	
-
+	this.initNurse();
 
 
 	/////////////CAMARA////////////
@@ -174,30 +119,89 @@ AsiloRoyale.Game.prototype = {
 
   },
 
-    initEnemyPos: function(){
+  //Crea y devuelve un array con las posibles posiciones de los dientes
 
-		
-		var n = Math.floor(Math.random() * 5)  ; 
+    teethPosition: function(){
+ 
 		//Posiciones posibles 
-		var pos1 = new Array(1000, 1300);
-		var pos2 = new Array(2150, 1250);
-		var pos3 = new Array(1200, 1700);
-		var pos4 = new Array(2100, 2200);
+		var teethPos1 = new Array(1000, 1300);
+		var teethPos2 = new Array(2150, 1250);
+		var teethPos3 = new Array(1200, 1700);
+		var teethPos4 = new Array(2100, 2200);
 
 		//Array con las posiciones posibles
-		var arrayPos = new Array(pos1, pos2, pos3, pos4);
-	
-		var nPos = arrayPos[n];
+		var teethArray = new Array (teethPos1, teethPos2, teethPos3, teethPos4);
+
 		
-		return nPos;
+		return teethArray;
+
 	},
+
+	//Crea y devuelve un array con las posibles posiciones de los enfermeros
+
+	nursePosition: function () {
+
+		//Posiciones posibles 
+		var nursePos1 = new Array(1300, 1500);
+		var nursePos2 = new Array(3500, 2500);
+		var nursePos3 = new Array(5700, 1500);
+
+		//Array con las posiciones posibles
+		var nurseArray = new Array (nursePos1, nursePos2, nursePos3);
+
+		
+		return nurseArray;
+
+	},
+
+	//Inicializa los dientes
+
+	initTeeth: function () {
+
+		var teethTotal = 4;
+
+		for(var i = 0; i < teethTotal; i++) {
+		 var tarray = this.teethPosition();
+		 var teethPosFinal = tarray[i];
+
+	
+		this.teeth.push(new Enemy(this.game,teethPosFinal[0],teethPosFinal[1],'dientes',120,30,100,100, i, this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1));
+		this.game.add.existing(this.teeth[i]);
+		this.game.physics.p2.enable(this.teeth[i],false);
+
+	}
+
+	},
+
+	//Inicializa los enfermeros
+	
+
+	initNurse: function () {
+
+		var nurseTotal = 3;
+
+		for(var i = 0; i < nurseTotal; i++) {
+		 var narray = this.nursePosition();
+		 var nursePosFinal = narray[i];
+
+	
+    this.nurse.push(new Enemy(this.game, nursePosFinal[0], nursePosFinal[1],'enfermero', 120, 60, 700, 700, i, this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1)); 
+    this.game.add.existing(this.nurse[i]);
+	this.game.physics.p2.enable(this.nurse[i],false);
+	this.nurse[i].body.static = true;
+
+	}
+
+	}, 
+
+
+
 
 	update: function() {
 		
 		//La cámara sigue al jugador teniendo en cuenta el offset
 		this.game.camera.focusOnXY(this.player1.x+75, this.player1.y);
 		this.updateHUD(this.player1);
-		//this.updateLife(this.player1);
 
 			
 	},
@@ -253,7 +257,7 @@ AsiloRoyale.Game.prototype = {
 		this.lifeBar.cropEnabled = true;
 		this.lifeBar.fixedToCamera = true;
 
-		 var width = (this.life / 2)*10;
+		var width = (this.life / 2)*10;
 
         this.cropRect = new Phaser.Rectangle( 0, 0, width , 30);
 
@@ -261,13 +265,6 @@ AsiloRoyale.Game.prototype = {
 		this.cropRect.fixedToCamera = true;
     	this.lifeBar.crop(this.cropRect);
 
-	},
-
-	updateLife: function (player){
-		if(player.damage()){
-	    this.cropRect.width = (player.life/2) *10; 
-        this.lifeBar.updateCrop(this.cropRect);
-		}
 	},
 
 
@@ -285,10 +282,10 @@ AsiloRoyale.Game.prototype = {
 		this.scoreLabel2 = this.game.add.text(1020, 176, text2, style);
 		this.scoreLabel2.fixedToCamera = true;
 
-		this.scoreLabel3 = this.game.add.sprite(1090,132,'iconos_municion',0);
+		this.scoreLabel3 = this.game.add.sprite(1075,132,'iconos_municion',0);
 		this.scoreLabel3.fixedToCamera =true;
 
-		var star = this.game.add.image(1090, 180, 'star');
+		var star = this.game.add.image(1075, 180, 'star');
 		star.fixedToCamera = true;
 
 	},
