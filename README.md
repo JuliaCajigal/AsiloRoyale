@@ -64,6 +64,10 @@ Al iniciar el juego, se presenta un menú de inicio con un botón para comenzar 
 
 *Shotgun screen.*  
 
+
+### ___Diagrama de navegación___:
+![Diagrama de navegación](https://imageshack.com/a/img921/2446/bv8eni.png)
+
   
   
 ##### _*Enlace Trello*_:
@@ -74,5 +78,5 @@ https://trello.com/b/q6wktSCS/asilo-royale
 https://drive.google.com/file/d/1j6Tk_zuKZMG8ENV2fb-3WXqiD1wDLIfg/view?usp=sharing
 
 
-## ___FASE 2:___
+
 
