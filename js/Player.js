@@ -6,7 +6,7 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
 
     //Atributos de Player
 
-	this.speed = 120;
+	this.speed = 90;
 	this.game = game;
 	this.guned = guned;
 	this.shotguned = shotguned;
@@ -18,7 +18,7 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
     this.weapons = weapons;
     this.currentWeapon = 0;
     this.shotgunAmmo = 0;
-    this.gunAmmo = 10;
+    this.gunAmmo = 20;
     this.items = 0;
     this.kills = 0;
     this.playerCG = playerCG;
@@ -28,10 +28,14 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
     this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
     this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
 
+    //SONIDOS DEL PERSONAJE
     this.collect_weapon = new Phaser.Sound(this.game, 'collect_weapon');
+    this.bite = new Phaser.Sound(this.game, 'bite');
+    this.swallow = new Phaser.Sound(this.game, 'swallow');
+    this.collect_ammo = new Phaser.Sound(this.game, 'collect_ammo');
+
 
     var width = (this.life / 2)*10;
-
     this.cropRect = new Phaser.Rectangle( 0, 0, width , 30);
 
     this.showLife();
@@ -143,6 +147,10 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
     Player.prototype.damage = function(amount) {
 
         this.life -= amount;
+        this.alpha -= 2;
+        if (amount > 0){
+        this.game.add.tween(this).to( { alpha: 1 }, 300, Phaser.Easing.Linear.None, true, 0, 1, false,true);
+        }
         console.log(this.life);
         this.cropRect.width = (this.life/2) *10; 
         this.lifeBar.updateCrop(this.cropRect);
@@ -170,28 +178,30 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
             // Pastillas
 
             if (body2.sprite.key == 'pasti_roja') {
-
+                this.swallow.play();
                 this.collect(this, body2.sprite, 10);
                 this.items++;
             } else if (body2.sprite.key == 'pasti_verde') {
+                this.swallow.play();
                 this.collect(this,body2.sprite, 20);
                 this.items++;
 
             } else if(body2.sprite.key == 'pasti_morada'){
-
+                this.swallow.play();
                 this.collect(this,body2.sprite,30);
                 this.items++;
 
 
             } else if(body2.sprite.key == 'pasti_amarilla'){
-
+                this.swallow.play();
                 this.collect(this,body2.sprite,50);
                 this.items++;
 
                 // Balas y cartuchos
 
             } else if(body2.sprite.key == 'cartucho_escopeta'){
-
+        
+                this.collect_ammo.play();
                 this.collect(this,body2.sprite,0);
                 if(this.currentWeapon==1){
                     this.shotgunAmmo+=10;
@@ -200,6 +210,7 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
 
             }else if(body2.sprite.key == 'balas_pistola'){
 
+                this.collect_ammo.play();
                 this.collect(this,body2.sprite,0);
                 if(this.currentWeapon==0){
                     this.gunAmmo+=10;
@@ -234,7 +245,7 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
 
 
             } else if (body2.sprite.key == 'dientes'){
-
+                this.bite.play();
                 this.damage(5);
              } else if (body2.sprite.key == 'enfermero') {
                 this.damage(20);

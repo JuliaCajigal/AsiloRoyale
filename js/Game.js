@@ -285,10 +285,10 @@ AsiloRoyale.Game.prototype = {
 		this.scoreLabel2 = this.game.add.text(1020, 176, text2, style);
 		this.scoreLabel2.fixedToCamera = true;
 
-		this.scoreLabel3 = this.game.add.sprite(1075,132,'iconos_municion',0);
+		this.scoreLabel3 = this.game.add.sprite(1090,132,'iconos_municion',0);
 		this.scoreLabel3.fixedToCamera =true;
 
-		var star = this.game.add.image(1075, 180, 'star');
+		var star = this.game.add.image(1090, 180, 'star');
 		star.fixedToCamera = true;
 
 	},

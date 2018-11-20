@@ -105,14 +105,22 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD, index, enemyCG, pl
 
     	this.life -= amount;
     	this.alpha -= 2;
+    	this.game.add.tween(this).to( { alpha: 1 }, 300, Phaser.Easing.Linear.None, true, 0, 1, false,true);
 
     	if (this.life <= 0){
     		
         	this.alive = false;
         	this.player.kills += 1;
         	if(body.key == 'dientes') {
+        		//this.brokenteeth = this.game.add.sprite(this.body.x-50, this.body.y-50, 'brokenteeth');
+        		//this.brokenteeth.alpha -= 2;
+        		//this.game.add.tween(this.brokenteeth).to( { alpha: 0 }, 100, Phaser.Easing.Linear.None, true, 80, 0, false,false);
         		this.player.score +=35;
         	} else if (body.key == 'enfermero') {
+
+        		this.blood = this.game.add.sprite(this.body.x-50, this.body.y-50, 'blood');
+        		this.blood.alpha -= 2;
+        		this.game.add.tween(this.blood).to( { alpha: 0 }, 1, Phaser.Easing.Linear.None, true, 60, 0, false,false);
         		this.player.score +=55;
         	}
 
@@ -127,6 +135,7 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD, index, enemyCG, pl
 	//Determina si el enemigo está vivo
  	Enemy.prototype.isAlive = function(){
         if(this.alive == false){
+
         	this.destroy()
 
         } 
