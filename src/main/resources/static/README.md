@@ -128,8 +128,13 @@ Por último, al finalizar la partida se puede observar una lista con los resulta
 
 ### ___Diagrama de clases:___
 
+User ---> clase
+UserController ---> controlador de la clase
+RestEjer1ConUiApplication ---> aplicación principal
+
 
 ### ___Instrucciones para iniciar el juego online:___
+El java.jar se encuentra dentro de la carpeta target, con nombre 'Asilo-Royale-0.0.1-SNAPSHOT.jar'. Para ejecutar, desde la consola de comandos, situarnos en la carpeta target y ejecutar el comando java -jar Asilo-Royale-0.0.1-SNAPSHOT.jar. El ejecutable está preparado para trabajar en el puerto 8080 de la máquina que lo ejecute.
 
 
 ### ___Referencias:___
