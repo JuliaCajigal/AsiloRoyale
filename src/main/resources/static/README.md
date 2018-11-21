@@ -100,14 +100,14 @@ Al comenzar se muestra el menú principal con las siguientes opciones:
 
 Se utilizará el ratón para desplazarse por las opciones y click para seleccionarlas. 
 
-![Menu principal](https://imageshack.com/a/img921/4702/naoHuL.png)
+![Menu principal]
+
 
 En la pantalla de "Help" se podrá visualizar una imagen que contiene la explicación de los controles del juego, así como los objetos que se pueden coger, utilizar o equipar. 
 
 ![Help](https://imageshack.com/a/img921/2363/nrkyGg.png)
 
-Si iniciamos el juego online, se presentará una pantalla donde el jugador tendrá que escribir su nombre de usuario. 
-Después de esto, el usuario accederá al "lobby" con el resto de clientes conectados al servidor. 
+Si iniciamos el juego online...
 
 ![Online]
 

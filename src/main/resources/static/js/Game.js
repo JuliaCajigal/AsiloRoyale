@@ -54,6 +54,11 @@ AsiloRoyale.Game.prototype = {
 	weapons.push(new Weapon.Gun(this.game,this.bulletCollisionGroup,this.tilesCollisionGroup, this.enemiesCollisionGroup));
     weapons.push(new Weapon.Shotgun(this.game,this.bulletCollisionGroup,this.tilesCollisionGroup, this.enemiesCollisionGroup));
 
+    /////////BARRA DE VIDA/////////
+
+   //this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
+
+
 
 	/////////JUGADOR 1/////////
 
@@ -98,6 +103,9 @@ AsiloRoyale.Game.prototype = {
 	
 	//Muestra etiquetas de vida
     this.showLabels();
+
+	//Muestra barra de vida
+	//this.showLife(this.player1);
 
 	//Temporizador
     timer = this.game.time.create();
@@ -236,6 +244,29 @@ AsiloRoyale.Game.prototype = {
 
 	},
 
+	
+
+		//Muestra la barra de vida en pantalla
+	showLife: function(player){
+		
+		this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
+		this.lifeBardw.fixedToCamera = true;
+
+		this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
+		this.lifeBar.anchor.y = 0.5;
+		this.lifeBar.cropEnabled = true;
+		this.lifeBar.fixedToCamera = true;
+
+		var width = (this.life / 2)*10;
+
+        this.cropRect = new Phaser.Rectangle( 0, 0, width , 30);
+
+
+		this.cropRect.fixedToCamera = true;
+    	this.lifeBar.crop(this.cropRect);
+
+	},
+
 
 		//Muestra los datos del jugador en el HUD
 	showLabels: function() {
@@ -278,6 +309,12 @@ AsiloRoyale.Game.prototype = {
 	test: function(player){
 		player.score += 40;
 	},
+	
+		//metodo usado cuando el jugador recoge un objeto
+	/*collect: function(player, collectable,amount) {
+		player.score+=amount;
+		collectable.destroy();
+	},*/
 	
 
 
