@@ -77,7 +77,7 @@ El aspecto visual del juego emulará una televisión retro en todos sus aspectos
 Durante el juego, en el marco de la tele, también dispondremos de las balas del arma que usamos en el momento, y la puntuación que llevamos en la partida. Para que sea más fácil para el jugador reconocer el arma que está usando, contamos con un icono del arma en cuestión. 
 Al iniciar el juego, se presenta un menú de inicio con un botón para comenzar la partida. Una vez finalizado el tiempo o tras morir, podemos observar una pantalla con los resultados de la patida: el ganador, la puntuación, el número de asesinatos y el número de objetos obtenidos.
 
-![HUD](https://imageshack.com/a/img921/1495/Qj3rQt.pngv)
+![HUD](https://imageshack.com/a/img921/1495/Qj3rQt.png)
 
 ### ___Diagrama de navegación___:
 
