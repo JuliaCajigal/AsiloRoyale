@@ -107,11 +107,14 @@ En la pantalla de "Help" se podrá visualizar una imagen que contiene la explica
 
 ![Help](https://imageshack.com/a/img921/2363/nrkyGg.png)
 
-Una vez dentro del juego, el jugador podrá desplazarse por el mapa y recoger diferentes objetos y armas con las que equiparse. Se presentarán enemigos que reducen la vida del personaje, aunque se podrá acabar con ellos utilizando las armas, lo que nos generará más puntuación. 
+Si iniciamos el juego online...
+![Online]
+
+Si iniciamos el juego en local, el jugador podrá desplazarse por el mapa y recoger diferentes objetos y armas con las que equiparse. Se presentarán enemigos que reducen la vida del personaje, aunque se podrá acabar con ellos utilizando las armas, lo que nos generará más puntuación. 
 
 Aqui se puede apreciar el HUD con la información de la partida: el tiempo que quede para que finalice, la munición, la puntuación, el arma equipada y la barra de vida. 
 
-![In-game](https://imageshack.com/a/img923/2777/DYsk3E.png)
+![Offline](https://imageshack.com/a/img923/2777/DYsk3E.png)
 
 Por último, al finalizar la partida se puede observar una lista con los resultados:
 
@@ -121,6 +124,11 @@ Por último, al finalizar la partida se puede observar una lista con los resulta
 - El número de objetos recogidos. 
      
 ![Results](https://imageshack.com/a/img921/1659/SlFO7y.png)
+
+### ___Diagrama de clases:___
+
+
+### ___Instrucciones para iniciar el juego online:___
 
 
 ### ___Referencias:___
