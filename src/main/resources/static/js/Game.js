@@ -55,7 +55,6 @@ AsiloRoyale.Game.prototype = {
     weapons.push(new Weapon.Shotgun(this.game,this.bulletCollisionGroup,this.tilesCollisionGroup, this.enemiesCollisionGroup));
 
 
-
 	/////////JUGADOR 1/////////
 
 	this.player1 = new Player(this.game,1100,1000,false,true, 'player', 1, weapons, this.playerCollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup);
@@ -238,7 +237,6 @@ AsiloRoyale.Game.prototype = {
 	},
 
 
-
 		//Muestra los datos del jugador en el HUD
 	showLabels: function() {
 	
@@ -276,6 +274,11 @@ AsiloRoyale.Game.prototype = {
 		this.shotgunIcon.visible = false;
 	},
 
+
+	test: function(player){
+		player.score += 40;
+	},
+	
 
 
 	//Dado un tipo y el nombre del sprite asociado devuelve true si son del mismo tipo y false si son tipos distintos de objetos.

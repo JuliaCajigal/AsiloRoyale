@@ -3,11 +3,12 @@ var AsiloRoyale = AsiloRoyale || {};
 AsiloRoyale.Login = function(){};
 
 var input;
+var currentUser;
 
 function createUser(user, callback) {
     $.ajax({
         method: "POST",
-        url: 'http://localhost:8080/users',
+        url: 'http://192.168.1.130:8080/users',
         data: JSON.stringify(user),
         processData: false,
         headers: {
@@ -15,6 +16,8 @@ function createUser(user, callback) {
         }
     }).done(function (user) {
         console.log("User created: " + JSON.stringify(user));
+        currentUser = user.id;
+        console.log(currentUser);
         callback(user);
     })
 }
@@ -33,8 +36,8 @@ AsiloRoyale.Login.prototype = {
 		this.background.autoScroll(20, 0);
 
 		boton4 = this.game.add.button((this.game.camera.width-150)/2-80,this.game.camera.height/2+200,'okbutton', this.changeState, this,1,0,1,0);
- 		boton4.width = 150;
- 		boton4.height = 70;
+ 		boton4.width = 64;
+ 		boton4.height = 64;
  		boton4.anchor.setTo(0.5);
  		boton4.input.useHandCursor = false;
 
@@ -44,6 +47,7 @@ AsiloRoyale.Login.prototype = {
     },
 
     changeState: function() {
+        var that = this;
 		var input = $('#username')
     	var value = input.val();
         input.val('');
@@ -55,11 +59,13 @@ AsiloRoyale.Login.prototype = {
         }
     	   		createUser(user, function (userWithId) {
             	//usersconnected = users.length;
-            	info = '';
-            
-
+                console.log(userWithId);
+                currentUser = userWithId.id;
+                console.log(currentUser);
+                that.game.state.start('OnlineLobby', false, false, currentUser);
+            	//info = '';
             })
-		this.game.state.start('OnlineLobby');
+        
 	
 },
 

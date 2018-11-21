@@ -26,7 +26,7 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
     this.playerCG = playerCG;
     this.tileCG = tileCG;
     this.enemyCG = enemyCG;
-    this.itemCG = itemCG;
+    this.itemCG = itemCG
 
     this.lifeGroup = this.game.add.group();
     this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
@@ -41,7 +41,7 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
     this.bite = new Phaser.Sound(this.game, 'bite');
     this.swallow = new Phaser.Sound(this.game, 'swallow');
     this.collect_ammo = new Phaser.Sound(this.game, 'collect_ammo');
-
+    
     this.showLife();
 
     //Rotación del jugador hacia la posición del ratón
@@ -73,15 +73,13 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
     },    
     
 
-
-	
 	Player.prototype.update = function() {
         
         //eje de rotación del jugador
         this.anchor.x = 0.35;
         this.anchor.y = 0.5;
 
-        this.game.world.bringToTop(this.lifeGroup);
+    this.game.world.bringToTop(this.lifeGroup);
 
     this.body.setCollisionGroup(this.playerCG); 
     this.body.collides(this.tileCG);
