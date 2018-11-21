@@ -23,6 +23,11 @@ AsiloRoyale.MainMenu.prototype = {
  		boton2.height = 70;
  		boton2.anchor.setTo(0.5);
  		boton2.input.useHandCursor = false;
+ 		boton3 = this.game.add.button((this.game.camera.width-150)/2-250,this.game.camera.height/2+200,'onlinebutton', this.boton3OnClick, this,1,0,1,0);
+ 		boton3.width = 150;
+ 		boton3.height = 70;
+ 		boton3.anchor.setTo(0.5);
+ 		boton3.input.useHandCursor = false;
 
  		//////////////LOGO/////////////
  		this.logo = this.add.sprite((this.game.camera.width-150)/2, this.game.camera.height/2-80, 'ARlogo');
@@ -51,5 +56,9 @@ AsiloRoyale.MainMenu.prototype = {
  	 boton2OnClick: function(){
 
  		this.game.state.start('Controles');
+ 	},
+ 	boton3OnClick: function(){
+
+ 		this.game.state.start('Login');
  	},
  };

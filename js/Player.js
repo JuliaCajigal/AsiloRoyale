@@ -8,7 +8,7 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
 
     //Atributos de Player
 
-	this.speed = 250;
+	this.speed = 300;
 	this.game = game;
 	this.guned = guned;
 	this.shotguned = shotguned;
@@ -27,10 +27,18 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
     this.tileCG = tileCG;
     this.enemyCG = enemyCG;
     this.itemCG = itemCG;
+
+    this.lifeGroup = this.game.add.group();
     this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
     this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
 
-     this.collect_weapon = new Phaser.Sound(this.game, 'collect_weapon');
+    this.lifeGroup.add(this.lifeBardw);
+    this.lifeGroup.add(this.lifeBar);
+
+    //Sonidos
+
+
+    this.collect_weapon = new Phaser.Sound(this.game, 'collect_weapon');
     this.bite = new Phaser.Sound(this.game, 'bite');
     this.swallow = new Phaser.Sound(this.game, 'swallow');
     this.collect_ammo = new Phaser.Sound(this.game, 'collect_ammo');
@@ -122,17 +130,12 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
 
     Player.prototype.showLife = function(){
         
-        //this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
         this.lifeBardw.fixedToCamera = true;
-
-        //this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
         this.lifeBar.anchor.y = 0.5;
         this.lifeBar.cropEnabled = true;
         this.lifeBar.fixedToCamera = true;
 
-       // var width = (this.life / 2)*10;
 
-        //this.cropRect = new Phaser.Rectangle( 0, 0, width , 30);
        cropRect.fixedToCamera = true;
        this.lifeBar.crop(cropRect);
 
@@ -146,7 +149,6 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
         if (amount > 0){
         this.game.add.tween(this).to( { alpha: 1 }, 300, Phaser.Easing.Linear.None, true, 0, 1, false,true);
         }
-        console.log(this.life);
         cropRect.width = (this.life/2) *10; 
         this.lifeBar.updateCrop(cropRect);
 
@@ -246,7 +248,6 @@ if (body2.sprite.key == 'pasti_roja') {
                 this.damage(20);
 
                 } 
-
 
             
     }
