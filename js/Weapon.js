@@ -44,13 +44,19 @@ var Weapon = {};
         var y = source.y;
         var rotation = source.body.rotation;
         if(source.gunAmmo>0){
+
+        this.gun_fire = new Phaser.Sound(this.game, 'gun_fire');
+        this.gun_fire.play();
         source.body.velocity.x = -Math.cos(source.body.rotation) * 50;
         source.body.velocity.y = -Math.sin(source.body.rotation) * 50;
         this.getFirstExists(false).fire(x, y, source.angle, this.bulletSpeed, 0, 0, rotation, source);
 
         this.nextFire = this.game.time.time + this.fireRate;
         source.gunAmmo-=1;
-    }
+        }else if(source.gunAmmo<=0){
+                this.empty_weapon = new Phaser.Sound(this.game, 'empty_weapon');
+                this.empty_weapon.play();
+        }
 
     },
 
@@ -88,7 +94,8 @@ var Weapon = {};
         var y = source.y;
 
         if(source.shotgunAmmo>0){
-
+        this.shotgun_fire = new Phaser.Sound(this.game, 'shotgun_fire');
+        this.shotgun_fire.play();
         source.body.velocity.x = -Math.cos(source.body.rotation) * 400;
         source.body.velocity.y = -Math.sin(source.body.rotation) * 400;
 
@@ -99,5 +106,9 @@ var Weapon = {};
         this.getFirstExists(false).fire(x, y, source.angle, 600, 0, 0,source.rotation+50,source);
 
         source.shotgunAmmo-=5;
+        }
+        else if(source.shotgunAmmo<=0){
+                this.empty_weapon = new Phaser.Sound(this.game, 'empty_weapon');
+                this.empty_weapon.play();
         }
     };
