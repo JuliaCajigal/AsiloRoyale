@@ -108,6 +108,7 @@ En la pantalla de "Help" se podrá visualizar una imagen que contiene la explica
 ![Help](https://imageshack.com/a/img921/2363/nrkyGg.png)
 
 Si iniciamos el juego online...
+
 ![Online]
 
 Si iniciamos el juego en local, el jugador podrá desplazarse por el mapa y recoger diferentes objetos y armas con las que equiparse. Se presentarán enemigos que reducen la vida del personaje, aunque se podrá acabar con ellos utilizando las armas, lo que nos generará más puntuación. 
