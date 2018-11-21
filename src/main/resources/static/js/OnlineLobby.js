@@ -5,6 +5,7 @@ AsiloRoyale.OnlineLobby = function(){};
 var info;
 var usersList;
 var usersconnected = 0;
+var timer, timerEvent;
 
 function loadUsers(callback) {
     $.ajax({
@@ -42,6 +43,15 @@ AsiloRoyale.OnlineLobby.prototype = {
     	this.tabla_conectados.fixedToCamera = true;
 
     	this.showUsers();
+    	
+    	//Temporizador
+    	timer = this.game.time.create();
+        
+    	//Evento de tiempo
+   		timerEvent = timer.add(Phaser.Timer.MINUTE * 1 + Phaser.Timer.SECOND * 00, this.endTimer, this);
+        
+    	//Comienzo temporizador
+    	timer.start();
     	//this.showUsers();
 
     },
@@ -107,6 +117,32 @@ AsiloRoyale.OnlineLobby.prototype = {
         	console.log('Users loaded: ' + JSON.stringify(users));
         	callback(this);
     })
-}
+	},
+
+
+//Muestra el tiempo que queda para el final de la partida
+	render: function() {
+		if (timer.running) {
+          this.game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms) / 1000)), 1010, 78, "#51F55B", "50px 'VT323'");
+      }
+      else {
+          this.game.debug.text("Done!",1010, 78, "#51F55B", "50px 'VT323'");
+      }
+  },
+
+
+  //Código de: http://jsfiddle.net/lewster32/vd70o41p/
+  endTimer: function() {
+      timer.stop();
+      this.game.state.start('Game');
+  },
+
+  //cambia el formato del tiempo
+  formatTime: function(s) {
+
+      var minutes = "0" + Math.floor(s / 60);
+      var seconds = "0" + (s - minutes * 60);
+      return minutes.substr(-2) + ":" + seconds.substr(-2);
+	},
 
 };
