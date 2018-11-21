@@ -28,34 +28,34 @@ El jugador deberá enfrentarse a otros jugadores, sorteando distintas trampas, h
 
 ### ___Objetos___:
 
-- Armas: 
-        - Pistola: la pistola utiliza balas pequeñas e inflige 10 de daño. Con la pistola el jugador tiene un amplio campo de visión. 
-        - Escopeta: la pistola utiliza cartuchos e inflinge 5 de daño. En un disparo se proyectan 5 cartuchos. Con la escopeta al                  jugador se le reduce ligeramente el campo de visión.
+Armas: 
+- Pistola: la pistola utiliza balas pequeñas e inflige 10 de daño. Con la pistola el jugador tiene un amplio campo de visión. 
+- Escopeta: la pistola utiliza cartuchos e inflinge 5 de daño. En un disparo se proyectan 5 cartuchos. Con la escopeta al                  jugador se le reduce ligeramente el campo de visión.
         
-- Balas: 
-       - Balas pequeñas: si el jugador está equipado con pistola, se le añaden 15 balas.
-       - Cartuchos: si el jugador está equipado con escopeta, se le añaden 10 cartuchos.
+Balas: 
+- Balas pequeñas: si el jugador está equipado con pistola, se le añaden 15 balas.
+- Cartuchos: si el jugador está equipado con escopeta, se le añaden 10 cartuchos.
 
-- Botiquin: el jugador recupera 20 de vida.
+Botiquin: el jugador recupera 20 de vida.
 
-- Pastillas:
-           . Rojas: el jugador gana 10 puntos.
-           . Verde: el jugador gana 20 puntos.
-           . Morada: el jugador gana 30 puntos.
-           . Amarilla: el jugador gana 50 puntos.
+Pastillas:
+- Rojas: el jugador gana 10 puntos.
+- Verde: el jugador gana 20 puntos.
+- Morada: el jugador gana 30 puntos.
+- Amarilla: el jugador gana 50 puntos.
            
            
 ### ___Enemigos___:
 
-- Dientes: 
-           . Inflinge 5 puntos de daño. 
-           . Al matarlo se obtiene 35 puntos.
-           . No es estático, al dispararle comienza a moverse en todas las direcciones.          
+Dientes: 
+- Inflinge 5 puntos de daño. 
+- Al matarlo se obtiene 35 puntos.
+- No es estático, al dispararle comienza a moverse en todas las direcciones.          
 
-- Enfermeros: 
-          . Inflinge 20 puntos de daño. 
-          . Al matarlo se obtiene 55 puntos.
-          . Es estático, no se mueve al dispararle.
+Enfermeros: 
+- Inflinge 20 puntos de daño. 
+- Al matarlo se obtiene 55 puntos.
+- Es estático, no se mueve al dispararle.
           
 Se lleva un recuento de los enemigos que ha matado cada jugador.           
            
