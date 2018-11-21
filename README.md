@@ -66,31 +66,31 @@ Al iniciar el juego, se presenta un menú de inicio con un botón para comenzar 
 
 ### ___Objetos___:
 
--Armas: 
-        -Pistola: la pistola utiliza balas pequeñas e inflige 10 de daño. Con la pistola el jugador tiene un amplio campo de visión. 
-        -Escopeta: la pistola utiliza cartuchos e inflinge 5 de daño. En un disparo se proyectan 5 cartuchos. Con la escopeta al                  jugador se le reduce ligeramente el campo de visión.
+- Armas: 
+        - Pistola: la pistola utiliza balas pequeñas e inflige 10 de daño. Con la pistola el jugador tiene un amplio campo de visión. 
+        - Escopeta: la pistola utiliza cartuchos e inflinge 5 de daño. En un disparo se proyectan 5 cartuchos. Con la escopeta al                  jugador se le reduce ligeramente el campo de visión.
         
--Balas: 
-       -Balas pequeñas: si el jugador está equipado con pistola, se le añaden 15 balas.
-       -Cartuchos: si el jugador está equipado con escopeta, se le añaden 10 cartuchos.
+- Balas: 
+       - Balas pequeñas: si el jugador está equipado con pistola, se le añaden 15 balas.
+       - Cartuchos: si el jugador está equipado con escopeta, se le añaden 10 cartuchos.
 
--Botiquin: el jugador recupera 20 de vida.
+- Botiquin: el jugador recupera 20 de vida.
 
--Pastillas:
-           -Rojas: el jugador gana 10 puntos.
-           -Verde: el jugador gana 20 puntos.
-           -Morada: el jugador gana 30 puntos.
-           -Amarilla: el jugador gana 50 puntos.
+- Pastillas:
+           - Rojas: el jugador gana 10 puntos.
+           - Verde: el jugador gana 20 puntos.
+           - Morada: el jugador gana 30 puntos.
+           - Amarilla: el jugador gana 50 puntos.
            
            
 ### ___Enemigos___:
 
--Dientes: 
+- Dientes: 
            - Inflinge 5 puntos de daño. 
            - Al matarlo se obtiene 35 puntos.
            - No es estático, al dispararle comienza a moverse en todas las direcciones.          
 
--Enfermeros: 
+- Enfermeros: 
           - Inflinge 20 puntos de daño. 
           - Al matarlo se obtiene 55 puntos.
           - Es estático, no se mueve al dispararle.
@@ -122,8 +122,8 @@ A continuación se presenta un diagrama de navegación con los estados del juego
 
 Al comenzar se muestra el menú principal con las siguientes opciones: 
 
--Play: se comenzará una partida en local.
--Help: imagen explicativa con los controles y los objetos del juego.
+- Play: se comenzará una partida en local.
+- Help: imagen explicativa con los controles y los objetos del juego.
 
 Se utilizará el ratón para desplazarse por las opciones y click para seleccionarlas. 
 
@@ -141,10 +141,11 @@ Aqui se puede apreciar el HUD con la información de la partida: el tiempo que q
 ![In-game](https://imageshack.com/a/img923/2777/DYsk3E.png)
 
 Por último, al finalizar la partida se puede observar una lista con los resultados:
-     - La posición en la que se ha quedado.
-     - Las muertes.
-     - La puntuación.
-     - El número de objetos recogidos. 
+
+- La posición en la que se ha quedado.
+- Las muertes.
+- La puntuación.
+- El número de objetos recogidos. 
      
 ![Results](https://imageshack.com/a/img921/1659/SlFO7y.png)
            
