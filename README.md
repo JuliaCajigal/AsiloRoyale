@@ -73,20 +73,30 @@ In-game:
 
 ### ___Interfaz:___
 El aspecto visual del juego emulará una televisión retro en todos sus aspectos. Siempre será visible el HUD con el marco del televisor, el tiempo haría referencia a la hora en dicho marco, la barra de vida tendrá el aspecto visual de la barra de volumen y el cambio de menús y estados tendrá un efecto de cambio de canal. Todo en pos de favorecer la inmersión y la experiencia de usuario.
-Durante el juego, en el marco de la tele, también dispondremos de las balas del arma que usamos en el momento, y la puntuación que llevamos en la partida. Para que sea más fácil para el jugador reconocer el arma que está usando, contamos con un icono del arma en cuestión. 
-Al iniciar el juego, se presenta un menú de inicio con un botón para comenzar la partida. Una vez finalizado el tiempo o tras morir, se nos presenta una pantalla con los resultados de la patida: el ganador, la puntuación, el número de asesinatos y el número de objetos obtenidos.
 
+Durante el juego, en el marco de la tele, también dispondremos de las balas del arma que usamos en el momento, y la puntuación que llevamos en la partida. Para que sea más fácil para el jugador reconocer el arma que está usando, contamos con un icono del arma en cuestión. 
+Al iniciar el juego, se presenta un menú de inicio con un botón para comenzar la partida. Una vez finalizado el tiempo o tras morir, podemos observar una pantalla con los resultados de la patida: el ganador, la puntuación, el número de asesinatos y el número de objetos obtenidos.
+
+![HUD](https://imageshack.com/a/img921/1495/Qj3rQt.pngv)
 
 ### ___Diagrama de navegación___:
 
 A continuación se presenta un diagrama de navegación con los estados del juego.
 
-![Diagrama de navegación](https://imageshack.com/a/img921/2446/bv8eni.png)
+Fase 2
+
+![Diagrama de navegación Fase 2](https://imageshack.com/a/img921/2446/bv8eni.png)
+
+Fase 3
+
+![Diagrama de navegación Fase 3](https://imageshack.com/a/img923/6721/dUk5MT.png)
 
 Al comenzar se muestra el menú principal con las siguientes opciones: 
 
-- Play: se comenzará una partida en local.
+- Offline: se comenzará una partida en local.
+- Online: se iniciará una conexión entre el cliente y el servidor. 
 - Help: imagen explicativa con los controles y los objetos del juego.
+
 
 Se utilizará el ratón para desplazarse por las opciones y click para seleccionarlas. 
 
