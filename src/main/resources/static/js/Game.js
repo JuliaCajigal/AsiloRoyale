@@ -100,7 +100,6 @@ AsiloRoyale.Game.prototype = {
 	//Muestra etiquetas de vida
     this.showLabels();
 
-
 	//Temporizador
     timer = this.game.time.create();
         
@@ -277,11 +276,6 @@ AsiloRoyale.Game.prototype = {
 		this.shotgunIcon.visible = false;
 	},
 
-
-	test: function(player){
-		player.score += 40;
-	},
-	
 
 
 	//Dado un tipo y el nombre del sprite asociado devuelve true si son del mismo tipo y false si son tipos distintos de objetos.
