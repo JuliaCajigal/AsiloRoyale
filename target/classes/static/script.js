@@ -6,7 +6,7 @@ var currentUsers = 0;
 //Load items from server
 function loadUsers(callback) {
     $.ajax({
-        url: 'http://192.168.1.130:8080/users'
+        url: 'http://localhost:8080/users'
     }).done(function (users) {
         console.log('Users loaded: ' + JSON.stringify(users));
         callback(users);
@@ -17,7 +17,7 @@ function loadUsers(callback) {
 function createUser(user, callback) {
     $.ajax({
         method: "POST",
-        url: 'http://192.168.1.130:8080/users',
+        url: 'http://localhost:8080/users',
         data: JSON.stringify(user),
         processData: false,
         headers: {
@@ -33,7 +33,7 @@ function createUser(user, callback) {
 function updateUser(user) {
     $.ajax({
         method: 'PUT',
-        url: 'http://192.168.1.130:8080/users/' + user.id,
+        url: 'http://localhost:8080/users/' + user.id,
         data: JSON.stringify(user),
         processData: false,
         headers: {
@@ -48,15 +48,15 @@ function updateUser(user) {
 function deleteUser(userId) {
     $.ajax({
         method: 'DELETE',
-        url: 'http://192.168.1.130:8080/users/' + userId
-    }).done(function (userId) {
+        url: 'http://localhost:8080/users/' + userId
+    }).done(function (user) {
         console.log("Deleted user " + userId)
     })
 }
 
 //Show item in page
 function showUser(user) {
-/*
+
     var checked = '';
     var style = '';
 
@@ -67,7 +67,7 @@ function showUser(user) {
 
     $('#game').append(
         '<div id="user-' + user.id + '"><input type="checkbox" ' + checked + '><span ' + style + '>' + user.nick +
-        '</span> <button>Delete</button></div>')*/
+        '</span> <button>Delete</button></div>')
 }
 
 $(document).ready(function () {

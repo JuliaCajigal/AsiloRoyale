@@ -12,19 +12,13 @@ AsiloRoyale.MainMenu.prototype = {
  		this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');
  		this.background.autoScroll(20, 0);
 
- 		//Dehabilitamos input cuando volvemos al menú
- 		var input = document.getElementById('username');
-		if(input) {input.style.display = 'none';}
-		var ok = document.getElementById('ok-button');
-		if(ok){ok.style.display = 'none';}
-
  		///////////////BOTONES///////////
- 		boton1 = this.game.add.button((this.game.camera.width-150)/2+290,this.game.camera.height/2+200,'botonesjugar', this.boton1OnClick, this,1,0,1,0);
+ 		boton1 = this.game.add.button((this.game.camera.width-150)/2-80,this.game.camera.height/2+200,'botonesjugar', this.boton1OnClick, this,1,0,1,0);
  		boton1.width = 150;
  		boton1.height = 70;
  		boton1.anchor.setTo(0.5);
  		boton1.input.useHandCursor = false;
- 		boton2 = this.game.add.button((this.game.camera.width-150)/2+15,this.game.camera.height/2+200,'botonessalir', this.boton2OnClick, this,1,0,1,0);
+ 		boton2 = this.game.add.button((this.game.camera.width-150)/2+130,this.game.camera.height/2+200,'botonessalir', this.boton2OnClick, this,1,0,1,0);
  		boton2.width = 150;
  		boton2.height = 70;
  		boton2.anchor.setTo(0.5);

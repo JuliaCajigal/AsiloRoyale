@@ -27,13 +27,8 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
     this.tileCG = tileCG;
     this.enemyCG = enemyCG;
     this.itemCG = itemCG;
-    
-    this.lifeGroup = this.game.add.group();
     this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
     this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
-    
-    this.lifeGroup.add(this.lifeBardw);
-    this.lifeGroup.add(this.lifeBar);
 
      this.collect_weapon = new Phaser.Sound(this.game, 'collect_weapon');
     this.bite = new Phaser.Sound(this.game, 'bite');
@@ -82,8 +77,6 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
     this.body.collides(this.tileCG);
     this.body.collides(this.itemCG, this.pickItem, this);
     this.body.collides(this.enemyCG, this.pickItem, this);
-    
-    this.game.world.bringToTop(this.lifeGroup);
 
         if(this.life>100){
             this.life=100;
