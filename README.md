@@ -64,11 +64,90 @@ Al iniciar el juego, se presenta un menú de inicio con un botón para comenzar 
 
 *Shotgun screen.*  
 
+### ___Objetos___:
+
+-Armas: 
+        -Pistola: la pistola utiliza balas pequeñas e inflige 10 de daño. Con la pistola el jugador tiene un amplio campo de visión. 
+        -Escopeta: la pistola utiliza cartuchos e inflinge 5 de daño. En un disparo se proyectan 5 cartuchos. Con la escopeta al                  jugador se le reduce ligeramente el campo de visión.
+        
+-Balas: 
+       -Balas pequeñas: si el jugador está equipado con pistola, se le añaden 15 balas.
+       -Cartuchos: si el jugador está equipado con escopeta, se le añaden 10 cartuchos.
+
+-Botiquin: el jugador recupera 20 de vida.
+
+-Pastillas:
+           -Rojas: el jugador gana 10 puntos.
+           -Verde: el jugador gana 20 puntos.
+           -Morada: el jugador gana 30 puntos.
+           -Amarilla: el jugador gana 50 puntos.
+           
+           
+### ___Enemigos___:
+
+-Dientes: 
+           - Inflinge 5 puntos de daño. 
+           - Al matarlo se obtiene 35 puntos.
+           - No es estático, al dispararle comienza a moverse en todas las direcciones.          
+
+-Enfermeros: 
+          - Inflinge 20 puntos de daño. 
+          - Al matarlo se obtiene 55 puntos.
+          - Es estático, no se mueve al dispararle.
+          
+Se lleva un recuento de los enemigos que ha matado cada jugador.           
+           
+           
+### ___Mecánicas___:
+
+- El jugador puede moverse por el mapa que se le presenta.
+- El jugador puede recoger objetos que le aumentarán la puntuación, la vida y la munición. 
+- El jugador es capaz de equiparse con armas, pistola o escopeta, y así inflingir daño a sus enemigos. 
+- El jugador posee una barra de vida que se reducirá si los enemigos le tocan. 
+
+
+### ___Dinámicas___:
+
+- Si el jugador pierde sus 100 puntos de vida, el juego termina.
+- Existe un tiempo máximo de 5:00 minutos, entonces finalizará la partida. 
+- Cuando el jugador cambia de arma, pierde las balas que hubiera acumulado con su arma anterior.
+- El jugador tendrá un campo de visión u otro dependiendo del arma que lleve equipada. 
+
 
 ### ___Diagrama de navegación___:
+
+A continuación se presenta un diagrama de navegación con los estados del juego.
+
 ![Diagrama de navegación](https://imageshack.com/a/img921/2446/bv8eni.png)
 
-  
+Al comenzar se muestra el menú principal con las siguientes opciones: 
+
+-Play: se comenzará una partida en local.
+-Help: imagen explicativa con los controles y los objetos del juego.
+
+Se utilizará el ratón para desplazarse por las opciones y click para seleccionarlas. 
+
+![Menu principal]
+
+
+En la pantalla de "Help" se podrá visualizar una imagen que contiene la explicación de los controles del juego, así como los objetos que se pueden coger, utilizar o equipar. 
+
+![Help](https://imageshack.com/a/img921/2363/nrkyGg.png)
+
+Una vez dentro del juego, el jugador podrá desplazarse por el mapa y recoger diferentes objetos y armas con las que equiparse. Se presentarán enemigos que reducen la vida del personaje, aunque se podrá acabar con ellos utilizando las armas, lo que nos generará más puntuación. 
+
+Aqui se puede apreciar el HUD con la información de la partida: el tiempo que quede para que finalice, la munición, la puntuación, el arma equipada y la barra de vida. 
+
+![In-game](https://imageshack.com/a/img923/2777/DYsk3E.png)
+
+Por último, al finalizar la partida se puede observar una lista con los resultados:
+     - La posición en la que se ha quedado.
+     - Las muertes.
+     - La puntuación.
+     - El número de objetos recogidos. 
+     
+![Results](https://imageshack.com/a/img921/1659/SlFO7y.png)
+           
   
 ##### _*Enlace Trello*_:
 https://trello.com/b/q6wktSCS/asilo-royale
