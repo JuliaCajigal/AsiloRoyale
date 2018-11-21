@@ -8,7 +8,7 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
 
     //Atributos de Player
 
-	this.speed = 80;
+	this.speed = 250;
 	this.game = game;
 	this.guned = guned;
 	this.shotguned = shotguned;
@@ -98,16 +98,16 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
 
 		//movimientos player
 		if(this.cursors.up.isDown) {
-			this.body.velocity.y -= 400;
+			this.body.velocity.y -= this.speed;
 		}
 		else if(this.cursors.down.isDown) {
-			this.body.velocity.y += 400;
+			this.body.velocity.y += this.speed;
 		}
 		if(this.cursors.left.isDown) {
-			this.body.velocity.x -= 400;
+			this.body.velocity.x -= this.speed;
 		}
 		else if(this.cursors.right.isDown) {
-			this.body.velocity.x += 400;
+			this.body.velocity.x += this.speed;
 		}
  
         if (this.game.input.activePointer.totalTouches == 1 && this.game.input.activePointer.isDown && this.shotguned==true)

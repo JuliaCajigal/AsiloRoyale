@@ -22,7 +22,7 @@ var Weapon = {};
         this.bulletSpeed = 800;
         this.fireRate = 100;
 
-        for (var i = 0; i < 64; i++)
+        for (var i = 0; i < 500; i++)
         {
             this.add(new Bullet(game, 'bala', bulletCG, tileCG, enemyCG), true);
         }
@@ -70,7 +70,7 @@ var Weapon = {};
         this.nextFire = 200000;
         this.bulletSpeed = 800;
         this.fireRate = 2000;
-        for (var i = 0; i < 64; i++)
+        for (var i = 0; i < 500; i++)
         {
             this.add(new Bullet(game, 'perdigon',  bulletCG, tileCG, enemyCG), true);
         }
