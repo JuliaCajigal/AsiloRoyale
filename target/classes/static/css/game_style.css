@@ -73,3 +73,14 @@ canvas {
   left: 700px;
   display: none;
 }
+
+
+#game{
+    touch-action: none;
+    -moz-user-select: none;
+    width: 1150px;
+    height: 680px;
+    margin-left: 100px;
+    margin-right: -99px;
+    margin-top: 0px;
+}

@@ -58,9 +58,7 @@ AsiloRoyale.Game.prototype = {
 
    //this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
 
-	this.teeth = [];
 
-	this.initTeeth();
 
 	/////////JUGADOR 1/////////
 
@@ -73,6 +71,10 @@ AsiloRoyale.Game.prototype = {
 	///////////ENEMIGOS///////
 
 	//Dientes
+	
+	this.teeth = [];
+
+	this.initTeeth();
 
 	//Enfermeros
 

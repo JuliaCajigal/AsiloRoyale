@@ -38,14 +38,15 @@ AsiloRoyale.Preload.prototype = {
 		this.load.image('enemy', 'assets/images/enemy.png');
 		this.load.image('blood', 'assets/images/sangre.png');
 		this.load.image('tabla_conectados', 'assets/images/tabla_conectados.png');
-		this.load.spritesheet('botonesjugar', 'assets/images/playbutton.png',256,128,2);
-		this.load.spritesheet('okbutton', 'assets/images/okbutton.png',256,128,2);
+		this.load.spritesheet('botonesjugar', 'assets/images/offlinebutton.png',256,128,2);
+		this.load.spritesheet('okbutton', 'assets/images/okbutton.png',128,128,2);
 		this.load.spritesheet('onlinebutton', 'assets/images/onlinebutton.png',256,128,2);		this.load.spritesheet('botonessalir', 'assets/images/exitbutton.png',256,128,2);
 		this.load.spritesheet('dientes', 'assets/images/dientes.png',32,32);
 		this.load.spritesheet('dientes', 'assets/images/dientes.png',32,32);
 		this.load.spritesheet('enfermero', 'assets/images/enfermero.png',128,128);
 		this.load.spritesheet('player', 'assets/images/viejo1_sheet.png',126,64);
 		this.load.spritesheet('iconos_municion', 'assets/images/iconos_municion.png',40,40);
+		this.load.image('serveroff','assets/images/serveroff.png');
 		this.load.image('star','assets/images/star.png');
 		this.load.image('letrasgameover','assets/images/gameover.jpg',256,128,2);
 		this.load.image('perdigon', 'assets/images/perdigon.png');
