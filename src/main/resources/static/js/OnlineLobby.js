@@ -32,7 +32,7 @@ AsiloRoyale.OnlineLobby.prototype = {
     this.tabla_conectados = this.game.add.sprite(282, 125, 'tabla_conectados');
     this.tabla_conectados.fixedToCamera = true;
     
-    boton5 = this.game.add.button((this.game.camera.width-725)/2+290,this.game.camera.height/2+200,'readybutton', this.changeReady, this,1,0,1,0);
+    boton5 = this.game.add.button((this.game.camera.width-725)/2+290,this.game.camera.height/2+200,'readybutton', this.changeReady, this,0,0,0,1);
 	boton5.width = 150;
 	boton5.height = 70;
 	boton5.anchor.setTo(0.5);
@@ -103,9 +103,11 @@ AsiloRoyale.OnlineLobby.prototype = {
 	   
 	   if(this.newUser.ready==false){
 		   userReady=true;
+		   boton5.setFrames(1,1,1,0);
 		   this.newUser.ready=true;
 	   }else{
 		   userReady = false;
+		   boton5.setFrames(0,0,0,1);
 		   this.newUser.ready=false;
 	   }
 	   
@@ -173,7 +175,7 @@ function loadUsers(callback) {
     
     }).fail(function () {
         console.error("Se ha perdido la conexión con el servidor.");
-       // this.newUser.disconnected = true;
+        //this.newUser.disconnected = true;
         //deleteUser(ownId);
     })
 }

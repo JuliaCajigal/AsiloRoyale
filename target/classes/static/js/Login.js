@@ -40,6 +40,8 @@ AsiloRoyale.Login.prototype = {
  		boton4.height = 64;
  		boton4.anchor.setTo(0.5);
  		boton4.input.useHandCursor = false;
+ 		
+ 	    this.tabla_conectados = this.game.add.sprite(295, 250, 'chooseNick');
 
 		this.tv = this.game.add.sprite(0, 0, 'tv');
     	this.tv.fixedToCamera = true;
@@ -62,6 +64,7 @@ AsiloRoyale.Login.prototype = {
                 console.log(userWithId);
                 currentUser = userWithId;
                 console.log(currentUser);
+                
                 that.game.state.start('OnlineLobby', false, false, currentUser);
             	//info = '';
             })

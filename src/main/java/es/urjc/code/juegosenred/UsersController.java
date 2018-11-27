@@ -36,7 +36,7 @@ public class UsersController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public User nuevoUser(@RequestBody User user) {
 
-		if(!userNames.contains(user.getNick())) {
+		if(!userNames.contains(user.getNick())&& user.getNick()!=null) {
 		long id = nextId.incrementAndGet();
 		user.resetInactivity();
 		user.setId(id);
@@ -86,7 +86,7 @@ public class UsersController {
 		User savedUser = users.get(id);
 
 		if (savedUser != null) {
-			userNames.remove(savedUser);
+			userNames.remove(savedUser.getNick());
 			users.remove(savedUser.getId());
 			return new ResponseEntity<>(savedUser, HttpStatus.OK);
 		} else {
