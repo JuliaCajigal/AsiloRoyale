@@ -52,6 +52,7 @@ AsiloRoyale.Login.prototype = {
         var that = this;
 		var input = $('#username')
     	var value = input.val();
+		var sizename = value.length;
         input.val('');
         console.log(input);
 
@@ -59,6 +60,9 @@ AsiloRoyale.Login.prototype = {
             nick: value,
             ready:false
         }
+        console.log(value.length);
+        if (sizename<=12){
+        	console.log("entra");
     	   		createUser(user, function (userWithId) {
             	//usersconnected = users.length;
                 console.log(userWithId);
@@ -68,6 +72,7 @@ AsiloRoyale.Login.prototype = {
                 that.game.state.start('OnlineLobby', false, false, currentUser);
             	//info = '';
             })
+        }
         
 	
 },
