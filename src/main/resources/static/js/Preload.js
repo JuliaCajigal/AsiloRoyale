@@ -40,7 +40,9 @@ AsiloRoyale.Preload.prototype = {
 		this.load.image('tabla_conectados', 'assets/images/tabla_conectados.png');
 		this.load.spritesheet('botonesjugar', 'assets/images/offlinebutton.png',256,128,2);
 		this.load.spritesheet('okbutton', 'assets/images/okbutton.png',128,128,2);
-		this.load.spritesheet('onlinebutton', 'assets/images/onlinebutton.png',256,128,2);		this.load.spritesheet('botonessalir', 'assets/images/exitbutton.png',256,128,2);
+		this.load.spritesheet('onlinebutton', 'assets/images/onlinebutton.png',256,128,2);	
+		this.load.spritesheet('readybutton', 'assets/images/readybutton.png',256,128,2);
+		this.load.spritesheet('botonessalir', 'assets/images/exitbutton.png',256,128,2);
 		this.load.spritesheet('dientes', 'assets/images/dientes.png',32,32);
 		this.load.spritesheet('dientes', 'assets/images/dientes.png',32,32);
 		this.load.spritesheet('enfermero', 'assets/images/enfermero.png',128,128);

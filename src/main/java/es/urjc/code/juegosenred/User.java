@@ -4,7 +4,9 @@ public class User {
 
 	private long id;
 	private String nick;
-	private boolean checked;
+	private boolean ready;
+	private int inactivityTime = 0;
+
 
 	public User() {
 	}
@@ -25,17 +27,36 @@ public class User {
 		this.nick = nick;
 	}
 
-	public boolean getChecked() {
-		return checked;
+	public boolean getReady() {
+		return ready;
 	}
 
-	public void setChecked(boolean checked) {
-		this.checked = checked;
+	public void setReady(boolean ready) {
+		this.ready = ready;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", nick=" + nick + ", checked=" + checked + "]";
+		return "User [id=" + id + ", nick=" + nick + ", ready=" + ready + "]";
 	}
+
+	public int getInactivityTime() {
+		return inactivityTime;
+	}
+
+	public void setInactivityTime(int inactivityTime) {
+		this.inactivityTime = inactivityTime;
+	}
+	
+	public void stepInactivityTime() {
+		this.inactivityTime ++;
+	}
+	
+	public int resetInactivity() {
+		this.inactivityTime = 0;
+        return 0;
+    }
+
+
 
 }

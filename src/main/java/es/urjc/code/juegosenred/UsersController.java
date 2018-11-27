@@ -1,6 +1,7 @@
 package es.urjc.code.juegosenred;
 
 import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -22,11 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class UsersController {
 
-	Map<Long, User> users = new ConcurrentHashMap<>(); 
+	static Map<Long, User> users = new ConcurrentHashMap<>(); 
+	private static ArrayList<String> userNames = new ArrayList<String>();
 	AtomicLong nextId = new AtomicLong(0);
 	
 	@GetMapping
-	public Collection<User> users() {
+	public static Collection<User> users() {
 		return users.values();
 	}
 
@@ -34,9 +36,14 @@ public class UsersController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public User nuevoUser(@RequestBody User user) {
 
+		if(!userNames.contains(user.getNick())) {
 		long id = nextId.incrementAndGet();
+		user.resetInactivity();
 		user.setId(id);
+		//user.setChecked(true);
 		users.put(id, user);
+		userNames.add(user.getNick());
+		}
 
 		return user;
 	}
@@ -62,18 +69,24 @@ public class UsersController {
 		User savedUser = users.get(id);
 
 		if (savedUser != null) {
+			System.out.println(savedUser.getInactivityTime());
+			savedUser.resetInactivity();
+			//users.put(id, savedUser);
+			
 			return new ResponseEntity<>(savedUser, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+		
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<User> borraUser(@PathVariable long id) {
+	public static ResponseEntity<User> borraUser(@PathVariable long id) {
 
 		User savedUser = users.get(id);
 
 		if (savedUser != null) {
+			userNames.remove(savedUser);
 			users.remove(savedUser.getId());
 			return new ResponseEntity<>(savedUser, HttpStatus.OK);
 		} else {

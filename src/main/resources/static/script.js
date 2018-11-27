@@ -6,7 +6,7 @@ var currentUsers = 0;
 //Load items from server
 function loadUsers(callback) {
     $.ajax({
-        url: 'http://192.168.1.130:8080/users'
+        url: 'http://localhost:8080/users'
     }).done(function (users) {
         console.log('Users loaded: ' + JSON.stringify(users));
         callback(users);
@@ -17,7 +17,7 @@ function loadUsers(callback) {
 function createUser(user, callback) {
     $.ajax({
         method: "POST",
-        url: 'http://192.168.1.130:8080/users',
+        url: 'http://localhost:8080/users',
         data: JSON.stringify(user),
         processData: false,
         headers: {
@@ -29,11 +29,11 @@ function createUser(user, callback) {
     })
 }
 
-//Update item in server
+//Update user in server
 function updateUser(user) {
     $.ajax({
         method: 'PUT',
-        url: 'http://192.168.1.130:8080/users/' + user.id,
+        url: 'http://localhost:8080/users/' + user.id,
         data: JSON.stringify(user),
         processData: false,
         headers: {
@@ -48,7 +48,7 @@ function updateUser(user) {
 function deleteUser(userId) {
     $.ajax({
         method: 'DELETE',
-        url: 'http://192.168.1.130:8080/users/' + userId
+        url: 'http://localhost:8080/users/' + userId
     }).done(function (userId) {
         console.log("Deleted user " + userId)
     })
@@ -57,11 +57,11 @@ function deleteUser(userId) {
 //Show item in page
 function showUser(user) {
 
-    var checked = '';
+    var ready = '';
     var style = '';
 
-    if (user.checked) {
-        checked = 'checked';
+    if (user.ready) {
+        ready = 'ready';
         style = 'style="text-decoration:line-through"';
     }
 
@@ -110,7 +110,7 @@ $(document).ready(function () {
         var updatedUser = {
             id: userId,
             nick: userNick,
-            checked: userChecked
+
         }
 
         //Update item in server
@@ -139,7 +139,7 @@ $(document).ready(function () {
 
         var user = {
             nick: value,
-            checked: false
+            ready: false
         }
 
         if(currentUsers<=5){

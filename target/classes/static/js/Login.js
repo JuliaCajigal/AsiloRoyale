@@ -55,12 +55,12 @@ AsiloRoyale.Login.prototype = {
 
         var user = {
             nick: value,
-            checked: false
+            ready:false
         }
     	   		createUser(user, function (userWithId) {
             	//usersconnected = users.length;
                 console.log(userWithId);
-                currentUser = userWithId.id;
+                currentUser = userWithId;
                 console.log(currentUser);
                 that.game.state.start('OnlineLobby', false, false, currentUser);
             	//info = '';
