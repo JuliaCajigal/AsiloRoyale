@@ -10,7 +10,7 @@ function createUser(user, callback) {
 
     $.ajax({
         method: "POST",
-        url: 'http://192.168.1.130:8080/users',
+        url: 'http://localhost:8080/users',
         data: JSON.stringify(user),
         processData: false,
         headers: {
@@ -29,21 +29,26 @@ AsiloRoyale.Login.prototype = {
 
 	create: function() {
 
+        //Identificamos a la entrada por teclado y desplegamos el cuadro de diálogo de entrada
 		input = document.getElementById('username');
 		input.style.display = 'block';
 
+        //Cámara y mundo
 		this.game.camera.setBoundsToWorld();
 		this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');
 		this.background.autoScroll(20, 0);
 
+        //Botón OK
 		boton4 = this.game.add.button(650, 320,'okbutton', this.changeState, this,1,0,1,0);
  		boton4.width = 64;
  		boton4.height = 64;
  		boton4.anchor.setTo(0.5);
  		boton4.input.useHandCursor = false;
- 		
+
+ 		//Indicativo introduzca un nick
  	    this.tabla_conectados = this.game.add.sprite(295, 250, 'chooseNick');
 
+        //TV
 		this.tv = this.game.add.sprite(0, 0, 'tv');
     	this.tv.fixedToCamera = true;
 
@@ -74,11 +79,8 @@ AsiloRoyale.Login.prototype = {
         }else{
         	var style = {font: "bold 38px 'VT323'", fill: "#51F55B", align: "left" };
     		var text = 'Nombre demasiado largo'; 
-    		limitname = this.game.add.text(300, 350, text, style);
-        	
+    		limitname = this.game.add.text(300, 350, text, style);	
         }
-        
-	
 },
 
 

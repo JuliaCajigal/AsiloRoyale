@@ -1,5 +1,5 @@
-Jeremin: 10890
-Brody: 9946
-Rodri: 3650
-Poncho: 2700
-BorjaPerez: 768
+Jeremin: 18990
+Rodri: 15800
+Brody: 11300
+Matt: 6899
+BorjaPerez: 290

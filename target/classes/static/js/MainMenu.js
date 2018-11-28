@@ -73,5 +73,5 @@ AsiloRoyale.MainMenu.prototype = {
  	 	boton4OnClick: function(){
 
  		this.game.state.start('Scores');
- 	},
+ 	}
  };

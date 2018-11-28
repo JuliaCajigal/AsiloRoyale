@@ -65,7 +65,8 @@ AsiloRoyale.Scores.prototype = {
 ///Mayores puntuaciones y nicks asociados almacenados en el sevidor
 	function loadScores(callback){
 		$.ajax({
-			url: 'http://192.168.1.130:8080/users/maxScores'
+			method: 'GET',
+			url: 'http://localhost:8080/users/maxScores'
 
 		}).done(function (nickScores) {
 			console.log(nickScores);

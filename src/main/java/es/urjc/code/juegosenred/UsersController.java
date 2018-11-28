@@ -27,7 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class UsersController {
 
-	static Map<Long, User> users = new ConcurrentHashMap<>(); 
+	
+	static Map<Long, User> users = new ConcurrentHashMap<>();
 	private static ArrayList<String> userNames = new ArrayList<String>();
 	AtomicLong nextId = new AtomicLong(0);
 	

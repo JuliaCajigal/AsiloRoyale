@@ -5,7 +5,7 @@ AsiloRoyale.OnlineLobby = function(){};
 var info;
 var usersList;
 var usersconnected = 0;
-var timer, timerEvent;
+var timer, timerEvent, timerUpdate;
 var lobbyUser;
 var disconnected = false;
 var serverOff = false;
@@ -15,34 +15,40 @@ var serverOff = false;
 AsiloRoyale.OnlineLobby.prototype = {
 
 	create: function() {
-		input = document.getElementById('username');
-		input.style.display = 'none';
-    this.newUser = new User(this.game, lobbyUser.id, lobbyUser.nick);
-    console.log(lobbyUser.nick);
-    console.log(lobbyUser.id);
+
+      //Recogemos el valor del input y bloqueamos el cuadro de di-alogo
+		  input = document.getElementById('username');
+		  input.style.display = 'none';
+
+      //Creamos un nuevo usuario con id + nick
+      this.newUser = new User(this.game, lobbyUser.id, lobbyUser.nick);
+      
+		  //Dimensiones del mundo y cámara
+		  this.game.camera.setBoundsToWorld();
+		  this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');
+		  this.background.autoScroll(20, 0);
 		
-		this.game.camera.setBoundsToWorld();
-		this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');
-		this.background.autoScroll(20, 0);
-		
-	  this.tv = this.game.add.sprite(0, 0, 'tv');
-    this.tv.fixedToCamera = true;
-    this.tabla_conectados = this.game.add.sprite(282, 125, 'tabla_conectados');
-    this.tabla_conectados.fixedToCamera = true;
+      //TV
+	    this.tv = this.game.add.sprite(0, 0, 'tv');
+      this.tv.fixedToCamera = true;
+      this.tabla_conectados = this.game.add.sprite(282, 125, 'tabla_conectados');
+      this.tabla_conectados.fixedToCamera = true;
     
-    boton5 = this.game.add.button((this.game.camera.width-725)/2+290,this.game.camera.height/2+200,'readybutton', this.changeReady, this,0,0,0,1);
-	  boton5.width = 150;
-	  boton5.height = 70;
-	  boton5.anchor.setTo(0.5);
+      //Botón READY
+      boton5 = this.game.add.button((this.game.camera.width-725)/2+290,this.game.camera.height/2+200,'readybutton', this.changeReady, this,0,0,0,1);
+	    boton5.width = 150;
+	    boton5.height = 70;
+	    boton5.anchor.setTo(0.5);
 
-    this.showUsers();
+      //Crea el texto que se actualizará con los nombres de los distintos jugadores en línea
+      this.showUsers();
     	
-    // Temporizador
-    timer = this.game.time.create();
+      //Temporizador
+      timer = this.game.time.create();
         
-    // Evento de tiempo
-   	timerEvent = timer.add(Phaser.Timer.MINUTE * 0 + Phaser.Timer.SECOND * 10, this.endTimer, this);
-
+      //Evento de tiempo
+   	  timerEvent = timer.add(Phaser.Timer.MINUTE * 0 + Phaser.Timer.SECOND * 10, this.endTimer, this);
+   
   },
     
 
@@ -61,7 +67,7 @@ AsiloRoyale.OnlineLobby.prototype = {
    			this.game.state.start('MainMenu');
     }
     this.checkConnection();
-    this.newUser.update();
+    
 
    	loadUsers(function (users) {
 
@@ -98,8 +104,8 @@ AsiloRoyale.OnlineLobby.prototype = {
   //Comprueba si el servidor está Online
   checkConnection: function (){
     if(serverOff == true){
-      console.log(this.newUser.disconnected);
       
+      //De serlo, el resto de elementos pasan a un segundo plano y se muestra una imágen
       var serverAlert = this.game.add.image((this.game.camera.width-150)/2, (this.game.camera.height/2), 'serveroff');
       serverAlert.anchor.setTo(0.5);
       this.tabla_conectados.alpha = 0.4;
@@ -131,7 +137,6 @@ AsiloRoyale.OnlineLobby.prototype = {
       }
 
       updateUser(updatedUser);
-
        	   
    },
 
@@ -174,7 +179,7 @@ AsiloRoyale.OnlineLobby.prototype = {
 //Carga la lista de usuarios conectados al servidor
 function loadUsers(callback) {
     $.ajax({
-      url: 'http://192.168.1.130:8080/users/'
+      url: 'http://localhost:8080/users/'
     }).done(function (users) {
       console.log('Users loaded: ' + JSON.stringify(users));
       callback(users);
@@ -190,7 +195,7 @@ function loadUsers(callback) {
 function updateUser(user) {
     $.ajax({
         method: 'PUT',
-        url: 'http://192.168.1.130:8080/users/' + user.id,
+        url: 'http://localhost:8080/users/' + user.id,
         data: JSON.stringify(user),
         processData: false,
         headers: {
@@ -205,7 +210,7 @@ function updateUser(user) {
 function deleteUser(userId) {
     $.ajax({
         method: 'DELETE',
-        url: ' http://192.168.1.130:8080/users/' + userId
+        url: ' http://localhost:8080/users/' + userId
         
     }).done(function (user) {
         console.log("Deleted user " + userId)
