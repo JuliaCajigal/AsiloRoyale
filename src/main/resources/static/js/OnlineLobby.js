@@ -43,7 +43,7 @@ AsiloRoyale.OnlineLobby.prototype = {
     timer = this.game.time.create();
         
     // Evento de tiempo
-   	timerEvent = timer.add(Phaser.Timer.MINUTE * 1 + Phaser.Timer.SECOND * 00, this.endTimer, this);
+   	timerEvent = timer.add(Phaser.Timer.MINUTE * 0 + Phaser.Timer.SECOND * 10, this.endTimer, this);
 
   },
     
@@ -53,6 +53,7 @@ AsiloRoyale.OnlineLobby.prototype = {
 	},
 
   update: function() {
+ 		var that = this;
 		var escKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
    	if(escKey.isDown){
    			deleteUser(lobbyUser.id);
@@ -62,22 +63,33 @@ AsiloRoyale.OnlineLobby.prototype = {
     this.newUser.update();
 
    	loadUsers(function (users) {
+
         usersconnected = users.length;
         info = '';
-            
+         
+        var usersReady=0;
         for (var i = 0; i < users.length; i++) {
            	var user = users[i];
-           	console.log("READY?: "+ users[i].ready);
+
            	if(users[i].inactivityTime >= 5){
                 info += i + ":  " + user.nick + "  [DESC]" + "\n";
+                usersReady--;
                 // usersList.addColor('#ff00ff');
               }else if (users[i].ready == true){
             	  info += i + ":  " + user.nick + "  [READY]" + "\n";
+		        	usersReady++;
             	  
-              }else{info += i + ":  " + user.nick + "\n";
+              }else{
+            	  info += i + ":  " + user.nick + "\n";
                 // usersList.addColor('#51F55B');
               }
-           	
+           	console.log("usuarios ready"+ usersReady);
+		        if(usersReady==2){
+		            timer.start();
+		   			//that.game.state.start('Game');
+		        }else{
+		        	timer.stop();
+		        }
              
             }
         usersList.setText(info);
@@ -120,7 +132,8 @@ AsiloRoyale.OnlineLobby.prototype = {
 
            // Update item in server
            updateUser(updatedUser);
-       	   console.log(this.newUser.ready);
+
+       	   
    },
 
 	
