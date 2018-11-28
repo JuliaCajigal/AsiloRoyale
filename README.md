@@ -100,16 +100,34 @@ Al comenzar se muestra el menú principal con las siguientes opciones:
 
 Se utilizará el ratón para desplazarse por las opciones y click para seleccionarlas. 
 
-![Menu principal]
-
 
 En la pantalla de "Help" se podrá visualizar una imagen que contiene la explicación de los controles del juego, así como los objetos que se pueden coger, utilizar o equipar. 
 
 ![Help](https://imageshack.com/a/img921/2363/nrkyGg.png)
 
-Si iniciamos el juego online...
+Si iniciamos el juego online se entrará en la sala de Login, donde el usuaria escribirá un nombre (menos de 12 caracteres) y al pusar "OK" avanzará al lobby Online.
 
-![Online]
+ ![Login](https://imageshack.com/a/img924/1256/Av0GSM.jpg)
+ ![Ready](https://imageshack.com/a/img921/6431/Qe7pVy.jpg)
+ 
+ En el Lobby online aparecerá una lista con los nombres de los usuarios conectados. Si pulsa el botón "READY" el usuario indicará que está preparado para comenzar una partida y esto se verá reflejado mediante el texto "[READY]" que aparecerá junto asu nombre en la lista de usuarios.
+
+![ReadyChange](https://imageshack.com/a/img922/9167/o8HbSg.png)
+ 
+Si en algún momento uno de los usuarios se desconectase del servidor, aparecerá el texto "[DESC]" junto a su nombre unos segundos antes de desaparecer de la lista.
+Una vez haya 2 usuarios conectados y preparados comenzará la partida.
+
+![DESC](https://imageshack.com/a/img922/5791/hch1ME.png)
+
+Datos permanentes: Tabla de puntuaciones máximas.
+
+![maxScoresIcon](https://imageshack.com/a/img923/9256/fEoo1u.png)
+![maxScores](https://imageshack.com/a/img922/55/m72yMB.png)
+
+Otros avisos: servidor desconectado o nombres duplicados.
+
+![server](https://imageshack.com/a/img924/7589/ZBYo4h.png)
+
 
 Si iniciamos el juego en local, el jugador podrá desplazarse por el mapa y recoger diferentes objetos y armas con las que equiparse. Se presentarán enemigos que reducen la vida del personaje, aunque se podrá acabar con ellos utilizando las armas, lo que nos generará más puntuación. 
 
