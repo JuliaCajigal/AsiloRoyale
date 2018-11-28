@@ -12,7 +12,6 @@ AsiloRoyale.GameOver.prototype = {
 		this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');
 		this.background.autoScroll(20, 0);
 
-		
 		this.tv = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'tv');
     	this.tv.fixedToCamera = true;
 

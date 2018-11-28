@@ -5,7 +5,9 @@ AsiloRoyale.Login = function(){};
 var input;
 var currentUser;
 
+
 function createUser(user, callback) {
+
     $.ajax({
         method: "POST",
         url: 'http://192.168.1.130:8080/users',
@@ -22,15 +24,14 @@ function createUser(user, callback) {
     })
 }
 
+
 AsiloRoyale.Login.prototype = {
 
 	create: function() {
+
 		input = document.getElementById('username');
 		input.style.display = 'block';
 
-		//ok.addEventListener=('click', this.changeState);
-
-		
 		this.game.camera.setBoundsToWorld();
 		this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');
 		this.background.autoScroll(20, 0);
@@ -48,30 +49,28 @@ AsiloRoyale.Login.prototype = {
 
     },
 
+    //Función para pasar al estado de OnlineLobby 
+    //si el nombre introducido es menor a 12 caracteres
     changeState: function() {
+
         var that = this;
 		var input = $('#username')
     	var value = input.val();
 		var sizename = value.length;
         input.val('');
-        console.log(input);
 
         var user = {
             nick: value,
             ready:false
         }
-        console.log(value.length);
+
         if (sizename<=12){
-        	console.log("entra");
+
     	   		createUser(user, function (userWithId) {
-            	//usersconnected = users.length;
-                console.log(userWithId);
-                currentUser = userWithId;
-                console.log(currentUser);
-                
-                that.game.state.start('OnlineLobby', false, false, currentUser);
-            	//info = '';
-            })
+                    currentUser = userWithId;
+                    that.game.state.start('OnlineLobby', false, false, currentUser);
+                })
+
         }else{
         	var style = {font: "bold 38px 'VT323'", fill: "#51F55B", align: "left" };
     		var text = 'Nombre demasiado largo'; 
@@ -84,7 +83,7 @@ AsiloRoyale.Login.prototype = {
 
 
     update: function() {
-    	//console.log(input.value);
+
 		var escKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
    		if(escKey.isDown){
    			this.game.state.start('MainMenu');}

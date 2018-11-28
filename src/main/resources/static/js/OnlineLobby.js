@@ -15,8 +15,6 @@ var serverOff = false;
 AsiloRoyale.OnlineLobby.prototype = {
 
 	create: function() {
-
-		
 		input = document.getElementById('username');
 		input.style.display = 'none';
     this.newUser = new User(this.game, lobbyUser.id, lobbyUser.nick);
@@ -47,14 +45,17 @@ AsiloRoyale.OnlineLobby.prototype = {
 
   },
     
+
   // Recibimos el usuario desde Login
 	init: function(currentUser){
-		  lobbyUser = currentUser;
+      lobbyUser = currentUser;
 	},
+
 
   update: function() {
  		var that = this;
 		var escKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
+
    	if(escKey.isDown){
    			deleteUser(lobbyUser.id);
    			this.game.state.start('MainMenu');
@@ -74,28 +75,27 @@ AsiloRoyale.OnlineLobby.prototype = {
            	if(users[i].inactivityTime >= 5){
                 info += i + ":  " + user.nick + "  [DESC]" + "\n";
                 usersReady--;
-                // usersList.addColor('#ff00ff');
               }else if (users[i].ready == true){
             	  info += i + ":  " + user.nick + "  [READY]" + "\n";
 		        	usersReady++;
             	  
               }else{
             	  info += i + ":  " + user.nick + "\n";
-                // usersList.addColor('#51F55B');
               }
-           	console.log("usuarios ready"+ usersReady);
+
+
 		        if(usersReady>=2){
 		            timer.start();
-		   			//that.game.state.start('Game');
 		        }else{
 		        	timer.stop();
 		        }
              
-            }
+        }
         usersList.setText(info);
     })
 	},
 
+  //Comprueba si el servidor está Online
   checkConnection: function (){
     if(serverOff == true){
       console.log(this.newUser.disconnected);
@@ -108,8 +108,8 @@ AsiloRoyale.OnlineLobby.prototype = {
      
   },
   
-   changeReady: function(){
-	   
+  //Cambia el estado ready del usuario
+  changeReady: function(){
 	   var userReady;
 	   console.log(this.newUser.ready);
 	   
@@ -123,20 +123,19 @@ AsiloRoyale.OnlineLobby.prototype = {
 		   this.newUser.ready=false;
 	   }
 	   
-       var updatedUser = {
-               id: this.newUser.id,
-               nick: this.newUser.name,
-               inactivityTime: this.newUser.inactivityTime,
-               ready: userReady               
-           }
+      var updatedUser = {
+        id: this.newUser.id,
+        nick: this.newUser.name,
+        inactivityTime: this.newUser.inactivityTime,
+        ready: userReady               
+      }
 
-           // Update item in server
-           updateUser(updatedUser);
+      updateUser(updatedUser);
 
        	   
    },
 
-	
+	//Muestra la lista de usuarios
 	showUsers: function() {
 		
 		var style = {font: "bold 38px 'VT323'", fill: "#51F55B", align: "left" };
@@ -150,10 +149,9 @@ AsiloRoyale.OnlineLobby.prototype = {
 	render: function() {
 		if (timer.running) {
           this.game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms) / 1000)), 1010, 78, "#51F55B", "50px 'VT323'");
-      }
-      else {
+    }else {
           this.game.debug.text("Done!",1010, 78, "#51F55B", "50px 'VT323'");
-      }
+    }
   },
 
 
@@ -173,11 +171,10 @@ AsiloRoyale.OnlineLobby.prototype = {
 
 }
 
+//Carga la lista de usuarios conectados al servidor
 function loadUsers(callback) {
     $.ajax({
-    	//method: 'GET',
       url: 'http://192.168.1.130:8080/users/'
-    
     }).done(function (users) {
       console.log('Users loaded: ' + JSON.stringify(users));
       callback(users);

@@ -52,8 +52,6 @@ AsiloRoyale.Scores.prototype = {
  		var that = this;
  		loadScores(function (scores) {
 
- 			//[0][i] almacena los nicks
- 			//[1][i] almacena las puntuaciones
         	for (var i = 0; i < 5; i++) {
             	maxScoresList[0][i] = scores[0][i];
             	maxScoresList[1][i] = scores[1][i];
@@ -65,16 +63,15 @@ AsiloRoyale.Scores.prototype = {
 };
 
 ///Mayores puntuaciones y nicks asociados almacenados en el sevidor
-function loadScores(callback)
-{
-	$.ajax({
-		url: 'http://192.168.1.130:8080/users/maxScores'
+	function loadScores(callback){
+		$.ajax({
+			url: 'http://192.168.1.130:8080/users/maxScores'
 
-	}).done(function (nickScores) {
-		console.log(nickScores);
-		callback(nickScores);
+		}).done(function (nickScores) {
+			console.log(nickScores);
+			callback(nickScores);
 
-	}).fail(function () {
-		console.log("No se ha podido cargar el fichero");
-    })
-}
+		}).fail(function () {
+			console.log("No se ha podido cargar el fichero");
+    	})
+	}
