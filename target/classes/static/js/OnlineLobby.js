@@ -84,9 +84,9 @@ AsiloRoyale.OnlineLobby.prototype = {
                 // usersList.addColor('#51F55B');
               }
            	console.log("usuarios ready"+ usersReady);
-		        if(usersReady==2){
-		            timer.start();
-		   			//that.game.state.start('Game');
+		        if(usersReady>=2){
+		            //timer.start();
+		   			that.game.state.start('Game');
 		        }else{
 		        	timer.stop();
 		        }
@@ -176,7 +176,7 @@ AsiloRoyale.OnlineLobby.prototype = {
 function loadUsers(callback) {
     $.ajax({
     	method: 'GET',
-        url: 'http://localhost:8080/users/'
+        url: 'http://192.168.1.131:8080/users/'
     	// method: 'GET',
         // url: 'http://localhost:8080/users/' + ownId.id
     
@@ -199,7 +199,7 @@ function loadUsers(callback) {
 function deleteUser(userId) {
     $.ajax({
         method: 'DELETE',
-        url: 'http://localhost:8080/users/' + userId
+        url: ' http://192.168.1.131:8080/users/' + userId
         
     }).done(function (user) {
         console.log("Deleted user " + userId)

@@ -8,7 +8,7 @@ var currentUser;
 function createUser(user, callback) {
     $.ajax({
         method: "POST",
-        url: 'http://localhost:8080/users',
+        url: 'http://192.168.1.131:8080/users',
         data: JSON.stringify(user),
         processData: false,
         headers: {

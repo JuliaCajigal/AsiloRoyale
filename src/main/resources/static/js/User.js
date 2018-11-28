@@ -25,7 +25,7 @@ function User(game, id, name) {
 
         $.ajax({
         method: 'GET',
-        url: 'http://localhost:8080/users/' + this.id
+        url: 'http://192.168.1.131:8080/users/' + this.id
     
     }).success(function (user) {
         //console.log('User loaded: ' + JSON.stringify(user));
@@ -65,7 +65,7 @@ function User(game, id, name) {
 function loadUser(callback) {
     $.ajax({
         method: 'GET',
-        url: 'http://localhost:8080/users/' + this.id
+        url: 'http://192.168.1.131:8080/users/' + this.id
     
     }).done(function (user) {
         console.log('User loaded: ' + JSON.stringify(user));
@@ -82,7 +82,7 @@ function loadUser(callback) {
 function deleteUser(userId) {
     $.ajax({
         method: 'DELETE',
-        url: 'http://localhost:8080/users/' + this.id
+        url: 'http://192.168.1.131:8080/users/' + this.id
         
     }).done(function (user) {
         console.log("Deleted user " + this.id)
