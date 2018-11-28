@@ -34,6 +34,9 @@ AsiloRoyale.MainMenu.prototype = {
  		boton3.height = 70;
  		boton3.anchor.setTo(0.5);
  		boton3.input.useHandCursor = false;
+ 		boton4 = this.game.add.button(70,50,'copa', this.boton4OnClick, this,0,0,0,0);
+ 		boton4.width = 62;
+ 		boton4.height = 62;
 
  		//////////////LOGO/////////////
  		this.logo = this.add.sprite((this.game.camera.width-150)/2, this.game.camera.height/2-80, 'ARlogo');
@@ -66,5 +69,9 @@ AsiloRoyale.MainMenu.prototype = {
  	boton3OnClick: function(){
 
  		this.game.state.start('Login');
+ 	},
+ 	 	boton4OnClick: function(){
+
+ 		this.game.state.start('Scores');
  	},
  };

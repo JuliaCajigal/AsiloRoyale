@@ -11,5 +11,6 @@ AsiloRoyale.game.state.add('GameOver', AsiloRoyale.GameOver);
 AsiloRoyale.game.state.add('Controles', AsiloRoyale.Controles);
 AsiloRoyale.game.state.add('OnlineLobby', AsiloRoyale.OnlineLobby);
 AsiloRoyale.game.state.add('Login', AsiloRoyale.Login);
+AsiloRoyale.game.state.add('Scores', AsiloRoyale.Scores);
 
 AsiloRoyale.game.state.start('Boot');
