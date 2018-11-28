@@ -107,7 +107,15 @@ En la pantalla de "Help" se podrá visualizar una imagen que contiene la explica
 
 ![Help](https://imageshack.com/a/img921/2363/nrkyGg.png)
 
-Si iniciamos el juego online...
+Si iniciamos el juego online se entrará en la sala de Login, donde el usuaria escribirá un nombre (menos de 12 caracteres) y al pusar "OK" avanzará al lobby Online.
+
+-----IMAGEN LOGIN------
+
+En el Lobby online aparecerá una lista con los nombres de los usuarios conectados. Si pulsa el botón ready el botón "READY" el usuario indicará que está preparado para comenzar una partida y esto se verá reflejado mediante el texto "[READY]" que aparecerá junto asu nombre en la lista de usuarios.
+Si en algún momento uno de los usuarios se desconectase del servidor, aparecerá el texto "[DESC]" junto a su nombre unos segundos antes de desaparecer de la lista.
+Una vez haya 2 usuarios conectados y preparados comenzará la partida.
+
+------IMAGEN LOBBY ONLINE -----
 
 ![Online]
 
