@@ -2,6 +2,8 @@ var AsiloRoyale = AsiloRoyale || {};
 
 AsiloRoyale.Scores = function(){};
 
+var maxScoresList = [[],[]];
+
 AsiloRoyale.Scores.prototype = {
 
 	create: function() {
@@ -19,13 +21,10 @@ AsiloRoyale.Scores.prototype = {
     	this.scores.fixedToCamera = true;
 
 
-    	this.showRes();
+    	this.maxScores();
 
 
 	},
-
-	//Recibir parametros de Game
-
 
 	update: function() {
 		var escKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
@@ -34,7 +33,42 @@ AsiloRoyale.Scores.prototype = {
 	},
 
 	//Mostrar resultados
-	showRes: function() {
+	showScores: function(){
+ 		console.log(maxScoresList[0][0]);
+ 		var style = {font: "bold 38px 'VT323'", fill: "#51F55B", align: "left" };
+		var text = maxScoresList[0][0];
+ 		var scoresList = this.game.add.text(100, 200, text, style);
+ 	},
 
-	},
+	//Guardamos en un array los nombres y las máximas puntuaciones que formarán parte de la lista
+ 	maxScores: function(){
+ 		var that = this;
+ 		loadScores(function (scores) {
+        	for (var i = 0; i < 2; i++) {
+        		console.log("!!!!!");
+            	maxScoresList[0][i] = scores[0][i];
+            	maxScoresList[1][i] = scores[1][i];
+            }
+            
+            that.showScores();
+    	})
+ 	},
 };
+
+///Mayores puntuaciones y nicks asociados
+function loadScores(callback)
+{
+	$.ajax({
+		//method: 'GET',
+		url: 'http://192.168.1.130:8080/users/maxScores'
+	}).done(function (nickScores) {
+		console.log(nickScores);
+		callback(nickScores);
+		console.log(nickScores[0][1]);
+		console.log(nickScores[1][1]);
+
+	}).fail(function () {
+		//serverDisconnected = true;
+		console.log("No se ha podido cargar el fichero");
+    })
+}

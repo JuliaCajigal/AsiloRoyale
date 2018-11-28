@@ -8,7 +8,7 @@ var usersconnected = 0;
 var timer, timerEvent;
 var lobbyUser;
 var disconnected = false;
-
+var serverOff = false;
 
 
 
@@ -27,15 +27,15 @@ AsiloRoyale.OnlineLobby.prototype = {
 		this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');
 		this.background.autoScroll(20, 0);
 		
-	this.tv = this.game.add.sprite(0, 0, 'tv');
+	  this.tv = this.game.add.sprite(0, 0, 'tv');
     this.tv.fixedToCamera = true;
     this.tabla_conectados = this.game.add.sprite(282, 125, 'tabla_conectados');
     this.tabla_conectados.fixedToCamera = true;
     
     boton5 = this.game.add.button((this.game.camera.width-725)/2+290,this.game.camera.height/2+200,'readybutton', this.changeReady, this,0,0,0,1);
-	boton5.width = 150;
-	boton5.height = 70;
-	boton5.anchor.setTo(0.5);
+	  boton5.width = 150;
+	  boton5.height = 70;
+	  boton5.anchor.setTo(0.5);
 
     this.showUsers();
     	
@@ -47,7 +47,7 @@ AsiloRoyale.OnlineLobby.prototype = {
 
   },
     
-  // Recibe parametros de Login
+  // Recibimos el usuario desde Login
 	init: function(currentUser){
 		  lobbyUser = currentUser;
 	},
@@ -97,7 +97,7 @@ AsiloRoyale.OnlineLobby.prototype = {
 	},
 
   checkConnection: function (){
-    if(this.newUser.disconnected == true){
+    if(serverOff == true){
       console.log(this.newUser.disconnected);
       
       var serverAlert = this.game.add.image((this.game.camera.width-150)/2, (this.game.camera.height/2), 'serveroff');
@@ -175,22 +175,17 @@ AsiloRoyale.OnlineLobby.prototype = {
 
 function loadUsers(callback) {
     $.ajax({
-    	method: 'GET',
-        url: 'http://192.168.1.131:8080/users/'
-    	// method: 'GET',
-        // url: 'http://localhost:8080/users/' + ownId.id
+    	//method: 'GET',
+      url: 'http://192.168.1.130:8080/users/'
     
     }).done(function (users) {
-       // console.log('Users loaded: ' + JSON.stringify(users));
-    	
-        callback(users);
-        // if(this.newUser.disconnected == true){this.newUser.disconnected =
-		// false;}
-    
+      console.log('Users loaded: ' + JSON.stringify(users));
+      callback(users);
+      if(serverOff == true){serverOff = false;}
+      
     }).fail(function () {
         console.error("Se ha perdido la conexión con el servidor.");
-        // this.newUser.disconnected = true;
-        // deleteUser(ownId);
+        serverOff = true;
     })
 }
 
@@ -199,7 +194,7 @@ function loadUsers(callback) {
 function deleteUser(userId) {
     $.ajax({
         method: 'DELETE',
-        url: ' http://192.168.1.131:8080/users/' + userId
+        url: ' http://192.168.1.130:8080/users/' + userId
         
     }).done(function (user) {
         console.log("Deleted user " + userId)

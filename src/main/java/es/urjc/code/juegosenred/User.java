@@ -6,7 +6,7 @@ public class User {
 	private String nick;
 	private boolean ready;
 	private int inactivityTime = 0;
-
+	private int score = 0;
 
 	public User() {
 	}
@@ -56,6 +56,14 @@ public class User {
 		this.inactivityTime = 0;
         return 0;
     }
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
 
 
 

@@ -1,6 +1,10 @@
 package es.urjc.code.juegosenred;
 
 import java.util.Collection;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -92,6 +96,26 @@ public class UsersController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+
+	@GetMapping("/maxScores")
+	public String[][] readMaxScores() throws IOException{
+		
+		BufferedReader scores = new BufferedReader(new FileReader (new File("target/classes/scores.txt")));
+		String line;
+		String [][] nickScores = new String [2][10];
+		int i = 0;
+		while((line = scores.readLine()) != null) 
+		{
+			String [] splited = line.split(" ");
+			nickScores[0][i] = splited[0];
+			nickScores[1][i] = splited[1];
+			System.out.println(nickScores);
+			i++;
+			
+		}
+		scores.close();
+		return nickScores;
 	}
 
 }
