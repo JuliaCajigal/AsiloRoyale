@@ -39,15 +39,15 @@ AsiloRoyale.OnlineLobby.prototype = {
 
     this.showUsers();
     	
-    //Temporizador
+    // Temporizador
     timer = this.game.time.create();
         
-    //Evento de tiempo
+    // Evento de tiempo
    	timerEvent = timer.add(Phaser.Timer.MINUTE * 1 + Phaser.Timer.SECOND * 00, this.endTimer, this);
 
   },
     
-  //Recibe parametros de Login
+  // Recibe parametros de Login
 	init: function(currentUser){
 		  lobbyUser = currentUser;
 	},
@@ -70,12 +70,12 @@ AsiloRoyale.OnlineLobby.prototype = {
            	console.log("READY?: "+ users[i].ready);
            	if(users[i].inactivityTime >= 5){
                 info += i + ":  " + user.nick + "  [DESC]" + "\n";
-                //usersList.addColor('#ff00ff');
+                // usersList.addColor('#ff00ff');
               }else if (users[i].ready == true){
             	  info += i + ":  " + user.nick + "  [READY]" + "\n";
             	  
               }else{info += i + ":  " + user.nick + "\n";
-                //usersList.addColor('#51F55B');
+                // usersList.addColor('#51F55B');
               }
            	
              
@@ -118,7 +118,7 @@ AsiloRoyale.OnlineLobby.prototype = {
                ready: userReady               
            }
 
-           //Update item in server
+           // Update item in server
            updateUser(updatedUser);
        	   console.log(this.newUser.ready);
    },
@@ -133,7 +133,7 @@ AsiloRoyale.OnlineLobby.prototype = {
 	},
 
 
-//Muestra el tiempo que queda para el final de la partida
+// Muestra el tiempo que queda para el final de la partida
 	render: function() {
 		if (timer.running) {
           this.game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms) / 1000)), 1010, 78, "#51F55B", "50px 'VT323'");
@@ -144,13 +144,13 @@ AsiloRoyale.OnlineLobby.prototype = {
   },
 
 
-  //Código de: http://jsfiddle.net/lewster32/vd70o41p/
+  // Código de: http://jsfiddle.net/lewster32/vd70o41p/
   endTimer: function() {
       timer.stop();
       this.game.state.start('Game');
   },
 
-  //cambia el formato del tiempo
+  // cambia el formato del tiempo
   formatTime: function(s) {
 
       var minutes = "0" + Math.floor(s / 60);
@@ -164,24 +164,25 @@ function loadUsers(callback) {
     $.ajax({
     	method: 'GET',
         url: 'http://localhost:8080/users/'
-    	//method: 'GET',
-        //url: 'http://localhost:8080/users/' + ownId.id
+    	// method: 'GET',
+        // url: 'http://localhost:8080/users/' + ownId.id
     
     }).done(function (users) {
        // console.log('Users loaded: ' + JSON.stringify(users));
     	
         callback(users);
-        //if(this.newUser.disconnected == true){this.newUser.disconnected = false;}
+        // if(this.newUser.disconnected == true){this.newUser.disconnected =
+		// false;}
     
     }).fail(function () {
         console.error("Se ha perdido la conexión con el servidor.");
-        //this.newUser.disconnected = true;
-        //deleteUser(ownId);
+        // this.newUser.disconnected = true;
+        // deleteUser(ownId);
     })
 }
 
 
-//Delete item from server
+// Delete item from server
 function deleteUser(userId) {
     $.ajax({
         method: 'DELETE',

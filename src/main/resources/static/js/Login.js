@@ -72,6 +72,11 @@ AsiloRoyale.Login.prototype = {
                 that.game.state.start('OnlineLobby', false, false, currentUser);
             	//info = '';
             })
+        }else{
+        	var style = {font: "bold 38px 'VT323'", fill: "#51F55B", align: "left" };
+    		var text = 'Nombre demasiado largo'; 
+    		limitname = this.game.add.text(300, 350, text, style);
+        	
         }
         
 	
