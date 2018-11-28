@@ -1,2 +1,5 @@
-Nadie: 1000
-Todos: 3000
+Jeremin: 10890
+Brody: 9946
+Rodri: 3650
+Poncho: 2700
+BorjaPerez: 768
