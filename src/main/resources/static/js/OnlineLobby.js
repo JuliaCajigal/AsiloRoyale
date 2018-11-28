@@ -186,8 +186,22 @@ function loadUsers(callback) {
     })
 }
 
+//Update user in server
+function updateUser(user) {
+    $.ajax({
+        method: 'PUT',
+        url: 'http://192.168.1.130:8080/users/' + user.id,
+        data: JSON.stringify(user),
+        processData: false,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).done(function (user) {
+        console.log("Updated user: " + JSON.stringify(user))
+    })
+}
 
-// Delete item from server
+// Delete user from server
 function deleteUser(userId) {
     $.ajax({
         method: 'DELETE',
