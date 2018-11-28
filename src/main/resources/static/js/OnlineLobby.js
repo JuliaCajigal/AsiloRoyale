@@ -85,8 +85,8 @@ AsiloRoyale.OnlineLobby.prototype = {
               }
            	console.log("usuarios ready"+ usersReady);
 		        if(usersReady>=2){
-		            //timer.start();
-		   			that.game.state.start('Game');
+		            timer.start();
+		   			//that.game.state.start('Game');
 		        }else{
 		        	timer.stop();
 		        }
