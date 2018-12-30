@@ -8,6 +8,7 @@ function User(game, id, name) {
     this.ready = false;
     this.updater = this.game.time.events.loop(Phaser.Timer.SECOND*1.5, this.updater, this);
     this.player = null;
+    this.ip = '127.0.0.1';
     }
 
 	User.prototype.constructor = User;
@@ -24,7 +25,7 @@ function User(game, id, name) {
 
         $.ajax({
         method: 'GET',
-        url: 'http://localhost:8080/users/' + this.id
+        url: 'http://' + this.ip + ':8080/users/' + this.id
     
     }).success(function (user) {
         if(this.disconnected == true){this.disconnected = false;}

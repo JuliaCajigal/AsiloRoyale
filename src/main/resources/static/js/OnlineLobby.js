@@ -174,46 +174,5 @@ AsiloRoyale.OnlineLobby.prototype = {
       return minutes.substr(-2) + ":" + seconds.substr(-2);
 	},
 
-}
-
-//Carga la lista de usuarios conectados al servidor
-function loadUsers(callback) {
-    $.ajax({
-      url: 'http://localhost:8080/users/'
-    }).done(function (users) {
-      console.log('Users loaded: ' + JSON.stringify(users));
-      callback(users);
-      if(serverOff == true){serverOff = false;}
-      
-    }).fail(function () {
-        console.error("Se ha perdido la conexión con el servidor.");
-        serverOff = true;
-    })
-}
-
-//Update user in server
-function updateUser(user) {
-    $.ajax({
-        method: 'PUT',
-        url: 'http://localhost:8080/users/' + user.id,
-        data: JSON.stringify(user),
-        processData: false,
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).done(function (user) {
-        console.log("Updated user: " + JSON.stringify(user))
-    })
-}
-
-// Delete user from server
-function deleteUser(userId) {
-    $.ajax({
-        method: 'DELETE',
-        url: ' http://localhost:8080/users/' + userId
-        
-    }).done(function (user) {
-        console.log("Deleted user " + userId)
-    })
 };
 

@@ -6,25 +6,6 @@ var input;
 var currentUser;
 
 
-function createUser(user, callback) {
-
-    $.ajax({
-        method: "POST",
-        url: 'http://localhost:8080/users',
-        data: JSON.stringify(user),
-        processData: false,
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).done(function (user) {
-        console.log("User created: " + JSON.stringify(user));
-        currentUser = user.id;
-        console.log(currentUser);
-        callback(user);
-    })
-}
-
-
 AsiloRoyale.Login.prototype = {
 
 	create: function() {
@@ -70,11 +51,13 @@ AsiloRoyale.Login.prototype = {
         }
 
         if (sizename<=12){
-
+        		
     	   		createUser(user, function (userWithId) {
                     currentUser = userWithId;
                     that.game.state.start('OnlineLobby', false, false, currentUser);
                 })
+                
+                connection.send(JSON.stringify(user));
 
         }else{
         	var style = {font: "bold 38px 'VT323'", fill: "#51F55B", align: "left" };
@@ -91,4 +74,37 @@ AsiloRoyale.Login.prototype = {
    			this.game.state.start('MainMenu');}
 	},
 
-};
+}
+
+
+//$(document).ready(function() {
+
+	var connection = new WebSocket('ws://10.10.145.28:8080/handler');
+	connection.onerror = function(e) {
+		console.log("WS error: " + e);
+	}
+	connection.onmessage = function(msg) {
+		console.log("WS message: " + msg.data);
+		var message = JSON.parse(msg.data)
+		$('#chat').val($('#chat').val() + "\n" + message.nick + ": " + message.ready);
+	}
+	connection.onclose = function() {
+		console.log("Closing socket");
+	}
+	
+	connection.onopen = function(){
+		console.log("WEBSOCKET!!");
+	}
+
+/*
+	$('#send-btn').click(function() {
+		var msg = {
+			name : $('#name').val(),
+			message : $('#message').val()
+		}
+	    $('#chat').val($('#chat').val() + "\n" + msg.name + ": " + msg.message);
+		connection.send(JSON.stringify(user));
+	});*/
+
+//})
+;

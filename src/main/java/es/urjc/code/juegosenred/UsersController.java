@@ -74,7 +74,7 @@ public class UsersController {
 		User savedUser = users.get(id);
 
 		if (savedUser != null) {
-			System.out.println(savedUser.getInactivityTime());
+			//System.out.println(savedUser.getInactivityTime());
 			savedUser.resetInactivity();
 			//users.put(id, savedUser);
 			
