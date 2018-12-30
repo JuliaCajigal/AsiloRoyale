@@ -24,6 +24,21 @@ function loadUserNames(callback) {
     })
 }
 
+///Mayores puntuaciones y nicks asociados almacenados en el sevidor
+function loadScores(callback){
+    $.ajax({
+        method: 'GET',
+        url: 'http://localhost:8080/users/maxScores'
+
+    }).done(function (nickScores) {
+        console.log(nickScores);
+        callback(nickScores);
+
+    }).fail(function () {
+        console.log("No se ha podido cargar el fichero");
+    })
+}
+
 //Create item in server
 function createUser(user, callback) {
     $.ajax({

@@ -4,7 +4,6 @@ AsiloRoyale.Login = function(){};
 
 var input;
 var currentUser;
-var names;
 
 
 AsiloRoyale.Login.prototype = {
