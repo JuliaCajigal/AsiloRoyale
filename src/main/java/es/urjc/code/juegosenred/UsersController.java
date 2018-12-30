@@ -36,6 +36,11 @@ public class UsersController {
 	public static Collection<User> users() {
 		return users.values();
 	}
+	
+	@GetMapping("/userNames")
+	public static ArrayList<String> userNames(){
+		return userNames;
+	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)

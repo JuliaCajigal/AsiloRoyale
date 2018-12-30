@@ -4,6 +4,7 @@ AsiloRoyale.Login = function(){};
 
 var input;
 var currentUser;
+var names;
 
 
 AsiloRoyale.Login.prototype = {
@@ -32,6 +33,8 @@ AsiloRoyale.Login.prototype = {
         //TV
 		this.tv = this.game.add.sprite(0, 0, 'tv');
     	this.tv.fixedToCamera = true;
+    	
+    	
 
     },
 
@@ -39,6 +42,7 @@ AsiloRoyale.Login.prototype = {
     //si el nombre introducido es menor a 12 caracteres
     changeState: function() {
 
+    	var style = {font: "bold 38px 'VT323'", fill: "#51F55B", align: "left" };
         var that = this;
 		var input = $('#username')
     	var value = input.val();
@@ -50,7 +54,7 @@ AsiloRoyale.Login.prototype = {
             ready:false
         }
 
-        if (sizename<=12){
+        if(sizename<=12 && checkNames(value)){
         		
     	   		createUser(user, function (userWithId) {
                     currentUser = userWithId;
@@ -59,10 +63,12 @@ AsiloRoyale.Login.prototype = {
                 
                 connection.send(JSON.stringify(user));
 
-        }else{
-        	var style = {font: "bold 38px 'VT323'", fill: "#51F55B", align: "left" };
+        }else if(sizename>12){
     		var text = 'Nombre demasiado largo'; 
-    		limitname = this.game.add.text(300, 350, text, style);	
+    		var warning = this.game.add.text(300, 350, text, style);	
+        }else{
+        	var text = 'Nombre de usuario no disponible'; 
+    		var warning = this.game.add.text(300, 350, text, style);
         }
 },
 
@@ -73,13 +79,26 @@ AsiloRoyale.Login.prototype = {
    		if(escKey.isDown){
    			this.game.state.start('MainMenu');}
 	},
-
 }
 
-
+    function checkNames (currentName){
+        var free = true;
+        
+        //Cargamos los nombres de usuario
+        loadUserNames(function (userNames) {
+            for (var i = 0; i < userNames.length; i++) {
+                
+                //Comprobamos si el nombre actual ya existe
+                if(userNames[i] == currentName){
+                    free = false;
+                    } 
+                }
+        });
+        return free;
+    }
 //$(document).ready(function() {
 
-	var connection = new WebSocket('ws://10.10.145.28:8080/handler');
+	var connection = new WebSocket('ws://127.0.0.1:8080/handler');
 	connection.onerror = function(e) {
 		console.log("WS error: " + e);
 	}
@@ -107,4 +126,5 @@ AsiloRoyale.Login.prototype = {
 	});*/
 
 //})
+
 ;

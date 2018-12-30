@@ -4,13 +4,23 @@ var usersLimit = 5;
 var currentUsers = 0;
 var ip = '127.0.0.1';
 
-//Load items from server
+//Load users from server
 function loadUsers(callback) {
     $.ajax({
         url: 'http://' + ip + ':8080/users'
     }).done(function (users) {
         console.log('Users loaded: ' + JSON.stringify(users));
         callback(users);
+    })
+}
+
+//Load usernames from server
+function loadUserNames(callback) {
+    $.ajax({
+        url: 'http://' + ip + ':8080/users/userNames'
+    }).done(function (userNames) {
+        console.log('Users loaded: ' + JSON.stringify(userNames));
+        callback(userNames);
     })
 }
 
