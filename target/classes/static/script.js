@@ -28,7 +28,7 @@ function loadUserNames(callback) {
 function loadScores(callback){
     $.ajax({
         method: 'GET',
-        url: 'http://localhost:8080/users/maxScores'
+        url: 'http://' + ip + ':8080/users/maxScores'
 
     }).done(function (nickScores) {
         console.log(nickScores);
@@ -78,6 +78,32 @@ function deleteUser(userId) {
     }).done(function (userId) {
         console.log("Deleted user " + userId)
     })
+}
+
+///SALAS EMPAREJAMIENTO//
+//Load lobby from server
+function loadLobby(id, callback) {
+	$.ajax({
+		url: 'http://' + ip + ':8080/lobbies/' + id
+	}).done(function (lobby) {
+		console.log('Lobby loaded: ' + JSON.stringify(lobby));
+		callback(lobby);
+	})
+}
+
+//Update lobby in server
+function updateLobby(grupo) {
+	$.ajax({
+		method: 'PUT',
+		url: 'http://' + ip + ':8080/lobbies/' + grupo.id,
+		data: JSON.stringify(lobby),
+		processData: false,
+		headers: {
+			"Content-Type": "application/json"
+		}
+	}).done(function (lobby) {
+		console.log("Updated lobby: " + JSON.stringify(lobby))
+	})
 }
 
 //Show item in page
