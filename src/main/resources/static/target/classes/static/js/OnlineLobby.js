@@ -30,8 +30,8 @@ AsiloRoyale.OnlineLobby.prototype = {
 		  this.background.autoScroll(20, 0);
 		
       //TV
-	    this.tv = this.game.add.sprite(0, 0, 'tv');
-      this.tv.fixedToCamera = true;
+	    var tv = this.game.add.sprite(0, 0, 'tv');
+      tv.fixedToCamera = true;
       this.tabla_conectados = this.game.add.sprite(282, 125, 'tabla_conectados');
       this.tabla_conectados.fixedToCamera = true;
     
@@ -49,6 +49,10 @@ AsiloRoyale.OnlineLobby.prototype = {
         
       //Evento de tiempo
    	  timerEvent = timer.add(Phaser.Timer.MINUTE * 0 + Phaser.Timer.SECOND * 10, this.endTimer, this);
+
+      //Cargamos los usuarios cada 1.5 segundos
+      this.checkUsers();
+      var updater = this.game.time.events.loop(Phaser.Timer.SECOND*1.5, this.checkUsers, this);
    
   },
     
@@ -70,37 +74,41 @@ AsiloRoyale.OnlineLobby.prototype = {
     this.checkConnection();
     
 
-   	loadUsers(function (users) {
+	},
+
+  checkUsers: function(){
+
+    loadUsers(function (users) {
 
         usersconnected = users.length;
         info = '';
          
         var usersReady=0;
         for (var i = 0; i < users.length; i++) {
-           	var user = users[i];
+            var user = users[i];
 
-           	if(users[i].inactivityTime >= 5){
+            if(users[i].inactivityTime >= 5){
                 info += i + ":  " + user.nick + "  [DESC]" + "\n";
                 usersReady--;
               }else if (users[i].ready == true){
-            	  info += i + ":  " + user.nick + "  [READY]" + "\n";
-		        	usersReady++;
-            	  
+                info += i + ":  " + user.nick + "  [READY]" + "\n";
+              usersReady++;
+                
               }else{
-            	  info += i + ":  " + user.nick + "\n";
+                info += i + ":  " + user.nick + "\n";
               }
 
 
-		        if(usersReady>=2){
-		            timer.start();
-		        }else{
-		        	timer.stop();
-		        }
+            if(usersReady>=2){
+                timer.start();
+            }else{
+              timer.stop();
+            }
              
         }
         usersList.setText(info);
     })
-	},
+  },
 
   //Comprueba si el servidor está Online
   checkConnection: function (){

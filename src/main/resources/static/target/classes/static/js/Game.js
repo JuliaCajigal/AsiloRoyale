@@ -62,7 +62,7 @@ AsiloRoyale.Game.prototype = {
 
 	/////////JUGADOR 1/////////
 
-	this.player1 = new Player(this.game,1100,1000,false,true, 'player', 1, weapons, this.playerCollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup);
+	this.player1 = new Player(this.game,1100,1000,false,true, 'player', 1, weapons, this.playerCollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup);
 	this.game.add.existing(this.player1);
 	this.game.physics.p2.enable(this.player1,false);
 	this.player1.body.clearShapes(); 
@@ -229,9 +229,9 @@ AsiloRoyale.Game.prototype = {
 	    //Se visualizará la munición del arma portada y la puntuación
 		this.scoreLabel2.text = player.score;
 		if(player.currentWeapon===0){
-			this.scoreLabel.text = player.gunLoad + "/"+ player.gunAmmo;
+			this.scoreLabel.text = player.gunAmmo;
 		}else if(player.currentWeapon===1){
-			this.scoreLabel.text = player.shotgunLoad + "/"+ player.shotgunAmmo;
+			this.scoreLabel.text = player.shotgunAmmo;
 		}
 	}, 
 
@@ -276,13 +276,13 @@ AsiloRoyale.Game.prototype = {
 		var text1 = "pt:";
 		var text2 = "items:";
 		var style = {font: "bold 40px 'VT323'", fill: "#51F55B", align: "center" };
-		this.scoreLabel = this.game.add.text(1000, 135, text, style);
+		this.scoreLabel = this.game.add.text(1020, 135, text, style);
 		this.scoreLabel.fixedToCamera = true;
 
 		this.scoreLabel2 = this.game.add.text(1020, 176, text2, style);
 		this.scoreLabel2.fixedToCamera = true;
 
-		this.scoreLabel3 = this.game.add.sprite(1078,135,'iconos_municion',0);
+		this.scoreLabel3 = this.game.add.sprite(1075,132,'iconos_municion',0);
 		this.scoreLabel3.fixedToCamera =true;
 
 		var star = this.game.add.image(1075, 180, 'star');

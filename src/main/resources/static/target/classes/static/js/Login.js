@@ -38,18 +38,18 @@ AsiloRoyale.Login.prototype = {
 		this.background.autoScroll(20, 0);
 
         //Botón OK
-		boton4 = this.game.add.button(650, 320,'okbutton', this.changeState, this,1,0,1,0);
- 		boton4.width = 64;
- 		boton4.height = 64;
- 		boton4.anchor.setTo(0.5);
- 		boton4.input.useHandCursor = false;
+		var boton = this.game.add.button(650, 320,'okbutton', this.changeState, this,1,0,1,0);
+ 		boton.width = 64;
+ 		boton.height = 64;
+ 		boton.anchor.setTo(0.5);
+ 		boton.input.useHandCursor = false;
 
  		//Indicativo introduzca un nick
- 	    this.tabla_conectados = this.game.add.sprite(295, 250, 'chooseNick');
+ 	    var tabla_conectados = this.game.add.sprite(295, 250, 'chooseNick');
 
         //TV
-		this.tv = this.game.add.sprite(0, 0, 'tv');
-    	this.tv.fixedToCamera = true;
+		var tv = this.game.add.sprite(0, 0, 'tv');
+    	tv.fixedToCamera = true;
     	
     	
 
@@ -112,6 +112,4 @@ AsiloRoyale.Login.prototype = {
         });
         return free;
     },
-
-	
 };
