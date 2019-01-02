@@ -2,6 +2,7 @@ package es.urjc.code.juegosenred;
 
 public class Lobby {
 	private long id;
+	private int num;
 	private String password;
 	private User[] users;
 	private int maxUsers;
@@ -34,6 +35,10 @@ public class Lobby {
 	public void setUsers(User[] users) {
 		this.users = users;
 	}
+	
+	public void addUser(int i, User user) {
+		this.users[i] =user;
+	}
 
 	public int getMaxUsers() {
 		return maxUsers;
@@ -41,6 +46,14 @@ public class Lobby {
 
 	public void setMaxUsers(int maxUsers) {
 		this.maxUsers = maxUsers;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
 	}
 	
 }

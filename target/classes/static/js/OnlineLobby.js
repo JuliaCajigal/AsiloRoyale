@@ -1,4 +1,5 @@
 var AsiloRoyale = AsiloRoyale || {};
+var AsiloRoyale = AsiloRoyale || {};
 
 AsiloRoyale.OnlineLobby = function(){};
 

@@ -41,9 +41,15 @@ public class LobbyController {
 		}
 
 		@PutMapping("/{id}")
-		public ResponseEntity<Lobby> actulizaLobby(@PathVariable long id, @RequestBody Lobby LobbyActualizado) {
+		public ResponseEntity<Lobby> actualizaLobby(@PathVariable long id, @RequestBody Lobby LobbyActualizado, @RequestBody User user) {
 
 			Lobby savedLobby = lobbies.get(LobbyActualizado.getId());
+			
+			for(int i=0; i< savedLobby.getMaxUsers(); i++) {
+				if(savedLobby.getUsers()[i] == null) {
+					savedLobby.addUser(i,user);
+				}
+			}
 
 			if (savedLobby != null) {
 

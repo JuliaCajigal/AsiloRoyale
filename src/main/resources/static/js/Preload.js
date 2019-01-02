@@ -56,6 +56,9 @@ AsiloRoyale.Preload.prototype = {
 		this.load.spritesheet('enfermero', 'assets/images/enfermero.png', 128, 128);
 		this.load.spritesheet('player', 'assets/images/viejo1_sheet.png', 126, 64);
 		this.load.spritesheet('iconos_municion', 'assets/images/iconos_municion.png', 40, 40);
+		this.load.spritesheet('crearSala','assets/images/salaprivada.png', 256, 85, 2);
+		this.load.spritesheet('unirseSala','assets/images/usalaprivada.png', 256, 85, 2);
+		this.load.spritesheet('salaRandom','assets/images/salaaleatoria.png', 256, 85, 2);
 		this.load.image('serveroff', 'assets/images/serveroff.png');
 		this.load.image('star', 'assets/images/star.png');
 		this.load.image('letrasgameover', 'assets/images/gameover.jpg', 256, 128, 2);
@@ -78,6 +81,9 @@ AsiloRoyale.Preload.prototype = {
 		this.load.audio('empty_weapon', 'assets/audio/empty_weapon.wav');
 		this.game.load.physics('player_physics','assets/physics/viejo_physics.json');
 		this.load.image('copa', 'assets/images/copa.png');
+		this.load.image('tabla_salaP', 'assets/images/tabla_salaP.png');
+		this.load.image('tabla_joinP', 'assets/images/tabla_joinP.png');
+		this.load.image('ok', 'assets/images/ok_lobby.png');
 
 	},
 

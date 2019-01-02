@@ -1,5 +1,3 @@
-var AsiloRoyale = AsiloRoyale || {};
-
 var usersLimit = 5;
 var currentUsers = 0;
 var ip = '127.0.0.1';
@@ -80,30 +78,57 @@ function deleteUser(userId) {
     })
 }
 
-///SALAS EMPAREJAMIENTO//
-//Load lobby from server
-function loadLobby(id, callback) {
-	$.ajax({
-		url: 'http://' + ip + ':8080/lobbies/' + id
-	}).done(function (lobby) {
-		console.log('Lobby loaded: ' + JSON.stringify(lobby));
-		callback(lobby);
-	})
+/////////////////////////////SALAS EMPAREJAMIENTO//
+
+//Load grupos from server
+function loadLobbies(callback) {
+    $.ajax({
+        url: 'http://' + ip + ':8080/lobbies'
+    }).done(function (lobby) {
+        console.log('Lobbys loaded: ' + JSON.stringify(lobby));
+        callback(lobby);
+    })
 }
 
-//Update lobby in server
-function updateLobby(grupo) {
-	$.ajax({
-		method: 'PUT',
-		url: 'http://' + ip + ':8080/lobbies/' + grupo.id,
-		data: JSON.stringify(lobby),
-		processData: false,
-		headers: {
-			"Content-Type": "application/json"
-		}
-	}).done(function (lobby) {
-		console.log("Updated lobby: " + JSON.stringify(lobby))
-	})
+//Load grupos from server
+function loadLobbyID(id, callback) {
+    $.ajax({
+        url: 'http://' + ip + ':8080/lobbies/' + id
+    }).done(function (lobby) {
+        console.log('Lobby loaded: ' + JSON.stringify(lobby));
+        callback(lobby);
+    })
+}
+
+//Update grupo in server
+function updateLobby(lobby, user) {
+    $.ajax({
+        method: 'PUT',
+        url: 'http://' + ip + ':8080/lobbies/' + lobby.id,
+        data: JSON.stringify(lobby),
+        processData: false,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).done(function (lobby) {
+        console.log("Updated grupo: " + JSON.stringify(lobby))
+    })
+}
+
+//Create lobby in server
+function createLobby(lobby, callback) {
+    $.ajax({
+        method: "POST",
+        url: 'http://' + ip + ':8080/lobbies',
+        data: JSON.stringify(lobby),
+        processData: false,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).done(function (lobby) {
+        console.log("Lobby created: " + JSON.stringify(lobby));
+        callback(lobby);
+    })
 }
 
 //Show item in page

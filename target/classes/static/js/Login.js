@@ -4,11 +4,29 @@ AsiloRoyale.Login = function(){};
 
 var input;
 var currentUser;
+var connection;
 
 
 AsiloRoyale.Login.prototype = {
 
 	create: function() {
+
+        connection = new WebSocket('ws://127.0.0.1:8080/handler');
+    connection.onerror = function(e) {
+        console.log("WS error: " + e);
+    }
+    connection.onmessage = function(msg) {
+        console.log("WS message: " + msg.data);
+        var message = JSON.parse(msg.data)
+        $('#chat').val($('#chat').val() + "\n" + message.nick + ": " + message.ready);
+    }
+    connection.onclose = function() {
+        console.log("Closing socket");
+    }
+    
+    connection.onopen = function(){
+        console.log("WEBSOCKET!!");
+    }
 
         //Identificamos a la entrada por teclado y desplegamos el cuadro de diálogo de entrada
 		input = document.getElementById('username');
@@ -53,11 +71,11 @@ AsiloRoyale.Login.prototype = {
             ready:false
         }
 
-        if(sizename<=12 && checkNames(value)){
+        if(sizename<=12 && this.checkNames(value)){
         		
     	   		createUser(user, function (userWithId) {
                     currentUser = userWithId;
-                    that.game.state.start('OnlineLobby', false, false, currentUser);
+                    that.game.state.start('LobbyConfig', false, false, currentUser);
                 })
                 
                 connection.send(JSON.stringify(user));
@@ -78,9 +96,8 @@ AsiloRoyale.Login.prototype = {
    		if(escKey.isDown){
    			this.game.state.start('MainMenu');}
 	},
-}
 
-    function checkNames (currentName){
+    checkNames: function  (currentName){
         var free = true;
         
         //Cargamos los nombres de usuario
@@ -94,21 +111,7 @@ AsiloRoyale.Login.prototype = {
                 }
         });
         return free;
-    }
+    },
 
-	var connection = new WebSocket('ws://127.0.0.1:8080/handler');
-	connection.onerror = function(e) {
-		console.log("WS error: " + e);
-	}
-	connection.onmessage = function(msg) {
-		console.log("WS message: " + msg.data);
-		var message = JSON.parse(msg.data)
-		$('#chat').val($('#chat').val() + "\n" + message.nick + ": " + message.ready);
-	}
-	connection.onclose = function() {
-		console.log("Closing socket");
-	}
 	
-	connection.onopen = function(){
-		console.log("WEBSOCKET!!");
-	};
+};
