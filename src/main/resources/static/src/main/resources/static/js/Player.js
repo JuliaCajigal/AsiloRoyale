@@ -2,7 +2,7 @@ var AsiloRoyale = AsiloRoyale || {};
 
 var cropRect = new Phaser.Rectangle( 0, 0, 500 , 30);
 
-var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, playerCG, tileCG, enemyCG, itemCG) {
+var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, playerCG, tileCG, enemyCG, itemCG,bulletCG) {
 
 	Phaser.Sprite.call(this, game, x, y, sprite,0);
 
@@ -27,6 +27,13 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
     this.tileCG = tileCG;
     this.enemyCG = enemyCG;
     this.itemCG = itemCG;
+    this.gunLoad = 6;
+    this.shotgunLoad = 15;
+    this.bulletCG = bulletCG;
+    this.moves = false;
+    this.animations.add('walkGun', [1,0,2,0], 4,true);
+    this.animations.add('walkShotgun',[4,3,5,3],4,true);
+
     
     this.lifeGroup = this.game.add.group();
     this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
@@ -96,35 +103,99 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
 		this.body.velocity.x = 0;
 
         //Sprites player según el arma equipada
+		/*
         if(this.currentWeapon==0){
             this.frame=0;
         }else if(this.currentWeapon==1){
-            this.frame=1;
+            this.frame=3;
         }
+   	*/
 
+        //this.walk = this.animations.add('walk');
+        //this.animations.play('walk', 30, true);
+
+
+        
 
 		//movimientos player
-		if(this.cursors.up.isDown) {
-			this.body.velocity.y -= this.speed;
-		}
-		else if(this.cursors.down.isDown) {
-			this.body.velocity.y += this.speed;
-		}
-		if(this.cursors.left.isDown) {
-			this.body.velocity.x -= this.speed;
-		}
-		else if(this.cursors.right.isDown) {
-			this.body.velocity.x += this.speed;
-		}
- 
+        keyw = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
+        keys = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
+        keya = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+        keyd = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
+        
+        ////ANIMACIONES Y MOVIMIENTO SI TIENES LA PISTOLA
+        if(this.currentWeapon==0){
+		        if(this.moves==true){
+		        	this.animations.play('walkGun');
+		        }else if(this.moves == false){
+		        	this.animations.stop(null,false);
+		        }
+				if(keyw.isDown) {
+					this.body.velocity.y -= this.speed;
+					this.moves=true;
+				}
+				else if(keys.isDown) {
+					this.body.velocity.y += this.speed;
+					this.moves=true;
+				}
+				if(keya.isDown) {
+					this.body.velocity.x -= this.speed;
+					this.moves=true;
+				}if(keyd.isDown) {
+					this.body.velocity.x += this.speed;
+					this.moves=true;
+				}if(keys.isUp && keya.isUp && keyd.isUp && keyw.isUp){
+					this.moves=false;
+					this.frame=0;
+				}
+        }
+        
+        
+        ////ANIMACIONES Y MOVIMIENTO SI TIENES LA ESCOPETA
+        if(this.currentWeapon==1){
+	        if(this.moves==true){
+	        	this.animations.play('walkShotgun');
+	        }else if(this.moves == false){
+	        	this.animations.stop(null,false);
+	        }
+			if(keyw.isDown) {
+				this.body.velocity.y -= this.speed;
+				this.moves=true;
+			}
+			else if(keys.isDown) {
+				this.body.velocity.y += this.speed;
+				this.moves=true;
+			}
+			if(keya.isDown) {
+				this.body.velocity.x -= this.speed;
+				this.moves=true;
+			}if(keyd.isDown) {
+				this.body.velocity.x += this.speed;
+				this.moves=true;
+			}if(keys.isUp && keya.isUp && keyd.isUp && keyw.isUp){
+				this.moves=false;
+				this.frame=3;
+			}
+    }
+        
+
+        
+		//Pulsar el ratón para disparar
         if (this.game.input.activePointer.totalTouches == 1 && this.game.input.activePointer.isDown && this.shotguned==true)
     {
             this.weapons[this.currentWeapon].fire(this);
             this.game.input.activePointer.totalTouches = 0;
     }
+        keyr = this.game.input.keyboard.addKey(Phaser.Keyboard.R);
+        keyr.onDown.add(this.reloader, this);
+        
 		this.isAlive();
 
     },
+    
+    Player.prototype.reloader = function(){
+    	this.weapons[this.currentWeapon].reload(this,this.game,this.bulletCG, this.tileCG, this.enemyCG);
+    }
     
 
     Player.prototype.showLife = function(){
@@ -179,7 +250,7 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
 
             // Pastillas
 
-if (body2.sprite.key == 'pasti_roja') {
+        	if (body2.sprite.key == 'pasti_roja') {
                 this.swallow.play();
                 this.collect(this, body2.sprite, 10);
                 this.items++;
@@ -206,7 +277,7 @@ if (body2.sprite.key == 'pasti_roja') {
                 this.collect_ammo.play();
                 this.collect(this,body2.sprite,0);
                 if(this.currentWeapon==1){
-                    this.shotgunAmmo+=10;
+                    this.shotgunAmmo+=20;
                 }
 
 
@@ -215,17 +286,22 @@ if (body2.sprite.key == 'pasti_roja') {
                 this.collect_ammo.play();
                 this.collect(this,body2.sprite,0);
                 if(this.currentWeapon==0){
-                    this.gunAmmo+=10;
+                    this.gunAmmo+=15;
                 }
 
                 // Armas
 
             } else if(body2.sprite.key == 'shotgun'){
-
+            	
                 this.collect_weapon.play();
                 this.collect(this,body2.sprite,0);
+                if(this.currentWeapon==0){
+                this.shotgunAmmo+=5;
+                }
+                if(this.currentWeapon==1){
+                this.shotgunAmmo+=20;
+                }
                 this.currentWeapon=1;
-                this.shotgunAmmo+=10;
                 this.gunAmmo=0;
 
             }else if(body2.sprite.key == 'gun'){

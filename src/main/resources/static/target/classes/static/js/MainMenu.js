@@ -59,7 +59,7 @@ AsiloRoyale.MainMenu.prototype = {
  	//funcion activada al pulsar el boton 'Play'
  	boton1OnClick: function(){
 
- 		this.game.state.start('Game');
+ 		this.game.state.start('CharacterSelection');
  	},
  	//funcion activada al pulsar el boton 'Help'
  	 boton2OnClick: function(){
