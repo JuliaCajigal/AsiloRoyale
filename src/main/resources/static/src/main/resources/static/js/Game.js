@@ -7,7 +7,6 @@ AsiloRoyale.Game = function(){};
 
 var timer, timerEvent, text;
 var tilesCollisionGroup, playerCollisionGroup;
-
 AsiloRoyale.Game.prototype = {
   create: function() {
 
@@ -31,7 +30,7 @@ AsiloRoyale.Game.prototype = {
 
 	this.game.physics.p2.setImpactEvents(true);
 
-	var tileObjects = this.game.physics.p2.convertTilemap(this.map, this.blockedLayer, true);
+	var tileObjects = this.game.physics.p2.convertTilemap(this.map, this.blockedLayer);
 	this.tilesCollisionGroup   = this.game.physics.p2.createCollisionGroup();    
 	this.playerCollisionGroup  = this.game.physics.p2.createCollisionGroup();  
 	this.bulletCollisionGroup = this.game.physics.p2.createCollisionGroup(); 
@@ -48,31 +47,39 @@ AsiloRoyale.Game.prototype = {
         tileObjects[i].collides(this.enemiesCollisionGroup);
 	}    
 
-	//////////ARMAS/////////
-
-	var weapons = []
-	weapons.push(new Weapon.Gun(this.game,this.bulletCollisionGroup,this.tilesCollisionGroup, this.enemiesCollisionGroup));
-    weapons.push(new Weapon.Shotgun(this.game,this.bulletCollisionGroup,this.tilesCollisionGroup, this.enemiesCollisionGroup));
-
     /////////BARRA DE VIDA/////////
 
    //this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
 
+	this.players =[];
 
 
 	/////////JUGADOR 1/////////
 
     if(selected==0){
-	this.player1 = new Player(this.game,1100,1000,false,true, 'player', 1, weapons, this.playerCollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup);
+	this.player1 = new Player(this.game,1100,1000,false,true, 'player', 1, this.playerCollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup,0);
     }
     if(selected==1){
-    this.player1 = new Player(this.game,1100,1000,false,true, 'player2', 1, weapons, this.playerCollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup);
+    this.player1 = new Player(this.game,1100,1000,false,true, 'player2', 1, this.playerCollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup,0);
     }
 	this.game.add.existing(this.player1);
 	this.game.physics.p2.enable(this.player1,false);
 	this.player1.body.clearShapes(); 
 	this.player1.body.loadPolygon('player_physics', 'player'); 
-
+	this.players.push(this.player1);
+	console.log("Jugador Id en players: " + this.players[0].id);
+	
+	/*
+	////////JUGADOR 2 /////////
+	this.player2 = new Player(this.game,1100,1200,false,true, 'player2', 1,  this.playerCollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup,1);
+	
+	this.game.add.existing(this.player2);
+	this.game.physics.p2.enable(this.player2,false);
+	this.player2.body.clearShapes(); 
+	this.player2.body.loadPolygon('player_physics', 'player'); 
+	this.players.push(this.player2);
+	
+	*/
 	///////////ENEMIGOS///////
 
 	//Dientes
@@ -178,7 +185,7 @@ AsiloRoyale.Game.prototype = {
 		 var teethPosFinal = tarray[i];
 
 	
-		this.teeth.push(new Enemy(this.game,teethPosFinal[0],teethPosFinal[1],'dientes',120,30,100,100, i, this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1));
+		this.teeth.push(new Enemy(this.game,teethPosFinal[0],teethPosFinal[1],'dientes',120,30,100,100, i, this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.players));
 		this.game.add.existing(this.teeth[i]);
 		this.game.physics.p2.enable(this.teeth[i],false);
 
@@ -198,7 +205,7 @@ AsiloRoyale.Game.prototype = {
 		 var nursePosFinal = narray[i];
 
 	
-    this.nurse.push(new Enemy(this.game, nursePosFinal[0], nursePosFinal[1],'enfermero', 120, 60, 700, 700, i, this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1)); 
+    this.nurse.push(new Enemy(this.game, nursePosFinal[0], nursePosFinal[1],'enfermero', 120, 60, 700, 700, i, this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.players)); 
     this.game.add.existing(this.nurse[i]);
 	this.game.physics.p2.enable(this.nurse[i],false);
 	this.nurse[i].body.static = true;

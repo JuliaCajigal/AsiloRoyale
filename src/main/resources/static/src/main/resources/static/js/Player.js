@@ -2,12 +2,12 @@ var AsiloRoyale = AsiloRoyale || {};
 
 var cropRect = new Phaser.Rectangle( 0, 0, 500 , 30);
 
-var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, playerCG, tileCG, enemyCG, itemCG,bulletCG) {
+var Player = function (game, x, y, guned, shotguned, sprite, ownerId, playerCG, tileCG, enemyCG, itemCG,bulletCG,id) {
 
 	Phaser.Sprite.call(this, game, x, y, sprite,0);
 
     //Atributos de Player
-
+	this.id = id;
 	this.speed = 250;
 	this.game = game;
 	this.guned = guned;
@@ -17,7 +17,6 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
 	this.score = 0;
     this.alive = true;
     this.ownerId = ownerId;
-    this.weapons = weapons;
     this.currentWeapon = 0;
     this.shotgunAmmo = 0;
     this.gunAmmo = 10;
@@ -33,6 +32,10 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
     this.moves = false;
     this.animations.add('walkGun', [1,0,2,0], 4,true);
     this.animations.add('walkShotgun',[4,3,5,3],4,true);
+    
+	this.weapons = [];
+	this.weapons.push(new Weapon.Gun(this.game,this.bulletCG,this.tileCG, this.enemyCG,playerCG,this));
+    this.weapons.push(new Weapon.Shotgun(this.game,this.bulletCG,this.tileCG, this.enemyCG,playerCG,this));
 
     
     this.lifeGroup = this.game.add.group();
@@ -89,6 +92,9 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
     this.body.collides(this.tileCG);
     this.body.collides(this.itemCG, this.pickItem, this);
     this.body.collides(this.enemyCG, this.pickItem, this);
+    this.body.collides(this.playerCG);
+    this.body.collides(this.bulletCG);
+
     
     this.game.world.bringToTop(this.lifeGroup);
 
@@ -194,7 +200,7 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, weapons, p
     },
     
     Player.prototype.reloader = function(){
-    	this.weapons[this.currentWeapon].reload(this,this.game,this.bulletCG, this.tileCG, this.enemyCG);
+    	this.weapons[this.currentWeapon].reload(this,this.game,this.bulletCG, this.tileCG, this.enemyCG,this.playerCG);
     }
     
 
