@@ -1,5 +1,0 @@
-Jeremin: 18990
-Rodri: 15800
-Brody: 11300
-Matt: 6899
-BorjaPerez: 290

@@ -1,6 +1,6 @@
 var AsiloRoyale = AsiloRoyale || {};
 
-var Bullet = function (game, key, bulletCG, tileCG, enemyCG,playerCG,player) {
+var Bullet = function (game, key, bulletCG, tileCG, enemyCG) {
 
     Phaser.Sprite.call(this, game, 0, 0, key);
 
@@ -10,13 +10,13 @@ var Bullet = function (game, key, bulletCG, tileCG, enemyCG,playerCG,player) {
     	this.outOfBoundsKill = true;
     	this.exists = false;
         this.enableBody = true;
-        this.playerID = player.id;
+
     	this.tracking = false;
     	this.scaleSpeed = 0;
         this.bulletCG = bulletCG;
         this.tileCG = tileCG;
         this.enemyCG = enemyCG;
-        this.playerCG = playerCG;
+
 
 };
 	Bullet.prototype = Object.create(Phaser.Sprite.prototype);
@@ -28,6 +28,7 @@ var Bullet = function (game, key, bulletCG, tileCG, enemyCG,playerCG,player) {
 
         this.reset(player.x,player.y);
         this.body.rotation = rotation;
+
         this.body.velocity.x = Math.cos(this.body.rotation) * speed;
         this.body.velocity.y = Math.sin(this.body.rotation) * speed;
 
@@ -40,8 +41,6 @@ var Bullet = function (game, key, bulletCG, tileCG, enemyCG,playerCG,player) {
         this.body.setCollisionGroup(this.bulletCG);
         this.body.collides(this.tileCG, this.destroyBullet, this);
         this.body.collides(this.enemyCG);
-        this.body.collides(this.playerCG);
-
     },
 
     //Destruir bala
