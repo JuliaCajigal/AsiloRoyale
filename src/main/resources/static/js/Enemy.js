@@ -21,7 +21,7 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD, index, enemyCG, pl
 	this.tileCG = tileCG;
 	this.name = index.toString;
 	this.players = players;
-	//this.player = player;
+
 
 
 	//Animaciones
@@ -111,18 +111,20 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD, index, enemyCG, pl
     		
         	this.alive = false;
         	
-        	//this.player.kills += 1;
-        	if(body.key == 'dientes') {
-          		//this.player.score +=35;
-        	} else if (body.key == 'enfermero') {
 
+        	if(body.sprite.key == 'dientes') {
+        		
+        		this.players[body2.sprite.playerID].score +=35;
+
+        		
+        	} else if (body.sprite.key == 'enfermero') {
+        		
+        		console.log(body2.sprite.playerID);
+        		this.players[body2.sprite.playerID].score +=55;
         		this.blood = this.game.add.sprite(this.body.x-50, this.body.y-50, 'blood');
         		this.blood.alpha -= 2;
         		this.game.add.tween(this.blood).to( { alpha: 0 }, 1, Phaser.Easing.Linear.None, true, 60, 0, false,false);
-        		//this.players[body2.sprite.playerID].score +=35;
-        		//this.players[body2.sprite.id].score +=35;
-        		//this.player.score +=55;
-        	
+
         	}
 
 
@@ -147,26 +149,14 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD, index, enemyCG, pl
 
 			 if(body2.sprite.key == 'bala'){
 
-			 if(body.sprite.life<=0){
-	
-				 this.players[body2.sprite.playerID].score +=35;
-
-				
-				 this.players[body2.sprite.playerID].score +=55;
-			
-				 
-			 }
-			 
-			 this.damage(10, body.sprite,body2.sprite);
+			 this.damage(10, body,body2);
 			 body2.sprite.destroy();
 
 			 
 
 			}else if(body2.sprite.key == 'perdigon'){
-	        this.damage(5, body.sprite,body2.sprite);
-	        if(body.sprite.life<=0){
-				 this.players[body2.sprite.playerID].score +=35;
-			 }
+	        this.damage(5, body,body2);
+
 	        body2.sprite.destroy();
 
 			} 
