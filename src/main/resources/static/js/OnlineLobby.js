@@ -6,7 +6,6 @@ AsiloRoyale.OnlineLobby = function(){};
 var info;
 var usersList;
 var timer, timerEvent, timerUpdate;
-var lobbyUser;
 var disconnected = false;
 var serverOff = false;
 var lobby;
@@ -56,7 +55,6 @@ AsiloRoyale.OnlineLobby.prototype = {
 
   // Recibimos el usuario desde Login
 	init: function(currentUser, currentLobby){
-      lobbyUser = currentUser;
       lobby = currentLobby;
 	},
 
@@ -131,24 +129,25 @@ AsiloRoyale.OnlineLobby.prototype = {
     var that = this;
 	   var userReady;
      var updatedLobby;
-	   console.log(lobbyUser.ready);
+	   console.log(currentUser.ready);
 	   
-	   if(lobbyUser.ready==false){
+	   if(currentUser.ready==false){
 		   userReady=true;
 		   boton5.setFrames(1,1,1,0);
-		   lobbyUser.ready=true;
+		   currentUser.ready=true;
 	   }else{
 		   userReady = false;
 		   boton5.setFrames(0,0,0,1);
-		   lobbyUser.ready=false;
+		   currentUser.ready=false;
 	   }
 	   
       var updatedUser = {
-        id: lobbyUser.id,
-        nick: lobbyUser.nick,
+        id: currentUser.id,
+        nick: currentUser.nick,
         inactivityTime: 0,
         ready: userReady,
-        ip: lobbyUser.ip              
+        ip: currentUser.ip,
+        skin : currentUser.skin              
       }
 
       console.log(updatedUser.id);

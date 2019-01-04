@@ -1,6 +1,6 @@
 var AsiloRoyale = AsiloRoyale || {};
 
-function User(game, id, name) {
+function User(game, id, name, skin) {
 	this.game = game;
     this.id = id;
     this.name = name;
@@ -8,6 +8,7 @@ function User(game, id, name) {
     this.ready = false;
     this.updater = this.game.time.events.loop(Phaser.Timer.SECOND*2.5, this.updater, this);
     this.player = null;
+    this.skin = skin;
     this.ip = '192.168.0.161';
     }
 

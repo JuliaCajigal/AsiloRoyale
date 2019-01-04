@@ -52,8 +52,6 @@ AsiloRoyale.Game.prototype = {
 
    //this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
 
-   	var selected = 0;
-
 	/////////JUGADOR 1/////////
 
     if(selected==0){

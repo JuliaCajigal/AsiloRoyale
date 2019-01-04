@@ -59,7 +59,7 @@ AsiloRoyale.Login.prototype = {
         		
     	   		createUser(user, function (userWithId) {
                     currentUser = userWithId;
-                    that.game.state.start('LobbyConfig', false, false, currentUser);
+                    that.game.state.start('CharacterSelection', false, false, currentUser);
                 })
                 
                 connection.send(JSON.stringify(user));

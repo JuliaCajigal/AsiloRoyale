@@ -16,7 +16,7 @@ AsiloRoyale.LobbyConfig.prototype = {
       ipw = document.getElementById('lobbyPW');
       
       //Creamos un nuevo usuario con id + nick
-      this.newUser = new User(this.game, lobbyUser.id, lobbyUser.nick);
+      this.newUser = 
       
       //Dimensiones del mundo y cámara
       this.game.camera.setBoundsToWorld();
@@ -45,9 +45,9 @@ AsiloRoyale.LobbyConfig.prototype = {
     
 
     // Recibimos el usuario desde Login
-    init: function(currentUser){
-      lobbyUser = currentUser;
-      console.log(JSON.stringify(lobbyUser));
+    init: function(currentUser, skin){
+      this.newUser = new User(this.game, currentUser.id, currentUser.nick, skin);
+      console.log(JSON.stringify(currentUser));
     },
 
 
@@ -56,7 +56,7 @@ AsiloRoyale.LobbyConfig.prototype = {
         var escKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
 
       if(escKey.isDown){
-            deleteUser(lobbyUser.id);
+            deleteUser(currentUser.id);
             this.game.state.start('MainMenu');
             inum.style.display = 'none';
             ipw.style.display = 'none';
@@ -113,7 +113,7 @@ AsiloRoyale.LobbyConfig.prototype = {
 
               for(var i = 0; i < currentLobby.users.length; i++){
                 if(currentLobby.users[i] == null && enter == false){
-                  currentLobby.users[i] = lobbyUser;
+                  currentLobby.users[i] = currentUser;
                   enter = true;
                 }
               }
@@ -123,7 +123,7 @@ AsiloRoyale.LobbyConfig.prototype = {
               updateLobby(currentLobby);
               loadLobbies(function (lobbies) {
                 console.log(lobbies);
-                that.game.state.start('OnlineLobby', true, false, lobbyUser, currentLobby);
+                that.game.state.start('OnlineLobby', true, false, currentUser, currentLobby);
               });
 
             }else{
@@ -179,7 +179,7 @@ AsiloRoyale.LobbyConfig.prototype = {
           var lobby = {
                 num: NUM_value,
                 password: PW_value,
-                users: [lobbyUser, null, null, null]
+                users: [currentUser, null, null, null]
           }
             
           console.log(lobby);
@@ -188,7 +188,7 @@ AsiloRoyale.LobbyConfig.prototype = {
 
           createLobby(lobby, function (lobbyWithId) {
             currentLobby = lobbyWithId;
-            that.game.state.start('OnlineLobby', true, false, lobbyUser, currentLobby);
+            that.game.state.start('OnlineLobby', true, false, currentUser, currentLobby);
           });
       }else{
           this.warning();
@@ -202,7 +202,7 @@ AsiloRoyale.LobbyConfig.prototype = {
 
       loadLobbies(function (lobbies) {
             var aleatorio = Math.round(Math.random()*lobbies.length);
-            console.log(lobbies[aleatorio]);
+            console.log(aleatorio);
             lobby = lobbies[aleatorio];
 
             inum.style.display = 'none';
@@ -210,8 +210,8 @@ AsiloRoyale.LobbyConfig.prototype = {
 
             console.log(lobby.id);
 
-            updateLobby(lobby, lobbyUser);
-            that.game.state.start('OnlineLobby', true, false, lobbyUser, lobby);
+            updateLobby(lobby, currentUser);
+            that.game.state.start('OnlineLobby', true, false, currentUser, lobby);
       });
       
     },
