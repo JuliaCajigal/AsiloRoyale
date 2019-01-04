@@ -1,6 +1,6 @@
 var AsiloRoyale = AsiloRoyale || {};
 
-function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD, index, enemyCG, playerCG, tileCG, bulletCG, player) {
+function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD, index, enemyCG, playerCG, tileCG, bulletCG,players) {
 	
 	Phaser.Sprite.call(this, game, x, y, sprite);
 	
@@ -20,7 +20,8 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD, index, enemyCG, pl
 	this.bulletCG = bulletCG;
 	this.tileCG = tileCG;
 	this.name = index.toString;
-	this.player = player;
+	this.players = players;
+	//this.player = player;
 
 
 	//Animaciones
@@ -101,7 +102,7 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD, index, enemyCG, pl
 	}
 
 	//daño recibido por el enemigo
-	Enemy.prototype.damage = function(amount, body) {
+	Enemy.prototype.damage = function(amount, body,body2) {
     	this.life -= amount;
     	this.alpha -= 2;
     	this.game.add.tween(this).to( { alpha: 1 }, 300, Phaser.Easing.Linear.None, true, 0, 1, false,true);
@@ -109,18 +110,19 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD, index, enemyCG, pl
     	if (this.life <= 0){
     		
         	this.alive = false;
-        	this.player.kills += 1;
+        	
+        	//this.player.kills += 1;
         	if(body.key == 'dientes') {
-        		//this.brokenteeth = this.game.add.sprite(this.body.x-50, this.body.y-50, 'brokenteeth');
-        		//this.brokenteeth.alpha -= 2;
-        		//this.game.add.tween(this.brokenteeth).to( { alpha: 0 }, 100, Phaser.Easing.Linear.None, true, 80, 0, false,false);
-        		this.player.score +=35;
+          		//this.player.score +=35;
         	} else if (body.key == 'enfermero') {
 
         		this.blood = this.game.add.sprite(this.body.x-50, this.body.y-50, 'blood');
         		this.blood.alpha -= 2;
         		this.game.add.tween(this.blood).to( { alpha: 0 }, 1, Phaser.Easing.Linear.None, true, 60, 0, false,false);
-        		this.player.score +=55;
+        		//this.players[body2.sprite.playerID].score +=35;
+        		//this.players[body2.sprite.id].score +=35;
+        		//this.player.score +=55;
+        	
         	}
 
 
@@ -144,11 +146,27 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD, index, enemyCG, pl
     	if (body.sprite != null && body2.sprite != null) {
 
 			 if(body2.sprite.key == 'bala'){
-			 this.damage(10, body.sprite);
+
+			 if(body.sprite.life<=0){
+	
+				 this.players[body2.sprite.playerID].score +=35;
+
+				
+				 this.players[body2.sprite.playerID].score +=55;
+			
+				 
+			 }
+			 
+			 this.damage(10, body.sprite,body2.sprite);
 			 body2.sprite.destroy();
 
+			 
+
 			}else if(body2.sprite.key == 'perdigon'){
-	        this.damage(5, body.sprite);
+	        this.damage(5, body.sprite,body2.sprite);
+	        if(body.sprite.life<=0){
+				 this.players[body2.sprite.playerID].score +=35;
+			 }
 	        body2.sprite.destroy();
 
 			} 
