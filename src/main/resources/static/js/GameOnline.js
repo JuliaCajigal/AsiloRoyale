@@ -3,12 +3,12 @@
 var AsiloRoyale = AsiloRoyale || {};
 
 //title screen
-AsiloRoyale.GameOnline = function(){};
+AsiloRoyale.Game = function(){};
 
 var timer, timerEvent, text;
 var tilesCollisionGroup, playerCollisionGroup;
 
-AsiloRoyale.GameOnline.prototype = {
+AsiloRoyale.Game.prototype = {
   create: function() {
 
   	////////////MAPA/////////////

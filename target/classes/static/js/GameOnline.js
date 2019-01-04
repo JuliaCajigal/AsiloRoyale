@@ -3,12 +3,12 @@
 var AsiloRoyale = AsiloRoyale || {};
 
 //title screen
-AsiloRoyale.GameOnline = function(){};
+AsiloRoyale.Game = function(){};
 
 var timer, timerEvent, text;
 var tilesCollisionGroup, playerCollisionGroup;
 
-AsiloRoyale.GameOnline.prototype = {
+AsiloRoyale.Game.prototype = {
   create: function() {
 
   	////////////MAPA/////////////
@@ -51,6 +51,8 @@ AsiloRoyale.GameOnline.prototype = {
     /////////BARRA DE VIDA/////////
 
    //this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
+
+   	var selected = 0;
 
 	/////////JUGADOR 1/////////
 
