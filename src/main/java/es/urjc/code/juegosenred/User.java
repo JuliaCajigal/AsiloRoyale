@@ -9,6 +9,7 @@ public class User {
 	private int score = 0;
 	private String ip;
 	private Boolean host = false;
+	private int skin;
 
 	public User() {
 	}
@@ -81,6 +82,14 @@ public class User {
 
 	public void setHost(Boolean host) {
 		this.host = host;
+	}
+
+	public int getSkin() {
+		return skin;
+	}
+
+	public void setSkin(int skin) {
+		this.skin = skin;
 	}
 
 

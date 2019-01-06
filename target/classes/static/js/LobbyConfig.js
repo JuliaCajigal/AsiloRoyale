@@ -46,6 +46,7 @@ AsiloRoyale.LobbyConfig.prototype = {
     // Recibimos el usuario desde Login
     init: function(currentUser, skin){
       this.newUser = new User(this.game, currentUser.id, currentUser.nick, skin);
+      currentUser.skin = skin;
       console.log(JSON.stringify(currentUser));
     },
 

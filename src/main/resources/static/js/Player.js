@@ -2,17 +2,20 @@ var AsiloRoyale = AsiloRoyale || {};
 
 var cropRect = new Phaser.Rectangle( 0, 0, 500 , 30);
 
-var Player = function (game, x, y, guned, shotguned, sprite, ownerId, player1CG, player2CG, tileCG, enemyCG, itemCG,bulletCG,id) {
-
-	Phaser.Sprite.call(this, game, x, y, sprite,0);
-
+var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2CG, tileCG, enemyCG, itemCG,bulletCG,id,user) {
+	
+	if(user.skin==0){
+		Phaser.Sprite.call(this, game, x, y,'player',0);
+	}else if(user.skin==1){
+		Phaser.Sprite.call(this, game, x, y,'player2',0);
+	}
     //Atributos de Player
+	this.user= user;
 	this.id = id;
 	this.speed = 250;
 	this.game = game;
 	this.guned = guned;
 	this.shotguned = shotguned;
-	this.sprite = null;
 	this.life = 100;
 	this.score = 0;
     this.alive = true;
@@ -42,7 +45,6 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, player1CG,
     this.lifeGroup = this.game.add.group();
     this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
     this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
-    
     this.lifeGroup.add(this.lifeBardw);
     this.lifeGroup.add(this.lifeBar);
 
@@ -51,7 +53,13 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, player1CG,
     this.swallow = new Phaser.Sound(this.game, 'swallow');
     this.collect_ammo = new Phaser.Sound(this.game, 'collect_ammo');
     this.showLife();
+    
+    this.keyw = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
+    this.keys = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
+    this.keya = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+    this.keyd = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
 
+    
     //Rotación del jugador hacia la posición del ratón
 	this.angleToPointer = function (displayObject, pointer, world){
 
@@ -131,10 +139,7 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, player1CG,
         
 
 		//movimientos player
-        keyw = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
-        keys = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
-        keya = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
-        keyd = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
+
         
         ////ANIMACIONES Y MOVIMIENTO SI TIENES LA PISTOLA
         if(this.currentWeapon==0){
@@ -143,21 +148,21 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, player1CG,
 		        }else if(this.moves == false){
 		        	this.animations.stop(null,false);
 		        }
-				if(keyw.isDown) {
+				if(this.keyw.isDown) {
 					this.body.velocity.y -= this.speed;
 					this.moves=true;
 				}
-				else if(keys.isDown) {
+				else if(this.keys.isDown) {
 					this.body.velocity.y += this.speed;
 					this.moves=true;
 				}
-				if(keya.isDown) {
+				if(this.keya.isDown) {
 					this.body.velocity.x -= this.speed;
 					this.moves=true;
-				}if(keyd.isDown) {
+				}if(this.keyd.isDown) {
 					this.body.velocity.x += this.speed;
 					this.moves=true;
-				}if(keys.isUp && keya.isUp && keyd.isUp && keyw.isUp){
+				}if(this.keys.isUp && this.keya.isUp && this.keyd.isUp && this.keyw.isUp){
 					this.moves=false;
 					this.frame=0;
 				}
