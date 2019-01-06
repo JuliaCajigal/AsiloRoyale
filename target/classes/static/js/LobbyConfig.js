@@ -42,7 +42,6 @@ AsiloRoyale.LobbyConfig.prototype = {
       exit.anchor.setTo(0.5);
 
   },
-    
 
     // Recibimos el usuario desde Login
     init: function(currentUser, skin){
@@ -61,7 +60,6 @@ AsiloRoyale.LobbyConfig.prototype = {
             inum.style.display = 'none';
             ipw.style.display = 'none';
         //this.game.state.start('OnlineLobby', false, false, lobbyUser);
-              
       }
     },
 
@@ -167,7 +165,7 @@ AsiloRoyale.LobbyConfig.prototype = {
             for (var i = 0; i < lobbies.length; i++) {
                         
               //Comprobamos si el lobby ya existe
-              if(lobbies[i].num == NUM_value){
+              if(lobbies[i].num == NUM_value && lobbies[i].password == PW_value){
                   available = false;
                       
                 } 
@@ -175,6 +173,8 @@ AsiloRoyale.LobbyConfig.prototype = {
       });
 
       if(available){
+
+          currentUser.host = true;
                     
           var lobby = {
                 num: NUM_value,
@@ -201,7 +201,7 @@ AsiloRoyale.LobbyConfig.prototype = {
       var that = this;
 
       loadLobbies(function (lobbies) {
-            var aleatorio = Math.round(Math.random()*lobbies.length);
+            var aleatorio = Math.round(Math.random()*lobbies.length - 1);
             console.log(aleatorio);
             lobby = lobbies[aleatorio];
 
@@ -218,13 +218,13 @@ AsiloRoyale.LobbyConfig.prototype = {
 
     warning: function () {
           var style = {font: "bold 38px 'VT323'", fill: "#51F55B", align: "center" };
-          var text = 'Lobby ocupado, escoge otro ID o únete desde JOIN LOBBY'; 
-          var warning = this.game.add.text(470, 350, text, style);
+          var text = 'Lobby ocupado, \nescoge otro ID o \núnete desde JOIN LOBBY'; 
+          var warning = this.game.add.text(480, 450, text, style);
     },
 
     warningExist: function () {
           var style = {font: "bold 38px 'VT323'", fill: "#51F55B", align: "center" };
-          var text = 'Número o contraseña \n incorrectos'; 
-          var warning = this.game.add.text(470, 350, text, style);
+          var text = 'Número o contraseña \nincorrectos'; 
+          var warning = this.game.add.text(480, 450, text, style);
     }
 };

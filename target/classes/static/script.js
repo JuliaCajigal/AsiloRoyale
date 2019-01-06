@@ -144,6 +144,22 @@ function updateLobbyUser(lobby, user) {
     })
 }
 
+function deleteLobbyUser(lobby, user) {
+    $.ajax({
+        method: 'DELETE',
+        url: 'http://' + ip + ':8080/lobbies/' + lobby.id + '/' + user.id,
+        data: JSON.stringify(user),
+        processData: false,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).done(function (user) {
+        console.log("Usuario borrado: " + JSON.stringify(user));
+    }).fail( function(){
+        console.log("No se ha podido actualizar lobby.");
+    })
+}
+
 //Create lobby in server
 function createLobby(lobby, callback) {
     $.ajax({

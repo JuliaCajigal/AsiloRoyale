@@ -8,7 +8,7 @@ public class Lobby {
 	private int maxUsers;
 	
 	public Lobby() {
-		this.maxUsers = 4;
+		this.maxUsers = 2;
 		this.users = new User[this.maxUsers];
 	}
 	
@@ -62,8 +62,6 @@ public class Lobby {
 			if(this.users[i] != null) {
 				if(this.users[i].getId() == userId) {
 					pos = i;
-					System.out.println("M. User id: " + userId);
-					System.out.println("this.User id: " + this.users[i].getId());
 				}
 			}
 		}
@@ -74,6 +72,17 @@ public class Lobby {
 	@Override
 	public String toString() {
 		return "Lobby [id=" + this.id + ", num=" + this.num + ", password=" + this.password + "]";
+	}
+	
+	public Boolean isEmpty() {
+		Boolean empty = true;
+		for(int i = 0; i< this.users.length; i++) {
+			if(this.users[i] != null) {
+				empty = false;
+			}
+			
+		}
+		return empty;
 	}
 	
 }

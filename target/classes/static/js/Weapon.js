@@ -14,17 +14,18 @@ var Weapon = {};
 	}
 
     ////////////////PISTOLA//////////////
-	Weapon.Gun = function (game, bulletCG, tileCG, enemyCG,playerCG,player) {
+	Weapon.Gun = function (game, bulletCG, tileCG, enemyCG,player1CG,player2CG,player) {
 
         Phaser.Group.call(this, game, game.world, 'Gun', false, true, Phaser.Physics.P2JS);
-        this.playerCG = playerCG;
+        this.player1CG = player1CG;
+        this.player2CG = player2CG;
         this.nextFire = 0;
         this.bulletSpeed = 800;
         this.fireRate = 100;
         
         for (var i = 0; i <= 10; i++)
         {
-            this.add(new Bullet(game, 'bala', bulletCG, tileCG, enemyCG,playerCG,player), true);
+            this.add(new Bullet(game, 'bala', bulletCG, tileCG, enemyCG,player1CG,player2CG,player), true);
         }
 
         return this;
@@ -61,7 +62,7 @@ var Weapon = {};
 
     },
     /////////RECARGAR PISTOLA////////
-    Weapon.Gun.prototype.reload = function (source, game, bulletCG, tileCG, enemyCG,playerCG){
+    Weapon.Gun.prototype.reload = function (source, game, bulletCG, tileCG, enemyCG,player1CG,player2CG){
 
     	
     	if (source.gunLoad + source.gunAmmo>=6){
@@ -71,7 +72,7 @@ var Weapon = {};
     	//crea las balas
         for (var i = 0; i <= newLoad; i++)
         {
-            this.add(new Bullet(game, 'bala', bulletCG, tileCG, enemyCG,playerCG,source), true);
+            this.add(new Bullet(game, 'bala', bulletCG, tileCG, enemyCG,player1CG,player2CG,source), true);
             
         }
     	}else if (source.gunLoad + source.gunAmmo <=6){
@@ -85,18 +86,18 @@ var Weapon = {};
 
 
     //////////////////////////////ESCOPETA////////////////////////////////
-    Weapon.Shotgun = function (game, bulletCG, tileCG, enemyCG,playerCG,player) {
+    Weapon.Shotgun = function (game, bulletCG, tileCG, enemyCG,player1CG,player2CG,player) {
 
         Phaser.Group.call(this, game, game.world, 'Shotgun', false, true, Phaser.Physics.P2JS);
 
-        this.playerCG = playerCG;
+        
         this.nextFire = 200000;
         this.bulletSpeed = 800;
         this.fireRate =400;
       
         for (var i = 0; i < 30; i++)
         {
-            this.add(new Bullet(game, 'perdigon',  bulletCG, tileCG, enemyCG,playerCG,player), true);
+            this.add(new Bullet(game, 'perdigon',  bulletCG, tileCG, enemyCG,player1CG,player2CG,player), true);
         }
 
         return this;
@@ -138,7 +139,7 @@ var Weapon = {};
         }
     },
     //////RECARGAR ESCOPETA///////
-    Weapon.Shotgun.prototype.reload = function (source, game, bulletCG, tileCG, enemyCG,playerCG){
+    Weapon.Shotgun.prototype.reload = function (source, game, bulletCG, tileCG, enemyCG,player1CG,player2CG){
     	if (source.shotgunLoad + source.shotgunAmmo>=15){
     		
         	newLoad = 15 - source.shotgunLoad;
@@ -147,7 +148,7 @@ var Weapon = {};
         	//crea las balas
             for (var i = 0; i <= newLoad; i++)
             {
-                this.add(new Bullet(game, 'perdigon', bulletCG, tileCG, enemyCG,playerCG,source), true);
+                this.add(new Bullet(game, 'perdigon', bulletCG, tileCG, enemyCG,player1CG,player2CG,source), true);
             }
             
         	}else if (source.shotgunLoad + source.shotgunAmmo <=15){

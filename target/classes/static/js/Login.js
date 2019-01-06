@@ -4,7 +4,7 @@ AsiloRoyale.Login = function(){};
 
 var input;
 var currentUser;
-var connection = new WebSocket('ws://' + ip + ':8080/handler');;
+//var connection = new WebSocket('ws://' + ip + ':8080/handler');;
 
 
 AsiloRoyale.Login.prototype = {
@@ -62,7 +62,7 @@ AsiloRoyale.Login.prototype = {
                     that.game.state.start('CharacterSelection', false, false, currentUser);
                 })
                 
-                connection.send(JSON.stringify(user));
+                //connection.send(JSON.stringify(user));
 
         }else if(sizename>12){
     		var text = 'Nombre demasiado largo'; 
@@ -97,7 +97,7 @@ AsiloRoyale.Login.prototype = {
         return free;
     },
 };
-
+/*
     connection.onerror = function(e) {
         console.log("WS error: " + e);
     }
@@ -113,7 +113,7 @@ AsiloRoyale.Login.prototype = {
     connection.onopen = function(){
         console.log("WEBSOCKET!!");
     }
-/*
+
 $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
   console.log(JSON.stringify(data, null, 2));
   ip = data.ip;

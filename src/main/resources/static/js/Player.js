@@ -2,7 +2,7 @@ var AsiloRoyale = AsiloRoyale || {};
 
 var cropRect = new Phaser.Rectangle( 0, 0, 500 , 30);
 
-var Player = function (game, x, y, guned, shotguned, sprite, ownerId, playerCG, tileCG, enemyCG, itemCG,bulletCG,id) {
+var Player = function (game, x, y, guned, shotguned, sprite, ownerId, player1CG, player2CG, tileCG, enemyCG, itemCG,bulletCG,id) {
 
 	Phaser.Sprite.call(this, game, x, y, sprite,0);
 
@@ -22,7 +22,8 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, playerCG, 
     this.gunAmmo = 10;
     this.items = 0;
     this.kills = 0;
-    this.playerCG = playerCG;
+    this.player1CG = player1CG;
+    this.player2CG = player2CG;
     this.tileCG = tileCG;
     this.enemyCG = enemyCG;
     this.itemCG = itemCG;
@@ -34,8 +35,8 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, playerCG, 
     this.animations.add('walkShotgun',[4,3,5,3],4,true);
     
 	this.weapons = [];
-	this.weapons.push(new Weapon.Gun(this.game,this.bulletCG,this.tileCG, this.enemyCG,playerCG,this));
-    this.weapons.push(new Weapon.Shotgun(this.game,this.bulletCG,this.tileCG, this.enemyCG,playerCG,this));
+	this.weapons.push(new Weapon.Gun(this.game,this.bulletCG,this.tileCG, this.enemyCG,this.player1CG,this.player2CG,this));
+    this.weapons.push(new Weapon.Shotgun(this.game,this.bulletCG,this.tileCG, this.enemyCG,this.player1CG,this.player2CG,this));
 
     
     this.lifeGroup = this.game.add.group();
@@ -45,7 +46,7 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, playerCG, 
     this.lifeGroup.add(this.lifeBardw);
     this.lifeGroup.add(this.lifeBar);
 
-     this.collect_weapon = new Phaser.Sound(this.game, 'collect_weapon');
+    this.collect_weapon = new Phaser.Sound(this.game, 'collect_weapon');
     this.bite = new Phaser.Sound(this.game, 'bite');
     this.swallow = new Phaser.Sound(this.game, 'swallow');
     this.collect_ammo = new Phaser.Sound(this.game, 'collect_ammo');
@@ -83,17 +84,23 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, playerCG, 
 
 	
 	Player.prototype.update = function() {
-        
+        this.body.data.ccdSpeedThreshold = 38.75;
+		this.body.data.ccdIterations = 100;
         //eje de rotación del jugador
         this.anchor.x = 0.35;
         this.anchor.y = 0.5;
-
-    this.body.setCollisionGroup(this.playerCG); 
+        
+     if(this.id==0){
+    	 this.body.setCollisionGroup(this.player1CG);
+    	 this.body.collides(this.player2CG);
+     }else if(this.id==1){
+    	 this.body.setCollisionGroup(this.player2CG);
+    	 this.body.collides(this.player1CG);
+     }
     this.body.collides(this.tileCG);
     this.body.collides(this.itemCG, this.pickItem, this);
     this.body.collides(this.enemyCG, this.pickItem, this);
-    this.body.collides(this.playerCG);
-    this.body.collides(this.bulletCG);
+    this.body.collides(this.bulletCG,this.pickItem,this);
 
     
     this.game.world.bringToTop(this.lifeGroup);
@@ -200,8 +207,8 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, playerCG, 
     },
     
     Player.prototype.reloader = function(){
-    	this.weapons[this.currentWeapon].reload(this,this.game,this.bulletCG, this.tileCG, this.enemyCG,this.playerCG);
-    }
+    	this.weapons[this.currentWeapon].reload(this,this.game,this.bulletCG, this.tileCG, this.enemyCG,this.player1CG,this.player2CG);
+    },
     
 
     Player.prototype.showLife = function(){
@@ -253,7 +260,7 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, playerCG, 
     Player.prototype.pickItem = function (body, body2) {
 
         if (body.sprite != null && body2.sprite != null) {
-
+;
             // Pastillas
 
         	if (body2.sprite.key == 'pasti_roja') {
@@ -324,17 +331,29 @@ var Player = function (game, x, y, guned, shotguned, sprite, ownerId, playerCG, 
 
                 this.damage(-20);
                 this.collect(this,body2.sprite,0);
-
+                
                 //Enemigos
 
-
             } else if (body2.sprite.key == 'dientes'){
+            	
                 this.bite.play();
                 this.damage(5);
+                
              } else if (body2.sprite.key == 'enfermero') {
+            	 
                 this.damage(20);
 
-                } 
+             } else if (body2.sprite.key == 'bala'){
+
+            	 this.damage(15);
+            	 body2.sprite.destroy();
+    
+            	 
+             } else if(body2.sprite.key == 'perdigon'){
+            	 
+            	 this.damage(5);
+            	 body2.sprite.destroy();
+             }
 
 
             

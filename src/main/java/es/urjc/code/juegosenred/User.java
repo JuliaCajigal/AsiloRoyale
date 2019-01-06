@@ -8,6 +8,7 @@ public class User {
 	private int inactivityTime = 0;
 	private int score = 0;
 	private String ip;
+	private Boolean host = false;
 
 	public User() {
 	}
@@ -72,6 +73,14 @@ public class User {
 
 	public void setIp(String ip) {
 		this.ip = ip;
+	}
+
+	public Boolean getHost() {
+		return host;
+	}
+
+	public void setHost(Boolean host) {
+		this.host = host;
 	}
 
 

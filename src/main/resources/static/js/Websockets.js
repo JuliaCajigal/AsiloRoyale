@@ -1,14 +1,19 @@
+var playerConnection;
+var timeConnection;
+var Tiempo = null;
+
 function conection (){
 	//Cuatro websockets: Jugador, Drops, Tiempo y Puntuación
-	connectionJugador  		= new WebSocket('ws://'+ location.host +'/echo');
-
-
+	timeConnection   		= new WebSocket('ws://'+ ip +':8080/timeHandler');
+	/*playerConnection  		= new WebSocket('ws://'+ ip +':8080/handler');
+	
 	//JUGADOR
-	connectionJugador.onmessage = function(msg) {
-		var datosJugador = JSON.parse(msg.data);
-		switch(datosJugador.protocolo){
+	playerConnection.onmessage = function(msg) {
+		var playerData = JSON.parse(msg.data);
+		console.log();
+		switch(playerData.protocolo){
 			case "Jugador":
-			Jugador = datosJugador.jugador;
+			Jugador = playerData.jugador;
 			break;
 			case "GetReady":
 			GetReady = datosJugador.ready;
@@ -18,10 +23,33 @@ function conection (){
 			break;
 			default:
 		}
+		
 	}
 
-	connectionJugador.onclose = function() {
-		setTimeout(conection(),1000);
-		console.log("Closing socket");
+	playerConnection.onclose = function() {
+		setTimeout(conection(),3000);
+		console.log("Closing player socket");
+	}*/
+
+	timeConnection.onerror = function(e) {
+		console.log("WS error: " + e);
+	}
+
+	timeConnection.onopen = function() {
+		console.log("Time WebSocket!");
+	}
+
+	timeConnection.onmessage = function(msg) {
+		
+		console.log(msg);
+		var timeData = JSON.parse(msg.data);
+		Tiempo = timeData.time; 
+		console.log(timeData);
+		
+	}
+
+	timeConnection.onclose = function() {
+		//setTimeout(conection(),3000);
+		console.log("Closing time socket");
 	}
 };

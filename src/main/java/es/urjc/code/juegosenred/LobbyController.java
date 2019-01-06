@@ -74,13 +74,27 @@ public class LobbyController {
 		public ResponseEntity<Lobby> actualizaLobbyUser(@PathVariable long id, @PathVariable long userId, @RequestBody User userActualizado) {
 
 			Lobby savedLobby = lobbies.get(id);
-			System.out.println("Lobby guardado: " + savedLobby);
+			
+			int pos;
+			Boolean newUserAdd = false;
 			
 			if (savedLobby != null) {
 				System.out.println(savedLobby.toString());
-				System.out.println("Pos User id: " + savedLobby.getUserPos(userActualizado.getId()));
 				
-				savedLobby.setUser(savedLobby.getUserPos(userActualizado.getId()), userActualizado);
+				pos = savedLobby.getUserPos(userActualizado.getId());
+				
+				//Si no hay un usuario con dicho id se introduce en el lobby
+				if(pos == -1) {
+					for(int i = 0; i<savedLobby.getUsers().length; i++) {
+						if(savedLobby.getUsers()[i] == null);
+						savedLobby.setUser(i, userActualizado);
+						newUserAdd = true;
+					}
+				
+				//Si no actualizamos el usuario existente
+				}else {
+					savedLobby.setUser(pos, userActualizado);
+				}
 					
 				lobbies.put(id, savedLobby);
 
@@ -101,6 +115,26 @@ public class LobbyController {
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 			
+		}
+		
+		@DeleteMapping("/{id}/{userId}")
+		public static ResponseEntity<User> borraLobbyUser(@PathVariable long id, @PathVariable long userId, @RequestBody User userActualizado) {
+
+			Lobby savedLobby = lobbies.get(id);
+			int pos;
+
+			if (savedLobby != null) {
+				pos = savedLobby.getUserPos(userActualizado.getId());
+				savedLobby.setUser(pos, null);
+				
+				if(savedLobby.isEmpty()) {
+					lobbies.remove(savedLobby.getId());
+				}
+
+				return new ResponseEntity<>(userActualizado, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
 		}
 
 		@DeleteMapping("/{id}")

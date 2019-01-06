@@ -1,9 +1,9 @@
 var AsiloRoyale = AsiloRoyale || {};
 
-var Bullet = function (game, key, bulletCG, tileCG, enemyCG,playerCG,player) {
+var Bullet = function (game, key, bulletCG, tileCG, enemyCG,player1CG,player2CG,player) {
 
     Phaser.Sprite.call(this, game, 0, 0, key);
-
+    	
         //Atributos
     	this.anchor.set(0.5);
     	this.checkWorldBounds = true;
@@ -16,7 +16,8 @@ var Bullet = function (game, key, bulletCG, tileCG, enemyCG,playerCG,player) {
         this.bulletCG = bulletCG;
         this.tileCG = tileCG;
         this.enemyCG = enemyCG;
-        this.playerCG = playerCG;
+        this.player1CG = player1CG;
+        this.player2CG = player2CG;
 
 };
 	Bullet.prototype = Object.create(Phaser.Sprite.prototype);
@@ -40,7 +41,11 @@ var Bullet = function (game, key, bulletCG, tileCG, enemyCG,playerCG,player) {
         this.body.setCollisionGroup(this.bulletCG);
         this.body.collides(this.tileCG, this.destroyBullet, this);
         this.body.collides(this.enemyCG);
-        this.body.collides(this.playerCG);
+        if(this.playerID == 0){
+        	this.body.collides(this.player2CG);
+        }else if( this.playerID == 1){
+        	this.body.collides(this.player1CG);
+        }
 
     },
 

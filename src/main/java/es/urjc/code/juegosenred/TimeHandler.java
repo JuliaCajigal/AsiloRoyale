@@ -13,21 +13,20 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-public class Handler extends TextWebSocketHandler {
+public class TimeHandler extends TextWebSocketHandler {
 
 	private Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
-	private Map<String, WebSocketSession> lobbies = new ConcurrentHashMap<>();
 	private ObjectMapper mapper = new ObjectMapper();
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		System.out.println("New player user: " + session.getId());
+		System.out.println("New time user: " + session.getId());
 		sessions.put(session.getId(), session);
 	}
 	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		System.out.println("Player Session closed: " + session.getId());
+		System.out.println("Time session closed: " + session.getId());
 		sessions.remove(session.getId());
 
 	}
@@ -46,8 +45,7 @@ public class Handler extends TextWebSocketHandler {
 		System.out.println("Message sent: " + node.toString());
 		
 		ObjectNode newNode = mapper.createObjectNode();
-		newNode.put("name", node.get("nick").asText());
-		newNode.put("message", node.get("ready").asText());
+		newNode.put("time", node.get("time").asText());
 		
 		
 		for(WebSocketSession participant : sessions.values()) {

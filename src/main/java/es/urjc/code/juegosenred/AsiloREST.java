@@ -21,10 +21,18 @@ public class AsiloREST implements WebSocketConfigurer{
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		registry.addHandler(createHandler(), "/handler")
 			.setAllowedOrigins("*");
+		
+		registry.addHandler(createTimeHandler(), "/timeHandler")
+		.setAllowedOrigins("*");
 	}
 	
 	@Bean
 	public Handler createHandler() {
 		return new Handler();
+	}
+	
+	@Bean
+	public TimeHandler createTimeHandler() {
+		return new TimeHandler();
 	}
 }

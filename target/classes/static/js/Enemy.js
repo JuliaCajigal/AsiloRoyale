@@ -1,6 +1,6 @@
 var AsiloRoyale = AsiloRoyale || {};
 
-function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD, index, enemyCG, playerCG, tileCG, bulletCG,players) {
+function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD, index, enemyCG, player1CG,player2CG, tileCG, bulletCG,players) {
 	
 	Phaser.Sprite.call(this, game, x, y, sprite);
 	
@@ -16,7 +16,8 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD, index, enemyCG, pl
 	this.loopsDI=loopsD;
 	this.moves=false;
 	this.enemyCG = enemyCG;
-	this.playerCG = playerCG;
+	this.player1CG = player1CG;
+	this.player2CG = player2CG;
 	this.bulletCG = bulletCG;
 	this.tileCG = tileCG;
 	this.name = index.toString;
@@ -51,7 +52,8 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD, index, enemyCG, pl
 	Enemy.prototype.update = function() {
 
 		this.body.setCollisionGroup(this.enemyCG);
-		this.body.collides(this.playerCG);
+		this.body.collides(this.player1CG);
+		this.body.collides(this.player2CG);
 		this.body.collides(this.tileCG);
 		this.body.collides(this.bulletCG, this.collisionBullet, this);
 

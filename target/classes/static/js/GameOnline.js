@@ -5,7 +5,7 @@ var AsiloRoyale = AsiloRoyale || {};
 //title screen
 AsiloRoyale.GameOnline = function(){};
 
-var timer, timerEvent, text;
+var timerEvent, text;
 var tilesCollisionGroup, playerCollisionGroup;
 
 AsiloRoyale.GameOnline.prototype = {
@@ -33,7 +33,8 @@ AsiloRoyale.GameOnline.prototype = {
 
 	var tileObjects = this.game.physics.p2.convertTilemap(this.map, this.blockedLayer, true);
 	this.tilesCollisionGroup   = this.game.physics.p2.createCollisionGroup();    
-	this.playerCollisionGroup  = this.game.physics.p2.createCollisionGroup();  
+	this.player1CollisionGroup  = this.game.physics.p2.createCollisionGroup();  
+	this.player2CollisionGroup  = this.game.physics.p2.createCollisionGroup();
 	this.bulletCollisionGroup = this.game.physics.p2.createCollisionGroup(); 
 	this.enemiesCollisionGroup = this.game.physics.p2.createCollisionGroup(); 
 	this.itemCollisionGroup = this.game.physics.p2.createCollisionGroup();
@@ -43,7 +44,8 @@ AsiloRoyale.GameOnline.prototype = {
 
 	for (var i = 0; i < tileObjects.length; i++) {        
    		tileObjects[i].setCollisionGroup(this.tilesCollisionGroup);
-        tileObjects[i].collides(this.playerCollisionGroup);
+        tileObjects[i].collides(this.player1CollisionGroup);
+        tileObjects[i].collides(this.player2CollisionGroup);
         tileObjects[i].collides(this.bulletCollisionGroup);
         tileObjects[i].collides(this.enemiesCollisionGroup);
 	}    
@@ -51,30 +53,39 @@ AsiloRoyale.GameOnline.prototype = {
     /////////BARRA DE VIDA/////////
 
    //this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
+	
+	this.players = [];
 
 	/////////JUGADOR 1/////////
 
+
     if(selected==0){
-	this.player1 = new Player(this.game,1100,1000,false,true, 'player', 1, this.playerCollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup,1);
+	this.player1 = new Player(this.game,1100,1000,false,true, 'player', 1,this.player1CollisionGroup, this.player2CollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup,0);
     }
     if(selected==1){
-    this.player1 = new Player(this.game,1100,1000,false,true, 'player2', 1, this.playerCollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup,1);
+    this.player1 = new Player(this.game,1100,1000,false,true, 'player2', 1, this.player1CollisionGroup,this.player2CollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup,0);
     }
 	this.game.add.existing(this.player1);
 	this.game.physics.p2.enable(this.player1,false);
 	this.player1.body.clearShapes(); 
 	this.player1.body.loadPolygon('player_physics', 'player'); 
+	this.players.push(this.player1);
 
 	
 	////////JUGADOR 2 /////////
-	this.player2 = new Player(this.game,1100,1200,false,true, 'player2', 1,  this.playerCollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup,2);
+	this.player2 = new Player(this.game,1100,1200,false,true, 'player2', 1,this.player1CollisionGroup,  this.player2CollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup,1);
 	
 	this.game.add.existing(this.player2);
 	this.game.physics.p2.enable(this.player2,false);
 	this.player2.body.clearShapes(); 
 	this.player2.body.loadPolygon('player_physics', 'player'); 
-	///////////ENEMIGOS///////
+	this.players.push(this.player2);
 
+	this.playersArray[0] = this.player1;
+	this.playersArray[1] = this.player2;
+
+
+	///////////ENEMIGOS///////
 
 	//Dientes
 	
@@ -110,19 +121,39 @@ AsiloRoyale.GameOnline.prototype = {
 	//Muestra etiquetas de vida
     this.showLabels();
 
-	//Muestra barra de vida
-	//this.showLife(this.player1);
-
 	//Temporizador
-    timer = this.game.time.create();
+    this.timer = this.game.time.create();
         
     //Evento de tiempo
-    timerEvent = timer.add(Phaser.Timer.MINUTE * 1 + Phaser.Timer.SECOND * 30, this.endTimer, this);
+    timerEvent = this.timer.add(Phaser.Timer.MINUTE * 1 + Phaser.Timer.SECOND * 30, this.endTimer, this);
         
     //Comienzo temporizador
-    timer.start();
+    this.timer.start();
+
+    //////WEBSOCKETS//////
+    
+    var updateTime = this.game.time.events.loop(Phaser.Timer.SECOND*3, this.updateTime, this);
+    var sendTime = this.game.time.events.loop(Phaser.Timer.SECOND*3, this.timeSocket, this);
 
 
+  },
+
+  //Actualizamos el tiempo si hemos recibido actualizaciones desde el servidor
+  updateTime: function(){
+  	msgTime = {time: this.timer.ms};
+  	
+  	if(Tiempo != null){
+  		console.log(this.timer.ms);
+  		console.log(Tiempo);
+        this.timer.ms = Tiempo;
+        console.log(this.timer.ms);
+    }
+  },
+
+  //Enviamos periódicamente un mensaje con el tiempo actual
+  timeSocket: function(){
+  		console.log(msgTime);
+  		timeConnection.send(JSON.stringify(msgTime));
   },
   
   //Recibe parametros de la selección de personaje
@@ -179,7 +210,7 @@ AsiloRoyale.GameOnline.prototype = {
 		 var teethPosFinal = tarray[i];
 
 	
-		this.teeth.push(new Enemy(this.game,teethPosFinal[0],teethPosFinal[1],'dientes',120,30,100,100, i, this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1));
+		this.teeth.push(new Enemy(this.game,teethPosFinal[0],teethPosFinal[1],'dientes',120,30,100,100, i, this.enemiesCollisionGroup, this.player1CollisionGroup,this.player2CollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.players));
 		this.game.add.existing(this.teeth[i]);
 		this.game.physics.p2.enable(this.teeth[i],false);
 
@@ -199,7 +230,7 @@ AsiloRoyale.GameOnline.prototype = {
 		 var nursePosFinal = narray[i];
 
 	
-    this.nurse.push(new Enemy(this.game, nursePosFinal[0], nursePosFinal[1],'enfermero', 120, 60, 700, 700, i, this.enemiesCollisionGroup, this.playerCollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup, this.player1)); 
+    this.nurse.push(new Enemy(this.game, nursePosFinal[0], nursePosFinal[1],'enfermero', 120, 60, 700, 700, i, this.enemiesCollisionGroup, this.player1CollisionGroup,this.player2CollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup,this.players)); 
     this.game.add.existing(this.nurse[i]);
 	this.game.physics.p2.enable(this.nurse[i],false);
 	this.nurse[i].body.static = true;
@@ -375,7 +406,8 @@ AsiloRoyale.GameOnline.prototype = {
 		var sprite = group.create(element.x, element.y,element.properties.sprite);
 		sprite.body.setRectangle(64, 64);
         sprite.body.setCollisionGroup(this.itemCollisionGroup);
-        sprite.body.collides(this.playerCollisionGroup);
+        sprite.body.collides(this.player1CollisionGroup);
+        sprite.body.collides(this.player2CollisionGroup);
 		Object.keys(element.properties).forEach(function(key){
 	 	});
 	},
@@ -387,8 +419,8 @@ AsiloRoyale.GameOnline.prototype = {
 
 	//Muestra el tiempo que queda para el final de la partida
 	render: function() {
-		if (timer.running) {
-            this.game.debug.text(this.formatTime(Math.round((timerEvent.delay - timer.ms) / 1000)), 1010, 78, "#51F55B", "50px 'VT323'");
+		if (this.timer.running) {
+            this.game.debug.text(this.formatTime(Math.round((timerEvent.delay - this.timer.ms) / 1000)), 1010, 78, "#51F55B", "50px 'VT323'");
         }
         else {
             this.game.debug.text("Done!",1010, 78, "#51F55B", "50px 'VT323'");
@@ -398,7 +430,7 @@ AsiloRoyale.GameOnline.prototype = {
 
     //Código de: http://jsfiddle.net/lewster32/vd70o41p/
     endTimer: function() {
-        timer.stop();
+        this.timer.stop();
         this.player1.alive=false;
     },
 
