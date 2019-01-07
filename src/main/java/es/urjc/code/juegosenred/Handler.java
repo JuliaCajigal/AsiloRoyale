@@ -1,6 +1,8 @@
 package es.urjc.code.juegosenred;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -11,50 +13,31 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class Handler extends TextWebSocketHandler {
 
 	private Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
-	private Map<String, WebSocketSession> lobbies = new ConcurrentHashMap<>();
+	
 	private ObjectMapper mapper = new ObjectMapper();
 	
 	@Override
+	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception{
+		
+		JsonNode jnode = mapper.readTree(message.getPayload());
+		
+		for(WebSocketSession s : sessions.values()) {
+			if(!s.getId().equals(session.getId()))
+				s.sendMessage(new TextMessage(jnode.toString()));
+		}
+	}
+	
+	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		System.out.println("New player user: " + session.getId());
 		sessions.put(session.getId(), session);
 	}
 	
 	@Override
-	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-		System.out.println("Player Session closed: " + session.getId());
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus status)throws Exception{
 		sessions.remove(session.getId());
-
 	}
-	
-	@Override
-	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		
-		System.out.println("Message received: " + message.getPayload());
-		JsonNode node = mapper.readTree(message.getPayload());
-		
-		sendOtherParticipants(session, node);
-	}
-
-	private void sendOtherParticipants(WebSocketSession session, JsonNode node) throws IOException {
-
-		System.out.println("Message sent: " + node.toString());
-		
-		ObjectNode newNode = mapper.createObjectNode();
-		newNode.put("name", node.get("nick").asText());
-		newNode.put("message", node.get("ready").asText());
-		
-		
-		for(WebSocketSession participant : sessions.values()) {
-			if(!participant.getId().equals(session.getId())) {
-				participant.sendMessage(new TextMessage(newNode.toString()));
-			}
-		}
-	}
-
 }

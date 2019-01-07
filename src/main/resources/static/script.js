@@ -11,7 +11,7 @@ console.log(ipC);*/
 
 var usersLimit = 5;
 var currentUsers = 0;
-var ip = '192.168.0.175';
+var ip = '192.168.0.161';
 
 //Load users from server
 function loadUsers(callback) {
