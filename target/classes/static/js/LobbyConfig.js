@@ -127,7 +127,7 @@ AsiloRoyale.LobbyConfig.prototype = {
               updateLobby(currentLobby);
               loadLobbies(function (lobbies) {
                 console.log(lobbies);
-                this.click.play();
+                that.click.play();
                 that.game.state.start('OnlineLobby', true, false, currentUser, currentLobby);
               });
 
@@ -195,7 +195,7 @@ AsiloRoyale.LobbyConfig.prototype = {
 
           createLobby(lobby, function (lobbyWithId) {
             currentLobby = lobbyWithId;
-            this.click.play();
+            that.click.play();
             that.game.state.start('OnlineLobby', true, false, currentUser, currentLobby);
           });
       }else{
@@ -203,43 +203,43 @@ AsiloRoyale.LobbyConfig.prototype = {
       }
 },
 
-    joinRandom: function(){
+joinRandom: function(){
 
-      var lobby;
-      var that = this;
+    var lobby;
+    var that = this;
 
-      loadLobbies(function (lobbies) {
-            var aleatorio = Math.round(Math.random()*lobbies.length - 1);
-            console.log(aleatorio);
-            lobby = lobbies[aleatorio];
+    loadLobbies(function (lobbies) {
+          var aleatorio = Math.round(Math.random()*lobbies.length - 1);
+          console.log(aleatorio);
+          lobby = lobbies[aleatorio];
 
-            inum.style.display = 'none';
-            ipw.style.display = 'none';
+          inum.style.display = 'none';
+          ipw.style.display = 'none';
 
-            if(aleatorio == -1){
-                currentUser.host = true;
-                    
-                var lobby = {
-                num: 0,
-                password: 0,
-                users: [currentUser, null, null, null]
-                }
+          if(aleatorio == -1){
+              currentUser.host = true;
+                  
+              var lobby = {
+              num: 1111,
+              password: 1111,
+              users: [currentUser, null, null, null]
+              }
 
-                createLobby(lobby, function (lobbyWithId) {
-                currentLobby = lobbyWithId;
-                this.click.play();
-                that.game.state.start('OnlineLobby', true, false, currentUser, currentLobby);
-          });
-            }
+              createLobby(lobby, function (lobbyWithId) {
+              currentLobby = lobbyWithId;
+              that.click.play();
+              that.game.state.start('OnlineLobby', true, false, currentUser, currentLobby);
+        });
+          }
 
-            console.log(lobby.id);
+          console.log(lobby.id);
 
-            updateLobby(lobby, currentUser);
-            this.click.play();
-            that.game.state.start('OnlineLobby', true, false, currentUser, lobby);
-      });
-      
-    },
+          updateLobby(lobby, currentUser);
+          that.click.play();
+          that.game.state.start('OnlineLobby', true, false, currentUser, lobby);
+    });
+    
+  },
 
     warning: function () {
           var style = {font: "bold 38px 'VT323'", fill: "#51F55B", align: "center" };

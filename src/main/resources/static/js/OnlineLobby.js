@@ -42,6 +42,8 @@ AsiloRoyale.OnlineLobby.prototype = {
 
       //Crea el texto que se actualizará con los nombres de los distintos jugadores en línea
       this.showUsers();
+      
+      this.click = new Phaser.Sound(this.game, 'click');
     	
       //Temporizador
       this.timer = this.game.time.create();
