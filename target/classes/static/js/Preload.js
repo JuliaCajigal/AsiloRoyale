@@ -92,6 +92,8 @@ AsiloRoyale.Preload.prototype = {
 		this.load.audio('heal', 'assets/audio/heal.wav');
 		this.load.audio('punch', 'assets/audio/punch.wav');
 		this.load.audio('click', 'assets/audio/click.wav');
+		this.load.audio('white_noise', 'assets/audio/white_noise.wav');
+		this.load.audio('control_sound', 'assets/audio/control_sound.wav')
 		this.game.load.physics('player_physics','assets/physics/viejo_physics.json');
 	},
 

@@ -54,6 +54,7 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
     this.punch = new Phaser.Sound(this.game, 'punch');
     this.swallow = new Phaser.Sound(this.game, 'swallow');
     this.collect_ammo = new Phaser.Sound(this.game, 'collect_ammo');
+    this.control_sound = new Phaser.Sound(this.game, 'control_sound');
     this.showLife();
     
     this.keyw = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
@@ -288,6 +289,7 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
                 this.items++;
 
             } else if (body2.sprite.key == 'mando') {
+            	this.control_sound.play();
                 this.collect(this, body2.sprite, 100);
                 this.items++;
 
@@ -351,7 +353,7 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
              } else if (body2.sprite.key == 'enfermero') {
             	 
             	this.punch.play();
-                this.damage(20);
+                this.damage(10);
 
              } else if (body2.sprite.key == 'bala'){
 

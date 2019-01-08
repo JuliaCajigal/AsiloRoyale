@@ -66,7 +66,7 @@ AsiloRoyale.GameOffline.prototype = {
 
 
 
-    this.player1 = new Player(this.game,1100,1000,false,true, 1, this.player1CollisionGroup,this.player2CollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup,0,this.playersArray[0]);
+    this.player1 = new Player(this.game,1120,2260,false,true, 1, this.player1CollisionGroup,this.player2CollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup,0,this.playersArray[0]);
 	this.game.add.existing(this.player1);
 	this.game.physics.p2.enable(this.player1,false);
 	this.player1.body.clearShapes(); 
