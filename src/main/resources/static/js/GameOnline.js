@@ -8,6 +8,7 @@ AsiloRoyale.GameOnline = function(){};
 var timerEvent, text;
 var tilesCollisionGroup, playerCollisionGroup;
 
+
 AsiloRoyale.GameOnline.prototype = {
   create: function() {
 
@@ -52,7 +53,8 @@ AsiloRoyale.GameOnline.prototype = {
 
     /////////BARRA DE VIDA/////////
 
-   //this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
+   	//this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
+
 	
 	this.players = [];
 
@@ -69,7 +71,7 @@ AsiloRoyale.GameOnline.prototype = {
 
 	
 	////////JUGADOR 2 /////////
-	this.player2 = new Player(this.game,1100,1200,false,true, 1,this.player1CollisionGroup,  this.player2CollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup,1,this.playersArray[1]);
+	this.player2 = new Player(this.game,100,1200,false,true, 1,this.player1CollisionGroup,  this.player2CollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup,1,this.playersArray[1]);
 	
 	this.game.add.existing(this.player2);
 	this.game.physics.p2.enable(this.player2,false);
@@ -77,8 +79,19 @@ AsiloRoyale.GameOnline.prototype = {
 	this.player2.body.loadPolygon('player_physics', 'player'); 
 	this.players.push(this.player2);
 
-	this.playersArray[0] = this.player1;
-	this.playersArray[1] = this.player2;
+
+   	//////////USER PARTIDA////////
+   	console.log(myUser);
+   	console.log(myUser.id);
+   	console.log(this.playersArray);
+   	console.log(this.playersArray[0].id);
+   	console.log(this.playersArray[1].id);
+
+   	/*if(this.playersArray[0].id == myUser.id){
+   		myUser.player = this.player1;
+   	}else if(this.playersArray[1].id == myUser.id) {
+   		myUser.player = this.player2;
+   	}*/
 
 
 	///////////ENEMIGOS///////
@@ -101,7 +114,6 @@ AsiloRoyale.GameOnline.prototype = {
 	this.game.camera.bounds = null;
 	
 	/////////////TECLAS///////////
-
 	this.cursors = this.game.input.keyboard.createCursorKeys();
 	
 
@@ -127,22 +139,73 @@ AsiloRoyale.GameOnline.prototype = {
     this.timer.start();
 
     //////WEBSOCKETS//////
+
+    PlayerWS = this.player1;
     
     var updateTime = this.game.time.events.loop(Phaser.Timer.SECOND*3, this.updateTime, this);
     var sendTime = this.game.time.events.loop(Phaser.Timer.SECOND*3, this.timeSocket, this);
 
+    //var sendPos = this.game.time.events.loop(Phaser.Timer.SECOND*0.5 , this.posSocket, this);
+    //var updateP = this.game.time.events.loop(Phaser.Timer.SECOND*0.5, this.updatePlayer, this);
 
+  },
+
+  posSocket1: function(){
+  	console.log(this.player1.keyw);
+  		sendPos(this.player1.x, this.player1.y, this.player1.rotation, this.player1.keyw, this.player1.keys, this.player1.keya, this.player1.keyd);
+  },
+
+  posSocket: function(){
+  	console.log(this.player1.keyw);
+  		sendPos(this.player1.x, this.player1.y, this.player1.rotation);
+  },
+
+  updatePlayer: function(){
+
+  	//msgPlayer = {
+  			/*myUser.player.life = PlayerWS.life;
+  			myUser.player.currentWeapon = PlayerWS.currentWeapon;
+    		myUser.player.shotgunAmmo = PlayerWS.shotgunAmmo;
+    		myUser.player.gunAmmo = PlayerWS.gunAmmo;*/
+    		this.player2.x = PlayerWS.x;
+    		this.player2.y = PlayerWS.y;
+    		this.player2.rotation = PlayerWS.rot;
+  			this.player2.keyw.isDown = PlayerWS.keyw ;
+    		this.player2.keys.isDown = PlayerWS.keys;
+    		this.player2.keya.isDown = PlayerWS.keyd;
+    		this.player2.keyd.isDown = PlayerWS.keya;
+
+  		//msgPlayer = {
+  			/*myUser.player.life = PlayerWS.life;
+  			myUser.player.currentWeapon = PlayerWS.currentWeapon;
+    		myUser.player.shotgunAmmo = PlayerWS.shotgunAmmo;
+    		myUser.player.gunAmmo = PlayerWS.gunAmmo;*/
+    		//myUser.player.x = PlayerWS.x;
+    		//myUser.player.y = PlayerWS.y;
+    		//myUser.player.rotation = PlayerWS.rot;
+  			//myUser.player.keyw = PlayerWS.keyw ;
+    		//myUser.player.keys = PlayerWS.keys;
+    		//myUser.player.keya = PlayerWS.keyd;
+    		//myUser.player.keyd = PlayerWS.keya;
+    	
+  },
+
+
+  playerSocket: function(){
+  		console.log(msgTime);
+  		timeConnection.send(JSON.stringify(msgTime));
   },
 
   //Actualizamos el tiempo si hemos recibido actualizaciones desde el servidor
   updateTime: function(){
-  	msgTime = {time: this.timer.ms};
+  	msgTime = {
+  			socket: "time",
+  			time: this.timer.ms};
   	
   	if(Tiempo != null){
   		console.log(this.timer.ms);
-  		console.log(Tiempo);
-        this.timer.ms = Tiempo;
-        console.log(this.timer.ms);
+  		this.timer.ms = Tiempo;
+        
     }
   },
 
@@ -156,7 +219,7 @@ AsiloRoyale.GameOnline.prototype = {
   init: function(playersArray){
 	  
   	this.playersArray = playersArray;
-  	console.log("Players: "+ this.playersArray);
+  	console.log(this.playersArray);
   	
   },
 
@@ -239,6 +302,7 @@ AsiloRoyale.GameOnline.prototype = {
 
 
 	update: function() {
+		
 		
 		//La cámara sigue al jugador teniendo en cuenta el offset
 		this.game.camera.focusOnXY(this.player1.x+75, this.player1.y);
@@ -410,7 +474,7 @@ AsiloRoyale.GameOnline.prototype = {
 
 	//Función de Game Over
 	gameOver: function() {
-		this.game.state.start('GameOver');
+		this.game.state.start('GameOver',true,false,this.player1,this.player2);
 	},
 
 	//Muestra el tiempo que queda para el final de la partida

@@ -29,6 +29,10 @@ body, head{
 	margin-top: 0px;
 }
 
+body {
+    background: #3b1212;
+}
+
 #game {
 	padding: 0px;
 	margin: 0px;

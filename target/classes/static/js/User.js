@@ -9,7 +9,8 @@ function User(game, id, name, skin) {
     this.updater = this.game.time.events.loop(Phaser.Timer.SECOND*2.5, this.updater, this);
     this.player = null;
     this.skin = skin;
-    this.ip = '192.168.0.175';
+    this.ip = '192.168.0.161';
+    this.online = false;
     }
 
 	User.prototype.constructor = User;
@@ -24,18 +25,19 @@ function User(game, id, name, skin) {
     //sigue conectado
 	User.prototype.updater = function() {
 
-        $.ajax({
-        method: 'GET',
-        url: 'http://' + this.ip + ':8080/users/' + this.id
+        if(this.online == true){ 
+            $.ajax({
+            method: 'GET',
+            url: 'http://' + this.ip + ':8080/users/' + this.id
     
-    }).success(function (user) {
-        if(this.disconnected == true){this.disconnected = false;}
+            }).success(function (user) {
+                if(this.disconnected == true){this.disconnected = false;}
     
-    }).fail(function (user) {
-        console.error("Se ha perdido la conexión con el servidor.");
-        this.disconnected = true;
-
+            }).fail(function (user) {
+                console.error("Se ha perdido la conexión con el servidor.");
+                this.disconnected = true;
         
-    })
+            })
+        }
 }
 

@@ -3,6 +3,7 @@ var AsiloRoyale = AsiloRoyale || {};
 AsiloRoyale.LobbyConfig = function(){};
 
 var inum, ipw, input;
+var myUser;
 
 AsiloRoyale.LobbyConfig.prototype = {
 
@@ -14,9 +15,6 @@ AsiloRoyale.LobbyConfig.prototype = {
       input.style.display = 'none';
       inum = document.getElementById('lobbyNUM');
       ipw = document.getElementById('lobbyPW');
-      
-      //Creamos un nuevo usuario con id + nick
-      this.newUser = 
       
       //Dimensiones del mundo y cámara
       this.game.camera.setBoundsToWorld();
@@ -41,11 +39,14 @@ AsiloRoyale.LobbyConfig.prototype = {
       var exit = this.game.add.button(250, this.game.height/2 + 100,'salaRandom', this.joinRandom, this,0,0,0,1);
       exit.anchor.setTo(0.5);
 
+      conection();
+
   },
 
     // Recibimos el usuario desde Login
     init: function(currentUser, skin){
-      this.newUser = new User(this.game, currentUser.id, currentUser.nick, skin);
+      myUser = new User(this.game, currentUser.id, currentUser.nick, skin);
+      myUser.online = true;
       currentUser.skin = skin;
       console.log(JSON.stringify(currentUser));
     },
@@ -54,8 +55,9 @@ AsiloRoyale.LobbyConfig.prototype = {
     update: function() {
         var that = this;
         var escKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
+        var F5Key = this.game.input.keyboard.addKey(Phaser.Keyboard.F5);
 
-      if(escKey.isDown){
+        if(escKey.isDown || F5Key.isDown){
             deleteUser(currentUser.id);
             this.game.state.start('MainMenu');
             inum.style.display = 'none';
@@ -209,6 +211,21 @@ AsiloRoyale.LobbyConfig.prototype = {
             inum.style.display = 'none';
             ipw.style.display = 'none';
 
+            if(aleatorio == -1){
+                currentUser.host = true;
+                    
+                var lobby = {
+                num: 0,
+                password: 0,
+                users: [currentUser, null, null, null]
+                }
+
+                createLobby(lobby, function (lobbyWithId) {
+                currentLobby = lobbyWithId;
+                that.game.state.start('OnlineLobby', true, false, currentUser, currentLobby);
+          });
+            }
+
             console.log(lobby.id);
 
             updateLobby(lobby, currentUser);
@@ -226,6 +243,6 @@ AsiloRoyale.LobbyConfig.prototype = {
     warningExist: function () {
           var style = {font: "bold 38px 'VT323'", fill: "#51F55B", align: "center" };
           var text = 'Número o contraseña \nincorrectos'; 
-          var warning = this.game.add.text(480, 450, text, style);
+          var warning = this.game.add.text(490, 450, text, style);
     }
 };

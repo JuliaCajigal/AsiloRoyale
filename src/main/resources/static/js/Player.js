@@ -2,7 +2,7 @@ var AsiloRoyale = AsiloRoyale || {};
 
 var cropRect = new Phaser.Rectangle( 0, 0, 500 , 30);
 
-var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2CG, tileCG, enemyCG, itemCG,bulletCG,id,user) {
+var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2CG, tileCG, enemyCG, itemCG, bulletCG, id, user) {
 	
 	if(user.skin==0){
 		Phaser.Sprite.call(this, game, x, y,'player',0);
@@ -77,6 +77,21 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
 
     }
 
+    this.toJSON = function(){
+        var data = {
+            x: this.x,
+            y: this.y,
+            rotation: this.rotation,
+            weapon: this.currentWeapon,
+            life: this.life,
+            W: this.keyw,
+            S: this.keys,
+            D: this.keyd,
+            A: this.keya
+        }
+        return data;
+    }
+
     };
 	
 	Player.prototype = Object.create(Phaser.Sprite.prototype);
@@ -84,6 +99,7 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
 
 
 	Player.prototype.create= function() {
+        
 
 
     },    
@@ -105,13 +121,13 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
     	 this.body.setCollisionGroup(this.player2CG);
     	 this.body.collides(this.player1CG);
      }
-    this.body.collides(this.tileCG);
-    this.body.collides(this.itemCG, this.pickItem, this);
-    this.body.collides(this.enemyCG, this.pickItem, this);
-    this.body.collides(this.bulletCG,this.pickItem,this);
+        this.body.collides(this.tileCG);
+        this.body.collides(this.itemCG, this.pickItem, this);
+        this.body.collides(this.enemyCG, this.pickItem, this);
+        this.body.collides(this.bulletCG,this.pickItem,this);
 
     
-    this.game.world.bringToTop(this.lifeGroup);
+        this.game.world.bringToTop(this.lifeGroup);
 
         if(this.life>100){
             this.life=100;
@@ -123,22 +139,6 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
 		this.body.velocity.y = 0;
 		this.body.velocity.x = 0;
 
-        //Sprites player según el arma equipada
-		/*
-        if(this.currentWeapon==0){
-            this.frame=0;
-        }else if(this.currentWeapon==1){
-            this.frame=3;
-        }
-   	*/
-
-        //this.walk = this.animations.add('walk');
-        //this.animations.play('walk', 30, true);
-
-
-        
-
-		//movimientos player
 
         
         ////ANIMACIONES Y MOVIMIENTO SI TIENES LA PISTOLA
@@ -176,25 +176,25 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
 	        }else if(this.moves == false){
 	        	this.animations.stop(null,false);
 	        }
-			if(keyw.isDown) {
+			if(this.keyw.isDown) {
 				this.body.velocity.y -= this.speed;
 				this.moves=true;
 			}
-			else if(keys.isDown) {
+			else if(this.keys.isDown) {
 				this.body.velocity.y += this.speed;
 				this.moves=true;
 			}
-			if(keya.isDown) {
+			if(this.keya.isDown) {
 				this.body.velocity.x -= this.speed;
 				this.moves=true;
-			}if(keyd.isDown) {
+			}if(this.keyd.isDown) {
 				this.body.velocity.x += this.speed;
 				this.moves=true;
-			}if(keys.isUp && keya.isUp && keyd.isUp && keyw.isUp){
+			}if(this.keys.isUp && this.keya.isUp && this.keyd.isUp && this.keyw.isUp){
 				this.moves=false;
 				this.frame=3;
 			}
-    }
+         }
         
 
         
@@ -207,7 +207,7 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
         keyr = this.game.input.keyboard.addKey(Phaser.Keyboard.R);
         keyr.onDown.add(this.reloader, this);
         
-		this.isAlive();
+		
 
     },
     
@@ -229,8 +229,8 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
        // var width = (this.life / 2)*10;
 
         //this.cropRect = new Phaser.Rectangle( 0, 0, width , 30);
-       cropRect.fixedToCamera = true;
-       this.lifeBar.crop(cropRect);
+        cropRect.fixedToCamera = true;
+        this.lifeBar.crop(cropRect);
 
     }, 
 
@@ -240,9 +240,10 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
         this.life -= amount;
         this.alpha -= 2;
         if (amount > 0){
-        this.game.add.tween(this).to( { alpha: 1 }, 300, Phaser.Easing.Linear.None, true, 0, 1, false,true);
+            this.game.add.tween(this).to( { alpha: 1 }, 300, Phaser.Easing.Linear.None, true, 0, 1, false,true);
         }
         console.log(this.life);
+        
         cropRect.width = (this.life/2) *10; 
         this.lifeBar.updateCrop(cropRect);
 
@@ -253,19 +254,12 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
     return false;
 
     },
-
-    //Determina la muerte del jugador
-    Player.prototype.isAlive = function(){
-        if(this.alive == false){ this.game.state.start('GameOver',true,false,this.score,this.items, this.kills);}
-
-    },
-
   
 
     Player.prototype.pickItem = function (body, body2) {
 
         if (body.sprite != null && body2.sprite != null) {
-;
+
             // Pastillas
 
         	if (body2.sprite.key == 'pasti_roja') {
@@ -286,6 +280,10 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
             } else if(body2.sprite.key == 'pasti_amarilla'){
                 this.swallow.play();
                 this.collect(this,body2.sprite,50);
+                this.items++;
+
+            } else if (body2.sprite.key == 'mando') {
+                this.collect(this, body2.sprite, 100);
                 this.items++;
 
                 // Balas y cartuchos
@@ -359,10 +357,8 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
             	 this.damage(5);
             	 body2.sprite.destroy();
              }
-
-
             
-    }
+        }
 
     },
 

@@ -45,13 +45,13 @@ AsiloRoyale.CharacterSelection.prototype = {
 	
 	boton1OnClick: function() {
 		selected = 0;
-		this.game.state.start('LobbyConfig',false,false,currentUser, selected);
+		this.game.state.start('LobbyConfig',true,false,currentUser, selected);
 		
 	},
 	
 	boton2OnClick: function() {
 		selected = 1;
-		this.game.state.start('LobbyConfig',false,false,currentUser, selected);
+		this.game.state.start('LobbyConfig',true,false,currentUser, selected);
 		
 	}
 

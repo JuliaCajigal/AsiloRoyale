@@ -1,35 +1,35 @@
 var playerConnection;
 var timeConnection;
 var Tiempo = null;
+var PlayerWS;
 
 function conection (){
 	//Cuatro websockets: Jugador, Drops, Tiempo y Puntuación
 	timeConnection   		= new WebSocket('ws://'+ ip +':8080/timeHandler');
-	/*playerConnection  		= new WebSocket('ws://'+ ip +':8080/handler');
+	playerConnection  		= new WebSocket('ws://'+ ip +':8080/handler');
 	
+
 	//JUGADOR
 	playerConnection.onmessage = function(msg) {
 		var playerData = JSON.parse(msg.data);
-		console.log();
-		switch(playerData.protocolo){
-			case "Jugador":
-			Jugador = playerData.jugador;
-			break;
-			case "GetReady":
-			GetReady = datosJugador.ready;
-			break;
-			case "Skin":
-			Skin = datosJugador.skin;
-			break;
-			default:
-		}
+		console.log(playerData);
+		
+		PlayerWS.x = playerData.x;
+		PlayerWS.y = playerData.y;
+		PlayerWS.rot = playerData.rot;
+		/*PlayerWS.keyw = playerData.keyw;
+    	PlayerWS.keys = playerData.keys;
+    	PlayerWS.keyd = playerData.keyd;
+    	PlayerWS.keya = playerData.keya;*/
+
+    	console.log(myUser);
 		
 	}
 
 	playerConnection.onclose = function() {
-		setTimeout(conection(),3000);
+		//setTimeout(conection(),3000);
 		console.log("Closing player socket");
-	}*/
+	}
 
 	timeConnection.onerror = function(e) {
 		console.log("WS error: " + e);
@@ -44,6 +44,7 @@ function conection (){
 		console.log(msg);
 		var timeData = JSON.parse(msg.data);
 		Tiempo = timeData.time; 
+		console.log("Mensaje time WS!");
 		console.log(timeData);
 		
 	}
@@ -52,4 +53,31 @@ function conection (){
 		//setTimeout(conection(),3000);
 		console.log("Closing time socket");
 	}
-};
+}
+
+function sendPos(x, y, rot){
+	msg = { socket: "pos",
+		x: x,
+		y: y,
+		rot: rot
+	}
+	console.log(msg);
+	playerConnection.send(JSON.stringify(msg));
+}
+
+
+function sendPos1(x, y, rot, up, down, left, right){
+	msg = { socket: "pos",
+		x: x,
+		y: y,
+		rot: rot,
+		keyw: up,
+		keys: down,
+		keya: left,
+		keyd: right
+	}
+	console.log(msg);
+	playerConnection.send(JSON.stringify(msg));
+}
+
+;

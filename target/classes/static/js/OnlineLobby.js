@@ -8,9 +8,11 @@ var usersList;
 var timer, timerEvent, timerUpdate;
 var disconnected = false;
 var serverOff = false;
+var count = false;
 var lobby;
 var hostIP;
 var host;
+
 
 
 AsiloRoyale.OnlineLobby.prototype = {
@@ -50,8 +52,17 @@ AsiloRoyale.OnlineLobby.prototype = {
       //Cargamos los usuarios cada 3 segundos
       this.checkUsers();
       var updater = this.game.time.events.loop(Phaser.Timer.SECOND*3, this.checkUsers, this);
-      
-      conection();
+
+
+      //Nada más conectarnos al lobby enviamos un mensaje, el primer jugador hará de host.
+      msgLobby = {socket: "lobby",
+                  lobby: lobby.id}
+
+      console.log(msgLobby);
+
+      //Enviamos un mensaje al servidor para agrupar en lobbies las sesiones
+      timeConnection.send(JSON.stringify(msgLobby));
+
    
   },
     
@@ -69,11 +80,13 @@ AsiloRoyale.OnlineLobby.prototype = {
   update: function() {
  		var that = this;
 		var escKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
+    var F5Key = this.game.input.keyboard.addKey(Phaser.Keyboard.F5);
 
-   	if(escKey.isDown){
-   			deleteUser(currentUser.id);
+   	if(escKey.isDown || F5Key.isDown){
+        deleteUser(currentUser.id);
         deleteLobbyUser(lobby, currentUser)
-   			this.game.state.start('MainMenu');
+        this.game.state.start('MainMenu');
+        
     }
     this.checkConnection();
 	},
@@ -83,8 +96,6 @@ AsiloRoyale.OnlineLobby.prototype = {
     var that = this;
 
     loadLobbyID(lobby.id, function (lobby) {
-
-        console.log(lobby);
 
         var lobbyUsers = lobby.users;
         info = '';
@@ -99,7 +110,7 @@ AsiloRoyale.OnlineLobby.prototype = {
               if(user.inactivityTime >= 5){
                 info += i + ":  " + user.nick + "  [DESC]" + "\n";
                 
-              }else if (user.ready == true){
+              }else if (user.ready == true ){
                 info += i + ":  " + user.nick + "  [READY]" + "\n";
                 usersconnected.push(user);
                 console.log(usersconnected);
@@ -110,24 +121,27 @@ AsiloRoyale.OnlineLobby.prototype = {
           }
         }
         usersList.setText(info);
-        console.log(lobbyUsers[0]);
-        console.log(currentUser);
+        
 
         //El host (primer usuario del Lobby) da paso a la cuenta atrás cuando el lobby está completo
-        if(usersconnected.length == lobby.maxUsers){
+        if(usersconnected.length == lobby.maxUsers && count == false){
           that.timer.start();
+          count = true;
+          console.log("x");
 
             if (currentUser.host == true){
 
-                msgTime = {time: that.timer.ms};
+                msgTime = {socket: "time",
+                			     time: that.timer.ms};
+
                 timeConnection.send(JSON.stringify(msgTime));
               }
         }
 
         //El resto de usuarios recibirán actualizaciones de la cuenta atrás para entrár al juego sincronizados
         //Cuando se actualice el valor del Tiempo comenzará a correr la cuenta atrás  
-        if(Tiempo != null){
-          that.timer.ms = Tiempo;
+        if(Tiempo != null && currentUser != host){
+          that.timer.start();
         }
     })
   },
@@ -168,7 +182,8 @@ AsiloRoyale.OnlineLobby.prototype = {
         inactivityTime: 0,
         ready: userReady,
         ip: currentUser.ip,
-        skin : currentUser.skin              
+        skin : currentUser.skin,
+        host: currentUser.host              
       }
 
       console.log(updatedUser.id);

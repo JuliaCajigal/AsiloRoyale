@@ -117,12 +117,14 @@ function Enemy(game, x, y, sprite, speed, life,loopsI,loopsD, index, enemyCG, pl
         	if(body.sprite.key == 'dientes') {
         		
         		this.players[body2.sprite.playerID].score +=35;
+        		this.players[body2.sprite.playerID].kills +=1;
 
         		
         	} else if (body.sprite.key == 'enfermero') {
         		
         		console.log(body2.sprite.playerID);
         		this.players[body2.sprite.playerID].score +=55;
+        		this.players[body2.sprite.playerID].kills +=1;
         		this.blood = this.game.add.sprite(this.body.x-50, this.body.y-50, 'blood');
         		this.blood.alpha -= 2;
         		this.game.add.tween(this.blood).to( { alpha: 0 }, 1, Phaser.Easing.Linear.None, true, 60, 0, false,false);

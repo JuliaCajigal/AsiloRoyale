@@ -46,6 +46,7 @@ AsiloRoyale.Preload.prototype = {
 		this.load.image('blood', 'assets/images/sangre.png');
 		this.load.image('High_scores', 'assets/images/high_scores.png');
 		this.load.image('tabla_conectados','assets/images/tabla_conectados.png');
+		this.load.image('noise','assets/images/ruido.png');
 		this.load.spritesheet('botonesjugar','assets/images/offlinebutton.png', 256, 128, 2);
 		this.load.spritesheet('okbutton', 'assets/images/okbutton.png', 128, 128, 2);
 		this.load.spritesheet('onlinebutton', 'assets/images/onlinebutton.png', 256, 128, 2);
@@ -78,7 +79,9 @@ AsiloRoyale.Preload.prototype = {
 		this.load.image('copa', 'assets/images/copa.png');
 		this.load.image('tabla_salaP', 'assets/images/tabla_salaP.png');
 		this.load.image('tabla_joinP', 'assets/images/tabla_joinP.png');
+		this.load.image('mission_info', 'assets/images/letrero_mision.png');
 		this.load.image('ok', 'assets/images/ok_lobby.png');
+		this.load.image('mando', 'assets/images/mando.png');
 		this.load.audio('collect_weapon', 'assets/audio/collect_weapon.wav');
 		this.load.audio('gun_fire', 'assets/audio/gun_fire.mp3');
 		this.load.audio('bite', 'assets/audio/mordisco.wav');
@@ -86,6 +89,7 @@ AsiloRoyale.Preload.prototype = {
 		this.load.audio('shotgun_fire', 'assets/audio/disparo_escopeta.mp3');
 		this.load.audio('collect_ammo', 'assets/audio/collect_ammo.wav');
 		this.load.audio('empty_weapon', 'assets/audio/empty_weapon.wav');
+		this.load.audio('click', 'assets/audio/click.wav');
 		this.game.load.physics('player_physics','assets/physics/viejo_physics.json');
 	},
 
