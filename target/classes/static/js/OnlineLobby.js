@@ -161,6 +161,7 @@ AsiloRoyale.OnlineLobby.prototype = {
   
   //Cambia el estado ready del usuario
   changeReady: function(){
+      this.click.play();
     var that = this;
 	   var userReady;
      var updatedLobby;

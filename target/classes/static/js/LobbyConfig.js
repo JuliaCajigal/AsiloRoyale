@@ -38,6 +38,8 @@ AsiloRoyale.LobbyConfig.prototype = {
       //Botón unirse RANDOM
       var exit = this.game.add.button(250, this.game.height/2 + 100,'salaRandom', this.joinRandom, this,0,0,0,1);
       exit.anchor.setTo(0.5);
+      
+      this.click = new Phaser.Sound(this.game, 'click');
 
       conection();
 
@@ -59,6 +61,7 @@ AsiloRoyale.LobbyConfig.prototype = {
 
         if(escKey.isDown || F5Key.isDown){
             deleteUser(currentUser.id);
+            this.click.play();
             this.game.state.start('MainMenu');
             inum.style.display = 'none';
             ipw.style.display = 'none';
@@ -67,7 +70,7 @@ AsiloRoyale.LobbyConfig.prototype = {
     },
 
     joinLobbyOptions: function(){
-    
+    	this.click.play();
       //Hacemos visibles cuadros de texto y botón de aceptar
       inum.style.display = 'block';
       ipw.style.display = 'block';
@@ -83,7 +86,7 @@ AsiloRoyale.LobbyConfig.prototype = {
 
     joinLobby: function(){
       console.log('PRIVATELOBBY');
-
+      
       var num = $('#lobbyNUM')
       var NUM_value = num.val();
       var Pw = $('#lobbyPW')
@@ -124,6 +127,7 @@ AsiloRoyale.LobbyConfig.prototype = {
               updateLobby(currentLobby);
               loadLobbies(function (lobbies) {
                 console.log(lobbies);
+                this.click.play();
                 that.game.state.start('OnlineLobby', true, false, currentUser, currentLobby);
               });
 
@@ -134,7 +138,7 @@ AsiloRoyale.LobbyConfig.prototype = {
 },  
 
     privateLobbyOptions: function(){
-    
+    	this.click.play();
       //Hacemos visibles cuadros de texto y botón de aceptar
       inum.style.display = 'block';
       ipw.style.display = 'block';
@@ -191,6 +195,7 @@ AsiloRoyale.LobbyConfig.prototype = {
 
           createLobby(lobby, function (lobbyWithId) {
             currentLobby = lobbyWithId;
+            this.click.play();
             that.game.state.start('OnlineLobby', true, false, currentUser, currentLobby);
           });
       }else{
@@ -222,6 +227,7 @@ AsiloRoyale.LobbyConfig.prototype = {
 
                 createLobby(lobby, function (lobbyWithId) {
                 currentLobby = lobbyWithId;
+                this.click.play();
                 that.game.state.start('OnlineLobby', true, false, currentUser, currentLobby);
           });
             }
@@ -229,6 +235,7 @@ AsiloRoyale.LobbyConfig.prototype = {
             console.log(lobby.id);
 
             updateLobby(lobby, currentUser);
+            this.click.play();
             that.game.state.start('OnlineLobby', true, false, currentUser, lobby);
       });
       

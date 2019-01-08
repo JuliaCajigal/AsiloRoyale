@@ -50,6 +50,8 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
 
     this.collect_weapon = new Phaser.Sound(this.game, 'collect_weapon');
     this.bite = new Phaser.Sound(this.game, 'bite');
+    this.heal = new Phaser.Sound(this.game, 'heal');
+    this.punch = new Phaser.Sound(this.game, 'punch');
     this.swallow = new Phaser.Sound(this.game, 'swallow');
     this.collect_ammo = new Phaser.Sound(this.game, 'collect_ammo');
     this.showLife();
@@ -212,6 +214,9 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
     },
     
     Player.prototype.reloader = function(){
+    	if(this.gunAmmo!=0 || this.shotgunAmmo!=0){
+    	this.collect_weapon.play();
+    	}
     	this.weapons[this.currentWeapon].reload(this,this.game,this.bulletCG, this.tileCG, this.enemyCG,this.player1CG,this.player2CG);
     },
     
@@ -309,7 +314,7 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
 
             } else if(body2.sprite.key == 'shotgun'){
             	
-                this.collect_weapon.play();
+            	this.collect_ammo.play();
                 this.collect(this,body2.sprite,0);
                 if(this.currentWeapon==0){
                 this.shotgunAmmo+=5;
@@ -322,7 +327,7 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
 
             }else if(body2.sprite.key == 'gun'){
 
-                this.collect_weapon.play();
+            	this.collect_ammo.play();
                 this.collect(this,body2.sprite,0);
                 this.currentWeapon=0;
                 this.gunAmmo+=15;
@@ -331,7 +336,8 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
                 //Botiquin
 
             }else if(body2.sprite.key == 'botiquin'){
-
+            	
+            	this.heal.play();
                 this.damage(-20);
                 this.collect(this,body2.sprite,0);
                 
@@ -344,6 +350,7 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
                 
              } else if (body2.sprite.key == 'enfermero') {
             	 
+            	this.punch.play();
                 this.damage(20);
 
              } else if (body2.sprite.key == 'bala'){

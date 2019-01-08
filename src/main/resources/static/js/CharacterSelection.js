@@ -20,6 +20,8 @@ AsiloRoyale.CharacterSelection.prototype = {
     	
     	this.botonSelect1 = this.game.add.button(250,170,'jeremin_info', this.boton1OnClick, this);
     	this.botonSelect2 = this.game.add.button(565,170,'agnes_info',this.boton2OnClick,this);
+    	
+    	this.click = new Phaser.Sound(this.game, 'click');
 
     },
     
@@ -28,6 +30,7 @@ AsiloRoyale.CharacterSelection.prototype = {
     update: function() {
 		var escKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
    		if(escKey.isDown){
+   			this.click.play();
    			this.game.state.start('MainMenu');}
 	},
 
@@ -44,12 +47,15 @@ AsiloRoyale.CharacterSelection.prototype = {
 	},
 	
 	boton1OnClick: function() {
+		
+		this.click.play();
 		selected = 0;
 		this.game.state.start('LobbyConfig',true,false,currentUser, selected);
 		
 	},
 	
 	boton2OnClick: function() {
+		this.click.play();
 		selected = 1;
 		this.game.state.start('LobbyConfig',true,false,currentUser, selected);
 		

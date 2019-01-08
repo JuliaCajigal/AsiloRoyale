@@ -20,6 +20,8 @@ AsiloRoyale.CharacterSelectionOffline.prototype = {
     	
     	this.botonSelect1 = this.game.add.button(250,170,'jeremin_info', this.boton1OnClick, this);
     	this.botonSelect2 = this.game.add.button(565,170,'agnes_info',this.boton2OnClick,this);
+    	
+        this.click = new Phaser.Sound(this.game, 'click');
 
     },
     
@@ -28,6 +30,7 @@ AsiloRoyale.CharacterSelectionOffline.prototype = {
     update: function() {
 		var escKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
    		if(escKey.isDown){
+   			this.click.play();
    			this.game.state.start('MainMenu');}
 	},
 
@@ -45,12 +48,14 @@ AsiloRoyale.CharacterSelectionOffline.prototype = {
 	
 	boton1OnClick: function() {
 		selected = 0;
+		this.click.play();
 		this.game.state.start('GameOffline',false,false, selected);
 		
 	},
 	
 	boton2OnClick: function() {
 		selected = 1;
+		this.click.play();
 		this.game.state.start('GameOffline',false,false, selected);
 		
 	}

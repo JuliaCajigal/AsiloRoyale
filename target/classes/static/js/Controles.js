@@ -16,6 +16,7 @@ AsiloRoyale.Controles.prototype = {
     	this.tv.fixedToCamera = true;
     	this.esquema = this.game.add.sprite(282, 125, 'esquema');
     	this.esquema.fixedToCamera = true;
+        this.click = new Phaser.Sound(this.game, 'click');
 
     	this.showMes();
 
@@ -24,6 +25,7 @@ AsiloRoyale.Controles.prototype = {
     update: function() {
 		var escKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
    		if(escKey.isDown){
+   			this.click.play();
    			this.game.state.start('MainMenu');}
 	},
 

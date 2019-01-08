@@ -89,6 +89,8 @@ AsiloRoyale.Preload.prototype = {
 		this.load.audio('shotgun_fire', 'assets/audio/disparo_escopeta.mp3');
 		this.load.audio('collect_ammo', 'assets/audio/collect_ammo.wav');
 		this.load.audio('empty_weapon', 'assets/audio/empty_weapon.wav');
+		this.load.audio('heal', 'assets/audio/heal.wav');
+		this.load.audio('punch', 'assets/audio/punch.wav');
 		this.load.audio('click', 'assets/audio/click.wav');
 		this.game.load.physics('player_physics','assets/physics/viejo_physics.json');
 	},

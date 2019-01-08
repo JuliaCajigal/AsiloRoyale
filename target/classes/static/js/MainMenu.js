@@ -44,6 +44,9 @@ AsiloRoyale.MainMenu.prototype = {
 
 		this.tv = this.game.add.sprite(0, 0, 'tv');
     	this.tv.fixedToCamera = true;
+    	
+    	/////////SONIDO//////////
+        this.click = new Phaser.Sound(this.game, 'click');
 
 	},
 
@@ -58,20 +61,24 @@ AsiloRoyale.MainMenu.prototype = {
  	},
  	//funcion activada al pulsar el boton 'Play'
  	boton1OnClick: function(){
-
+ 		
+ 		this.click.play();
  		this.game.state.start('CharacterSelectionOffline');
  	},
  	//funcion activada al pulsar el boton 'Help'
  	 boton2OnClick: function(){
-
+ 		 
+ 		this.click.play();
  		this.game.state.start('Controles');
  	},
  	boton3OnClick: function(){
-
+ 		
+ 		this.click.play();
  		this.game.state.start('Login');
  	},
  	 	boton4OnClick: function(){
-
+ 	 		
+ 	 	this.click.play();
  		this.game.state.start('Scores');
  	}
  };

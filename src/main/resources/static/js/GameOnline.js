@@ -408,6 +408,8 @@ AsiloRoyale.GameOnline.prototype = {
 		this.shotgunIcon = this.game.add.image(780 ,60, 'shotguni');
 		this.shotgunIcon.fixedToCamera = true;
 		this.shotgunIcon.visible = false;
+		
+		
 	},
 
 

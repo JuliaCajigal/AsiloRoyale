@@ -34,6 +34,8 @@ AsiloRoyale.Login.prototype = {
 		var tv = this.game.add.sprite(0, 0, 'tv');
     	tv.fixedToCamera = true;
     	
+    	this.click = new Phaser.Sound(this.game, 'click');
+    	
     	
 
     },
@@ -41,7 +43,7 @@ AsiloRoyale.Login.prototype = {
     //Función para pasar al estado de OnlineLobby 
     //si el nombre introducido es menor a 12 caracteres
     changeState: function() {
-
+    	this.click.play();
     	var style = {font: "bold 38px 'VT323'", fill: "#51F55B", align: "left" };
         var that = this;
 		var input = $('#username')
@@ -78,6 +80,7 @@ AsiloRoyale.Login.prototype = {
 
 		var escKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
    		if(escKey.isDown){
+   			this.click.play();
    			this.game.state.start('MainMenu');}
 	},
 
