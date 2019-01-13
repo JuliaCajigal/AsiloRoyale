@@ -6,30 +6,36 @@ var PlayerWS;
 function conection (){
 	//Cuatro websockets: Jugador, Drops, Tiempo y Puntuación
 	timeConnection   		= new WebSocket('ws://'+ ip +':8080/timeHandler');
-	playerConnection  		= new WebSocket('ws://'+ ip +':8080/handler');
+	//playerConnection  		= new WebSocket('ws://'+ ip +':8080/handler');
 	
 
 	//JUGADOR
-	playerConnection.onmessage = function(msg) {
+	/*playerConnection.onmessage = function(msg) {
 		var playerData = JSON.parse(msg.data);
 		console.log(playerData);
 		
-		PlayerWS.x = playerData.x;
-		PlayerWS.y = playerData.y;
-		PlayerWS.rot = playerData.rot;
-		/*PlayerWS.keyw = playerData.keyw;
+		switch(playerData.socket){
+		
+			case "player":
+		
+				PlayerWS.x = playerData.x;
+				PlayerWS.y = playerData.y;
+				PlayerWS.rot = playerData.rot;
+		PlayerWS.keyw = playerData.keyw;
     	PlayerWS.keys = playerData.keys;
     	PlayerWS.keyd = playerData.keyd;
-    	PlayerWS.keya = playerData.keya;*/
+    	PlayerWS.keya = playerData.keya;
 
-    	console.log(myUser);
+				console.log(myUser);
+				break;
+		}
 		
 	}
 
 	playerConnection.onclose = function() {
 		//setTimeout(conection(),3000);
 		console.log("Closing player socket");
-	}
+	}*/
 
 	timeConnection.onerror = function(e) {
 		console.log("WS error: " + e);
@@ -41,11 +47,30 @@ function conection (){
 
 	timeConnection.onmessage = function(msg) {
 		
-		console.log(msg);
+		/*console.log(msg);
 		var timeData = JSON.parse(msg.data);
 		Tiempo = timeData.time; 
 		console.log("Mensaje time WS!");
-		console.log(timeData);
+		console.log(timeData);*/
+		
+		var playerData = JSON.parse(msg.data);
+		console.log(playerData);
+		
+		switch(playerData.socket){
+		
+			case "player":
+		
+				PlayerWS.x = playerData.x;
+				PlayerWS.y = playerData.y;
+				PlayerWS.rot = playerData.rot;
+				/*PlayerWS.keyw = playerData.keyw;
+				PlayerWS.keys = playerData.keys;
+				PlayerWS.keyd = playerData.keyd;
+				PlayerWS.keya = playerData.keya;*/
+
+				console.log("Mensaje ws! " + PlayerWS.y);
+				break;
+		}
 		
 	}
 
@@ -56,18 +81,18 @@ function conection (){
 }
 
 function sendPos(x, y, rot){
-	msg = { socket: "pos",
+	msg = { socket: "player",
 		x: x,
 		y: y,
 		rot: rot
 	}
 	console.log(msg);
-	playerConnection.send(JSON.stringify(msg));
+	timeConnection.send(JSON.stringify(msg));
 }
 
 
 function sendPos1(x, y, rot, up, down, left, right){
-	msg = { socket: "pos",
+	msg = { socket: "player",
 		x: x,
 		y: y,
 		rot: rot,
@@ -77,7 +102,7 @@ function sendPos1(x, y, rot, up, down, left, right){
 		keyd: right
 	}
 	console.log(msg);
-	playerConnection.send(JSON.stringify(msg));
+	timeConnection.send(JSON.stringify(msg));
 }
 
 ;

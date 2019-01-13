@@ -57,6 +57,12 @@ public class TimeHandler extends TextWebSocketHandler {
 			sendTimeMessage(session, newNode);
 			break;
 			
+		case "player":
+			System.out.println("Message sent: " + node.toString());
+			
+			sendPlayerMessage(session, node);
+			break;
+			
 		case "lobby":
 			newNode.put("lobby", node.get("lobby").asText());
 			System.out.println("Message sent: " + node.toString());
@@ -92,6 +98,25 @@ public class TimeHandler extends TextWebSocketHandler {
 		}
 	}
 	
+	private void sendPlayerMessage(WebSocketSession session, JsonNode newNode) throws IOException {
+		System.out.println("xxxxxx");
+		
+		List<WebSocketSession> participants = getLobbyWS(session);	// lobbies.get(node.get("lobby").asText());
+		System.out.println("SENDING PLYR");
+		
+		//if(participants.get(0).equals(session)) {
+			//System.out.println("Participant get0: " + participants.get(0).getId());
+			//System.out.println("Sesisions get0: " + session.getId());
+			
+			for(WebSocketSession participant : participants){
+				if(!participant.getId().equals(session.getId())) {
+					System.out.println("Mandado por: " + session.getId() + " a [ID]: " + participant.getId());
+					participant.sendMessage(new TextMessage(newNode.toString()));
+				}
+			}	
+		//}
+	}
+	
 	//Devuelve el lobby al que pertenece la sesión actual
 	private List<WebSocketSession> getLobbyWS (WebSocketSession session) throws IOException{
 		List<WebSocketSession> currentLobby = new ArrayList<>();
@@ -108,20 +133,18 @@ public class TimeHandler extends TextWebSocketHandler {
 	private void generateLobby(WebSocketSession session, String lobbyID) {
 		System.out.println("METODO GEN LOBBY");
 		
-		//Hay tres posibilidades a la hora de recibir una sesión, que esta pertenezca a un lobby que ya tiene un usuario:
 		if(!getLobbies().containsKey(lobbyID)) {
 			List<WebSocketSession> newlobby = new ArrayList<>();
 			newlobby.add(session);
 			getLobbies().put(lobbyID , newlobby);
-			System.out.println("New lobby session [0]: " + getLobbies().get(lobbyID).get(0).getId());
+			System.out.println("New lobby [0]: " + getLobbies().get(lobbyID).get(0).getId());
 			
 		}else {
 			getLobbies().get(lobbyID).add(session);
+			System.out.println("Lobby: " + lobbyID);
 			System.out.println("Lobby session [0]: " + getLobbies().get(lobbyID).get(0).getId());
-			System.out.println(" session [0]: " + getLobbies().get(lobbyID).get(0).getId());
 			System.out.println("Lobby session [1]: " + getLobbies().get(lobbyID).get(1).getId());
-			System.out.println(" session [0]: " + session.getId());
-		
+			
 		}/*
 		for(List<WebSocketSession> lobby: lobbies.values()){
 			System.out.println(lobbies.get(lobbyID));
@@ -151,8 +174,5 @@ public class TimeHandler extends TextWebSocketHandler {
 		return lobbies;
 	}
 
-	public void setLobbies(Map<String,List<WebSocketSession>> lobbies) {
-		this.lobbies = lobbies;
-	}
 }
 

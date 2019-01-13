@@ -73,6 +73,7 @@ AsiloRoyale.OnlineLobby.prototype = {
 	init: function(currentUser, currentLobby){
       lobby = currentLobby;
 
+      //Si es el primer usuario en el lobby será el host
       if(currentLobby.users[0] == currentUser){
         currentUser.host == true;
       }

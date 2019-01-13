@@ -57,13 +57,28 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
     this.control_sound = new Phaser.Sound(this.game, 'control_sound');
     this.showLife();
     
-    this.keyw = false;
-    this.keys = false;
-    this.keya = false;
-    this.keyd = false;
+    this.keyw = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
+    this.keys = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
+    this.keya = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+    this.keyd = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
 
     
-    
+    //Rotación del jugador hacia la posición del ratón
+	this.angleToPointer = function (displayObject, pointer, world){
+
+        if (pointer === undefined) { pointer = this.game.input.activePointer; }
+        if (world === undefined) { world = false; }
+
+        if (world)
+        {
+            return Math.atan2(pointer.worldY - displayObject.world.y, pointer.worldX - displayObject.world.x);
+        }
+        else
+        {
+            return Math.atan2(pointer.worldY - displayObject.y, pointer.worldX - displayObject.x);
+        }
+
+    }
 
     this.toJSON = function(){
         var data = {
@@ -121,7 +136,7 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
             this.life=100;
         }
 
-		//this.body.rotation = this.angleToPointer(this);
+		this.body.rotation = this.angleToPointer(this);
 
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 		this.body.velocity.y = 0;
@@ -198,23 +213,6 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
 		
 
     },
-    
-  //Rotación del jugador hacia la posición del ratón
-	Player.prototype.angleToPointer = function (displayObject, pointer, world){
-
-        if (pointer === undefined) { pointer = this.game.input.activePointer; }
-        if (world === undefined) { world = false; }
-
-        if (world)
-        {
-            return Math.atan2(pointer.worldY - displayObject.world.y, pointer.worldX - displayObject.world.x);
-        }
-        else
-        {
-            return Math.atan2(pointer.worldY - displayObject.y, pointer.worldX - displayObject.x);
-        }
-
-    }
     
     Player.prototype.reloader = function(){
     	if(this.gunAmmo!=0 || this.shotgunAmmo!=0){
