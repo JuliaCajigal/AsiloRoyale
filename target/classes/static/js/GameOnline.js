@@ -104,13 +104,6 @@ AsiloRoyale.GameOnline.prototype = {
    	
    	console.log(myPlayer);
    	console.log(myEnemy);
-   	
-   	/////////CONTROLES
-   	
-   	myPlayer.keyw = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
-   	myPlayer.keys = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
-   	myPlayer.keya = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
-   	myPlayer.keyd = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
 
 
 	///////////ENEMIGOS///////
@@ -134,6 +127,13 @@ AsiloRoyale.GameOnline.prototype = {
 	
 	/////////////TECLAS///////////
 	this.cursors = this.game.input.keyboard.createCursorKeys();
+	
+	/////////CONTROLES
+   	
+   	myPlayer.keyw = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
+   	myPlayer.keys = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
+   	myPlayer.keya = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+   	myPlayer.keyd = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
 	
 
 	//////////////HUD////////////
@@ -165,13 +165,13 @@ AsiloRoyale.GameOnline.prototype = {
     //var updateTime = this.game.time.events.loop(Phaser.Timer.SECOND*3, this.updateTime, this);
     //var sendTime = this.game.time.events.loop(Phaser.Timer.SECOND*3, this.timeSocket, this);
 
-    var sendPos = this.game.time.events.loop(Phaser.Timer.SECOND*0.01 , this.posSocket1, this);
-    var updateP = this.game.time.events.loop(Phaser.Timer.SECOND*0.01, this.updatePlayer1, this);
+    var sendPos = this.game.time.events.loop(Phaser.Timer.SECOND*0.5 , this.posSocket1, this);
+    //var updateP = this.game.time.events.loop(Phaser.Timer.SECOND*0.5, this.updatePlayer1, this);
 
   },
 
   posSocket1: function(){
-  		console.log(myPlayer);
+  		//console.log(myPlayer);
   		sendPos1(myPlayer.x, myPlayer.y, myPlayer.rotation, myPlayer.keyw.isDown, myPlayer.keys.isDown, myPlayer.keya.isDown, myPlayer.keyd.isDown);
   },
   
@@ -179,7 +179,7 @@ AsiloRoyale.GameOnline.prototype = {
 	  //console.log(this.player1);
 	  //console.log(this.player2);
 	  //console.log(myPlayer);
-	  console.log(PlayerWS.rot);
+	  console.log(PlayerWS);
 	    		myEnemy.x = PlayerWS.x;
 	    		myEnemy.y = PlayerWS.y;
 	    		myEnemy.body.rotation = PlayerWS.rot;
@@ -348,6 +348,13 @@ AsiloRoyale.GameOnline.prototype = {
 		this.updateHUD(myPlayer);
 		
 		myPlayer.body.rotation = myPlayer.angleToPointer(myPlayer);
+		
+		//console.log(myEnemy.x);
+		//console.log(PlayerWS.x);
+		console.log(myEnemy);
+		
+		//myEnemy.body.rotation = PlayerWS.rot;
+		//console.log(myEnemy.body.rotation);
 		
 		/*
 

@@ -62,23 +62,6 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
     this.keya = false;
     this.keyd = false;
 
-    
-    
-
-    this.toJSON = function(){
-        var data = {
-            x: this.x,
-            y: this.y,
-            rotation: this.rotation,
-            weapon: this.currentWeapon,
-            life: this.life,
-            W: this.keyw,
-            S: this.keys,
-            D: this.keyd,
-            A: this.keya
-        }
-        return data;
-    }
 
     };
 	

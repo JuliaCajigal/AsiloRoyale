@@ -63,12 +63,12 @@ function conection (){
 				PlayerWS.x = playerData.x;
 				PlayerWS.y = playerData.y;
 				PlayerWS.rot = playerData.rot;
-				/*PlayerWS.keyw = playerData.keyw;
+				PlayerWS.keyw = playerData.keyw;
 				PlayerWS.keys = playerData.keys;
 				PlayerWS.keyd = playerData.keyd;
-				PlayerWS.keya = playerData.keya;*/
+				PlayerWS.keya = playerData.keya;
 
-				console.log("Mensaje ws! " + PlayerWS.y);
+				console.log("Mensaje ws! " + PlayerWS.rot);
 				break;
 		}
 		
@@ -86,7 +86,7 @@ function sendPos(x, y, rot){
 		y: y,
 		rot: rot
 	}
-	console.log(msg);
+	//console.log(msg);
 	timeConnection.send(JSON.stringify(msg));
 }
 
@@ -101,7 +101,7 @@ function sendPos1(x, y, rot, up, down, left, right){
 		keya: left,
 		keyd: right
 	}
-	console.log(msg);
+	//console.log(msg);
 	timeConnection.send(JSON.stringify(msg));
 }
 
