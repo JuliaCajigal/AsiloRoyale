@@ -166,7 +166,7 @@ AsiloRoyale.GameOnline.prototype = {
     this.showLabels();
 
 	//Temporizador
-	animateCount();
+	animateCount(90);
 
     //this.timer = this.game.time.create();
         
@@ -641,15 +641,15 @@ var display = new SegmentDisplay("display");
   display.colorOn         = "#ff3927";
   display.colorOff        = "#451605";
 
-var duration = 90;
+//var duration = 90;
 var seconds, minutes;
 var value;
 
 //animateCount();
 
-function animateCount() {
+function animateCount(duration) {
     timer = duration, minutes, seconds;
-    setInterval(function () {
+    globalClock = setInterval(function () {
         minutes = parseInt(timer / 60, 10)
         seconds = parseInt(timer % 60, 10);
 
@@ -657,7 +657,7 @@ function animateCount() {
               + ':' + ((seconds < 10) ? '0' : '') + seconds; //((hours < 10) ? ' ' : '') + hours +
 
         if (--timer < 0) {
-            timer = duration;
+            timer = 0;
         }
         console.log("RELOJ" + timer);
         display.setValue(value);

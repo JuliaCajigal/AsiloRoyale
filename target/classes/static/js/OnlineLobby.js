@@ -12,6 +12,9 @@ var count = false;
 var lobby;
 var hostIP;
 var host;
+var timer;
+var countDown;
+var globalClock;
 
 
 
@@ -92,6 +95,7 @@ AsiloRoyale.OnlineLobby.prototype = {
         
     }
     this.checkConnection();
+    this.checkCount();
 	},
 
 
@@ -126,27 +130,21 @@ AsiloRoyale.OnlineLobby.prototype = {
         usersList.setText(info);
         
 
-        //El host (primer usuario del Lobby) da paso a la cuenta atrás cuando el lobby está completo
+        //Si todos los usuarios del lobby están ready lanzamos la cuenta y su sincronización
         if(usersconnected.length == lobby.maxUsers && count == false){
-          that.timer.start();
-          count = true;
-          console.log("x");
-
-            if (currentUser.host == true){
-
-                msgTime = {socket: "time",
-                			     time: that.timer.ms};
-
-                timeConnection.send(JSON.stringify(msgTime));
-              }
-        }
-
-        //El resto de usuarios recibirán actualizaciones de la cuenta atrás para entrár al juego sincronizados
-        //Cuando se actualice el valor del Tiempo comenzará a correr la cuenta atrás  
-        if(Tiempo != null && currentUser != host){
-          that.timer.start();
+        		count = true;
+            	animateCount(10);
+            	startCount(currentUser.host);
         }
     })
+  },
+  
+  checkCount: function(){
+	  if(timer <= 0){
+		  clearInterval(countDown);
+		  clearInterval(globalClock);
+		  this.game.state.start('GameOnline', true, false, usersconnected);
+	  }
   },
 
   //Comprueba si el servidor está Online
@@ -225,7 +223,7 @@ AsiloRoyale.OnlineLobby.prototype = {
 
   // Código de: http://jsfiddle.net/lewster32/vd70o41p/
   endTimer: function() {
-      this.timer.stop();
+      //this.timer.stop();
       this.game.state.start('GameOnline', true, false, usersconnected);
   },
 
@@ -249,4 +247,22 @@ AsiloRoyale.OnlineLobby.prototype = {
   }
 
 };
+
+function startCount(host) {
+	countDown = setInterval(function () {
+    	//Si somos el host enviamos periódicamente mensajes de la cuenta atrás
+    	if(host){
+    		 msgTime = {socket: "time",
+    			     time: timer};
+
+    		 timeConnection.send(JSON.stringify(msgTime));
+    	//Si no actualizamos nuestra cuenta	 
+    	}else{
+    		if(Tiempo != null){
+            	timer = Tiempo;
+            	//that.timer.start();
+            }
+    	}
+    	}, 1000);
+    }
 
