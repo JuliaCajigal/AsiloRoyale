@@ -110,7 +110,8 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
 
         
         ////ANIMACIONES Y MOVIMIENTO SI TIENES LA PISTOLA
-        if(this.currentWeapon==0){
+        if(this.alive){
+        	if(this.currentWeapon==0){
 		        if(this.moves==true){
 		        	this.animations.play('walkGun');
 		        }else if(this.moves == false){
@@ -135,37 +136,38 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
 					this.moves=false;
 					this.frame=0;
 				}
-        }
+        	}
         
         
         ////ANIMACIONES Y MOVIMIENTO SI TIENES LA ESCOPETA
-        if(this.currentWeapon==1){
-	        if(this.moves==true){
-	        	this.animations.play('walkShotgun');
-	        }else if(this.moves == false){
-	        	this.animations.stop(null,false);
-	        }
+        	if(this.currentWeapon==1){
+        		if(this.moves==true){
+        			this.animations.play('walkShotgun');
+        		}else if(this.moves == false){
+        			this.animations.stop(null,false);
+        		}
 	        
-			if(this.keyw) {
-				this.body.velocity.y -= this.speed;
-				this.moves=true;
-			}
-			else if(this.keys) {
-				this.body.velocity.y += this.speed;
-				this.moves=true;
-			}
-			if(this.keya) {
-				this.body.velocity.x -= this.speed;
-				this.moves=true;
-			}if(this.keyd) {
-				this.body.velocity.x += this.speed;
-				this.moves=true;
-			}if(this.keys && this.keya && this.keyd && this.keyw){
-				this.moves=false;
-				this.frame=3;
+        		if(this.keyw) {
+        			this.body.velocity.y -= this.speed;
+        			this.moves=true;
+        		}
+        		else if(this.keys) {
+        			this.body.velocity.y += this.speed;
+        			this.moves=true;
+        		}
+        		if(this.keya) {
+        			this.body.velocity.x -= this.speed;
+        			this.moves=true;
+        		}if(this.keyd) {
+        			this.body.velocity.x += this.speed;
+        			this.moves=true;
+        		}if(this.keys && this.keya && this.keyd && this.keyw){
+        			this.moves=false;
+        			this.frame=3;
 			}
 			
          }
+       
         
 
     
@@ -179,6 +181,12 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
         
         if(this.keyr){
         	this.reloader();
+        }
+        
+        }
+        
+        if(!this.alive){
+        	this.frame=6;
         }
       
 
@@ -218,7 +226,9 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
         this.lifeBar.updateCrop(cropRect);
 
         if (this.life <= 0){
+        	 this.frame=6;
             this.alive = false;
+           
         return true;
         }
     return false;

@@ -35,6 +35,13 @@ function conection (){
 				PlayerWS.keyd = playerData.keyd;
 				PlayerWS.keya = playerData.keya;
 				PlayerWS.keyr = playerData.keyr;
+				PlayerWS.gunAmmo = playerData.gunAmmo;
+				PlayerWS.shotgunAmmo = playerData.shotgunAmmo;
+				PlayerWS.life = playerData.life;
+	    		PlayerWS.velocityX = playerData.velocityX;
+	    		PlayerWS.velocityY = playerData.velocity;
+	    		PlayerWS.spriteX = playerData.spriteX;
+	    		PlayerWS.spriteY = playerData.spriteY;
 
 
 				console.log("Mensaje ws! " + PlayerWS.rot);
@@ -43,13 +50,12 @@ function conection (){
 				
 				PlayerWS.keyMouse = playerData.keyMouse;
 				PlayerWS.totalTouches = playerData.totalTouches;
-				console.log(PlayerWS.keyMouse);
-				console.log(PlayerWS.totalTouches);
+
 				break;
 				
 			case "time":
 				Tiempo = playerData.time;
-				console.log(Tiempo);
+
 				break;
 				
 		}
@@ -81,7 +87,7 @@ function sendBang(mouse,touches){
 }
 
 
-function sendPos1(x, y, rot, up, down, left, right,alive,reload){
+function sendPos1(x, y, rot, up, down, left, right, alive, reload, gunAmmo, shotgunAmmo, life, velocityX, velocityY,spriteX, spriteY){
 	msg = { socket: "player",
 			
 	    alive: alive,
@@ -92,7 +98,14 @@ function sendPos1(x, y, rot, up, down, left, right,alive,reload){
 		keys: down,
 		keya: left,
 		keyd: right,
-		keyr: reload
+		keyr: reload,
+		gunAmmo: gunAmmo,
+		shotgunAmmo: shotgunAmmo,
+		life: life,
+		velocityX: velocityX,
+		velocityY: velocityY,
+		spriteX: spriteX,
+		spriteY: spriteY
 
 	}
 

@@ -189,15 +189,12 @@ AsiloRoyale.GameOnline.prototype = {
   posSocket1: function(){
 
   		//console.log(myPlayer);
-  		sendPos1(myPlayer.x, myPlayer.y, myPlayer.rotation, keyw.isDown, keys.isDown, keya.isDown, keyd.isDown,myPlayer.alive, keyr.isDown);
+  		sendPos1(myPlayer.x, myPlayer.y, myPlayer.rotation, keyw.isDown, keys.isDown, keya.isDown, keyd.isDown,myPlayer.alive, keyr.isDown,myPlayer.gunAmmo, myPlayer.shotgunAmmo, myPlayer.life, myPlayer.body.velocity.x,myPlayer.body.velocity.y,myPlayer.body.sprite.x, myPlayer.body.sprite.y);
   },
   
   updatePlayer1: function(){
 	  			
 	  			myEnemy.alive = PlayerWS.alive;
-	    		myEnemy.x = PlayerWS.x;
-	    		myEnemy.y = PlayerWS.y;
-	    		myEnemy.body.rotation = PlayerWS.rot;
 	    		myEnemy.keyw = PlayerWS.keyw;
 	    		myEnemy.keys = PlayerWS.keys;
 	    		myEnemy.keya = PlayerWS.keya;
@@ -205,6 +202,17 @@ AsiloRoyale.GameOnline.prototype = {
 	    		myEnemy.keyMouse = PlayerWS.keyMouse;
 	    		myEnemy.totalTouches = PlayerWS.totalTouches;
 	    		myEnemy.keyr = PlayerWS.keyr;
+	    		myEnemy.gunAmmo = PlayerWS.gunAmmo;
+	    		myEnemy.shotgunAmmo = PlayerWS.shotgunAmmo;
+	    		myEnemy.life = PlayerWS.life;
+	    		//myEnemy.x = PlayerWS.x;
+	    		//myEnemy.y = PlayerWS.y;
+	    		myEnemy.body.x = PlayerWS.x;
+	    		myEnemy.body.y = PlayerWS.y;
+	    		myEnemy.body.rotation = PlayerWS.rot;
+	    		//myEnemy.body.velocity.x = PlayerWS.velocityX;
+	    		//myEnemy.body.velocity.y = PlayerWS.velocityY;
+	    		
   },
 
   posSocket: function(){
@@ -252,7 +260,7 @@ AsiloRoyale.GameOnline.prototype = {
   init: function(playersArray){
 	  
   	this.playersArray = playersArray;
-  	console.log(this.playersArray);
+
   	
   },
 
@@ -338,75 +346,80 @@ AsiloRoyale.GameOnline.prototype = {
 		
 		
 		//La cámara sigue al jugador teniendo en cuenta el offset
-		if(myPlayer.alive==true){
+
 		this.game.camera.focusOnXY(myPlayer.x+75, myPlayer.y);
-		}else{
-			this.game.camera.focusOnXY(myEnemy.x+75, myEnemy.y);
-		}if(!myPlayer.alive && !myEnemy.alive){
+
+		if(!myPlayer.alive && !myEnemy.alive){
 			this.gameOver();
 		}
 		
 		this.updateHUD(myPlayer);
 		
-		myPlayer.body.rotation = this.angleToPointer(myPlayer);
-		
-		//////MOVIMIENTO JUGADOR//////
 		myEnemy.body.velocity.y = 0;
 		myEnemy.body.velocity.x = 0;
 		
 		myPlayer.body.velocity.y = 0;
 		myPlayer.body.velocity.x = 0;
 		
-
-		if(keyw.isDown) {
-			
-			myPlayer.body.velocity.y -= myPlayer.speed;
-			myPlayer.moves=true;
-		}
-		else if(keys.isDown) {
-			
-			myPlayer.body.velocity.y += myPlayer.speed;
-			myPlayer.moves=true;
-		}
-		if(keya.isDown) {
-			
-			myPlayer.body.velocity.x -= myPlayer.speed;
-			myPlayer.moves=true;
-			
-		}if(keyd.isDown) {
-			
-			myPlayer.body.velocity.x += myPlayer.speed;
-			myPlayer.moves=true;
-			
-		}if(keys.isUp && keya.isUp && keyd.isUp && keyw.isUp){
-			
-			myPlayer.moves=false;
-			
-			if(myPlayer.currentWeapon==0){
-				
-				myPlayer.frame=0;
-			}
-			if(myPlayer.currentWeapon==1){
-				
-				myPlayer.frame=3;
-			}
-		}	
-			
-			/////////DISPARAR///////
-			
-	      if (this.game.input.activePointer.totalTouches == 1 && this.game.input.activePointer.isDown)
-	        {
-	    	  
-	            sendBang(this.game.input.activePointer.isDown, 1);
-	            myPlayer.weapons[myPlayer.currentWeapon].fire(myPlayer.body.sprite);
-	            this.game.input.activePointer.totalTouches = 0;
-
-	        }
-
-	        if(keyr.isDown){
-	        	myPlayer.reloader();
-	        }
+		if(myPlayer.alive){
 		
+		myPlayer.body.rotation = this.angleToPointer(myPlayer);
+				
+				//////MOVIMIENTO JUGADOR//////
+
+				
+		
+				if(keyw.isDown) {
+					
+					myPlayer.body.velocity.y -= myPlayer.speed;
+					myPlayer.moves=true;
+				}
+				else if(keys.isDown) {
+					
+					myPlayer.body.velocity.y += myPlayer.speed;
+					myPlayer.moves=true;
+				}
+				if(keya.isDown) {
+					
+					myPlayer.body.velocity.x -= myPlayer.speed;
+					myPlayer.moves=true;
+					
+				}if(keyd.isDown) {
+					
+					myPlayer.body.velocity.x += myPlayer.speed;
+					myPlayer.moves=true;
+					
+				}if(keys.isUp && keya.isUp && keyd.isUp && keyw.isUp){
+					
+					myPlayer.moves=false;
+					
+					if(myPlayer.currentWeapon==0){
+						
+						myPlayer.frame=0;
+					}
+					if(myPlayer.currentWeapon==1){
+						
+						myPlayer.frame=3;
+					}
+				}	
+					
+					/////////DISPARAR///////
+					
+			      if (this.game.input.activePointer.totalTouches == 1 && this.game.input.activePointer.isDown)
+			        {
+			    	  
+			            sendBang(this.game.input.activePointer.isDown, 1);
+			            myPlayer.weapons[myPlayer.currentWeapon].fire(myPlayer.body.sprite);
+			            this.game.input.activePointer.totalTouches = 0;
+		
+			        }
+		
+			        if(keyr.isDown){
+			        	myPlayer.reloader();
+			        }
+	}else{
+		myPlayer.frame=6;
+	}
 
 			
 	},
