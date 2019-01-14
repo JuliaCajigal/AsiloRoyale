@@ -38,6 +38,7 @@ body {
 	margin: 0px;
 	margin-top: 0px;
 	cursor: url('../assets/images/crosshair.png'), auto;
+  z-index: 1;
 }
 
 #game:active {
@@ -48,10 +49,19 @@ canvas {
 	padding: 0px;
 	margin: 0px;
 	margin-top: 0px;
+  position: absolute;
+  z-index: 0;
+}
+
+#display {
+  position: absolute;
+  z-index: 1;
+  margin-top: 12px;
+  margin-left: 1013px;
 }
 
 #username {
-  position:absolute;
+  position: absolute;
   font: 40px 'VT323';
   border-radius: 5px;
   background-color: lightgrey;
@@ -62,6 +72,7 @@ canvas {
   top:300px;
   left:400px;
   display: none;
+  z-index: 1;
 }
 
 #lobbyNUM {
@@ -76,6 +87,7 @@ canvas {
   top:250px;
   left:600px;
   display: none;
+  z-index: 1;
 }
 
 #lobbyPW {
@@ -90,6 +102,7 @@ canvas {
   top:400px;
   left:600px;
   display: none;
+  z-index: 1;
 }
 
 #joinLobbyID {
@@ -104,22 +117,8 @@ canvas {
   top:300px;
   left:500px;
   display: none;
+  z-index: 1;
 }
-
-#sub{
-  position:absolute;
-  top:300px;
-  left:500px;
-}
-
-#ok-button{
-  position:absolute;
-  font: 40px 'VT323';
-  top:  298px;
-  left: 700px;
-  display: none;
-}
-
 
 #game{
     touch-action: none;
@@ -129,4 +128,5 @@ canvas {
     margin-left: 100px;
     margin-right: -99px;
     margin-top: 0px;
+    z-index: 1;
 }

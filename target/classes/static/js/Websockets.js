@@ -26,7 +26,7 @@ function conection (){
 			case "player":
 				
 				
-
+				PlayerWS.alive = playerData.alive;
 				PlayerWS.x = playerData.x;
 				PlayerWS.y = playerData.y;
 				PlayerWS.rot = playerData.rot;
@@ -75,9 +75,10 @@ function sendBang(mouse,touches){
 }
 
 
-function sendPos1(x, y, rot, up, down, left, right,){
+function sendPos1(x, y, rot, up, down, left, right,alive){
 	msg = { socket: "player",
-
+			
+	    alive: alive,
 		x: x,
 		y: y,
 		rot: rot,

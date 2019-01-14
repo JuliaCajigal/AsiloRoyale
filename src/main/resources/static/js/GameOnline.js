@@ -166,13 +166,15 @@ AsiloRoyale.GameOnline.prototype = {
     this.showLabels();
 
 	//Temporizador
-    this.timer = this.game.time.create();
+	animateCount();
+
+    //this.timer = this.game.time.create();
         
     //Evento de tiempo
-    timerEvent = this.timer.add(Phaser.Timer.MINUTE * 1 + Phaser.Timer.SECOND * 30, this.endTimer, this);
+    //timerEvent = this.timer.add(Phaser.Timer.MINUTE * 1 + Phaser.Timer.SECOND * 30, this.endTimer, this);
         
     //Comienzo temporizador
-    this.timer.start();
+    //this.timer.start();
 
     //////WEBSOCKETS//////
 
@@ -186,12 +188,12 @@ AsiloRoyale.GameOnline.prototype = {
   posSocket1: function(){
 
   		console.log(myPlayer);
-  		sendPos1(myPlayer.x, myPlayer.y, myPlayer.rotation, keyw.isDown, keys.isDown, keya.isDown, keyd.isDown);
+  		sendPos1(myPlayer.x, myPlayer.y, myPlayer.rotation, keyw.isDown, keys.isDown, keya.isDown, keyd.isDown,myPlayer.alive);
   },
   
   updatePlayer1: function(){
 	  			
-
+	  			myEnemy.alive = PlayerWS.alive;
 	    		myEnemy.x = PlayerWS.x;
 	    		myEnemy.y = PlayerWS.y;
 	    		myEnemy.body.rotation = PlayerWS.rot;
@@ -227,11 +229,11 @@ AsiloRoyale.GameOnline.prototype = {
   updateTime: function(){
   	msgTime = {
   			socket: "time",
-  			time: this.timer.ms};
+  			time: duration};
   	
   	if(Tiempo != null){
-  		console.log(this.timer.ms);
-  		this.timer.ms = Tiempo;
+  		console.log(duration);
+  		duration = Tiempo;
         
     }
   },
@@ -316,10 +318,10 @@ AsiloRoyale.GameOnline.prototype = {
 		 var nursePosFinal = narray[i];
 
 	
-    this.nurse.push(new Enemy(this.game, nursePosFinal[0], nursePosFinal[1],'enfermero', 120, 60, 700, 700, i, this.enemiesCollisionGroup, this.player1CollisionGroup,this.player2CollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup,this.players)); 
-    this.game.add.existing(this.nurse[i]);
-	this.game.physics.p2.enable(this.nurse[i],false);
-	this.nurse[i].body.static = true;
+		 this.nurse.push(new Enemy(this.game, nursePosFinal[0], nursePosFinal[1],'enfermero', 120, 60, 700, 700, i, this.enemiesCollisionGroup, this.player1CollisionGroup,this.player2CollisionGroup, this.tilesCollisionGroup, this.bulletCollisionGroup,this.players)); 
+		 this.game.add.existing(this.nurse[i]);
+		 this.game.physics.p2.enable(this.nurse[i],false);
+		 this.nurse[i].body.static = true;
 
 	}
 
@@ -332,7 +334,14 @@ AsiloRoyale.GameOnline.prototype = {
 		
 		
 		//La cámara sigue al jugador teniendo en cuenta el offset
+		if(myPlayer.alive==true){
 		this.game.camera.focusOnXY(myPlayer.x+75, myPlayer.y);
+		}else{
+			this.game.camera.focusOnXY(myEnemy.x+75, myEnemy.y);
+		}if(!myPlayer.alive && !myEnemy.alive){
+			this.gameOver();
+		}
+		
 		this.updateHUD(myPlayer);
 		
 		myPlayer.body.rotation = this.angleToPointer(myPlayer);
@@ -393,10 +402,6 @@ AsiloRoyale.GameOnline.prototype = {
 	        keyr.onDown.add(myPlayer.reloader, myPlayer);
 		
 
-		console.log(myEnemy);
-		
-
-        
 			
 	},
 	
@@ -565,14 +570,14 @@ AsiloRoyale.GameOnline.prototype = {
 	},
 
 	//Muestra el tiempo que queda para el final de la partida
-	render: function() {
+	/*render: function() {
 		if (this.timer.running) {
             this.game.debug.text(this.formatTime(Math.round((timerEvent.delay - this.timer.ms) / 1000)), 1010, 78, "#51F55B", "50px 'VT323'");
         }
         else {
             this.game.debug.text("Done!",1010, 78, "#51F55B", "50px 'VT323'");
         }
-    },
+    },*/
 
 
     //Código de: http://jsfiddle.net/lewster32/vd70o41p/
@@ -590,4 +595,68 @@ AsiloRoyale.GameOnline.prototype = {
 	},
 
 };
+
+
+//http://www.3quarks.com/en/SegmentDisplay/index.html
+var display = new SegmentDisplay("display");
+  /*display.pattern         = "##:##:##";
+  display.displayAngle    = 6;
+  display.digitHeight     = 26;
+  display.digitWidth      = 14.5;
+  display.digitDistance   = 1.9;
+  display.segmentWidth    = 2.9;
+  display.segmentDistance = 0.5;
+  display.segmentCount    = 7;
+  display.cornerType      = 3;
+  display.colorOn         = "#24dd22";
+  display.colorOff        = "#1b4105";
+  display.draw();
+
+  display.pattern         = "##:##";
+  display.displayAngle    = 0;
+  display.digitHeight     = 18;
+  display.digitWidth      = 10.5;
+  display.digitDistance   = 1.8;
+  display.segmentWidth    = 1.8;
+  display.segmentDistance = 0.7;
+  display.segmentCount    = 7;
+  display.cornerType      = 3;
+  display.colorOn         = "#24ec15";
+  display.colorOff        = "#371600";
+  display.draw();*/
+
+  display.pattern         = "##:##";
+  display.displayAngle    = 0;
+  display.digitHeight     = 18;
+  display.digitWidth      = 10.5;
+  display.digitDistance   = 1.8;
+  display.segmentWidth    = 2.3;
+  display.segmentDistance = 0.7;
+  display.segmentCount    = 7;
+  display.cornerType      = 3;
+  display.colorOn         = "#ff3927";
+  display.colorOff        = "#451605";
+
+var duration = 90;
+var seconds, minutes;
+var value;
+
+//animateCount();
+
+function animateCount() {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        value   = ((minutes < 10) ? '0' : '') + minutes
+              + ':' + ((seconds < 10) ? '0' : '') + seconds; //((hours < 10) ? ' ' : '') + hours +
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+        display.setValue(value);
+    }, 1000);
+}
+
 
