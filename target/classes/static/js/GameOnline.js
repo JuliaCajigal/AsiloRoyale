@@ -6,7 +6,7 @@ var AsiloRoyale = AsiloRoyale || {};
 AsiloRoyale.GameOnline = function(){};
 
 	
-var timerEvent, text;
+var timer;
 var tilesCollisionGroup, playerCollisionGroup;
 
 
@@ -178,7 +178,8 @@ AsiloRoyale.GameOnline.prototype = {
 
     //////WEBSOCKETS//////
 
-
+    var updateTime = this.game.time.events.loop(Phaser.Timer.SECOND*3, this.updateTime, this);
+    var sendTime = this.game.time.events.loop(Phaser.Timer.SECOND*3, this.timeSocket, this);
 
     var sendPos = this.game.time.events.loop(Phaser.Timer.SECOND*0.01 , this.posSocket1, this);
     var updateP = this.game.time.events.loop(Phaser.Timer.SECOND*0.01, this.updatePlayer1, this);
@@ -187,7 +188,7 @@ AsiloRoyale.GameOnline.prototype = {
 
   posSocket1: function(){
 
-  		console.log(myPlayer);
+  		//console.log(myPlayer);
   		sendPos1(myPlayer.x, myPlayer.y, myPlayer.rotation, keyw.isDown, keys.isDown, keya.isDown, keyd.isDown,myPlayer.alive);
   },
   
@@ -227,13 +228,16 @@ AsiloRoyale.GameOnline.prototype = {
 
   //Actualizamos el tiempo si hemos recibido actualizaciones desde el servidor
   updateTime: function(){
+	console.log(timer);
   	msgTime = {
   			socket: "time",
-  			time: duration};
+  			time: timer};
   	
   	if(Tiempo != null){
-  		console.log(duration);
-  		duration = Tiempo;
+  		console.log(Tiempo);
+  		console.log(timer);
+  		timer = Tiempo;
+  		console.log(timer);
         
     }
   },
@@ -644,7 +648,7 @@ var value;
 //animateCount();
 
 function animateCount() {
-    var timer = duration, minutes, seconds;
+    timer = duration, minutes, seconds;
     setInterval(function () {
         minutes = parseInt(timer / 60, 10)
         seconds = parseInt(timer % 60, 10);
@@ -655,6 +659,7 @@ function animateCount() {
         if (--timer < 0) {
             timer = duration;
         }
+        console.log("RELOJ" + timer);
         display.setValue(value);
     }, 1000);
 }
