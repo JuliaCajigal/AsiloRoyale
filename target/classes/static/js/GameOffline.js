@@ -97,6 +97,29 @@ AsiloRoyale.GameOffline.prototype = {
 	/////////////TECLAS///////////
 
 	this.cursors = this.game.input.keyboard.createCursorKeys();
+   	
+   	keyw = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
+   	keys = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
+   	keya = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+   	keyd = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
+   	keyr = this.game.input.keyboard.addKey(Phaser.Keyboard.R);
+   	
+  //Rotación del jugador hacia la posición del ratón
+	this.angleToPointer = function (displayObject, pointer, world){
+
+        if (pointer === undefined) { pointer = this.game.input.activePointer; }
+        if (world === undefined) { world = false; }
+
+        if (world)
+        {
+            return Math.atan2(pointer.worldY - displayObject.world.y, pointer.worldX - displayObject.world.x);
+        }
+        else
+        {
+            return Math.atan2(pointer.worldY - displayObject.y, pointer.worldX - displayObject.x);
+        }
+
+    }
 	
 
 	//////////////HUD////////////
@@ -248,12 +271,77 @@ AsiloRoyale.GameOffline.prototype = {
 		this.game.camera.focusOnXY(this.player1.x+75, this.player1.y);
 		this.updateHUD(this.player1);
 		//if(this.player1.alive==false || this.player2.alive==false){
+		
 		if(this.player1.alive==false){
 			this.gameOver();
 		}
+		
+		this.player1.body.velocity.y = 0;
+		this.player1.body.velocity.x = 0;
+		
+
+		
+		this.player1.body.rotation = this.angleToPointer(this.player1);
+				
+				//////MOVIMIENTO JUGADOR//////
+
+				
+		
+				if(keyw.isDown) {
+					
+					this.player1.body.velocity.y -= this.player1.speed;
+					this.player1.moves=true;
+				}
+				else if(keys.isDown) {
+					
+					this.player1.body.velocity.y += this.player1.speed;
+					this.player1.moves=true;
+				}
+				if(keya.isDown) {
+					
+					this.player1.body.velocity.x -= this.player1.speed;
+					this.player1.moves=true;
+					
+				}if(keyd.isDown) {
+					
+					this.player1.body.velocity.x += this.player1.speed;
+					this.player1.moves=true;
+					
+				}if(keys.isUp && keya.isUp && keyd.isUp && keyw.isUp){
+					
+					this.player1.moves=false;
+					
+					if(this.player1.currentWeapon==0){
+						
+						this.player1.frame=0;
+					}
+					if(this.player1.currentWeapon==1){
+						
+						this.player1.frame=3;
+					}
+				}	
+					
+					/////////DISPARAR///////
+					
+			      if (this.game.input.activePointer.totalTouches == 1 && this.game.input.activePointer.isDown)
+			        {
+			    	  
+
+			    	  this.player1.weapons[this.player1.currentWeapon].fire(this.player1.body.sprite);
+			            this.game.input.activePointer.totalTouches = 0;
+		
+			        }
+		
+			        if(keyr.isDown){
+			        	this.player1.reloader();
+			        }
+
 
 			
 	},
+
+			
+	
 	
 
 	updateHUD: function(player){
@@ -262,14 +350,14 @@ AsiloRoyale.GameOffline.prototype = {
 		if(player.currentWeapon==0){
 			this.scoreLabel3.frame=0;
 			this.HUD.visible = false;
-		    player.lifeBar.position.x = 100;
+		    //this.lifeBar.position.x = 100;
 			this.gunIcon.visible = true;
 			this.shotgunIcon.visible = false;
 
 	    }else if(player.currentWeapon==1){
 	    	this.scoreLabel3.frame=1;
 	    	this.HUD.visible = true;
-	    	player.lifeBar.position.x = 120;
+	    	//this.lifeBar.position.x = 120;
 	    	this.shotgunIcon.visible = true;
 	    	this.gunIcon.visible = false;
 
@@ -282,6 +370,9 @@ AsiloRoyale.GameOffline.prototype = {
 		}else if(player.currentWeapon===1){
 			this.scoreLabel.text = player.shotgunLoad + "/"+ player.shotgunAmmo;
 		}
+		
+		this.cropRect.width = (this.player1.life/2) *10; 
+        this.lifeBar.updateCrop(this.cropRect);
 	}, 
 
 
@@ -352,8 +443,38 @@ AsiloRoyale.GameOffline.prototype = {
 		this.shotgunIcon = this.game.add.image(780 ,60, 'shotguni');
 		this.shotgunIcon.fixedToCamera = true;
 		this.shotgunIcon.visible = false;
-	},
+		
+		this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
+	    this.lifeBardw.fixedToCamera = true;
+	    
+	    this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
+	    this.lifeBar.fixedToCamera = true;
+	    this.lifeBar.anchor.y = 0.5;
+	    this.lifeBar.cropEnabled = true;
+	    
+	    this.cropRect = new Phaser.Rectangle( 0, 0, 500 , 30);
+	    this.cropRect.fixedToCamera = true;
+	    this.lifeBar.crop(this.cropRect);
+		
+		////////////Marcador de vida-volúmen
+		//this.lifeGroup = this.game.add.group();
+		/*this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
+	    this.lifeBardw.fixedToCamera = true;
+	    this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
+	    //this.lifeGroup.add(this.lifeBardw);
+	    //this.lifeGroup.add(this.lifeBar);
+	    
+	    this.lifeBar.fixedToCamera = true;
+	    this.lifeBar.anchor.y = 0.5;
+	    this.lifeBar.cropEnabled = true;
 
+	    //Visibilidad barra
+	    this.cropRect = new Phaser.Rectangle( 0, 0, 500 , 30);
+	    this.cropRect.fixedToCamera = true;
+	    this.lifeBar.crop(this.cropRect);*/
+		
+		
+	},
 
 	test: function(player){
 		player.score += 40;
@@ -412,7 +533,7 @@ AsiloRoyale.GameOffline.prototype = {
 
 	//Función de Game Over
 	gameOver: function() {
-		this.game.state.start('GameOver',true,false,this.player1,this.playersArray[1]);
+		this.game.state.start('GameOverOffline',true,false,this.player1,this.playersArray[1]);
 	},
 
 	//Muestra el tiempo que queda para el final de la partida

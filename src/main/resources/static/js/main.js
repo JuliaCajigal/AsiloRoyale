@@ -10,6 +10,7 @@ AsiloRoyale.game.state.add('Game', AsiloRoyale.Game);
 AsiloRoyale.game.state.add('GameOnline', AsiloRoyale.GameOnline);
 AsiloRoyale.game.state.add('GameOffline', AsiloRoyale.GameOffline);
 AsiloRoyale.game.state.add('GameOver', AsiloRoyale.GameOver);
+AsiloRoyale.game.state.add('GameOverOffline', AsiloRoyale.GameOverOffline);
 AsiloRoyale.game.state.add('Controles', AsiloRoyale.Controles);
 AsiloRoyale.game.state.add('OnlineLobby', AsiloRoyale.OnlineLobby);
 AsiloRoyale.game.state.add('LobbyConfig', AsiloRoyale.LobbyConfig);
