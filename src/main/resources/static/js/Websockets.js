@@ -6,37 +6,8 @@ var PlayerWS;
 function conection (){
 	//Cuatro websockets: Jugador, Drops, Tiempo y Puntuación
 	timeConnection   		= new WebSocket('ws://'+ ip +':8080/timeHandler');
-	//playerConnection  		= new WebSocket('ws://'+ ip +':8080/handler');
+
 	
-
-	//JUGADOR
-	/*playerConnection.onmessage = function(msg) {
-		var playerData = JSON.parse(msg.data);
-		console.log(playerData);
-		
-		switch(playerData.socket){
-		
-			case "player":
-		
-				PlayerWS.x = playerData.x;
-				PlayerWS.y = playerData.y;
-				PlayerWS.rot = playerData.rot;
-		PlayerWS.keyw = playerData.keyw;
-    	PlayerWS.keys = playerData.keys;
-    	PlayerWS.keyd = playerData.keyd;
-    	PlayerWS.keya = playerData.keya;
-
-				console.log(myUser);
-				break;
-		}
-		
-	}
-
-	playerConnection.onclose = function() {
-		//setTimeout(conection(),3000);
-		console.log("Closing player socket");
-	}*/
-
 	timeConnection.onerror = function(e) {
 		console.log("WS error: " + e);
 	}
@@ -47,19 +18,15 @@ function conection (){
 
 	timeConnection.onmessage = function(msg) {
 		
-		/*console.log(msg);
-		var timeData = JSON.parse(msg.data);
-		Tiempo = timeData.time; 
-		console.log("Mensaje time WS!");
-		console.log(timeData);*/
-		
 		var playerData = JSON.parse(msg.data);
 		console.log(playerData);
 		
 		switch(playerData.socket){
 		
 			case "player":
-		
+				
+				
+
 				PlayerWS.x = playerData.x;
 				PlayerWS.y = playerData.y;
 				PlayerWS.rot = playerData.rot;
@@ -68,14 +35,23 @@ function conection (){
 				PlayerWS.keyd = playerData.keyd;
 				PlayerWS.keya = playerData.keya;
 
+
 				console.log("Mensaje ws! " + PlayerWS.rot);
 				break;
+			case "bang":
+				
+				PlayerWS.keyMouse = playerData.keyMouse;
+				PlayerWS.totalTouches = playerData.totalTouches;
+				console.log(PlayerWS.keyMouse);
+				console.log(PlayerWS.totalTouches);
+				break;
+				
 		}
 		
 	}
 
 	timeConnection.onclose = function() {
-		//setTimeout(conection(),3000);
+
 		console.log("Closing time socket");
 	}
 }
@@ -86,22 +62,32 @@ function sendPos(x, y, rot){
 		y: y,
 		rot: rot
 	}
-	//console.log(msg);
+
+	timeConnection.send(JSON.stringify(msg));
+}
+
+function sendBang(mouse,touches){
+	msg = { socket: "bang",
+			keyMouse: mouse,
+			totalTouches:touches
+	}
 	timeConnection.send(JSON.stringify(msg));
 }
 
 
-function sendPos1(x, y, rot, up, down, left, right){
+function sendPos1(x, y, rot, up, down, left, right,){
 	msg = { socket: "player",
+
 		x: x,
 		y: y,
 		rot: rot,
 		keyw: up,
 		keys: down,
 		keya: left,
-		keyd: right
+		keyd: right,
+
 	}
-	//console.log(msg);
+
 	timeConnection.send(JSON.stringify(msg));
 }
 

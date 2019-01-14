@@ -59,7 +59,11 @@ public class TimeHandler extends TextWebSocketHandler {
 			
 		case "player":
 			System.out.println("Message sent: " + node.toString());
+			sendPlayerMessage(session, node);
+			break;
 			
+		case "bang":
+			System.out.println("BANG message sent: " + node.toString());
 			sendPlayerMessage(session, node);
 			break;
 			
@@ -68,6 +72,7 @@ public class TimeHandler extends TextWebSocketHandler {
 			System.out.println("Message sent: " + node.toString());
 			generateLobby(session, node.get("lobby").asText());
 			break;
+			
 		}
 		/*
 		for(WebSocketSession participant : sessions.values()) {

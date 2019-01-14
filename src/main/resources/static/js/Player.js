@@ -61,6 +61,8 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
     this.keys = false;
     this.keya = false;
     this.keyd = false;
+    this.keyMouse = false;
+    this.totalTouches = 0;
 
 
     };
@@ -104,12 +106,6 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
             this.life=100;
         }
 
-		//this.body.rotation = this.angleToPointer(this);
-
-		this.cursors = this.game.input.keyboard.createCursorKeys();
-		this.body.velocity.y = 0;
-		this.body.velocity.x = 0;
-
 
         
         ////ANIMACIONES Y MOVIMIENTO SI TIENES LA PISTOLA
@@ -118,22 +114,23 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
 		        	this.animations.play('walkGun');
 		        }else if(this.moves == false){
 		        	this.animations.stop(null,false);
-		        }
-				if(this.keyw.isDown) {
+		        } 
+		        
+				if(this.keyw) {
 					this.body.velocity.y -= this.speed;
 					this.moves=true;
 				}
-				else if(this.keys.isDown) {
+				else if(this.keys) {
 					this.body.velocity.y += this.speed;
 					this.moves=true;
 				}
-				if(this.keya.isDown) {
+				if(this.keya) {
 					this.body.velocity.x -= this.speed;
 					this.moves=true;
-				}if(this.keyd.isDown) {
+				}if(this.keyd) {
 					this.body.velocity.x += this.speed;
 					this.moves=true;
-				}if(this.keys.isUp && this.keya.isUp && this.keyd.isUp && this.keyw.isUp){
+				}if(this.keys && this.keya && this.keyd && this.keyw){
 					this.moves=false;
 					this.frame=0;
 				}
@@ -147,57 +144,41 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
 	        }else if(this.moves == false){
 	        	this.animations.stop(null,false);
 	        }
-			if(this.keyw.isDown) {
+	        
+			if(this.keyw) {
 				this.body.velocity.y -= this.speed;
 				this.moves=true;
 			}
-			else if(this.keys.isDown) {
+			else if(this.keys) {
 				this.body.velocity.y += this.speed;
 				this.moves=true;
 			}
-			if(this.keya.isDown) {
+			if(this.keya) {
 				this.body.velocity.x -= this.speed;
 				this.moves=true;
-			}if(this.keyd.isDown) {
+			}if(this.keyd) {
 				this.body.velocity.x += this.speed;
 				this.moves=true;
-			}if(this.keys.isUp && this.keya.isUp && this.keyd.isUp && this.keyw.isUp){
+			}if(this.keys && this.keya && this.keyd && this.keyw){
 				this.moves=false;
 				this.frame=3;
 			}
+			
          }
         
 
-        
+    
 		//Pulsar el ratón para disparar
-        if (this.game.input.activePointer.totalTouches == 1 && this.game.input.activePointer.isDown && this.shotguned==true)
-    {
+        if (this.totalTouches == 1 && this.keyMouse)
+        {
+
             this.weapons[this.currentWeapon].fire(this);
-            this.game.input.activePointer.totalTouches = 0;
-    }
-        keyr = this.game.input.keyboard.addKey(Phaser.Keyboard.R);
-        keyr.onDown.add(this.reloader, this);
-        
-		
+            this.totalTouches = 0;
+        }
+      
 
     },
-    
-  //Rotación del jugador hacia la posición del ratón
-	Player.prototype.angleToPointer = function (displayObject, pointer, world){
 
-        if (pointer === undefined) { pointer = this.game.input.activePointer; }
-        if (world === undefined) { world = false; }
-
-        if (world)
-        {
-            return Math.atan2(pointer.worldY - displayObject.world.y, pointer.worldX - displayObject.world.x);
-        }
-        else
-        {
-            return Math.atan2(pointer.worldY - displayObject.y, pointer.worldX - displayObject.x);
-        }
-
-    }
     
     Player.prototype.reloader = function(){
     	if(this.gunAmmo!=0 || this.shotgunAmmo!=0){
@@ -208,18 +189,11 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
     
 
     Player.prototype.showLife = function(){
-        
-        //this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
-        this.lifeBardw.fixedToCamera = true;
 
-        //this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
+        this.lifeBardw.fixedToCamera = true;
         this.lifeBar.anchor.y = 0.5;
         this.lifeBar.cropEnabled = true;
         this.lifeBar.fixedToCamera = true;
-
-       // var width = (this.life / 2)*10;
-
-        //this.cropRect = new Phaser.Rectangle( 0, 0, width , 30);
         cropRect.fixedToCamera = true;
         this.lifeBar.crop(cropRect);
 

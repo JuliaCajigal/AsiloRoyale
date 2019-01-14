@@ -130,11 +130,28 @@ AsiloRoyale.GameOnline.prototype = {
 	
 	/////////CONTROLES
    	
-   	myPlayer.keyw = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
-   	myPlayer.keys = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
-   	myPlayer.keya = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
-   	myPlayer.keyd = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
-	
+   	keyw = this.game.input.keyboard.addKey(Phaser.Keyboard.W);
+   	keys = this.game.input.keyboard.addKey(Phaser.Keyboard.S);
+   	keya = this.game.input.keyboard.addKey(Phaser.Keyboard.A);
+   	keyd = this.game.input.keyboard.addKey(Phaser.Keyboard.D);
+   	keyr = this.game.input.keyboard.addKey(Phaser.Keyboard.R);
+   	
+    //Rotación del jugador hacia la posición del ratón
+	this.angleToPointer = function (displayObject, pointer, world){
+
+        if (pointer === undefined) { pointer = this.game.input.activePointer; }
+        if (world === undefined) { world = false; }
+
+        if (world)
+        {
+            return Math.atan2(pointer.worldY - displayObject.world.y, pointer.worldX - displayObject.world.x);
+        }
+        else
+        {
+            return Math.atan2(pointer.worldY - displayObject.y, pointer.worldX - displayObject.x);
+        }
+
+    }
 
 	//////////////HUD////////////
 
@@ -159,79 +176,50 @@ AsiloRoyale.GameOnline.prototype = {
 
     //////WEBSOCKETS//////
 
-    //PlayerWS = myPlayer;
-    //console.log(myPlayer.toJson());
-    
-    //var updateTime = this.game.time.events.loop(Phaser.Timer.SECOND*3, this.updateTime, this);
-    //var sendTime = this.game.time.events.loop(Phaser.Timer.SECOND*3, this.timeSocket, this);
 
-    var sendPos = this.game.time.events.loop(Phaser.Timer.SECOND*0.5 , this.posSocket1, this);
-    //var updateP = this.game.time.events.loop(Phaser.Timer.SECOND*0.5, this.updatePlayer1, this);
+
+    var sendPos = this.game.time.events.loop(Phaser.Timer.SECOND*0.01 , this.posSocket1, this);
+    var updateP = this.game.time.events.loop(Phaser.Timer.SECOND*0.01, this.updatePlayer1, this);
 
   },
 
   posSocket1: function(){
-  		//console.log(myPlayer);
-  		sendPos1(myPlayer.x, myPlayer.y, myPlayer.rotation, myPlayer.keyw.isDown, myPlayer.keys.isDown, myPlayer.keya.isDown, myPlayer.keyd.isDown);
+
+  		console.log(myPlayer);
+  		sendPos1(myPlayer.x, myPlayer.y, myPlayer.rotation, keyw.isDown, keys.isDown, keya.isDown, keyd.isDown);
   },
   
   updatePlayer1: function(){
-	  //console.log(this.player1);
-	  //console.log(this.player2);
-	  //console.log(myPlayer);
-	  console.log(PlayerWS);
+	  			
+
 	    		myEnemy.x = PlayerWS.x;
 	    		myEnemy.y = PlayerWS.y;
 	    		myEnemy.body.rotation = PlayerWS.rot;
-	    		myEnemy.keyw.isDown = PlayerWS.keyw;
-	    		myEnemy.keys.isDown = PlayerWS.keys;
-	    		myEnemy.keya.isDown = PlayerWS.keya;
-	    		myEnemy.keyd.isDown = PlayerWS.keyd;
+	    		myEnemy.keyw = PlayerWS.keyw;
+	    		myEnemy.keys = PlayerWS.keys;
+	    		myEnemy.keya = PlayerWS.keya;
+	    		myEnemy.keyd = PlayerWS.keyd;
+	    		myEnemy.keyMouse = PlayerWS.keyMouse;
+	    		myEnemy.totalTouches = PlayerWS.totalTouches;
+	    		
   },
 
   posSocket: function(){
-  	console.log(myPlayer.keyw);
+
   		sendPos(myPlayer.x, myPlayer.y, myPlayer.rotation);
   },
 
   updatePlayer: function(){
-	  
-	  console.log(this.player1);
-	  console.log(this.player2);
-	  console.log(myPlayer);
-	  console.log(myEnemy);
 
-  	//msgPlayer = {
-  			/*myUser.player.life = PlayerWS.life;
-  			myUser.player.currentWeapon = PlayerWS.currentWeapon;
-    		myUser.player.shotgunAmmo = PlayerWS.shotgunAmmo;
-    		myUser.player.gunAmmo = PlayerWS.gunAmmo;*/
     		myEnemy.x = PlayerWS.x;
     		myEnemy.y = PlayerWS.y;
     		myEnemy.body.rotation = PlayerWS.rot;
-    		/*myEnemy.keyw.isDown = PlayerWS.keyw ;
-    		myEnemy.keys.isDown = PlayerWS.keys;
-    		myEnemy.keya.isDown = PlayerWS.keyd;
-    		myEnemy.isDown = PlayerWS.keya;*/
-
-  		//msgPlayer = {
-  			/*myUser.player.life = PlayerWS.life;
-  			myUser.player.currentWeapon = PlayerWS.currentWeapon;
-    		myUser.player.shotgunAmmo = PlayerWS.shotgunAmmo;
-    		myUser.player.gunAmmo = PlayerWS.gunAmmo;*/
-    		//myUser.player.x = PlayerWS.x;
-    		//myUser.player.y = PlayerWS.y;
-    		//myUser.player.rotation = PlayerWS.rot;
-  			//myUser.player.keyw = PlayerWS.keyw ;
-    		//myUser.player.keys = PlayerWS.keys;
-    		//myUser.player.keya = PlayerWS.keyd;
-    		//myUser.player.keyd = PlayerWS.keya;
     	
   },
 
 
   playerSocket: function(){
-  		console.log(msgTime);
+
   		timeConnection.send(JSON.stringify(msgTime));
   },
 
@@ -250,7 +238,7 @@ AsiloRoyale.GameOnline.prototype = {
 
   //Enviamos periódicamente un mensaje con el tiempo actual
   timeSocket: function(){
-  		console.log(msgTime);
+ 
   		timeConnection.send(JSON.stringify(msgTime));
   },
   
@@ -347,71 +335,67 @@ AsiloRoyale.GameOnline.prototype = {
 		this.game.camera.focusOnXY(myPlayer.x+75, myPlayer.y);
 		this.updateHUD(myPlayer);
 		
-		myPlayer.body.rotation = myPlayer.angleToPointer(myPlayer);
+		myPlayer.body.rotation = this.angleToPointer(myPlayer);
 		
-		//console.log(myEnemy.x);
-		//console.log(PlayerWS.x);
-		console.log(myEnemy);
+		//////MOVIMIENTO JUGADOR//////
+		myEnemy.body.velocity.y = 0;
+		myEnemy.body.velocity.x = 0;
 		
-		//myEnemy.body.rotation = PlayerWS.rot;
-		//console.log(myEnemy.body.rotation);
+		myPlayer.body.velocity.y = 0;
+		myPlayer.body.velocity.x = 0;
 		
-		/*
 
-	////ANIMACIONES Y MOVIMIENTO SI TIENES LA PISTOLA
-        if(myPlayer.currentWeapon==0){
-		        if(myPlayer.moves==true){
-		        	myPlayer.animations.play('walkGun');
-		        }else if(myPlayer.moves == false){
-		        	myPlayer.animations.stop(null,false);
-		        }
-				if(myPlayer.keyw.isDown) {
-					myPlayer.body.velocity.y -= this.speed;
-					myPlayer.moves=true;
-				}
-				else if(myPlayer.keys.isDown) {
-					myPlayer.body.velocity.y += this.speed;
-					myPlayer.moves=true;
-				}
-				if(myPlayer.keya.isDown) {
-					myPlayer.body.velocity.x -= this.speed;
-					myPlayer.moves=true;
-				}if(myPlayer.keyd.isDown) {
-					myPlayer.body.velocity.x += this.speed;
-					myPlayer.moves=true;
-				}if(myPlayer.keys.isUp && myPlayer.keya.isUp && myPlayer.keyd.isUp && myPlayer.keyw.isUp){
-					myPlayer.moves=false;
-					myPlayer.frame=0;
-				}
-        }
-        
-        
-        ////ANIMACIONES Y MOVIMIENTO SI TIENES LA ESCOPETA
-        if(myPlayer.currentWeapon==1){
-	        if(myPlayer.moves==true){
-	        	myPlayer.animations.play('walkShotgun');
-	        }else if(myPlayer.moves == false){
-	        	myPlayer.animations.stop(null,false);
-	        }
-			if(myPlayer.keyw.isDown) {
-				myPlayer.body.velocity.y -= this.speed;
-				myPlayer.moves=true;
+		if(keyw.isDown) {
+			
+			myPlayer.body.velocity.y -= myPlayer.speed;
+			myPlayer.moves=true;
+		}
+		else if(keys.isDown) {
+			
+			myPlayer.body.velocity.y += myPlayer.speed;
+			myPlayer.moves=true;
+		}
+		if(keya.isDown) {
+			
+			myPlayer.body.velocity.x -= myPlayer.speed;
+			myPlayer.moves=true;
+			
+		}if(keyd.isDown) {
+			
+			myPlayer.body.velocity.x += myPlayer.speed;
+			myPlayer.moves=true;
+			
+		}if(keys.isUp && keya.isUp && keyd.isUp && keyw.isUp){
+			
+			myPlayer.moves=false;
+			
+			if(myPlayer.currentWeapon==0){
+				
+				myPlayer.frame=0;
 			}
-			else if(myPlayer.keys.isDown) {
-				myPlayer.body.velocity.y += this.speed;
-				myPlayer.moves=true;
-			}
-			if(myPlayer.keya.isDown) {
-				myPlayer.body.velocity.x -= this.speed;
-				myPlayer.moves=true;
-			}if(myPlayer.keyd.isDown) {
-				myPlayer.body.velocity.x += this.speed;
-				myPlayer.moves=true;
-			}if(myPlayer.keys.isUp && this.keya.isUp && this.keyd.isUp && this.keyw.isUp){
-				myPlayer.moves=false;
+			if(myPlayer.currentWeapon==1){
+				
 				myPlayer.frame=3;
 			}
-         }*/
+		}	
+			
+			/////////DISPARAR///////
+			
+	      if (this.game.input.activePointer.totalTouches == 1 && this.game.input.activePointer.isDown)
+	        {
+	    	  
+	            sendBang(this.game.input.activePointer.isDown, 1);
+	            myPlayer.weapons[myPlayer.currentWeapon].fire(myPlayer.body.sprite);
+	            this.game.input.activePointer.totalTouches = 0;
+
+	        }
+
+	        keyr.onDown.add(myPlayer.reloader, myPlayer);
+		
+
+		console.log(myEnemy);
+		
+
         
 			
 	},
@@ -522,11 +506,7 @@ AsiloRoyale.GameOnline.prototype = {
 		player.score += 40;
 	},
 	
-		//metodo usado cuando el jugador recoge un objeto
-	/*collect: function(player, collectable,amount) {
-		player.score+=amount;
-		collectable.destroy();
-	},*/
+
 	
 
 
