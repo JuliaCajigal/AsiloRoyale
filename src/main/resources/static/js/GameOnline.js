@@ -155,7 +155,7 @@ AsiloRoyale.GameOnline.prototype = {
 
 	//////////////HUD////////////
 
-	//HUD Escopeta
+	//HUD
 	this.showHUD();
 
 	//TV
@@ -431,14 +431,14 @@ AsiloRoyale.GameOnline.prototype = {
 		if(player.currentWeapon==0){
 			this.scoreLabel3.frame=0;
 			this.HUD.visible = false;
-		    player.lifeBar.position.x = 100;
+		    //this.lifeBar.position.x = 100;
 			this.gunIcon.visible = true;
 			this.shotgunIcon.visible = false;
 
 	    }else if(player.currentWeapon==1){
 	    	this.scoreLabel3.frame=1;
 	    	this.HUD.visible = true;
-	    	player.lifeBar.position.x = 120;
+	    	//this.lifeBar.position.x = 120;
 	    	this.shotgunIcon.visible = true;
 	    	this.gunIcon.visible = false;
 
@@ -451,6 +451,9 @@ AsiloRoyale.GameOnline.prototype = {
 		}else if(player.currentWeapon===1){
 			this.scoreLabel.text = player.shotgunLoad + "/"+ player.shotgunAmmo;
 		}
+		
+		this.cropRect.width = (myPlayer.life/2) *10; 
+        this.lifeBar.updateCrop(this.cropRect);
 	}, 
 
 
@@ -461,30 +464,6 @@ AsiloRoyale.GameOnline.prototype = {
     	bullet.destroy();
 
 	},
-
-	
-
-		//Muestra la barra de vida en pantalla
-	showLife: function(player){
-		
-		this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
-		this.lifeBardw.fixedToCamera = true;
-
-		this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
-		this.lifeBar.anchor.y = 0.5;
-		this.lifeBar.cropEnabled = true;
-		this.lifeBar.fixedToCamera = true;
-
-		var width = (this.life / 2)*10;
-
-        this.cropRect = new Phaser.Rectangle( 0, 0, width , 30);
-
-
-		this.cropRect.fixedToCamera = true;
-    	this.lifeBar.crop(this.cropRect);
-
-	},
-
 
 		//Muestra los datos del jugador en el HUD
 	showLabels: function() {
@@ -521,6 +500,35 @@ AsiloRoyale.GameOnline.prototype = {
 		this.shotgunIcon = this.game.add.image(780 ,60, 'shotguni');
 		this.shotgunIcon.fixedToCamera = true;
 		this.shotgunIcon.visible = false;
+		
+		this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
+	    this.lifeBardw.fixedToCamera = true;
+	    
+	    this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
+	    this.lifeBar.fixedToCamera = true;
+	    this.lifeBar.anchor.y = 0.5;
+	    this.lifeBar.cropEnabled = true;
+	    
+	    this.cropRect = new Phaser.Rectangle( 0, 0, 500 , 30);
+	    this.cropRect.fixedToCamera = true;
+	    this.lifeBar.crop(this.cropRect);
+		
+		////////////Marcador de vida-volúmen
+		//this.lifeGroup = this.game.add.group();
+		/*this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
+	    this.lifeBardw.fixedToCamera = true;
+	    this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
+	    //this.lifeGroup.add(this.lifeBardw);
+	    //this.lifeGroup.add(this.lifeBar);
+	    
+	    this.lifeBar.fixedToCamera = true;
+	    this.lifeBar.anchor.y = 0.5;
+	    this.lifeBar.cropEnabled = true;
+
+	    //Visibilidad barra
+	    this.cropRect = new Phaser.Rectangle( 0, 0, 500 , 30);
+	    this.cropRect.fixedToCamera = true;
+	    this.lifeBar.crop(this.cropRect);*/
 		
 		
 	},

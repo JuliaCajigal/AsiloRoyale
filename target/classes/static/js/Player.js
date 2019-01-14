@@ -1,6 +1,5 @@
 var AsiloRoyale = AsiloRoyale || {};
 
-var cropRect = new Phaser.Rectangle( 0, 0, 500 , 30);
 
 var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2CG, tileCG, enemyCG, itemCG, bulletCG, id, user) {
 	
@@ -41,13 +40,6 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
 	this.weapons.push(new Weapon.Gun(this.game,this.bulletCG,this.tileCG, this.enemyCG,this.player1CG,this.player2CG,this));
     this.weapons.push(new Weapon.Shotgun(this.game,this.bulletCG,this.tileCG, this.enemyCG,this.player1CG,this.player2CG,this));
 
-    
-    this.lifeGroup = this.game.add.group();
-    this.lifeBardw = this.game.add.sprite(60, 595, 'lifebardw');
-    this.lifeBar = this.game.add.sprite(60, 610, 'lifebaru');
-    this.lifeGroup.add(this.lifeBardw);
-    this.lifeGroup.add(this.lifeBar);
-
     this.collect_weapon = new Phaser.Sound(this.game, 'collect_weapon');
     this.bite = new Phaser.Sound(this.game, 'bite');
     this.heal = new Phaser.Sound(this.game, 'heal');
@@ -55,7 +47,7 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
     this.swallow = new Phaser.Sound(this.game, 'swallow');
     this.collect_ammo = new Phaser.Sound(this.game, 'collect_ammo');
     this.control_sound = new Phaser.Sound(this.game, 'control_sound');
-    this.showLife();
+    //this.showLife();
     
     this.keyw = false;
     this.keys = false;
@@ -101,7 +93,7 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
         this.body.collides(this.bulletCG,this.pickItem,this);
 
     
-        this.game.world.bringToTop(this.lifeGroup);
+        //this.game.world.bringToTop(this.lifeGroup);
 
         if(this.life>100){
             this.life=100;
@@ -201,18 +193,6 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
     },
     
 
-    Player.prototype.showLife = function(){
-
-        this.lifeBardw.fixedToCamera = true;
-        this.lifeBar.anchor.y = 0.5;
-        this.lifeBar.cropEnabled = true;
-        this.lifeBar.fixedToCamera = true;
-        cropRect.fixedToCamera = true;
-        this.lifeBar.crop(cropRect);
-
-    }, 
-
-
     //Función que se utiliza cada vez que el jugador reciba daño
     Player.prototype.damage = function(amount) {
         this.life -= amount;
@@ -222,11 +202,8 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
         }
         console.log(this.life);
         
-        cropRect.width = (this.life/2) *10; 
-        this.lifeBar.updateCrop(cropRect);
-
         if (this.life <= 0){
-        	 this.frame=6;
+        	 //this.frame=6;
             this.alive = false;
            
         return true;

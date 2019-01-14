@@ -1,7 +1,7 @@
 var playerConnection;
 var timeConnection;
 var Tiempo = null;
-var PlayerWS;
+var PlayerWS = null;
 
 function conection (){
 	//Cuatro websockets: Jugador, Drops, Tiempo y Puntuación
@@ -18,6 +18,7 @@ function conection (){
 
 	timeConnection.onmessage = function(msg) {
 		
+		if(PlayerWS != null){
 		var playerData = JSON.parse(msg.data);
 		//console.log(playerData);
 		
@@ -58,6 +59,7 @@ function conection (){
 
 				break;
 				
+		}
 		}
 		
 	}
