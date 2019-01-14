@@ -46,6 +46,11 @@ function conection (){
 				console.log(PlayerWS.totalTouches);
 				break;
 				
+			case "time":
+				Tiempo = playerData.time;
+				console.log(Tiempo);
+				break;
+				
 		}
 		
 	}
