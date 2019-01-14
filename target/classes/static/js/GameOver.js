@@ -28,13 +28,13 @@ AsiloRoyale.GameOver.prototype = {
 	init: function(player1,player2){
 		
 		//parametros del jugador 1
-		this.nick1 = player1.nick || 'player 1';
+		this.nick1 = player1.user.nick || 'player 1';
 		this.score1 = player1.score || 0;
 		this.items1 = player1.items || 0;
 		this.kills1 = player1.kills || 0;
 
 		//parametros del jugador 2
-		this.nick2 = player2.nick || 'player 2';
+		this.nick2 = player2.user.nick || 'player 2';
 		this.score2 = player2.score || 0;
 		this.items2 = player2.items || 0;
 		this.kills2 = player2.kills || 0;

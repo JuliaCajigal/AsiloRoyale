@@ -44,7 +44,7 @@ function conection (){
 	    		PlayerWS.spriteY = playerData.spriteY;
 
 
-				console.log("Mensaje ws! " + PlayerWS.rot);
+				//console.log("Mensaje ws! " + PlayerWS.rot);
 				break;
 			case "bang":
 				
