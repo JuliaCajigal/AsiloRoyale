@@ -43,6 +43,9 @@ function conection (){
 	    		PlayerWS.velocityY = playerData.velocity;
 	    		PlayerWS.spriteX = playerData.spriteX;
 	    		PlayerWS.spriteY = playerData.spriteY;
+	    		PlayerWS.score= playerData.score;
+	    		PlayerWS.kills= playerData.kills;
+	    		PlayerWS.items=playerData.items;
 
 
 				//console.log("Mensaje ws! " + PlayerWS.rot);
@@ -89,7 +92,7 @@ function sendBang(mouse,touches){
 }
 
 
-function sendPos1(x, y, rot, up, down, left, right, alive, reload, gunAmmo, shotgunAmmo, life, velocityX, velocityY,spriteX, spriteY){
+function sendPos1(x, y, rot, up, down, left, right, alive, reload, gunAmmo, shotgunAmmo, life, velocityX, velocityY,spriteX, spriteY,score,kills,items){
 	msg = { socket: "player",
 			
 	    alive: alive,
@@ -107,7 +110,10 @@ function sendPos1(x, y, rot, up, down, left, right, alive, reload, gunAmmo, shot
 		velocityX: velocityX,
 		velocityY: velocityY,
 		spriteX: spriteX,
-		spriteY: spriteY
+		spriteY: spriteY,
+		score: score,
+		kills: kills,
+		items: items
 
 	}
 

@@ -189,7 +189,7 @@ AsiloRoyale.GameOnline.prototype = {
   posSocket1: function(){
 
   		//console.log(myPlayer);
-  		sendPos1(myPlayer.x, myPlayer.y, myPlayer.rotation, keyw.isDown, keys.isDown, keya.isDown, keyd.isDown,myPlayer.alive, keyr.isDown,myPlayer.gunAmmo, myPlayer.shotgunAmmo, myPlayer.life, myPlayer.body.velocity.x,myPlayer.body.velocity.y,myPlayer.body.sprite.x, myPlayer.body.sprite.y);
+  		sendPos1(myPlayer.x, myPlayer.y, myPlayer.rotation, keyw.isDown, keys.isDown, keya.isDown, keyd.isDown,myPlayer.alive, keyr.isDown,myPlayer.gunAmmo, myPlayer.shotgunAmmo, myPlayer.life, myPlayer.body.velocity.x,myPlayer.body.velocity.y,myPlayer.body.sprite.x, myPlayer.body.sprite.y,myPlayer.score,myPlayer.kills, myPlayer.items);
   },
   
   updatePlayer1: function(){
@@ -205,6 +205,9 @@ AsiloRoyale.GameOnline.prototype = {
 	    		myEnemy.gunAmmo = PlayerWS.gunAmmo;
 	    		myEnemy.shotgunAmmo = PlayerWS.shotgunAmmo;
 	    		myEnemy.life = PlayerWS.life;
+	    		myEnemy.score= PlayerWS.score;
+	    		myEnemy.kills = PlayerWS.kills;
+	    		myEnemy.items = PlayerWS.items;
 	    		//myEnemy.x = PlayerWS.x;
 	    		//myEnemy.y = PlayerWS.y;
 	    		myEnemy.body.x = PlayerWS.x;
