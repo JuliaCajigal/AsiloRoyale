@@ -189,7 +189,7 @@ AsiloRoyale.GameOnline.prototype = {
   posSocket1: function(){
 
   		//console.log(myPlayer);
-  		sendPos1(myPlayer.x, myPlayer.y, myPlayer.rotation, keyw.isDown, keys.isDown, keya.isDown, keyd.isDown,myPlayer.alive);
+  		sendPos1(myPlayer.x, myPlayer.y, myPlayer.rotation, keyw.isDown, keys.isDown, keya.isDown, keyd.isDown,myPlayer.alive, keyr.isDown);
   },
   
   updatePlayer1: function(){
@@ -204,7 +204,7 @@ AsiloRoyale.GameOnline.prototype = {
 	    		myEnemy.keyd = PlayerWS.keyd;
 	    		myEnemy.keyMouse = PlayerWS.keyMouse;
 	    		myEnemy.totalTouches = PlayerWS.totalTouches;
-	    		
+	    		myEnemy.keyr = PlayerWS.keyr;
   },
 
   posSocket: function(){
@@ -403,7 +403,9 @@ AsiloRoyale.GameOnline.prototype = {
 
 	        }
 
-	        keyr.onDown.add(myPlayer.reloader, myPlayer);
+	        if(keyr.isDown){
+	        	myPlayer.reloader();
+	        }
 		
 
 			

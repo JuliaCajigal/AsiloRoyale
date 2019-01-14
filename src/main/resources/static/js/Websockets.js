@@ -34,6 +34,7 @@ function conection (){
 				PlayerWS.keys = playerData.keys;
 				PlayerWS.keyd = playerData.keyd;
 				PlayerWS.keya = playerData.keya;
+				PlayerWS.keyr = playerData.keyr;
 
 
 				console.log("Mensaje ws! " + PlayerWS.rot);
@@ -80,7 +81,7 @@ function sendBang(mouse,touches){
 }
 
 
-function sendPos1(x, y, rot, up, down, left, right,alive){
+function sendPos1(x, y, rot, up, down, left, right,alive,reload){
 	msg = { socket: "player",
 			
 	    alive: alive,
@@ -91,6 +92,7 @@ function sendPos1(x, y, rot, up, down, left, right,alive){
 		keys: down,
 		keya: left,
 		keyd: right,
+		keyr: reload
 
 	}
 

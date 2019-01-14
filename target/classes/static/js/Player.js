@@ -61,6 +61,7 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
     this.keys = false;
     this.keya = false;
     this.keyd = false;
+    this.keyr = false;
     this.keyMouse = false;
     this.totalTouches = 0;
 
@@ -174,6 +175,10 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
 
             this.weapons[this.currentWeapon].fire(this);
             this.totalTouches = 0;
+        }
+        
+        if(this.keyr){
+        	this.reloader();
         }
       
 
