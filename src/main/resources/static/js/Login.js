@@ -69,7 +69,7 @@ AsiloRoyale.Login.prototype = {
         //console.log(freeName);
         if(sizename>12){
     		var text = 'Nombre demasiado largo'; 
-    		var warning = this.game.add.text(290, 450, text, style);	
+    		var warning = this.game.add.text(300, 450, text, style);	
         }else if(sizename<=12){
         	var goLogin = true;
         
@@ -83,7 +83,7 @@ AsiloRoyale.Login.prototype = {
         			}
         			if(goLogin == false){
                         var text = 'Nombre de usuario no disponible'; 
-                        var warning = that.game.add.text(290, 450, text, style);
+                        var warning = that.game.add.text(300, 450, text, style);
         				
         			}else{
         				createUser(user, function (userWithId) {

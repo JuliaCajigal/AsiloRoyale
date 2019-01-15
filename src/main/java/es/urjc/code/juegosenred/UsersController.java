@@ -117,7 +117,7 @@ public class UsersController {
 	@GetMapping("/maxScores")
 	public String[][] readMaxScores() throws IOException{
 		
-		BufferedReader scores = new BufferedReader(new FileReader (new File("classes/scores.txt")));
+		BufferedReader scores = new BufferedReader(new FileReader (new File("target/classes/scores.txt")));
 		String line;
 		String [][] nickScores = new String [2][10];
 		int i = 0;

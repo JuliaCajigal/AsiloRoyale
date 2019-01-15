@@ -9,7 +9,7 @@ function User(game, id, name, skin) {
     this.updater = this.game.time.events.loop(Phaser.Timer.SECOND*2.5, this.updater, this);
     this.player = null;
     this.skin = skin;
-    this.ip = '192.168.0.175';
+    this.ip = '127.0.0.1';
     this.online = false;
     }
 

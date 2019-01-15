@@ -116,11 +116,7 @@ AsiloRoyale.OnlineLobby.prototype = {
 
               if(user.inactivityTime >= 5){
                 info += i + ":  " + user.nick + "  [DESC]" + "\n";
-                if(user.inactivityTime >= 10){
-                	deleteUser(currentUser.id);
-                    deleteLobbyUser(lobby, currentUser);
-                }
-                
+
               }else if (user.ready == true ){
                 info += i + ":  " + user.nick + "  [READY]" + "\n";
                 usersconnected.push(user);
