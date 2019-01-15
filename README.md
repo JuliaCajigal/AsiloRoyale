@@ -189,6 +189,14 @@ Y en el lado izquierdo aparecerá el objetivo que teniamos que cumplir.
      
 ![Results](https://imageshack.com/a/img923/3473/FsB9Hw.png)
 
+### ___Enlaces al juego___
+
+Subido por Julia a itch.io  (Contraseña: JERAR):
+https://rocketraw.itch.io/asiloroyale
+
+Subido por Raúl a kongregate:
+https://www.kongregate.com/games/solidsnake_rae/asiloroyale
+
 ### ___Diagrama de clases:___
 
 
