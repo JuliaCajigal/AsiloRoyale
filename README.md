@@ -105,19 +105,41 @@ En la pantalla de "Help" se podrá visualizar una imagen que contiene la explica
 
 ![Help](https://imageshack.com/a/img921/2363/nrkyGg.png)
 
-Si iniciamos el juego online se entrará en la sala de Login, donde el usuaria escribirá un nombre (menos de 12 caracteres) y al pusar "OK" avanzará al lobby Online.
-
+Si iniciamos el juego online se entrará en la sala de Login, donde el usuario escribirá un nombre (menos de 12 caracteres)y una contraseña y al pusar "OK" avanzará al lobby Online.
+¡¡¡¡¡¡¡CAMBIAR IMAGENES POR NUEVAS!!!!!!!!
  ![Login](https://imageshack.com/a/img924/1256/Av0GSM.jpg)
  ![Ready](https://imageshack.com/a/img921/6431/Qe7pVy.jpg)
  
- En el Lobby online aparecerá una lista con los nombres de los usuarios conectados. Si pulsa el botón "READY" el usuario indicará que está preparado para comenzar una partida y esto se verá reflejado mediante el texto "[READY]" que aparecerá junto asu nombre en la lista de usuarios.
+ Una vez hecho el Login pasaremos a la pantalla de seleccion de Lobby. En ella tendremos 3 opciones:
+ 1.Crear un nuevo lobby. Para ello debemos introducir un numero para el lobby y una contraseña
+ !!!!IMAGEN LOBBY CONFIG!!!!!
+ 
+ 2.Acceder a un Lobby ya creado por otro jugador. Para ello debemos introducir el numero de Lobby y la contraseña correcta.
+ !!!!!!!!IMAGEN LOBBY CONFIG!!!!!!
+ 
+ 3.Acceder a un Lobby aleatorio
+ 
+ 
+Una vez se ha accedido a un Lobby aparecerá una lista con los nombres de los usuarios conectados. Si pulsa el botón "READY" el usuario indicará que está preparado para comenzar una partida y esto se verá reflejado mediante el texto "[READY]" que aparecerá junto asu nombre en la lista de usuarios. Cuando todos los jugadores estén preparados comenzará una cuenta atrás de 10 segundos y empezará la partida.
 
+!!!!!!!FOTO CON RELOJ NUEVO!!!!!!
 ![ReadyChange](https://imageshack.com/a/img922/9167/o8HbSg.png)
  
 Si en algún momento uno de los usuarios se desconectase del servidor, aparecerá el texto "[DESC]" junto a su nombre unos segundos antes de desaparecer de la lista.
-Una vez haya 2 usuarios conectados y preparados comenzará la partida.
 
 ![DESC](https://imageshack.com/a/img922/5791/hch1ME.png)
+
+Tras la cuenta atrás se accede al juego Online, donde nos enfrentaremos a los demás jugadores. 
+
+!!!!!!!IMAGEN PARTIDA CON 2 JUGADORES!!!!!!!
+
+Si perdemos toda nuestra vida durante la partida moriremos. Nuestro avatar pasará a ser un esqueleto y no podremos movernos. Además aparecerá el texto "YOU DIED" en pantalla, y tendremos que esperar a que acabe el tiempo de la partida o a que todos los jugadores mueran.
+
+!!!!!!!IMAGEN MUERTE ESQUELETO!!!!!!
+
+Una vez acabe la partida se accederá a la pantalla de puntuaciones finales, donde se muestra la puntuación de cada jugador, sus muertes, los objetos reacogidos y si ha sido el ganador
+
+!!!!!!IMAGEN PUNTUACIONES!!!!!!!!!!1
 
 Datos permanentes: Tabla de puntuaciones máximas.
 
@@ -130,6 +152,7 @@ Otros avisos: servidor desconectado o nombres duplicados.
 
 
 Si iniciamos el juego en local, el jugador podrá desplazarse por el mapa y recoger diferentes objetos y armas con las que equiparse. Se presentarán enemigos que reducen la vida del personaje, aunque se podrá acabar con ellos utilizando las armas, lo que nos generará más puntuación. 
+El objetivo de la partida será alcanzar una puntuación dada (1000 puntos) antes de que se acabe el tiempo.
 
 Aqui se puede apreciar el HUD con la información de la partida: el tiempo que quede para que finalice, la munición, la puntuación, el arma equipada y la barra de vida. 
 
