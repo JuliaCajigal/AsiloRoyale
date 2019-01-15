@@ -64,7 +64,7 @@ AsiloRoyale.GameOnline.prototype = {
 
 
 
-    this.player1 = new Player(this.game,1100,1000,false,true, 1, this.player1CollisionGroup,this.player2CollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup,0,this.playersArray[0]);
+    this.player1 = new Player(this.game,1550,1100,false,true, 1, this.player1CollisionGroup,this.player2CollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup,0,this.playersArray[0]);
 	this.game.add.existing(this.player1);
 	this.game.physics.p2.enable(this.player1,false);
 	this.player1.body.clearShapes(); 
@@ -73,7 +73,7 @@ AsiloRoyale.GameOnline.prototype = {
 
 	
 	////////JUGADOR 2 /////////
-	this.player2 = new Player(this.game,1100,1200,false,true, 1,this.player1CollisionGroup,  this.player2CollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup,1,this.playersArray[1]);
+	this.player2 = new Player(this.game,6700,1300,false,true, 1,this.player1CollisionGroup,  this.player2CollisionGroup, this.tilesCollisionGroup, this.enemiesCollisionGroup, this.itemCollisionGroup,this.bulletCollisionGroup,1,this.playersArray[1]);
 	
 	this.game.add.existing(this.player2);
 	this.game.physics.p2.enable(this.player2,false);
@@ -97,7 +97,7 @@ AsiloRoyale.GameOnline.prototype = {
    		myPlayer = this.player1;
    		myEnemy = this.player2;
    		
-   	}else{// if(this.playersArray[1].id == myUser.id) {
+   	}else{
    		myUser.player = this.player2;
    		PlayerWS = this.player1;
    		myPlayer = this.player2;
@@ -169,7 +169,7 @@ AsiloRoyale.GameOnline.prototype = {
 
 	//Temporizador
 	Tiempo = null;
-	animateCount(90);
+	animateCount(300);
 	console.log("TIMER" + timer);
 
     //this.timer = this.game.time.create();
