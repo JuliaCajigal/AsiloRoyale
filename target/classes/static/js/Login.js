@@ -4,7 +4,7 @@ AsiloRoyale.Login = function(){};
 
 var input;
 var currentUser;
-var free;
+var freeName;
 //var connection = new WebSocket('ws://' + ip + ':8080/handler');;
 
 
@@ -51,60 +51,70 @@ AsiloRoyale.Login.prototype = {
     	var value = input.val();
 		var sizename = value.length;
         input.val('');
-
+        freeName = true;
+        
         var user = {
             nick: value,
             ready:false
             //ip: ip
         }
-
-        var yes = this.checkNames(value);
-        console.log(free);
-
-        if(sizename<=12 && free){
-        		
-    	   		createUser(user, function (userWithId) {
-                    currentUser = userWithId;
-                    that.game.state.start('CharacterSelection', false, false, currentUser);
-                })
-                
-                //connection.send(JSON.stringify(user));
-
-        }else if(sizename>12){
+        
+        
+        //console.log(freeName);
+        if(sizename>12){
     		var text = 'Nombre demasiado largo'; 
     		var warning = this.game.add.text(300, 350, text, style);	
-        }else{
-        	var text = 'Nombre de usuario no disponible'; 
-    		var warning = this.game.add.text(300, 350, text, style);
+        }else if(sizename<=12){
+        	var goLogin = true;
+        
+        		loadUserNames(function (userNames) {
+        			for (var i = 0; i < userNames.length; i++) {
+        				
+        				//Comprobamos si el nombre actual ya existe
+        				if(userNames[i] == value){
+        					goLogin = false;
+        				}
+        			}
+        			if(goLogin == true){
+        				createUser(user, function (userWithId) {
+        					currentUser = userWithId;
+        					that.game.state.start('CharacterSelection', false, false, currentUser);
+        				})
+        			}else{
+        				var text = 'Nombre de usuario no disponible'; 
+        	    		var warning = that.game.add.text(300, 350, text, style);
+        			}
+        	})
+
         }
 },
 
 
     update: function() {
-
+    	    	
 		var escKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
    		if(escKey.isDown){
    			this.click.play();
    			this.game.state.start('MainMenu');}
 	},
 
-    checkNames: function  (currentName){
-        free = true;
-        
+    checkNames: function (currentName){
+    	
         //Cargamos los nombres de usuario
         loadUserNames(function (userNames) {
             for (var i = 0; i < userNames.length; i++) {
-                console.log(userNames[i]);
+                console.log("UN: "+ userNames[i]);
                 console.log(currentName);
-
 
                 //Comprobamos si el nombre actual ya existe
                 if(userNames[i] == currentName){
-                    free = false;
-                    
+                	
+                	return false;
+                	
                     } 
                 }
-        });
+            return true;
+        })
         //console.log(free);
         //return free;
     },
@@ -152,4 +162,3 @@ $.ajax({
 	
 })*/
 
-;

@@ -269,16 +269,23 @@ AsiloRoyale.GameOnline.prototype = {
 
   //Crea y devuelve un array con las posibles posiciones de los dientes
 
-    teethPosition: function(){
- 
+  teethPosition: function(){
+	  
 		//Posiciones posibles 
 		var teethPos1 = new Array(1000, 1300);
 		var teethPos2 = new Array(2150, 1250);
 		var teethPos3 = new Array(1200, 1700);
 		var teethPos4 = new Array(2100, 2200);
+		var teethPos5 = new Array(1200,2900);
+		var teethPos6 = new Array(2900,3200);
+		var teethPos7 = new Array(5000,1572);
+		var teethPos8 = new Array(4580,3300);
+		var teethPos9 = new Array(5800,1900);
+		var teethPos10 = new Array(6300,2300);
+		var teethPos11 = new Array(5880,3350);
 
 		//Array con las posiciones posibles
-		var teethArray = new Array (teethPos1, teethPos2, teethPos3, teethPos4);
+		var teethArray = new Array (teethPos1, teethPos2, teethPos3, teethPos4,teethPos5,teethPos6,teethPos7,teethPos8,teethPos9,teethPos10,teethPos11);
 
 		
 		return teethArray;
@@ -293,20 +300,25 @@ AsiloRoyale.GameOnline.prototype = {
 		var nursePos1 = new Array(1300, 1500);
 		var nursePos2 = new Array(3500, 2500);
 		var nursePos3 = new Array(5700, 1500);
-
+		var nursePos4 = new Array(3425, 2900);
+		var nursePos5 = new Array(5250, 2954);
+		var nursePos6 = new Array(3500,825);
+		var nursePos7 = new Array(3500,1500);
+		var nursePos8 = new Array(1100, 3765);
 		//Array con las posiciones posibles
-		var nurseArray = new Array (nursePos1, nursePos2, nursePos3);
+		var nurseArray = new Array (nursePos1, nursePos2, nursePos3,nursePos4,nursePos5,nursePos6,nursePos7,nursePos8);
 
 		
 		return nurseArray;
 
 	},
 
+
 	//Inicializa los dientes
 
 	initTeeth: function () {
 
-		var teethTotal = 4;
+		var teethTotal = 11;
 
 		for(var i = 0; i < teethTotal; i++) {
 		 var tarray = this.teethPosition();
@@ -326,7 +338,7 @@ AsiloRoyale.GameOnline.prototype = {
 
 	initNurse: function () {
 
-		var nurseTotal = 3;
+		var nurseTotal = 8;
 
 		for(var i = 0; i < nurseTotal; i++) {
 		 var narray = this.nursePosition();
