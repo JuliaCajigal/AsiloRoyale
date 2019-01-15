@@ -1,8 +1,7 @@
 # Asilo Royale
 
 ### ___Integrantes:___
-Julia Cajigal Mimbrera:	     juliacajigal@gmail.com // https://github.com/JuliaCajigal  
-Maru Suarez Pastene:              emme14112@gmail.com // https://github.com/Maru14  
+Julia Cajigal Mimbrera:	     juliacajigal@gmail.com // https://github.com/JuliaCajigal   
 Raul Arenas Espinosa:           naburorae@gmail.com // https://github.com/RaulArenas
 
 ### ___Descripción:___ 
@@ -113,12 +112,19 @@ En la pantalla de "Help" se podrá visualizar una imagen que contiene la explica
 ![Help](https://imageshack.com/a/img921/2363/nrkyGg.png)
 
 Si iniciamos el juego online se entrará en la sala de Login, donde el usuario escribirá un nombre (menos de 12 caracteres)y una contraseña y al pusar "OK" avanzará al lobby Online.
+
 ¡¡¡¡¡¡¡CAMBIAR IMAGENES POR NUEVAS!!!!!!!!
+
  ![Login](https://imageshack.com/a/img924/1256/Av0GSM.jpg)
  ![Ready](https://imageshack.com/a/img921/6431/Qe7pVy.jpg)
  
- Una vez hecho el Login pasaremos a la pantalla de seleccion de Lobby. En ella tendremos 3 opciones:
+ Una vez hecho el Login pasaremos a la pantalla de seleccion de personaje, donde podremos elegir entre las skin disponibles. 
+ 
+ !!!!!!!!!!IMAGEN SELECCION PERSONAJE!!!!!!!!
+ 
+ Tras seleccionar nuestro personaje pasamos a la pantalla de selección de Lobby, en ella tendremos 3 opciones:
  1.Crear un nuevo lobby. Para ello debemos introducir un numero para el lobby y una contraseña
+ 
  !!!!IMAGEN LOBBY CONFIG!!!!!
  
  2.Acceder a un Lobby ya creado por otro jugador. Para ello debemos introducir el numero de Lobby y la contraseña correcta.
