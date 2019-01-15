@@ -666,7 +666,7 @@ var display = new SegmentDisplay("display");
   display.cornerType      = 3;
   display.colorOn         = "#24ec15";
   display.colorOff        = "#371600";
-  display.draw();*/
+  display.draw();
 
   display.pattern         = "##:##";
   display.displayAngle    = 0;
@@ -678,7 +678,19 @@ var display = new SegmentDisplay("display");
   display.segmentCount    = 7;
   display.cornerType      = 3;
   display.colorOn         = "#ff3927";
-  display.colorOff        = "#451605";
+  display.colorOff        = "#451605";*/
+
+  display.pattern         = "##:##";
+  display.displayAngle    = 0;
+  display.digitHeight     = 20;
+  display.digitWidth      = 12.5;
+  display.digitDistance   = 2.8;
+  display.segmentWidth    = 2.4;
+  display.segmentDistance = 0.9;
+  display.segmentCount    = 7;
+  display.cornerType      = 3;
+  display.colorOn         = "#44fb3e";
+  display.colorOff        = "#122f05";
 
 //var duration = 90;
 var seconds, minutes;

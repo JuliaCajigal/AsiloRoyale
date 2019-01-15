@@ -23,6 +23,7 @@ AsiloRoyale.Intro.prototype = {
 
         this.timer = this.game.time.create();
         this.timer.start();
+        display.setValue('00:00');
 
     },
 /*

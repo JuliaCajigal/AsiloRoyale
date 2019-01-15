@@ -54,6 +54,7 @@ AsiloRoyale.MainMenu.prototype = {
         ////////TIMER///////
         this.timer = this.game.time.create();
         this.timer.start();
+ 
 	},
 	
 	noise1: function(){
