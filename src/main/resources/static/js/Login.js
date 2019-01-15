@@ -4,6 +4,7 @@ AsiloRoyale.Login = function(){};
 
 var input;
 var currentUser;
+var free;
 //var connection = new WebSocket('ws://' + ip + ':8080/handler');;
 
 
@@ -57,7 +58,10 @@ AsiloRoyale.Login.prototype = {
             //ip: ip
         }
 
-        if(sizename<=12 && this.checkNames(value)){
+        var yes = this.checkNames(value);
+        console.log(free);
+
+        if(sizename<=12 && free){
         		
     	   		createUser(user, function (userWithId) {
                     currentUser = userWithId;
@@ -85,19 +89,24 @@ AsiloRoyale.Login.prototype = {
 	},
 
     checkNames: function  (currentName){
-        var free = true;
+        free = true;
         
         //Cargamos los nombres de usuario
         loadUserNames(function (userNames) {
             for (var i = 0; i < userNames.length; i++) {
-                
+                console.log(userNames[i]);
+                console.log(currentName);
+
+
                 //Comprobamos si el nombre actual ya existe
                 if(userNames[i] == currentName){
                     free = false;
+                    
                     } 
                 }
         });
-        return free;
+        //console.log(free);
+        //return free;
     },
 };
 /*

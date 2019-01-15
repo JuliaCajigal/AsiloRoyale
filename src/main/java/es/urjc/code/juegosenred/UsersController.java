@@ -29,7 +29,7 @@ public class UsersController {
 
 	
 	static Map<Long, User> users = new ConcurrentHashMap<>();
-	private static ArrayList<String> userNames = new ArrayList<String>();
+	static Map<Long, String> userNames = new ConcurrentHashMap<>();
 	AtomicLong nextId = new AtomicLong(0);
 	
 	@GetMapping
@@ -38,15 +38,16 @@ public class UsersController {
 	}
 	
 	@GetMapping("/userNames")
-	public static ArrayList<String> userNames(){
-		return userNames;
+	public static Collection<String> userNames(){
+		return userNames.values();
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public User nuevoUser(@RequestBody User user,  HttpServletRequest request) {
 
-		if(!userNames.contains(user.getNick())&& user.getNick()!=null) {
+		//if(!userNames.contains(user.getNick())&& user.getNick()!=null) {
+			//System.out.println(userNames.contains(user.getNick()));
 		long id = nextId.incrementAndGet();
 		user.resetInactivity();
 		user.setId(id);
@@ -56,8 +57,10 @@ public class UsersController {
 		//System.out.println(request.getLocalHost());
 		//user.setChecked(true);
 		users.put(id, user);
-		userNames.add(user.getNick());
-		}
+		userNames.put(id,user.getNick());
+		//System.out.println(user.getNick());
+		//System.out.println(userNames.get(0));
+		//}
 
 		return user;
 	}
