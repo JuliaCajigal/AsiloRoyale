@@ -20,7 +20,7 @@ function conection (){
 		
 		
 		var playerData = JSON.parse(msg.data);
-		console.log(playerData);
+		//console.log(playerData);
 		
 		switch(playerData.socket){
 		
