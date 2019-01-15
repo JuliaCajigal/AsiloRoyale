@@ -96,6 +96,7 @@ AsiloRoyale.Preload.prototype = {
 		this.load.audio('control_sound', 'assets/audio/control_sound.wav')
 		this.game.load.physics('player_physics','assets/physics/viejo_physics.json');
 		this.load.image('intro', 'assets/images/noticias.png');
+		this.load.image('dead', 'assets/images/dead.png');
 	},
 
 	create : function() {

@@ -433,6 +433,8 @@ AsiloRoyale.GameOnline.prototype = {
 			        	myPlayer.reloader();
 			        }
 	}else{
+		this.dead = this.game.add.sprite(235, 80, 'dead');
+    	this.dead.fixedToCamera = true;
 		myPlayer.frame=6;
 	}
 
