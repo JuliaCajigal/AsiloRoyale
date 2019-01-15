@@ -74,7 +74,7 @@ public class UsersController {
 		if (savedUser != null) {
 
 			users.put(id, UserActualizado);
-			userNames.put(UserActualizado.getPassword(), UserActualizado.getNick());
+			//userNames.put(UserActualizado.getPassword(), UserActualizado.getNick());
 
 			return new ResponseEntity<>(UserActualizado, HttpStatus.OK);
 		} else {

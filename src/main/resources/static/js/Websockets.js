@@ -18,14 +18,14 @@ function conection (){
 
 	timeConnection.onmessage = function(msg) {
 		
-		if(PlayerWS != null){
+		
 		var playerData = JSON.parse(msg.data);
-		//console.log(playerData);
+		console.log(playerData);
 		
 		switch(playerData.socket){
 		
 			case "player":
-				
+				if(PlayerWS != null){
 				
 				PlayerWS.alive = playerData.alive;
 				PlayerWS.x = playerData.x;
@@ -46,23 +46,21 @@ function conection (){
 	    		PlayerWS.score= playerData.score;
 	    		PlayerWS.kills= playerData.kills;
 	    		PlayerWS.items=playerData.items;
-
+				}
 
 				//console.log("Mensaje ws! " + PlayerWS.rot);
 				break;
 			case "bang":
-				
-				PlayerWS.keyMouse = playerData.keyMouse;
-				PlayerWS.totalTouches = playerData.totalTouches;
-
+				if(PlayerWS != null){
+					PlayerWS.keyMouse = playerData.keyMouse;
+					PlayerWS.totalTouches = playerData.totalTouches;
+				}
 				break;
 				
 			case "time":
 				Tiempo = playerData.time;
 
 				break;
-				
-		}
 		}
 		
 	}

@@ -8,6 +8,7 @@ AsiloRoyale.GameOnline = function(){};
 	
 var timer;
 var tilesCollisionGroup, playerCollisionGroup;
+var endGame = false;
 
 
 AsiloRoyale.GameOnline.prototype = {
@@ -90,6 +91,7 @@ AsiloRoyale.GameOnline.prototype = {
 
 
    	if(this.playersArray[0].id == myUser.id){
+   		hostOngame = true;
    		myUser.player = this.player1;
    		PlayerWS = this.player2;
    		myPlayer = this.player1;
@@ -166,7 +168,9 @@ AsiloRoyale.GameOnline.prototype = {
     this.showLabels();
 
 	//Temporizador
+	Tiempo = null;
 	animateCount(90);
+	console.log("TIMER" + timer);
 
     //this.timer = this.game.time.create();
         
@@ -352,9 +356,7 @@ AsiloRoyale.GameOnline.prototype = {
 
 	}
 
-	}, 
-
-
+	},
 
 
 	update: function() {
@@ -364,10 +366,8 @@ AsiloRoyale.GameOnline.prototype = {
 
 		this.game.camera.focusOnXY(myPlayer.x+75, myPlayer.y);
 
-		if(!myPlayer.alive && !myEnemy.alive){
-			this.gameOver();
-		}
 		
+		this.checkGame();
 		this.updateHUD(myPlayer);
 		
 		myEnemy.body.velocity.y = 0;
@@ -438,6 +438,13 @@ AsiloRoyale.GameOnline.prototype = {
 
 			
 	},
+
+
+	checkGame: function(){
+		if(!myPlayer.alive && !myEnemy.alive || timer <= 0){
+			this.gameOver();
+		}
+	}, 
 	
 
 	updateHUD: function(player){
@@ -608,18 +615,10 @@ AsiloRoyale.GameOnline.prototype = {
 
 	//Función de Game Over
 	gameOver: function() {
+		clearInterval(globalClock);
+		display.setValue('00:00');
 		this.game.state.start('GameOver',true,false,myPlayer,myEnemy);
 	},
-
-	//Muestra el tiempo que queda para el final de la partida
-	/*render: function() {
-		if (this.timer.running) {
-            this.game.debug.text(this.formatTime(Math.round((timerEvent.delay - this.timer.ms) / 1000)), 1010, 78, "#51F55B", "50px 'VT323'");
-        }
-        else {
-            this.game.debug.text("Done!",1010, 78, "#51F55B", "50px 'VT323'");
-        }
-    },*/
 
 
     //Código de: http://jsfiddle.net/lewster32/vd70o41p/

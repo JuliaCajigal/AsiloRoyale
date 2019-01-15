@@ -12,9 +12,9 @@ var count = false;
 var lobby;
 var hostIP;
 var host;
-var timer;
 var countDown;
 var globalClock;
+var hostOnGame = false;
 
 
 
@@ -140,7 +140,9 @@ AsiloRoyale.OnlineLobby.prototype = {
   },
   
   checkCount: function(){
-	  if(timer <= 0){
+	  if(timer <= 0 || hostOnGame){
+      console.log(timer);
+      display.setValue('00:00');
 		  clearInterval(countDown);
 		  clearInterval(globalClock);
 		  this.game.state.start('GameOnline', true, false, usersconnected);
@@ -192,13 +194,6 @@ AsiloRoyale.OnlineLobby.prototype = {
 
       updateUser(updatedUser);
       updateLobbyUser(lobby, updatedUser);
-
-      /*loadLobbyID(lobby.id, function (lobby) {
-          updatedLobby = lobby;
-          updatedLobby.users[that.getPosFromLobby(lobby)] = updatedUser;
-          console.log(updatedLobby);
-          updateLobby(updatedLobby);
-      });*/ 
    },
 
 	//Muestra la lista de usuarios
@@ -210,30 +205,6 @@ AsiloRoyale.OnlineLobby.prototype = {
 		usersList.fixedToCamera = true;
 	},
 
-
-// Muestra el tiempo que queda para el final de la partida
-	render: function() {
-		if (this.timer.running) {
-          this.game.debug.text(this.formatTime(Math.round((timerEvent.delay - this.timer.ms) / 1000)), 1010, 78, "#51F55B", "50px 'VT323'");
-    }else {
-          this.game.debug.text("Done!",1010, 78, "#51F55B", "50px 'VT323'");
-    }
-  },
-
-
-  // Código de: http://jsfiddle.net/lewster32/vd70o41p/
-  endTimer: function() {
-      //this.timer.stop();
-      this.game.state.start('GameOnline', true, false, usersconnected);
-  },
-
-  // cambia el formato del tiempo
-  formatTime: function(s) {
-
-      var minutes = "0" + Math.floor(s / 60);
-      var seconds = "0" + (s - minutes * 60);
-      return minutes.substr(-2) + ":" + seconds.substr(-2);
-	},
 
   getPosFromLobby: function(lobby) {
     var pos;
@@ -250,17 +221,18 @@ AsiloRoyale.OnlineLobby.prototype = {
 
 function startCount(host) {
 	countDown = setInterval(function () {
+
     	//Si somos el host enviamos periódicamente mensajes de la cuenta atrás
     	if(host){
     		 msgTime = {socket: "time",
     			     time: timer};
-
+    		 console.log(msgTime);
     		 timeConnection.send(JSON.stringify(msgTime));
+
     	//Si no actualizamos nuestra cuenta	 
     	}else{
     		if(Tiempo != null){
             	timer = Tiempo;
-            	//that.timer.start();
             }
     	}
     	}, 1000);
