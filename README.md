@@ -93,8 +93,8 @@ Fase 3
 
 Al iniciar el juego podemos ver una breve introducción a la historia.
 
-!!!!!!!!!!!!!IMAGEN INTRO!!!!!!!!!!!!!!!
 
+![Introduccion](https://imageshack.com/a/img922/9861/UAt82L.png)
 
 Al comenzar se muestra el menú principal con las siguientes opciones: 
 
@@ -113,29 +113,28 @@ En la pantalla de "Help" se podrá visualizar una imagen que contiene la explica
 
 Si iniciamos el juego online se entrará en la sala de Login, donde el usuario escribirá un nombre (menos de 12 caracteres)y una contraseña y al pusar "OK" avanzará al lobby Online.
 
-¡¡¡¡¡¡¡CAMBIAR IMAGENES POR NUEVAS!!!!!!!!
 
- ![Login](https://imageshack.com/a/img924/1256/Av0GSM.jpg)
- ![Ready](https://imageshack.com/a/img921/6431/Qe7pVy.jpg)
+ ![Login](https://imageshack.com/a/img924/8942/RhFrrw.png)
+
  
  Una vez hecho el Login pasaremos a la pantalla de seleccion de personaje, donde podremos elegir entre las skin disponibles. 
  
- !!!!!!!!!!IMAGEN SELECCION PERSONAJE!!!!!!!!
+  ![Selección de personaje](https://imageshack.com/a/img922/3469/igO7Xo.png)
  
  Tras seleccionar nuestro personaje pasamos a la pantalla de selección de Lobby, en ella tendremos 3 opciones:
  1.Crear un nuevo lobby. Para ello debemos introducir un numero para el lobby y una contraseña
  
- !!!!IMAGEN LOBBY CONFIG!!!!!
+ ![Crear Lobby]( https://imageshack.com/a/img923/8737/WD34rk.png) 
  
  2.Acceder a un Lobby ya creado por otro jugador. Para ello debemos introducir el numero de Lobby y la contraseña correcta.
- !!!!!!!!IMAGEN LOBBY CONFIG!!!!!!
+
+ ![Unirse a un Lobby](https://imageshack.com/a/img924/6136/HPP6gQ.png)      
  
  3.Acceder a un Lobby aleatorio
  
  
 Una vez se ha accedido a un Lobby aparecerá una lista con los nombres de los usuarios conectados. Si pulsa el botón "READY" el usuario indicará que está preparado para comenzar una partida y esto se verá reflejado mediante el texto "[READY]" que aparecerá junto asu nombre en la lista de usuarios. Cuando todos los jugadores estén preparados comenzará una cuenta atrás de 10 segundos y empezará la partida.
 
-!!!!!!!FOTO CON RELOJ NUEVO!!!!!!
 ![ReadyChange](https://imageshack.com/a/img922/9167/o8HbSg.png)
  
 Si en algún momento uno de los usuarios se desconectase del servidor, aparecerá el texto "[DESC]" junto a su nombre unos segundos antes de desaparecer de la lista.
@@ -144,15 +143,15 @@ Si en algún momento uno de los usuarios se desconectase del servidor, aparecer�
 
 Tras la cuenta atrás se accede al juego Online, donde nos enfrentaremos a los demás jugadores. 
 
-!!!!!!!IMAGEN PARTIDA CON 2 JUGADORES!!!!!!!
+![Partida con 2 jugadores](https://imageshack.com/a/img923/4461/iyX0dc.png)
 
 Si perdemos toda nuestra vida durante la partida moriremos. Nuestro avatar pasará a ser un esqueleto y no podremos movernos. Además aparecerá el texto "YOU DIED" en pantalla, y tendremos que esperar a que acabe el tiempo de la partida o a que todos los jugadores mueran.
 
-!!!!!!!IMAGEN MUERTE ESQUELETO!!!!!!
+![Muerte jugador](https://imageshack.com/a/img923/6112/XwBESR.png)
 
 Una vez acabe la partida se accederá a la pantalla de puntuaciones finales, donde se muestra la puntuación de cada jugador, sus muertes, los objetos reacogidos y si ha sido el ganador
 
-!!!!!!IMAGEN PUNTUACIONES!!!!!!!!!!1
+![Puntuaciones finales](https://imageshack.com/a/img924/8898/b4LGwF.png)
 
 Datos permanentes: Tabla de puntuaciones máximas.
 
