@@ -94,7 +94,7 @@ Fase 3
 Al iniciar el juego podemos ver una breve introducción a la historia.
 
 
-![Introduccion](https://imageshack.com/a/img922/9861/UAt82L.png)
+![Introduccion](https://imageshack.com/a/img921/4774/7O31fV.png)
 
 Al comenzar se muestra el menú principal con las siguientes opciones: 
 
