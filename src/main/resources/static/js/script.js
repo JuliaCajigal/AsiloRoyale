@@ -11,7 +11,7 @@ console.log(ipC);*/
 
 var usersLimit = 5;
 var currentUsers = 0;
-var ip = '127.0.0.1';
+var ip = '192.168.0.175';
 
 //Load users from server
 function loadUsers(callback) {
@@ -28,7 +28,7 @@ function loadUserNames(callback) {
     $.ajax({
         url: 'http://' + ip + ':8080/users/userNames'
     }).done(function (userNames) {
-       // console.log('Usersnames loaded: ' + JSON.stringify(userNames));
+        console.log('Usersnames loaded: ' + JSON.stringify(userNames));
         callback(userNames);
     })
 }
@@ -40,7 +40,7 @@ function loadScores(callback){
         url: 'http://' + ip + ':8080/users/maxScores'
 
     }).done(function (nickScores) {
-       // console.log(nickScores);
+        console.log(nickScores);
         callback(nickScores);
 
     }).fail(function () {
@@ -59,7 +59,7 @@ function createUser(user, callback) {
             "Content-Type": "application/json"
         }
     }).done(function (user) {
-        //console.log("User created: " + JSON.stringify(user));
+        console.log("User created: " + JSON.stringify(user));
         callback(user);
     })
 }
@@ -75,7 +75,7 @@ function updateUser(user) {
             "Content-Type": "application/json"
         }
     }).done(function (user) {
-       // console.log("Updated user: " + JSON.stringify(user));
+        console.log("Updated user: " + JSON.stringify(user));
     })
 }
 
@@ -96,7 +96,7 @@ function loadLobbies(callback) {
     $.ajax({
         url: 'http://' + ip + ':8080/lobbies'
     }).done(function (lobby) {
-        //console.log('Lobbys loaded: ' + JSON.stringify(lobby));
+        console.log('Lobbys loaded: ' + JSON.stringify(lobby));
         callback(lobby);
     })
 }
@@ -106,7 +106,7 @@ function loadLobbyID(id, callback) {
     $.ajax({
         url: 'http://' + ip + ':8080/lobbies/' + id
     }).done(function (lobby) {
-        //console.log('Lobby loaded: ' + JSON.stringify(lobby));
+        console.log('Lobby loaded: ' + JSON.stringify(lobby));
         callback(lobby);
     })
 }
@@ -138,7 +138,7 @@ function updateLobbyUser(lobby, user) {
             "Content-Type": "application/json"
         }
     }).done(function (lobby) {
-    //    console.log("Updated grupo: " + JSON.stringify(lobby));
+        console.log("Updated grupo: " + JSON.stringify(lobby));
     }).fail( function(){
         console.log("No se ha podido actualizar lobby.");
     })
@@ -171,7 +171,7 @@ function createLobby(lobby, callback) {
             "Content-Type": "application/json"
         }
     }).done(function (lobby) {
-        //console.log("Lobby created: " + JSON.stringify(lobby));
+        console.log("Lobby created: " + JSON.stringify(lobby));
         callback(lobby);
     })
 }
