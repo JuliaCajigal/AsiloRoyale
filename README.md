@@ -69,6 +69,7 @@ Menu principal:
 In-game:
 - Movimiento de personaje: rotación con cursor del ratón y desplazamiento con la cruceta de teclado. 
 - Disparar: botón izquierdo. 
+- Recargar arma: tecla R.
 - Recolección objetos: pasando por encima. 
 
 ### ___Interfaz:___
@@ -91,6 +92,11 @@ Fase 3
 
 ![Diagrama de navegación Fase 3](https://imageshack.com/a/img923/6721/dUk5MT.png)
 
+Al iniciar el juego podemos ver una breve introducción a la historia.
+
+!!!!!!!!!!!!!IMAGEN INTRO!!!!!!!!!!!!!!!
+
+
 Al comenzar se muestra el menú principal con las siguientes opciones: 
 
 - Offline: se comenzará una partida en local.
@@ -99,6 +105,7 @@ Al comenzar se muestra el menú principal con las siguientes opciones:
 
 
 Se utilizará el ratón para desplazarse por las opciones y click para seleccionarlas. 
+Cuando haces click en alguno de los botones del menu inicial se podrá observar un efecto de ruido blanco o niebla que da paso al siguiente menú.
 
 
 En la pantalla de "Help" se podrá visualizar una imagen que contiene la explicación de los controles del juego, así como los objetos que se pueden coger, utilizar o equipar. 
