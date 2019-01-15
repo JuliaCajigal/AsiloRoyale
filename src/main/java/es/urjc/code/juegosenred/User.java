@@ -4,6 +4,7 @@ public class User {
 
 	private long id;
 	private String nick;
+	private String password;
 	private boolean ready;
 	private int inactivityTime = 0;
 	private int score = 0;
@@ -90,6 +91,14 @@ public class User {
 
 	public void setSkin(int skin) {
 		this.skin = skin;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 

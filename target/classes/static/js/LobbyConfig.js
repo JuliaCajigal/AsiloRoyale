@@ -2,7 +2,7 @@ var AsiloRoyale = AsiloRoyale || {};
 
 AsiloRoyale.LobbyConfig = function(){};
 
-var inum, ipw, input;
+var inum, ipw, ch, input, pwim;
 var myUser;
 
 AsiloRoyale.LobbyConfig.prototype = {
@@ -13,8 +13,11 @@ AsiloRoyale.LobbyConfig.prototype = {
       //Recogemos el valor del input y bloqueamos el cuadro de di-alogo
       input = document.getElementById('username');
       input.style.display = 'none';
+      pwim = document.getElementById('passw');
+      pwim.style.display = 'none';
       inum = document.getElementById('lobbyNUM');
       ipw = document.getElementById('lobbyPW');
+      ch = document.getElementById('check');
       
       //Dimensiones del mundo y cámara
       this.game.camera.setBoundsToWorld();
@@ -65,8 +68,15 @@ AsiloRoyale.LobbyConfig.prototype = {
             this.game.state.start('MainMenu');
             inum.style.display = 'none';
             ipw.style.display = 'none';
+            ch.style.display = 'none';
         //this.game.state.start('OnlineLobby', false, false, lobbyUser);
       }
+    },
+    
+    checkUser: function(){
+    	if(currentUser.inactivityTime >= 8){
+    		deleteUser(currentUser.id);
+    	}
     },
 
     joinLobbyOptions: function(){
@@ -74,6 +84,7 @@ AsiloRoyale.LobbyConfig.prototype = {
       //Hacemos visibles cuadros de texto y botón de aceptar
       inum.style.display = 'block';
       ipw.style.display = 'block';
+      ch.style.display = 'block';
 
       var tabla_salaP = this.game.add.sprite(460, 80, 'tabla_joinP');
       tabla_salaP.fixedToCamera = true;
@@ -101,19 +112,21 @@ AsiloRoyale.LobbyConfig.prototype = {
           
       loadLobbies(function (lobbies) {
             for (var i = 0; i < lobbies.length; i++) {
-                        
+            	                        
               //Comprobamos si el lobby ya existe
               if(lobbies[i].num == NUM_value && lobbies[i].password == PW_value){
-                  exists = true;
+            	  exists = true;
                   currentLobby = lobbies[i];    
                 } 
               }
 
 
-            if(exists){
-              
+            if(!exists){
+            	that.warningExist();
+            }else{
               inum.style.display = 'none';
               ipw.style.display = 'none';
+              ch.style.display = 'none';
 
               for(var i = 0; i < currentLobby.users.length; i++){
                 if(currentLobby.users[i] == null && enter == false){
@@ -129,10 +142,8 @@ AsiloRoyale.LobbyConfig.prototype = {
                 console.log(lobbies);
                 that.click.play();
                 that.game.state.start('OnlineLobby', true, false, currentUser, currentLobby);
-              });
-
-            }else{
-              that.warningExist();
+              })
+              
           }
     });
 },  
@@ -142,6 +153,7 @@ AsiloRoyale.LobbyConfig.prototype = {
       //Hacemos visibles cuadros de texto y botón de aceptar
       inum.style.display = 'block';
       ipw.style.display = 'block';
+      ch.style.display = 'block';
 
 
       var tabla_salaP = this.game.add.sprite(460, 80, 'tabla_salaP');
@@ -177,30 +189,31 @@ AsiloRoyale.LobbyConfig.prototype = {
                       
                 } 
               }
-      });
-
-      if(available){
-
-          currentUser.host = true;
-                    
-          var lobby = {
-                num: NUM_value,
-                password: PW_value,
-                users: [currentUser, null, null, null]
-          }
             
-          console.log(lobby);
-          inum.style.display = 'none';
-          ipw.style.display = 'none';
+            if(!available){
+            	that.warning();
+            }else{
 
-          createLobby(lobby, function (lobbyWithId) {
-            currentLobby = lobbyWithId;
-            that.click.play();
-            that.game.state.start('OnlineLobby', true, false, currentUser, currentLobby);
-          });
-      }else{
-          this.warning();
-      }
+                    currentUser.host = true;
+                              
+                    var lobby = {
+                          num: NUM_value,
+                          password: PW_value,
+                          users: [currentUser, null, null, null]
+                    }
+                      
+                    console.log(lobby);
+                    inum.style.display = 'none';
+                    ipw.style.display = 'none';
+                    ch.style.display = 'none';
+
+                    createLobby(lobby, function (lobbyWithId) {
+                      currentLobby = lobbyWithId;
+                      that.click.play();
+                      that.game.state.start('OnlineLobby', true, false, currentUser, currentLobby);
+                    })
+            }
+      });
 },
 
 joinRandom: function(){
@@ -215,13 +228,15 @@ joinRandom: function(){
 
           inum.style.display = 'none';
           ipw.style.display = 'none';
+          ch.style.display = 'none';
 
           if(aleatorio == -1){
               currentUser.host = true;
                   
               var lobby = {
+              id: lobby.id,
               num: 1111,
-              password: 1111,
+              password: aleatorio,
               users: [currentUser, null, null, null]
               }
 
@@ -242,9 +257,9 @@ joinRandom: function(){
   },
 
     warning: function () {
-          var style = {font: "bold 38px 'VT323'", fill: "#51F55B", align: "center" };
+          var style = {font: "bold 30px 'VT323'", fill: "#51F55B", align: "center" };
           var text = 'Lobby ocupado, \nescoge otro ID o \núnete desde JOIN LOBBY'; 
-          var warning = this.game.add.text(480, 450, text, style);
+          var warning = this.game.add.text(510, 450, text, style);
     },
 
     warningExist: function () {

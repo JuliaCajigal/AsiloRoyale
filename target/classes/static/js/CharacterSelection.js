@@ -9,6 +9,8 @@ AsiloRoyale.CharacterSelection.prototype = {
 	create: function() {
 		input = document.getElementById('username');
 		input.style.display = 'none';
+	    pw = document.getElementById('passw');
+	    pw.style.display = 'none';
 
  		this.game.camera.setBoundsToWorld();
 		this.background = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'space');

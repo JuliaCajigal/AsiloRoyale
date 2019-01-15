@@ -75,6 +75,21 @@ canvas {
   z-index: 1;
 }
 
+#passw{
+	position: absolute;
+  font: 40px 'VT323';
+  border-radius: 5px;
+  background-color: lightgrey;
+  border: 4px solid green;
+  width: 280px;
+  height: 30px;
+  padding: 5px;
+  top: 400px;
+  left: 400px;
+  display: none;
+  z-index: 1;
+}
+
 #lobbyNUM {
   position:absolute;
   font: 40px 'VT323';
@@ -103,6 +118,14 @@ canvas {
   left:600px;
   display: none;
   z-index: 1;
+}
+
+#check{
+	position:absolute;
+	top:417px;
+  	left:575px;
+  	z-index: 1;
+  	display: none;
 }
 
 #joinLobbyID {

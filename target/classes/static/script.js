@@ -11,7 +11,7 @@ console.log(ipC);*/
 
 var usersLimit = 5;
 var currentUsers = 0;
-var ip = '192.168.0.175';
+var ip = '192.168.0.161';
 
 //Load users from server
 function loadUsers(callback) {
@@ -28,7 +28,7 @@ function loadUserNames(callback) {
     $.ajax({
         url: 'http://' + ip + ':8080/users/userNames'
     }).done(function (userNames) {
-        console.log('Users loaded: ' + JSON.stringify(userNames));
+        console.log('Usersnames loaded: ' + JSON.stringify(userNames));
         callback(userNames);
     })
 }
@@ -175,6 +175,15 @@ function createLobby(lobby, callback) {
         callback(lobby);
     })
 }
+
+function showPW() {
+	  var x = document.getElementById("lobbyPW");
+	  if (x.type === "password") {
+	    x.type = "text";
+	  } else {
+	    x.type = "password";
+	  }
+	}
 
 //Show item in page
 function showUser(user) {

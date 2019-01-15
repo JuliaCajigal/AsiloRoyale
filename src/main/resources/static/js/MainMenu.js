@@ -17,6 +17,8 @@ AsiloRoyale.MainMenu.prototype = {
 		if(input) {input.style.display = 'none';}
 		var ok = document.getElementById('ok-button');
 		if(ok){ok.style.display = 'none';}
+		var pw = document.getElementById('passw');
+		if(pw){pw.style.display = 'none';}
 
  		///////////////BOTONES///////////
  		boton1 = this.game.add.button((this.game.camera.width-150)/2+290,this.game.camera.height/2+200,'botonesjugar', this.noise1, this,1,0,1,0);

@@ -2,7 +2,7 @@ var AsiloRoyale = AsiloRoyale || {};
 
 AsiloRoyale.Login = function(){};
 
-var input;
+var input, pw;
 var currentUser;
 var freeName;
 //var connection = new WebSocket('ws://' + ip + ':8080/handler');;
@@ -15,6 +15,8 @@ AsiloRoyale.Login.prototype = {
         //Identificamos a la entrada por teclado y desplegamos el cuadro de diálogo de entrada
 		input = document.getElementById('username');
 		input.style.display = 'block';
+		pw = document.getElementById('passw');
+		pw.style.display = 'block';
 
         //Cámara y mundo
 		this.game.camera.setBoundsToWorld();
@@ -22,14 +24,16 @@ AsiloRoyale.Login.prototype = {
 		this.background.autoScroll(20, 0);
 
         //Botón OK
-		var boton = this.game.add.button(650, 320,'okbutton', this.changeState, this,1,0,1,0);
+		var boton = this.game.add.button(665, 350,'okbutton', this.changeState, this,1,0,1,0);
  		boton.width = 64;
  		boton.height = 64;
  		boton.anchor.setTo(0.5);
  		boton.input.useHandCursor = false;
 
  		//Indicativo introduzca un nick
- 	    var tabla_conectados = this.game.add.sprite(295, 250, 'chooseNick');
+ 	    //var tabla_conectados = this.game.add.sprite(295, 250, 'chooseNick');
+ 		var warningN = this.game.add.text(310, 250, 'CHOOSE A NICKNAME', {font: "bold 38px 'VT323'", fill: "#51F55B", align: "center" });
+ 	    var warningP = this.game.add.text(350, 350, 'AND PASSWORD', {font: "bold 38px 'VT323'", fill: "#51F55B", align: "center" });
 
         //TV
 		var tv = this.game.add.sprite(0, 0, 'tv');
@@ -49,12 +53,16 @@ AsiloRoyale.Login.prototype = {
         var that = this;
 		var input = $('#username')
     	var value = input.val();
+		var pwin = $('#passw')
+    	var pw = pwin.val();
 		var sizename = value.length;
         input.val('');
+        pwin.val('');
         freeName = true;
         
         var user = {
             nick: value,
+            password: pw,
             ready:false
             //ip: ip
         }

@@ -29,7 +29,7 @@ public class UsersController {
 
 	
 	static Map<Long, User> users = new ConcurrentHashMap<>();
-	static Map<Long, String> userNames = new ConcurrentHashMap<>();
+	static Map<String, String> userNames = new ConcurrentHashMap<>();
 	AtomicLong nextId = new AtomicLong(0);
 	
 	@GetMapping
@@ -51,13 +51,14 @@ public class UsersController {
 		long id = nextId.incrementAndGet();
 		user.resetInactivity();
 		user.setId(id);
+		user.setPassword(user.getPassword());
 		user.setIp(request.getRemoteAddr());
 		System.out.println(request.getRemoteAddr());
 		//System.out.println(request.getHeader("X-FORWARDED-FOR"));
 		//System.out.println(request.getLocalHost());
 		//user.setChecked(true);
 		users.put(id, user);
-		userNames.put(id,user.getNick());
+		userNames.put(user.getPassword(),user.getNick());
 		//System.out.println(user.getNick());
 		//System.out.println(userNames.get(0));
 		//}
@@ -73,6 +74,7 @@ public class UsersController {
 		if (savedUser != null) {
 
 			users.put(id, UserActualizado);
+			userNames.put(UserActualizado.getPassword(), UserActualizado.getNick());
 
 			return new ResponseEntity<>(UserActualizado, HttpStatus.OK);
 		} else {
@@ -103,8 +105,9 @@ public class UsersController {
 		User savedUser = users.get(id);
 
 		if (savedUser != null) {
-			userNames.remove(savedUser.getNick());
 			users.remove(savedUser.getId());
+			userNames.remove(savedUser.getPassword());
+			
 			return new ResponseEntity<>(savedUser, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
