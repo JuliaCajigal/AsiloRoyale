@@ -3,6 +3,8 @@ var AsiloRoyale = AsiloRoyale || {};
 AsiloRoyale.GameOverOffline = function(){};
 
 AsiloRoyale.GameOverOffline.prototype = {
+		
+		
 
 	create: function() {
 
@@ -25,7 +27,7 @@ AsiloRoyale.GameOverOffline.prototype = {
 	},
 
 	//Recibir parametros de Game
-	init: function(player1,player2){
+	init: function(player1,player2,randomMission){
 		
 		//parametros del jugador 1
 		this.nick1 =  'Player 1';
@@ -33,12 +35,13 @@ AsiloRoyale.GameOverOffline.prototype = {
 		this.items1 = player1.items || 0;
 		this.kills1 = player1.kills || 0;
 		this.score1 = player1.score || 0;
-
+		
+	if(randomMission == 0){
 		//parametros del jugador 2
 		this.nick2 = 'Target';
-		this.items2 = player2.items || '-----';
-		this.kills2 = player2.kills || '-----';
-		this.score2 = player2.score || 0;
+		this.items2 = '-----';
+		this.kills2 = '-----';
+		this.score2 = '1000';
 		
 		//Seleccionar el ganador según la puntuación
 		if(this.score1>this.score2){
@@ -52,6 +55,49 @@ AsiloRoyale.GameOverOffline.prototype = {
 			this.pos2='----';
 			
 		}
+		
+	}else if(randomMission ==1){
+		//parametros del jugador 2
+		this.nick2 = 'Target';
+		this.items2 = '20';
+		this.kills2 = '-----';
+		this.score2 = '-----';
+		
+		//Seleccionar el ganador según la puntuación
+		if(this.items1>this.items2){
+			this.pos1='WINNER';
+			this.pos2='-----';
+		}else if(this.items1<this.items2){
+			this.pos1='LOSER';
+			this.pos2='-----';
+		}else if(this.items1==this.items2){
+			this.pos1='WINNER';
+			this.pos2='----';
+			
+		}
+		
+	}else if (randomMission ==2){
+		
+		//parametros del jugador 2
+		this.nick2 = 'Target';
+		this.items2 = '-----';
+		this.kills2 = '15';
+		this.score2 = '-----';
+		
+		//Seleccionar el ganador según la puntuación
+		if(this.kills1>this.kills2){
+			this.pos1='WINNER';
+			this.pos2='-----';
+		}else if(this.kills1<this.kills2){
+			this.pos1='LOSER';
+			this.pos2='-----';
+		}else if(this.kills1==this.kills2){
+			this.pos1='WINNER';
+			this.pos2='----';
+			
+		}
+		
+	}
 	},
 
 	

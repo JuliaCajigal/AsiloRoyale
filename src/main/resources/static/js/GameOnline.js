@@ -642,43 +642,7 @@ AsiloRoyale.GameOnline.prototype = {
 
 //http://www.3quarks.com/en/SegmentDisplay/index.html
 var display = new SegmentDisplay("display");
-  /*display.pattern         = "##:##:##";
-  display.displayAngle    = 6;
-  display.digitHeight     = 26;
-  display.digitWidth      = 14.5;
-  display.digitDistance   = 1.9;
-  display.segmentWidth    = 2.9;
-  display.segmentDistance = 0.5;
-  display.segmentCount    = 7;
-  display.cornerType      = 3;
-  display.colorOn         = "#24dd22";
-  display.colorOff        = "#1b4105";
-  display.draw();
 
-  display.pattern         = "##:##";
-  display.displayAngle    = 0;
-  display.digitHeight     = 18;
-  display.digitWidth      = 10.5;
-  display.digitDistance   = 1.8;
-  display.segmentWidth    = 1.8;
-  display.segmentDistance = 0.7;
-  display.segmentCount    = 7;
-  display.cornerType      = 3;
-  display.colorOn         = "#24ec15";
-  display.colorOff        = "#371600";
-  display.draw();
-
-  display.pattern         = "##:##";
-  display.displayAngle    = 0;
-  display.digitHeight     = 18;
-  display.digitWidth      = 10.5;
-  display.digitDistance   = 1.8;
-  display.segmentWidth    = 2.3;
-  display.segmentDistance = 0.7;
-  display.segmentCount    = 7;
-  display.cornerType      = 3;
-  display.colorOn         = "#ff3927";
-  display.colorOff        = "#451605";*/
 
   display.pattern         = "##:##";
   display.displayAngle    = 0;
@@ -710,7 +674,6 @@ function animateCount(duration) {
         if (--timer < 0) {
             timer = 0;
         }
-        console.log("RELOJ" + timer);
         display.setValue(value);
     }, 1000);
 }

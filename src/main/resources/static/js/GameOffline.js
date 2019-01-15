@@ -7,11 +7,13 @@ AsiloRoyale.GameOffline = function(){};
 
 var timerEvent, text;
 var tilesCollisionGroup, playerCollisionGroup;
+var randomMission;
 
 AsiloRoyale.GameOffline.prototype = {
   create: function() {
 	  
-
+	 randomMission = Math.floor(Math.random() * 3);
+	 console.log(randomMission);
 	  
   	////////////MAPA/////////////
 
@@ -139,13 +141,31 @@ AsiloRoyale.GameOffline.prototype = {
     animateCount(120);
     
 	///////INFORMACIÓN DE LA MISION//////
-    
+    if(randomMission == 0){
     this.timer = this.game.time.create();
     this.timer.start();
 
 	  this.info = this.game.add.sprite(300, 75, 'mission_info');
 	  this.info.fixedToCamera = true;
       timerEvent2 = this.timer.add(Phaser.Timer.SECOND * 5, this.deleteInfo, this);
+      
+    }else if(randomMission ==1){
+      this.timer = this.game.time.create();
+      this.timer.start();
+        
+  	  this.info = this.game.add.sprite(300, 75, 'mission_info2');
+	  this.info.fixedToCamera = true;
+      timerEvent2 = this.timer.add(Phaser.Timer.SECOND * 5, this.deleteInfo, this);
+      
+    }else if(randomMission == 2){
+      this.timer = this.game.time.create();
+      this.timer.start();
+      
+      this.info = this.game.add.sprite(300, 75, 'mission_info3');
+      this.info.fixedToCamera = true;
+       timerEvent2 = this.timer.add(Phaser.Timer.SECOND * 5, this.deleteInfo, this);
+    	
+    }
 
   },
   
@@ -260,7 +280,7 @@ AsiloRoyale.GameOffline.prototype = {
 		this.player1.body.velocity.x = 0;
 		
 		if(this.player1.alive){
-		console.log(timer);
+
 		this.player1.body.rotation = this.angleToPointer(this.player1);
 				
 				//////MOVIMIENTO JUGADOR//////
@@ -482,7 +502,7 @@ AsiloRoyale.GameOffline.prototype = {
 	gameOver: function() {
 		clearInterval(globalClock);
 		display.setValue('00:00');
-		this.game.state.start('GameOverOffline',true,false,this.player1,this.playersArray[1]);
+		this.game.state.start('GameOverOffline',true,false,this.player1,this.playersArray[1],randomMission);
 	}
 
 

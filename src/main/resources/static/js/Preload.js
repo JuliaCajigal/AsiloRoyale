@@ -80,6 +80,8 @@ AsiloRoyale.Preload.prototype = {
 		this.load.image('tabla_salaP', 'assets/images/tabla_salaP.png');
 		this.load.image('tabla_joinP', 'assets/images/tabla_joinP.png');
 		this.load.image('mission_info', 'assets/images/letrero_mision.png');
+		this.load.image('mission_info2', 'assets/images/letrero_mision2.png');
+		this.load.image('mission_info3', 'assets/images/letrero_mision3.png');
 		this.load.image('ok', 'assets/images/ok_lobby.png');
 		this.load.image('mando', 'assets/images/mando.png');
 		this.load.audio('collect_weapon', 'assets/audio/collect_weapon.wav');
