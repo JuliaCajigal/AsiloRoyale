@@ -200,7 +200,7 @@ var Player = function (game, x, y, guned, shotguned, ownerId, player1CG, player2
         if (amount > 0){
             this.game.add.tween(this).to( { alpha: 1 }, 300, Phaser.Easing.Linear.None, true, 0, 1, false,true);
         }
-        console.log(this.life);
+        //console.log(this.life);
         
         if (this.life <= 0){
         	 //this.frame=6;

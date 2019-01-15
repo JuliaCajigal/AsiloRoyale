@@ -53,7 +53,7 @@ AsiloRoyale.LobbyConfig.prototype = {
       myUser = new User(this.game, currentUser.id, currentUser.nick, skin);
       myUser.online = true;
       currentUser.skin = skin;
-      console.log(JSON.stringify(currentUser));
+     // console.log(JSON.stringify(currentUser));
     },
 
 
@@ -168,7 +168,7 @@ AsiloRoyale.LobbyConfig.prototype = {
   },
     
     privateLobby: function(){
-      console.log('PRIVATELOBBY');
+      //console.log('PRIVATELOBBY');
 
       var num = $('#lobbyNUM')
       var NUM_value = num.val();
@@ -202,7 +202,7 @@ AsiloRoyale.LobbyConfig.prototype = {
                           users: [currentUser, null, null, null]
                     }
                       
-                    console.log(lobby);
+                   // console.log(lobby);
                     inum.style.display = 'none';
                     ipw.style.display = 'none';
                     ch.style.display = 'none';

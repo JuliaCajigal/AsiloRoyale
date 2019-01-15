@@ -63,7 +63,7 @@ AsiloRoyale.OnlineLobby.prototype = {
       msgLobby = {socket: "lobby",
                   lobby: lobby.id}
 
-      console.log(msgLobby);
+      //console.log(msgLobby);
 
       //Enviamos un mensaje al servidor para agrupar en lobbies las sesiones
       timeConnection.send(JSON.stringify(msgLobby));
@@ -120,7 +120,7 @@ AsiloRoyale.OnlineLobby.prototype = {
               }else if (user.ready == true ){
                 info += i + ":  " + user.nick + "  [READY]" + "\n";
                 usersconnected.push(user);
-                console.log(usersconnected);
+                //console.log(usersconnected);
                 
               }else{
                 info += i + ":  " + user.nick + "\n";
@@ -141,7 +141,7 @@ AsiloRoyale.OnlineLobby.prototype = {
   
   checkCount: function(){
 	  if(timer <= 0 || hostOnGame){
-      console.log(timer);
+      //console.log(timer);
       display.setValue('00:00');
 		  clearInterval(countDown);
 		  clearInterval(globalClock);
@@ -168,7 +168,7 @@ AsiloRoyale.OnlineLobby.prototype = {
     var that = this;
 	   var userReady;
      var updatedLobby;
-	   console.log(currentUser.ready);
+	  // console.log(currentUser.ready);
 	   
 	   if(currentUser.ready==false){
 		   userReady=true;
@@ -190,7 +190,7 @@ AsiloRoyale.OnlineLobby.prototype = {
         host: currentUser.host              
       }
 
-      console.log(updatedUser.id);
+     // console.log(updatedUser.id);
 
       updateUser(updatedUser);
       updateLobbyUser(lobby, updatedUser);
@@ -226,7 +226,7 @@ function startCount(host) {
     	if(host){
     		 msgTime = {socket: "time",
     			     time: timer};
-    		 console.log(msgTime);
+    		 //console.log(msgTime);
     		 timeConnection.send(JSON.stringify(msgTime));
 
     	//Si no actualizamos nuestra cuenta	 

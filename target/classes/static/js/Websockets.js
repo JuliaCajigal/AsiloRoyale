@@ -13,7 +13,7 @@ function conection (){
 	}
 
 	timeConnection.onopen = function() {
-		console.log("Time WebSocket!");
+		//console.log("Time WebSocket!");
 	}
 
 	timeConnection.onmessage = function(msg) {

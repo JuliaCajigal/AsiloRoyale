@@ -83,11 +83,11 @@ AsiloRoyale.GameOnline.prototype = {
 
 
    	//////////USER PARTIDA////////
-   	console.log(myUser);
-   	console.log(myUser.id);
-   	console.log(this.playersArray);
-   	console.log(this.playersArray[0].id);
-   	console.log(this.playersArray[1].id);
+   	//console.log(myUser);
+   	//console.log(myUser.id);
+   	//console.log(this.playersArray);
+   	//console.log(this.playersArray[0].id);
+   	//console.log(this.playersArray[1].id);
 
 
    	if(this.playersArray[0].id == myUser.id){
@@ -104,8 +104,8 @@ AsiloRoyale.GameOnline.prototype = {
    		myEnemy = this.player1;
    	}
    	
-   	console.log(myPlayer);
-   	console.log(myEnemy);
+   	//console.log(myPlayer);
+   	//console.log(myEnemy);
 
 
 	///////////ENEMIGOS///////
@@ -170,7 +170,7 @@ AsiloRoyale.GameOnline.prototype = {
 	//Temporizador
 	Tiempo = null;
 	animateCount(300);
-	console.log("TIMER" + timer);
+	//console.log("TIMER" + timer);
 
     //this.timer = this.game.time.create();
         
@@ -243,7 +243,7 @@ AsiloRoyale.GameOnline.prototype = {
 
   //Actualizamos el tiempo si hemos recibido actualizaciones desde el servidor
   updateTime: function(){
-	console.log(timer);
+	//console.log(timer);
   	msgTime = {
   			socket: "time",
   			time: timer};
